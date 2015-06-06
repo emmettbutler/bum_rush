@@ -23,6 +23,15 @@ package {
             return FlxMath.sqrt(this.x*this.x + this.y*this.y)
         }
 
+        public function limited(maxLength:Number):DHPoint {
+            var lengthSquared:Number = this.x * this.x + this.y * this.y;
+            if ((lengthSquared > maxLength * maxLength) && (lengthSquared > 0)) {
+                var ratio:Number = maxLength / Math.sqrt(lengthSquared);
+                return new DHPoint(this.x * ratio, this.y * ratio);
+            }
+            return new DHPoint(0, 0);
+        }
+
         public function sub(other:DHPoint):DHPoint {
             return new DHPoint(this.x - other.x, this.y - other.y);
         }

@@ -11,7 +11,7 @@ package {
 
         public static var instance:PlayersController;
 
-        private var players:FlxGroup;
+        private var players:FlxGroup, playerColliders:FlxGroup;
         private var registeredPlayers:Object;
         private var gameInput:GameInput;
 
@@ -20,19 +20,31 @@ package {
 
         public function PlayersController() {
             gameInput = new GameInput();
-            gameInput.addEventListener( GameInputEvent.DEVICE_ADDED, controllerAdded );
-            gameInput.addEventListener( GameInputEvent.DEVICE_REMOVED, controllerRemoved );
-            gameInput.addEventListener( GameInputEvent.DEVICE_UNUSABLE, controllerUnusable );
+            gameInput.addEventListener(GameInputEvent.DEVICE_ADDED,
+                                       controllerAdded);
+            gameInput.addEventListener(GameInputEvent.DEVICE_REMOVED,
+                                       controllerRemoved);
+            gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
+                                       controllerUnusable);
 
             controllers = new Array();
             this.registeredPlayers = new Object();
 
             if (GameInput.numDevices > 0) {
-                trace("Controller found! GameInput.numDevices is " + GameInput.numDevices);
                 this.controllerAdded(null);
             }
 
             this.players = new FlxGroup();
+            this.playerColliders = new FlxGroup();
+        }
+
+        public function getPlayerColliders():FlxGroup {
+            if (this.players.length != this.playerColliders.length) {
+                for (var i:int = 0; i < this.players.length; i++) {
+                    this.playerColliders.add(this.players.members[i].getCollider());
+                }
+            }
+            return this.playerColliders;
         }
 
         public function registerPlayer(controller:GameInputDevice):void {
@@ -74,7 +86,6 @@ package {
             for (var i:int = 0; i < this.players.length; i++) {
                 this.players.members[i].update();
             }
-            FlxG.collide(this.players, this.players);
         }
 
         private function controllerAdded(gameInputEvent:GameInputEvent):void {

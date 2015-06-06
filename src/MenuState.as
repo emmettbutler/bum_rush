@@ -27,7 +27,6 @@ package {
                 (this.curTime - this.lastRegisterTime) / 1000 >
                  this.countdownLength && !this.stateSwitchLock)
             {
-                trace("switching state");
                 this.stateSwitchLock = true;
                 FlxG.switchState(new PlayState());
             }
