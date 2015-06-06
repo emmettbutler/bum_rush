@@ -29,11 +29,13 @@ package {
             }
 
             this.players = new FlxGroup();
+        }
+
+        public function addPlayer(controller:GameInputDevice):void {
             var player:Player;
-            for (var i:int = 0; i < NUM_PLAYERS; i++) {
-                player = new Player(new DHPoint(40, 40 + i * 22), this.controllers[i]);
-                this.players.add(player);
-            }
+            player = new Player(new DHPoint(40, 40 + Math.random() * 22), controller);
+            this.players.add(player);
+            player.addVisibleObjects();
         }
 
         public function addVisibleObjects():void {
@@ -92,6 +94,12 @@ package {
             //trace just on/off to see each button
             if(control.value >= control.maxValue){
                 trace("control.id=" + control.id + " has been pressed");
+            }
+
+            var mapping:Object = ControlResolver.controllerMappings[control.device.name];
+
+            if (control.id == mapping["a"] && control.value == 1) {
+                this.addPlayer(control.device);
             }
 
             for (var i:int = 0; i < this.players.length; i++) {

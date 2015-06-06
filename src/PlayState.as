@@ -6,7 +6,6 @@ package {
 
         override public function create():void {
             this.playersController = new PlayersController();
-            this.playersController.addVisibleObjects();
         }
 
         override public function update():void {
