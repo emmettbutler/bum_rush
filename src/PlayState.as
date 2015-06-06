@@ -16,6 +16,11 @@ package {
             );
         }
 
+        override public function destroy():void {
+            PlayersController.reset();
+            super.destroy();
+        }
+
         public function overlapPlayers(player1Collider:GameObject,
                                        player2Collider:GameObject):void
         {

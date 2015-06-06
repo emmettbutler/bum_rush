@@ -38,6 +38,10 @@ package {
             this.playerColliders = new FlxGroup();
         }
 
+        public static function reset():void {
+            instance = new PlayersController();
+        }
+
         public function getPlayerColliders():FlxGroup {
             if (this.players.length != this.playerColliders.length) {
                 for (var i:int = 0; i < this.players.length; i++) {

@@ -17,6 +17,10 @@ package {
             this.timeAlive = this.curTime - this.bornTime;
 
             PlayersController.getInstance().update();
+
+            if(FlxG.keys.justPressed("R")) {
+                FlxG.switchState(new MenuState());
+            }
         }
 
         public function controllerChanged(control:GameInputControl,
