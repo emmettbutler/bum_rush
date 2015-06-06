@@ -46,7 +46,10 @@ package {
         override public function update():void {
             super.update();
             this.updateDrivingAnimation();
+            this.updateMovement();
+        }
 
+        public function updateMovement():void {
             if (this.throttle) {
                 this.accel = this.facingVector.mulScl(.2);
             } else {
@@ -59,7 +62,7 @@ package {
                     this.dir.y = 0;
                 }
             }
-            this.dir = this.dir.add(this.accel).limited(3);
+            this.dir = this.dir.add(this.accel).limited(5);
             this.setPos(this.pos.add(this.dir));
         }
 

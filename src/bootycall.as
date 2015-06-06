@@ -10,7 +10,7 @@ package {
 
         public function bootycall() {
             gameInput = new GameInput();
-            super(320,240,MenuState,2);
+            super(320,240,MenuState,1);
         }
     }
 }
