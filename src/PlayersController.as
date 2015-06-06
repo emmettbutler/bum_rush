@@ -52,7 +52,9 @@ package {
         }
 
         public function registerPlayer(controller:GameInputDevice):void {
-            this.registeredPlayers[controller.id] = {
+            var _id:String = controller == null ?
+                (Math.random() * 100000) + "" : controller.id;
+            this.registeredPlayers[_id] = {
                 'controller': controller
             };
         }
@@ -67,7 +69,7 @@ package {
             var controller:GameInputDevice, player:Player;
             for (var kid:Object in this.registeredPlayers) {
                 controller = this.registeredPlayers[kid]['controller'];
-                player = new Player(new DHPoint(40, 40 + Math.random() * 22), controller);
+                player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller);
                 this.players.add(player);
                 player.addVisibleObjects();
             }
@@ -135,6 +137,7 @@ package {
             //trace just on/off to see each button
             if(control.value >= control.maxValue){
                 trace("control.id=" + control.id + " has been pressed");
+                trace("control.value=" + control.value);
             }
 
             var mapping:Object = ControlResolver.controllerMappings[control.device.name];

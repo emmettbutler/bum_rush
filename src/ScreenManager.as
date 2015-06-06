@@ -13,7 +13,7 @@ package {
         public static const DEFAULT_ASPECT:Number = 640/360;
         public var screenWidth:Number, screenHeight:Number;
 
-        private var fullscreen:Boolean = true;
+        private var fullscreen:Boolean = false;
 
         public static var _instance:ScreenManager = null;
 

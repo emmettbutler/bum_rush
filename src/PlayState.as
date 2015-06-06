@@ -34,8 +34,8 @@ package {
             if (player1Collider == null || player2Collider == null) {
                 return;
             }
-            (player1Collider.parent as Player).collisionCallback(player2Collider.getPos());
-            (player2Collider.parent as Player).collisionCallback(player1Collider.getPos());
+            (player1Collider.parent as Player).collisionCallback(player2Collider.parent as Player);
+            (player2Collider.parent as Player).collisionCallback(player1Collider.parent as Player);
         }
     }
 }

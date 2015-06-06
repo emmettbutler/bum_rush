@@ -20,12 +20,14 @@ package {
             t = new FlxText(0, 250, ScreenManager.getInstance().screenWidth, "join to play");
             t.alignment = "left";
             add(t);
+
+            PlayersController.getInstance().registerPlayer(null);
         }
 
         override public function update():void {
             super.update();
 
-            if (PlayersController.getInstance().playersRegistered >= 1 &&
+            if (PlayersController.getInstance().playersRegistered >= 2 &&
                 (this.curTime - this.lastRegisterTime) / 1000 >
                  this.countdownLength && !this.stateSwitchLock)
             {

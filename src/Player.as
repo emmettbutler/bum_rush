@@ -8,7 +8,7 @@ package {
         [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
         private var mainSprite:GameObject;
         private var controller:GameInputDevice;
-        private var accel:DHPoint, facingVector:DHPoint;
+        private var accel:DHPoint, facingVector:DHPoint, collideDirection:DHPoint;
         private var throttle:Boolean;
         private var frameRate:Number = 12;
 
@@ -50,20 +50,19 @@ package {
         }
 
         public function updateMovement():void {
-            if (this.throttle) {
-                this.accel = this.facingVector.mulScl(.2);
-            } else {
-                if (this.dir._length() > 1) {
-                    this.accel = this.dir.reverse().mulScl(.05);
-                } else {
-                    this.accel.x = 0;
-                    this.accel.y = 0;
-                    this.dir.x = 0;
-                    this.dir.y = 0;
-                }
-            }
             this.dir = this.dir.add(this.accel).limited(5);
             this.setPos(this.pos.add(this.dir));
+
+            if (this.throttle) {  // accelerating
+                this.accel = this.facingVector.mulScl(.4);
+            } else if (this.dir._length() > 1) {  // not accelerating but moving forward
+                this.accel = this.dir.reverse().mulScl(.08);
+            } else {  // stopped
+                this.accel.x = 0;
+                this.accel.y = 0;
+                this.dir.x = 0;
+                this.dir.y = 0;
+            }
         }
 
         public function updateDrivingAnimation():void {
@@ -106,7 +105,7 @@ package {
             } else {
                 return;
             }
-            if (control.device.id != this.controller.id) {
+            if (this.controller == null || control.device.id != this.controller.id) {
                 return;
             }
 
@@ -143,9 +142,12 @@ package {
             }
         }
 
-        public function collisionCallback(collidePosition:DHPoint):void {
-            var disp:DHPoint = this.getCollider().getMiddle().sub(collidePosition);
-            //this.dir = this.dir.sub(disp.normalized().reverse());
+        override public function getMiddle():DHPoint {
+            return this.mainSprite.getMiddle();
+        }
+
+        public function collisionCallback(player:Player):void {
+            var disp:DHPoint = this.getCollider().getMiddle().sub(player.getMiddle());
         }
 
         override public function setPos(pos:DHPoint):void {

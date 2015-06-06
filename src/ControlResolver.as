@@ -15,6 +15,13 @@ package {
                     "up": "BUTTON_7",
                     "down": "BUTTON_6",
                     "a": "BUTTON_17"
+                },
+                "Wireless Controller": {  // PS4
+                    "right": "BUTTON_9",
+                    "left": "BUTTON_8",
+                    "up": "BUTTON_7",
+                    "down": "BUTTON_6",
+                    "a": "BUTTON_11"
                 }
             }
         }
