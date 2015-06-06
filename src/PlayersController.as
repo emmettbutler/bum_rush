@@ -31,7 +31,7 @@ package {
             this.players = new FlxGroup();
             var player:Player;
             for (var i:int = 0; i < NUM_PLAYERS; i++) {
-                player = new Player(new DHPoint(40, 40 + i * 22), this.controllers[0]);
+                player = new Player(new DHPoint(40, 40 + i * 22), this.controllers[i]);
                 this.players.add(player);
             }
         }

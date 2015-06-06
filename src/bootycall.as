@@ -1,14 +1,16 @@
-package
-{
-	import org.flixel.*;
-	[SWF(width="640", height="480", backgroundColor="#000000")]
-	[Frame(factoryClass="Preloader")]
+package {
+    import org.flixel.*;
+    import flash.ui.GameInput;
 
-	public class bootycall extends FlxGame
-	{
-		public function bootycall()
-		{
-			super(320,240,MenuState,2);
-		}
-	}
+    [SWF(width="640", height="480", backgroundColor="#000000")]
+    [Frame(factoryClass="Preloader")]
+
+    public class bootycall extends FlxGame {
+        private static var gameInput:GameInput;
+
+        public function bootycall() {
+            gameInput = new GameInput();
+            super(320,240,MenuState,2);
+        }
+    }
 }
