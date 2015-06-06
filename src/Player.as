@@ -5,10 +5,12 @@ package {
     import flash.ui.GameInputControl;
 
     public class Player extends GameObject {
+        [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
         private var mainSprite:GameObject;
         private var controller:GameInputDevice;
         private var accel:DHPoint, facingVector:DHPoint;
         private var throttle:Boolean;
+        private var frameRate:Number = 12;
 
         public function Player(pos:DHPoint, controller:GameInputDevice):void {
             super(pos);
@@ -21,7 +23,16 @@ package {
             this.controller = controller;
 
             this.mainSprite = new GameObject(this.pos, this);
-            this.mainSprite.makeGraphic(10, 10, 0xffff0000);
+            this.mainSprite.loadGraphic(sprite_1, true, false, 32, 43);
+            this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
+            this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
+            this.mainSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
+            this.mainSprite.addAnimation("drive_left", [12,13,14,15], this.frameRate, true);
+            this.mainSprite.addAnimation("idle_right", [16,17,18,19], this.frameRate, true);
+            this.mainSprite.addAnimation("idle_up", [20,21,22,23], this.frameRate, true);
+            this.mainSprite.addAnimation("idle_down", [24,25,26,27], this.frameRate, true);
+            this.mainSprite.addAnimation("idle_left", [28,29,30,31], this.frameRate, true);
+            this.mainSprite.play("idle_up");
         }
 
         public function getCollider():GameObject {
@@ -34,6 +45,7 @@ package {
 
         override public function update():void {
             super.update();
+            this.updateDrivingAnimation();
 
             if (this.throttle) {
                 this.accel = this.facingVector.mulScl(.2);
@@ -49,6 +61,38 @@ package {
             }
             this.dir = this.dir.add(this.accel).limited(3);
             this.setPos(this.pos.add(this.dir));
+        }
+
+        public function updateDrivingAnimation():void {
+            if(Math.abs(this.facingVector.x) > Math.abs(this.facingVector.y)) {
+                if(this.throttle) {
+                    if(this.facingVector.x >= 0) {
+                        this.mainSprite.play("drive_right");
+                    } else {
+                        this.mainSprite.play("drive_left");
+                    }
+                } else {
+                    if(this.facingVector.x >= 0) {
+                        this.mainSprite.play("idle_right");
+                    } else {
+                        this.mainSprite.play("idle_left");
+                    }
+                }
+            } else if(Math.abs(this.facingVector.y) > Math.abs(this.facingVector.x)) {
+                if(this.throttle) {
+                    if(this.facingVector.y >= 0) {
+                        this.mainSprite.play("drive_down");
+                    } else {
+                        this.mainSprite.play("drive_up");
+                    }
+                } else {
+                    if(this.facingVector.y >= 0) {
+                        this.mainSprite.play("idle_down");
+                    } else {
+                        this.mainSprite.play("idle_up");
+                    }
+                }
+            }
         }
 
         public function controllerChanged(control:GameInputControl,
