@@ -4,7 +4,7 @@ package {
     import flash.ui.GameInputControl;
 
     public class MenuState extends GameState {
-        private var countdownLength:Number = 3, lastRegisterTime:Number = -1;
+        private var countdownLength:Number = 1, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
 
         override public function create():void {

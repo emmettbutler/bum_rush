@@ -36,14 +36,18 @@ package {
             super.update();
 
             if (this.throttle) {
-                this.accel = this.facingVector.mulScl(.05);
-                this.dir = this.dir.add(this.accel);
+                this.accel = this.facingVector.mulScl(.2);
             } else {
-                this.accel.x = 0;
-                this.accel.y = 0;
-                this.dir.x = 0;
-                this.dir.y = 0;
+                if (this.dir._length() > 1) {
+                    this.accel = this.dir.reverse().mulScl(.05);
+                } else {
+                    this.accel.x = 0;
+                    this.accel.y = 0;
+                    this.dir.x = 0;
+                    this.dir.y = 0;
+                }
             }
+            this.dir = this.dir.add(this.accel).limited(3);
             this.setPos(this.pos.add(this.dir));
         }
 
