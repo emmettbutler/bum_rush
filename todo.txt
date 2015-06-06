@@ -1,0 +1,17 @@
+diego makes a tileset
+    night and day themes
+
+draw track out of tiles
+driving physics (on-road an offroad)
+collisions between players and each other
+fullscreen
+collisions between players and road
+fully collidable objects, partially collidable objects
+concepts: errands, finish line, laps
+art:
+    car with a character in it (make it scalable)
+    map tiles (road, grass)
+    house
+    "errand building"
+    "you are arrived" animation
+    player collision animation (can be 1 frame)
