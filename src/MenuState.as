@@ -10,20 +10,22 @@ package {
         override public function create():void {
             super.create();
 
+            ScreenManager.getInstance();
+
             var t:FlxText;
-            t = new FlxText(0,FlxG.height/2-10,FlxG.width,"bootycall");
+            t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "bootycall");
             t.size = 16;
-            t.alignment = "center";
+            t.alignment = "left";
             add(t);
-            t = new FlxText(FlxG.width/2-50,FlxG.height-20,100,"join to play");
-            t.alignment = "center";
+            t = new FlxText(0, 250, ScreenManager.getInstance().screenWidth, "join to play");
+            t.alignment = "left";
             add(t);
         }
 
         override public function update():void {
             super.update();
 
-            if (PlayersController.getInstance().playersRegistered >= 2 &&
+            if (PlayersController.getInstance().playersRegistered >= 1 &&
                 (this.curTime - this.lastRegisterTime) / 1000 >
                  this.countdownLength && !this.stateSwitchLock)
             {
