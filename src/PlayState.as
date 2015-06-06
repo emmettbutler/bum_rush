@@ -1,17 +1,13 @@
 package {
     import org.flixel.*;
 
-    public class PlayState extends FlxState {
-        private var playersController:PlayersController;
-
+    public class PlayState extends GameState {
         override public function create():void {
-            this.playersController = new PlayersController();
+            PlayersController.getInstance().addRegisteredPlayers();
         }
 
         override public function update():void {
             super.update();
-
-            this.playersController.update();
         }
     }
 }

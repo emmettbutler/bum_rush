@@ -9,7 +9,10 @@ package {
     public class PlayersController {
         public static const NUM_PLAYERS:Number = 2;
 
+        public static var instance:PlayersController;
+
         private var players:FlxGroup;
+        private var registeredPlayers:Object;
         private var gameInput:GameInput;
 
         private var controllers:Array;
@@ -22,6 +25,7 @@ package {
             gameInput.addEventListener( GameInputEvent.DEVICE_UNUSABLE, controllerUnusable );
 
             controllers = new Array();
+            this.registeredPlayers = new Object();
 
             if (GameInput.numDevices > 0) {
                 trace("Controller found! GameInput.numDevices is " + GameInput.numDevices);
@@ -31,7 +35,29 @@ package {
             this.players = new FlxGroup();
         }
 
-        public function addPlayer(controller:GameInputDevice):void {
+        public function registerPlayer(controller:GameInputDevice):void {
+            this.registeredPlayers[controller.id] = {
+                'controller': controller
+            };
+        }
+
+        public function get playersRegistered():int {
+            var cnt:int = 0;
+            for (var s:String in this.registeredPlayers) cnt++;
+            return cnt;
+        }
+
+        public function addRegisteredPlayers():void {
+            var controller:GameInputDevice, player:Player;
+            for (var kid:Object in this.registeredPlayers) {
+                controller = this.registeredPlayers[kid]['controller'];
+                player = new Player(new DHPoint(40, 40 + Math.random() * 22), controller);
+                this.players.add(player);
+                player.addVisibleObjects();
+            }
+        }
+
+        private function addPlayer(controller:GameInputDevice):void {
             var player:Player;
             player = new Player(new DHPoint(40, 40 + Math.random() * 22), controller);
             this.players.add(player);
@@ -98,12 +124,9 @@ package {
 
             var mapping:Object = ControlResolver.controllerMappings[control.device.name];
 
-            if (control.id == mapping["a"] && control.value == 1) {
-                this.addPlayer(control.device);
-            }
-
+            (FlxG.state as GameState).controllerChanged(control, mapping);
             for (var i:int = 0; i < this.players.length; i++) {
-                this.players.members[i].controllerChanged(control);
+                this.players.members[i].controllerChanged(control, mapping);
             }
         }
 
@@ -113,6 +136,13 @@ package {
 
         private function controllerUnusable( gameInputEvent:GameInputEvent ):void {
             trace( "Controller Unusable." );
+        }
+
+        public static function getInstance():PlayersController {
+            if (instance == null) {
+                instance = new PlayersController();
+            }
+            return instance;
         }
     }
 }
