@@ -2,64 +2,66 @@ package {
     import org.flixel.*;
 
     public class PlayState extends GameState {
-        private var checkpoints:Array;
+        private var checkpoints:FlxGroup;
 
         override public function create():void {
             ScreenManager.getInstance().loadSingleTileBG("/../assets/map_1.png");
 
-            this.checkpoints = new Array();
+            this.checkpoints = new FlxGroup();
             var checkpoint:Checkpoint;
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
                 new DHPoint(10, 120)
             );
-            this.checkpoints[0] = checkpoint;
+            this.checkpoints.add(checkpoint);
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
                 new DHPoint(10, 120)
             );
-            this.checkpoints[1] = checkpoint;
-
+            this.checkpoints.add(checkpoint);
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
                 new DHPoint(120, 10)
             );
-            this.checkpoints[2] = checkpoint;
-
+            this.checkpoints.add(checkpoint);
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
                 new DHPoint(120, 10)
             );
-            this.checkpoints[3] = checkpoint;
+            this.checkpoints.add(checkpoint);
 
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
                     var cur:Checkpoint;
 
-                    cur = that.checkpoints[0];
+                    cur = that.checkpoints.members[0];
                     cur.setPos(new DHPoint(
                         event.userData['bg'].width * .27,
                         event.userData['bg'].height * .88
                     ));
+                    cur.index = 3;
 
-                    cur = that.checkpoints[1];
+                    cur = that.checkpoints.members[1];
                     cur.setPos(new DHPoint(
                         event.userData['bg'].width * .61,
                         event.userData['bg'].height * .54
                     ));
+                    cur.index = 1;
 
-                    cur = that.checkpoints[2];
+                    cur = that.checkpoints.members[2];
                     cur.setPos(new DHPoint(
                         event.userData['bg'].width * .91,
                         event.userData['bg'].height * .54
                     ));
+                    cur.index = 0;
 
-                    cur = that.checkpoints[3];
+                    cur = that.checkpoints.members[3];
                     cur.setPos(new DHPoint(
                         event.userData['bg'].width * .01,
                         event.userData['bg'].height * .54
                     ));
+                    cur.index = 2;
 
                     FlxG.stage.removeEventListener(
                         GameState.EVENT_SINGLETILE_BG_LOADED,
@@ -68,7 +70,7 @@ package {
                 });
 
             for (var i:int = 0; i < this.checkpoints.length; i++) {
-                this.checkpoints[i].addVisibleObjects();
+                this.checkpoints.members[i].addVisibleObjects();
             }
 
             PlayersController.getInstance().addRegisteredPlayers();
