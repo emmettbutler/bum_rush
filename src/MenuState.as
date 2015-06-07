@@ -6,12 +6,15 @@ package {
     public class MenuState extends GameState {
         private var countdownLength:Number = 1, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
+        private var registerIndicators:Object;
 
         override public function create():void {
             super.create();
 
             PlayersController.reset();
             ScreenManager.getInstance();
+
+            this.registerIndicators = new Object();
 
             var t:FlxText;
             t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "bootycall");
@@ -48,8 +51,10 @@ package {
         {
             super.controllerChanged(control, mapping);
             if (control.id == mapping["a"] && control.value == 1) {
-                PlayersController.getInstance().registerPlayer(control.device);
-                this.lastRegisterTime = this.curTime;
+                var didRegister:Boolean = PlayersController.getInstance().registerPlayer(control.device);
+                if (didRegister) {
+                    this.lastRegisterTime = this.curTime;
+                }
             }
         }
     }

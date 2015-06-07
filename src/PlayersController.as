@@ -7,7 +7,12 @@ package {
     import flash.events.Event;
 
     public class PlayersController {
+        [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
+
         public static const NUM_PLAYERS:Number = 2;
+        {
+            public static const DRIVER_NAMES:Array = ["Billy", "Wanda"];
+        }
 
         public static var instance:PlayersController;
 
@@ -52,13 +57,33 @@ package {
         }
 
         public function registerPlayer(controller:GameInputDevice,
-                                       keyboard:Boolean=false):void {
+                                       keyboard:Boolean=false):Boolean {
             var _id:String = controller == null ?
                 (Math.random() * 100000) + "" : controller.id;
+            if (_id in this.registeredPlayers) {
+                return false;
+            }
             this.registeredPlayers[_id] = {
                 'controller': keyboard ? 'keyboard' : controller,
                 'tag': ControlResolver.characterTags[this.playersRegistered]
             };
+            return true;
+        }
+
+        public function resolveTag(tag:Number):Object {
+            var ret:Object = {};
+            switch(tag) {
+                case ControlResolver.characterTags[0]:
+                    ret['sprite'] = sprite_1;
+                    ret['name'] = DRIVER_NAMES[0];
+                break;
+
+                case ControlResolver.characterTags[1]:
+                    ret['sprite'] = sprite_1;
+                    ret['name'] = DRIVER_NAMES[1];
+                break;
+            }
+            return ret;
         }
 
         public function get playersRegistered():int {

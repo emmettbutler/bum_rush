@@ -5,7 +5,6 @@ package {
     import flash.ui.GameInputControl;
 
     public class Player extends GameObject {
-        [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
         private var driver_sprite:Class;
         private var mainSprite:GameObject;
         private var controller:GameInputDevice;
@@ -19,8 +18,6 @@ package {
         private var driver_tag:Number, frameRate:Number = 12, _laps:Number = 0, lastLapTime:Number = -1;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
-
-        public static const DRIVER_NAMES:Array = ["Billy", "Wanda"];
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
@@ -38,24 +35,14 @@ package {
 
             this.controller = controller;
             this.driver_tag = _tag;
-            this.resolveTag();
+
+            var tagData:Object = PlayersController.getInstance().resolveTag(this.driver_tag);
+            this.driver_sprite = tagData['sprite'];
+            this._driver_name = tagData['name'];
+
             this.addAnimations();
             this.lapIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
             this.lapIndicator.setFormat(null, 30, 0xffff0000, "center");
-        }
-
-        public function resolveTag():void {
-            switch(this.driver_tag) {
-                case ControlResolver.characterTags[0]:
-                this.driver_sprite = sprite_1;
-                this._driver_name = Player.DRIVER_NAMES[0];
-                break;
-
-                case ControlResolver.characterTags[1]:
-                this.driver_sprite = sprite_1;
-                this._driver_name = Player.DRIVER_NAMES[1];
-                break;
-            }
         }
 
         public function addAnimations():void {
