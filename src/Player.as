@@ -32,6 +32,7 @@ package {
             this.controller = controller;
             this.addAnimations();
             this.lapIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
+            this.lapIndicator.setFormat(null, 30, 0xffff0000, "center");
         }
 
         public function addAnimations():void {
@@ -62,7 +63,6 @@ package {
         }
 
         public function crossCheckpoint(checkpoint:Checkpoint, lastIdx:Number):void {
-            trace("crossing checkpoint");
             if (this._lastCheckpointIdx == checkpoint.index - 1 ||
                 (this._lastCheckpointIdx == lastIdx && checkpoint.index == 0))
             {

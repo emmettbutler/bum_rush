@@ -39,6 +39,10 @@ package {
             return new DHPoint(this.x + this.width / 2,
                                this.y + this.height / 2);
         }
+
+        public function _getRect():FlxRect {
+            return new FlxRect(this.x, this.y, this.width, this.height);
+        }
     }
 }
 

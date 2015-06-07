@@ -3,6 +3,7 @@ package {
 
     public class Checkpoint extends GameObject{
         [Embed(source="/../assets/AptBuilding_6.png")] private var AptSprite:Class;
+
         private var dimensions:DHPoint;
         private var idx:Number, frameRate:Number = 12;
         private var checkpoint_sprite:GameObject;
