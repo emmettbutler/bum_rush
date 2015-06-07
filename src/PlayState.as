@@ -30,8 +30,7 @@ package {
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
                 new DHPoint(10, 120),
-                Checkpoint.BOOZE,
-                new DHPoint(596, 207)
+                Checkpoint.BOOZE
             );
             this.checkpoints.add(checkpoint);
             checkpoint = new Checkpoint(
@@ -42,8 +41,7 @@ package {
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
                 new DHPoint(120, 10),
-                Checkpoint.APARTMENT,
-                new DHPoint(134, 327)
+                Checkpoint.APARTMENT
             );
             this.checkpoints.add(checkpoint);
 
@@ -64,6 +62,10 @@ package {
                         event.userData['bg'].width * .61,
                         event.userData['bg'].height * .54
                     ));
+                    cur.setImgPos(new DHPoint(
+                        event.userData['bg'].width * .67,
+                        event.userData['bg'].height * .43
+                    )); //errand
                     cur.index = 1;
 
                     cur = that.checkpoints.members[2];
@@ -78,6 +80,10 @@ package {
                         event.userData['bg'].width * .01,
                         event.userData['bg'].height * .54
                     ));
+                    cur.setImgPos(new DHPoint(
+                        event.userData['bg'].width * .11,
+                        event.userData['bg'].height * .45
+                    )); //booty call
                     cur.index = 2;
 
                     FlxG.stage.removeEventListener(

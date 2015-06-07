@@ -12,12 +12,12 @@ package {
         public static const APARTMENT:String = "booty call spot";
         public static const BOOZE:String = "booze spot";
 
-        public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null, spr_pos:DHPoint=null) {
+        public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null) {
             super(pos);
             this.dimensions = dim;
             this.makeGraphic(dim.x, dim.y, 0xffff0000);
             if(type != null) {
-                this.checkpoint_sprite = new GameObject(spr_pos);
+                this.checkpoint_sprite = new GameObject(pos);
             }
 
             switch (type) {
@@ -43,6 +43,12 @@ package {
 
         public function set index(n:Number):void {
             this.idx = n;
+        }
+
+        public function setImgPos(p:DHPoint):void {
+            if(this.checkpoint_sprite != null) {
+                this.checkpoint_sprite.setPos(p);
+            }
         }
 
         override public function addVisibleObjects():void {
