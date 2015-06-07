@@ -5,8 +5,13 @@ package {
         [Embed(source="/../assets/instruction_anim.png")] private var InstructionSprite:Class;
         private var checkpoints:FlxGroup;
         private var instructions:GameObject;
+        private var timer_text:FlxText;
+        private var started_race:Boolean = false;
+        private var race_time_left:Number, raceTimeAlive:Number;
+        private static const RACE_LENGTH:Number = 60;
 
         override public function create():void {
+            super.create();
             ScreenManager.getInstance().loadSingleTileBG("/../assets/map_1.png");
 
             this.checkpoints = new FlxGroup();
@@ -79,6 +84,10 @@ package {
 
             PlayersController.getInstance().addRegisteredPlayers();
 
+            this.timer_text = new FlxText(10,10,1000,"");
+            this.timer_text.size = 20;
+            FlxG.state.add(this.timer_text);
+
             this.instructions = new GameObject(new DHPoint(0,0));
             this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
             this.instructions.addAnimation("play",[0,1,2],.5,false);
@@ -90,7 +99,17 @@ package {
             super.update();
 
             if(this.instructions.finished) {
-                this.instructions.visible = false;
+                if(!this.started_race) {
+                    this.instructions.visible = false;
+                    this.started_race = true;
+                    this.startRaceTimer();
+                }
+            }
+
+            if(this.started_race) {
+                this.raceTimeAlive = this.curTime - this.raceBornTime;
+                this.race_time_left = Math.floor(PlayState.RACE_LENGTH - this.raceTimeAlive/1000);
+                this.timer_text.text = this.race_time_left + " seconds left!";
             }
 
             FlxG.overlap(

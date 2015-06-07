@@ -4,7 +4,7 @@ package {
     import flash.ui.GameInputControl;
 
     public class GameState extends FlxState {
-        protected var bornTime:Number, timeAlive:Number, curTime:Number;
+        protected var bornTime:Number, timeAlive:Number, curTime:Number, raceBornTime:Number;
 
         public static const EVENT_SINGLETILE_BG_LOADED:String = "bg_loaded";
 
@@ -23,6 +23,10 @@ package {
             if(FlxG.keys.justPressed("R")) {
                 FlxG.switchState(new MenuState());
             }
+        }
+
+        public function startRaceTimer():void {
+            this.raceBornTime = new Date().valueOf();
         }
 
         public function controllerChanged(control:GameInputControl,
