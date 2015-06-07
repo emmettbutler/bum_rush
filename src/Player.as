@@ -10,7 +10,9 @@ package {
         private var controller:GameInputDevice;
         private var accel:DHPoint, facingVector:DHPoint, collideDirection:DHPoint;
         private var throttle:Boolean;
-        private var frameRate:Number = 12;
+        private var lapIndicator:FlxText;
+        private var frameRate:Number = 12, laps:Number = 0, lastLapTime:Number = -1;
+        private var _lastCheckpointIdx:Number = 0;
 
         public function Player(pos:DHPoint, controller:GameInputDevice):void {
             super(pos);
@@ -21,7 +23,11 @@ package {
             this.throttle = false;
 
             this.controller = controller;
+            this.addAnimations();
+            this.lapIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
+        }
 
+        public function addAnimations():void {
             this.mainSprite = new GameObject(this.pos, this);
             this.mainSprite.loadGraphic(sprite_1, true, false, 32, 43);
             this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
@@ -41,12 +47,35 @@ package {
 
         override public function addVisibleObjects():void {
             FlxG.state.add(this.mainSprite);
+            FlxG.state.add(this.lapIndicator);
+        }
+
+        public function get lastCheckpointIdx():Number {
+            return this._lastCheckpointIdx;
+        }
+
+        public function crossCheckpoint(checkpoint:Checkpoint, lastIdx:Number):void {
+            trace("crossing checkpoint");
+            if (this._lastCheckpointIdx == checkpoint.index - 1 ||
+                (this._lastCheckpointIdx == lastIdx && checkpoint.index == 0))
+            {
+                this._lastCheckpointIdx = checkpoint.index;
+                if (this._lastCheckpointIdx == lastIdx) {
+                    this.laps += 1;
+                    this.lastLapTime = this.curTime;
+                    this.lapIndicator.text = this.laps + "";
+                }
+            }
         }
 
         override public function update():void {
             super.update();
             this.updateDrivingAnimation();
             this.updateMovement();
+
+            if ((this.curTime - this.lastLapTime) / 1000 >= 2) {
+                this.lapIndicator.text = "";
+            }
         }
 
         public function updateMovement():void {
@@ -152,6 +181,8 @@ package {
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
             this.mainSprite.setPos(pos);
+            this.lapIndicator.x = pos.x;
+            this.lapIndicator.y = pos.y;
         }
     }
 }

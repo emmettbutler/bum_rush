@@ -84,6 +84,12 @@ package {
                 PlayersController.getInstance().getPlayerColliders(),
                 this.overlapPlayers
             );
+
+            FlxG.overlap(
+                PlayersController.getInstance().getPlayerColliders(),
+                this.checkpoints,
+                this.overlapPlayerCheckpoints
+            );
         }
 
         override public function destroy():void {
@@ -91,10 +97,17 @@ package {
             super.destroy();
         }
 
+        public function overlapPlayerCheckpoints(player1Collider:GameObject,
+                                                 checkpoint:Checkpoint):void
+        {
+            trace("player touching checkpoint: " + new Date().valueOf())
+            var player:Player = player1Collider.parent as Player;
+            player.crossCheckpoint(checkpoint, this.checkpoints.length - 1);
+        }
+
         public function overlapPlayers(player1Collider:GameObject,
                                        player2Collider:GameObject):void
         {
-            trace("players touching: " + new Date().valueOf())
             if (player1Collider == null || player2Collider == null) {
                 return;
             }
