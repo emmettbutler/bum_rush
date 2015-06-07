@@ -51,11 +51,12 @@ package {
             return this.playerColliders;
         }
 
-        public function registerPlayer(controller:GameInputDevice):void {
+        public function registerPlayer(controller:GameInputDevice,
+                                       keyboard:Boolean=false):void {
             var _id:String = controller == null ?
                 (Math.random() * 100000) + "" : controller.id;
             this.registeredPlayers[_id] = {
-                'controller': controller
+                'controller': keyboard ? 'keyboard' : controller
             };
         }
 
@@ -68,8 +69,12 @@ package {
         public function addRegisteredPlayers():void {
             var controller:GameInputDevice, player:Player;
             for (var kid:Object in this.registeredPlayers) {
-                controller = this.registeredPlayers[kid]['controller'];
-                player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller);
+                if (this.registeredPlayers[kid]['controller'] == 'keyboard') {
+                    player = new Player(new DHPoint(40, 40 + Math.random() * 62), null, true);
+                } else {
+                    controller = this.registeredPlayers[kid]['controller'];
+                    player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller);
+                }
                 this.players.add(player);
                 player.addVisibleObjects();
             }

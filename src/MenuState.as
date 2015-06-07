@@ -34,6 +34,12 @@ package {
                 this.stateSwitchLock = true;
                 FlxG.switchState(new PlayState());
             }
+
+            // debug
+            if (FlxG.keys.justPressed("A")) {
+                PlayersController.getInstance().registerPlayer(null, true);
+                this.lastRegisterTime = this.curTime;
+            }
         }
 
         override public function controllerChanged(control:GameInputControl,

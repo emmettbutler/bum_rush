@@ -13,14 +13,19 @@ package {
         private var lapIndicator:FlxText;
         private var frameRate:Number = 12, laps:Number = 0, lastLapTime:Number = -1;
         private var _lastCheckpointIdx:Number = 0;
+        private var keyboardControls:Boolean = false;
 
-        public function Player(pos:DHPoint, controller:GameInputDevice):void {
+        public function Player(pos:DHPoint,
+                               controller:GameInputDevice,
+                               keyboard:Boolean=false):void
+        {
             super(pos);
 
             this.dir = new DHPoint(0, 0);
             this.accel = new DHPoint(0, 0);
             this.facingVector = new DHPoint(1, 0);
             this.throttle = false;
+            this.keyboardControls = keyboard;
 
             this.controller = controller;
             this.addAnimations();
@@ -72,6 +77,9 @@ package {
             super.update();
             this.updateDrivingAnimation();
             this.updateMovement();
+            if (this.keyboardControls) {
+                this.updateKeyboard();
+            }
 
             if ((this.curTime - this.lastLapTime) / 1000 >= 2) {
                 this.lapIndicator.text = "";
@@ -123,6 +131,36 @@ package {
                         this.mainSprite.play("idle_up");
                     }
                 }
+            }
+        }
+
+        public function updateKeyboard():void {
+            if (FlxG.keys.justPressed("D")) {
+                this.facingVector.x = 1;
+            } else if (FlxG.keys.justReleased("D")){
+                this.facingVector.x = 0;
+            }
+            if (FlxG.keys.justPressed("A")) {
+                this.facingVector.x = -1;
+            } else if (FlxG.keys.justReleased("A")){
+                this.facingVector.x = 0;
+            }
+
+            if (FlxG.keys.justPressed("W")) {
+                this.facingVector.y = -1;
+            } else if (FlxG.keys.justReleased("W")){
+                this.facingVector.y = 0;
+            }
+            if (FlxG.keys.justPressed("S")) {
+                this.facingVector.y = 1;
+            } else if (FlxG.keys.justReleased("S")){
+                this.facingVector.y = 0;
+            }
+
+            if (FlxG.keys.justPressed("SPACE")) {
+                this.throttle = true;
+            } else if (FlxG.keys.justReleased("SPACE")) {
+                this.throttle = false;
             }
         }
 
