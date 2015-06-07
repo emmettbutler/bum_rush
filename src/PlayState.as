@@ -11,8 +11,8 @@ package {
         private var timer_text:FlxText;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false;
         private var race_time_left:Number, raceTimeAlive:Number;
+        private var collider:FlxExtSprite;
         private static const RACE_LENGTH:Number = 61;
-        private static const RACE_LENGTH:Number = 60;
 
         override public function create():void {
             super.create();
@@ -158,7 +158,7 @@ package {
                 }
 
                 var collisionData:Array = FlxCollision.pixelPerfectCheck(
-                    curCollider, this.collider, 255, null, 13, 15);
+                    curCollider, this.collider, 255, null, 18, 20);
                 if (collisionData[0]) {
                     curPlayer.colliding = true;
                     curPlayer.collisionDirection = collisionData[1];
