@@ -29,7 +29,9 @@ package {
             this.checkpoints.add(checkpoint);
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
-                new DHPoint(10, 120)
+                new DHPoint(10, 120),
+                Checkpoint.BOOZE,
+                new DHPoint(596, 207)
             );
             this.checkpoints.add(checkpoint);
             checkpoint = new Checkpoint(
