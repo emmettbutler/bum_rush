@@ -8,8 +8,9 @@ package {
         [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
         private var mainSprite:GameObject;
         private var controller:GameInputDevice;
-        private var accel:DHPoint, facingVector:DHPoint, collideDirection:DHPoint;
-        private var throttle:Boolean;
+        private var accel:DHPoint, directionsPressed:DHPoint,
+                    collideDirection:DHPoint, throttle:Boolean,
+                    facingVector:DHPoint;
         private var lapIndicator:FlxText;
         private var frameRate:Number = 12, laps:Number = 0, lastLapTime:Number = -1;
         private var _lastCheckpointIdx:Number = 0;
@@ -23,6 +24,7 @@ package {
 
             this.dir = new DHPoint(0, 0);
             this.accel = new DHPoint(0, 0);
+            this.directionsPressed = new DHPoint(1, 0);
             this.facingVector = new DHPoint(1, 0);
             this.throttle = false;
             this.keyboardControls = keyboard;
@@ -91,7 +93,11 @@ package {
             this.setPos(this.pos.add(this.dir));
 
             if (this.throttle) {  // accelerating
-                this.accel = this.facingVector.mulScl(.4);
+                if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
+                    this.accel = this.directionsPressed.mulScl(.4);
+                } else {
+                    this.accel = this.facingVector.mulScl(.4);
+                }
             } else if (this.dir._length() > 1) {  // not accelerating but moving forward
                 this.accel = this.dir.reverse().mulScl(.08);
             } else {  // stopped
@@ -103,32 +109,48 @@ package {
         }
 
         public function updateDrivingAnimation():void {
-            if(Math.abs(this.facingVector.x) > Math.abs(this.facingVector.y)) {
+            if(Math.abs(this.directionsPressed.x) > Math.abs(this.directionsPressed.y)) {
                 if(this.throttle) {
-                    if(this.facingVector.x >= 0) {
+                    if(this.directionsPressed.x >= 0) {
                         this.mainSprite.play("drive_right");
+                        this.facingVector.x = 1;
+                        this.facingVector.y = 0;
                     } else {
                         this.mainSprite.play("drive_left");
+                        this.facingVector.x = -1;
+                        this.facingVector.y = 0;
                     }
                 } else {
-                    if(this.facingVector.x >= 0) {
+                    if(this.directionsPressed.x >= 0) {
                         this.mainSprite.play("idle_right");
+                        this.facingVector.x = 1;
+                        this.facingVector.y = 0;
                     } else {
                         this.mainSprite.play("idle_left");
+                        this.facingVector.x = -1;
+                        this.facingVector.y = 0;
                     }
                 }
-            } else if(Math.abs(this.facingVector.y) > Math.abs(this.facingVector.x)) {
+            } else if(Math.abs(this.directionsPressed.y) > Math.abs(this.directionsPressed.x)) {
                 if(this.throttle) {
-                    if(this.facingVector.y >= 0) {
+                    if(this.directionsPressed.y >= 0) {
                         this.mainSprite.play("drive_down");
+                        this.facingVector.y = 1;
+                        this.facingVector.x = 0;
                     } else {
                         this.mainSprite.play("drive_up");
+                        this.facingVector.y = -1;
+                        this.facingVector.x = 0;
                     }
                 } else {
-                    if(this.facingVector.y >= 0) {
+                    if(this.directionsPressed.y >= 0) {
                         this.mainSprite.play("idle_down");
+                        this.facingVector.x = 0;
+                        this.facingVector.y = 1;
                     } else {
                         this.mainSprite.play("idle_up");
+                        this.facingVector.x = 0;
+                        this.facingVector.y = -1;
                     }
                 }
             }
@@ -136,25 +158,25 @@ package {
 
         public function updateKeyboard():void {
             if (FlxG.keys.justPressed("D")) {
-                this.facingVector.x = 1;
+                this.directionsPressed.x = 1;
             } else if (FlxG.keys.justReleased("D")){
-                this.facingVector.x = 0;
+                this.directionsPressed.x = 0;
             }
             if (FlxG.keys.justPressed("A")) {
-                this.facingVector.x = -1;
+                this.directionsPressed.x = -1;
             } else if (FlxG.keys.justReleased("A")){
-                this.facingVector.x = 0;
+                this.directionsPressed.x = 0;
             }
 
             if (FlxG.keys.justPressed("W")) {
-                this.facingVector.y = -1;
+                this.directionsPressed.y = -1;
             } else if (FlxG.keys.justReleased("W")){
-                this.facingVector.y = 0;
+                this.directionsPressed.y = 0;
             }
             if (FlxG.keys.justPressed("S")) {
-                this.facingVector.y = 1;
+                this.directionsPressed.y = 1;
             } else if (FlxG.keys.justReleased("S")){
-                this.facingVector.y = 0;
+                this.directionsPressed.y = 0;
             }
 
             if (FlxG.keys.justPressed("SPACE")) {
@@ -177,27 +199,27 @@ package {
 
             if (control.id == mapping["right"]) {
                 if (control.value == 0) {
-                    this.facingVector.x = 0;
+                    this.directionsPressed.x = 0;
                 } else {
-                    this.facingVector.x = 1;
+                    this.directionsPressed.x = 1;
                 }
             } else if (control.id == mapping["left"]) {
                 if (control.value == 0) {
-                    this.facingVector.x = 0;
+                    this.directionsPressed.x = 0;
                 } else {
-                    this.facingVector.x = -1;
+                    this.directionsPressed.x = -1;
                 }
             } else if (control.id == mapping["up"]) {
                 if (control.value == 0) {
-                    this.facingVector.y = 0;
+                    this.directionsPressed.y = 0;
                 } else {
-                    this.facingVector.y = 1;
+                    this.directionsPressed.y = 1;
                 }
             } else if (control.id == mapping["down"]) {
                 if (control.value == 0) {
-                    this.facingVector.y = 0;
+                    this.directionsPressed.y = 0;
                 } else {
-                    this.facingVector.y = -1;
+                    this.directionsPressed.y = -1;
                 }
             } else if (control.id == mapping["a"]) {
                 if (control.value == 1) {
