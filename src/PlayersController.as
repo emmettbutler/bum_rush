@@ -66,6 +66,10 @@ package {
             return cnt;
         }
 
+        public function getPlayerList():Array {
+            return this.players.members;
+        }
+
         public function addRegisteredPlayers():void {
             var controller:GameInputDevice, player:Player;
             for (var kid:Object in this.registeredPlayers) {

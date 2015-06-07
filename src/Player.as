@@ -12,7 +12,7 @@ package {
                     collideDirection:DHPoint, throttle:Boolean,
                     facingVector:DHPoint;
         private var lapIndicator:FlxText;
-        private var frameRate:Number = 12, laps:Number = 0, lastLapTime:Number = -1;
+        private var frameRate:Number = 12, _laps:Number = 0, lastLapTime:Number = -1;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
 
@@ -62,15 +62,19 @@ package {
             return this._lastCheckpointIdx;
         }
 
+        public function get laps():Number {
+            return this._laps;
+        }
+
         public function crossCheckpoint(checkpoint:Checkpoint, lastIdx:Number):void {
             if (this._lastCheckpointIdx == checkpoint.index - 1 ||
                 (this._lastCheckpointIdx == lastIdx && checkpoint.index == 0))
             {
                 this._lastCheckpointIdx = checkpoint.index;
                 if (this._lastCheckpointIdx == lastIdx) {
-                    this.laps += 1;
+                    this._laps += 1;
                     this.lastLapTime = this.curTime;
-                    this.lapIndicator.text = this.laps + "";
+                    this.lapIndicator.text = this._laps + "";
                 }
             }
         }

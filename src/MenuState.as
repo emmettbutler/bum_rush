@@ -10,6 +10,7 @@ package {
         override public function create():void {
             super.create();
 
+            PlayersController.reset();
             ScreenManager.getInstance();
 
             var t:FlxText;

@@ -5,6 +5,7 @@ package {
 
     public class GameState extends FlxState {
         protected var bornTime:Number, timeAlive:Number, curTime:Number, raceBornTime:Number;
+        public var gameActive:Boolean = false;
 
         public static const EVENT_SINGLETILE_BG_LOADED:String = "bg_loaded";
 
@@ -18,7 +19,9 @@ package {
             this.curTime = new Date().valueOf();
             this.timeAlive = this.curTime - this.bornTime;
 
-            PlayersController.getInstance().update();
+            if(this.gameActive) {
+                PlayersController.getInstance().update();
+            }
 
             if(FlxG.keys.justPressed("R")) {
                 FlxG.switchState(new MenuState());

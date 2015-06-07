@@ -4,8 +4,9 @@ package {
     public class PlayState extends GameState {
         [Embed(source="/../assets/instruction_anim.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
+        [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
         private var checkpoints:FlxGroup;
-        private var instructions:GameObject, start_sprite:GameObject;
+        private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
         private var timer_text:FlxText;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false;
         private var race_time_left:Number, raceTimeAlive:Number;
@@ -14,6 +15,7 @@ package {
         override public function create():void {
             super.create();
             ScreenManager.getInstance().loadSingleTileBG("/../assets/map_1.png");
+            this.gameActive = true;
 
             this.checkpoints = new FlxGroup();
             var checkpoint:Checkpoint;
@@ -94,6 +96,11 @@ package {
             this.start_sprite.addAnimation("play", [0,1,2], .5, false);
             FlxG.state.add(this.start_sprite);
 
+            this.time_out_sprite = new GameObject(new DHPoint(0,0));
+            this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 1280, 720);
+            FlxG.state.add(this.time_out_sprite);
+            this.time_out_sprite.visible = false;
+
             this.instructions = new GameObject(new DHPoint(0,0));
             this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
             this.instructions.addAnimation("play",[0,1,2],.5,false);
@@ -126,6 +133,15 @@ package {
                 this.timer_text.text = this.race_time_left + " seconds left!";
             }
 
+            if(this.race_time_left <= 0) {
+                this.time_out_sprite.visible = true;
+                this.timer_text.visible = false;
+                if(Math.floor(this.raceTimeAlive/1000) >= Math.floor(PlayState.RACE_LENGTH + 5)) {
+                    this.gameActive = false;
+                    FlxG.switchState(new EndState());
+                }
+            }
+
             FlxG.overlap(
                 PlayersController.getInstance().getPlayerColliders(),
                 PlayersController.getInstance().getPlayerColliders(),
@@ -145,7 +161,6 @@ package {
         }
 
         override public function destroy():void {
-            PlayersController.reset();
             super.destroy();
         }
 
