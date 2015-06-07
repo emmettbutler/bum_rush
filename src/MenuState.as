@@ -6,7 +6,9 @@ package {
     public class MenuState extends GameState {
         private var countdownLength:Number = 1, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
-        private var registerIndicators:Object;
+        private var registerIndicators:Array;
+
+        private var curIndicator:RegistrationIndicator;
 
         override public function create():void {
             super.create();
@@ -14,7 +16,7 @@ package {
             PlayersController.reset();
             ScreenManager.getInstance();
 
-            this.registerIndicators = new Object();
+            this.registerIndicators = new Array();
 
             var t:FlxText;
             t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "bootycall");
@@ -25,7 +27,7 @@ package {
             t.alignment = "left";
             add(t);
 
-            PlayersController.getInstance().registerPlayer(null);
+            //PlayersController.getInstance().registerPlayer(null);
         }
 
         override public function update():void {
@@ -44,6 +46,14 @@ package {
                 PlayersController.getInstance().registerPlayer(null, true);
                 this.lastRegisterTime = this.curTime;
             }
+
+            for (var i:int = 0; i < this.registerIndicators.length; i++) {
+                this.curIndicator = this.registerIndicators[i];
+                this.curIndicator.setPos(new DHPoint(
+                    (ScreenManager.getInstance().screenWidth / (this.registerIndicators.length + 1)) * (i + 1),
+                    ScreenManager.getInstance().screenHeight - 100
+                ));
+            }
         }
 
         override public function controllerChanged(control:GameInputControl,
@@ -51,9 +61,14 @@ package {
         {
             super.controllerChanged(control, mapping);
             if (control.id == mapping["a"] && control.value == 1) {
-                var didRegister:Boolean = PlayersController.getInstance().registerPlayer(control.device);
-                if (didRegister) {
+                var tagData:Object = PlayersController.getInstance().registerPlayer(control.device);
+                if (tagData != null) {
                     this.lastRegisterTime = this.curTime;
+                    var indicator:RegistrationIndicator = new RegistrationIndicator(
+                        tagData
+                    );
+                    indicator.addVisibleObjects();
+                    this.registerIndicators.push(indicator);
                 }
             }
         }

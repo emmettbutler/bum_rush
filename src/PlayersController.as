@@ -57,17 +57,18 @@ package {
         }
 
         public function registerPlayer(controller:GameInputDevice,
-                                       keyboard:Boolean=false):Boolean {
+                                       keyboard:Boolean=false):Object {
             var _id:String = controller == null ?
                 (Math.random() * 100000) + "" : controller.id;
             if (_id in this.registeredPlayers) {
-                return false;
+                return null;
             }
+            var tag:Number = ControlResolver.characterTags[this.playersRegistered];
             this.registeredPlayers[_id] = {
                 'controller': keyboard ? 'keyboard' : controller,
-                'tag': ControlResolver.characterTags[this.playersRegistered]
+                'tag': tag
             };
-            return true;
+            return PlayersController.getInstance().resolveTag(tag);
         }
 
         public function resolveTag(tag:Number):Object {
