@@ -2,6 +2,7 @@ package {
     import org.flixel.*;
 
     import flash.ui.GameInputControl;
+    import flash.ui.GameInputDevice;
 
     public class MenuState extends GameState {
         private var countdownLength:Number = 1, lastRegisterTime:Number = -1;
@@ -43,8 +44,7 @@ package {
 
             // debug
             if (FlxG.keys.justPressed("A")) {
-                PlayersController.getInstance().registerPlayer(null, true);
-                this.lastRegisterTime = this.curTime;
+                this.registerPlayer(null);
             }
 
             for (var i:int = 0; i < this.registerIndicators.length; i++) {
@@ -61,15 +61,28 @@ package {
         {
             super.controllerChanged(control, mapping);
             if (control.id == mapping["a"] && control.value == 1) {
-                var tagData:Object = PlayersController.getInstance().registerPlayer(control.device);
-                if (tagData != null) {
-                    this.lastRegisterTime = this.curTime;
-                    var indicator:RegistrationIndicator = new RegistrationIndicator(
-                        tagData
-                    );
-                    indicator.addVisibleObjects();
-                    this.registerIndicators.push(indicator);
-                }
+                this.registerPlayer(control);
+            }
+        }
+
+        public function registerPlayer(control:GameInputControl):void {
+            var device:GameInputDevice, keyboard:Boolean;
+            if (control == null) {
+                device = null;
+                keyboard = true;
+            } else {
+                device = control.device;
+                keyboard = false;
+            }
+            var tagData:Object = PlayersController.getInstance().registerPlayer(
+                device, keyboard);
+            if (tagData != null) {
+                this.lastRegisterTime = this.curTime;
+                var indicator:RegistrationIndicator = new RegistrationIndicator(
+                    tagData
+                );
+                indicator.addVisibleObjects();
+                this.registerIndicators.push(indicator);
             }
         }
     }
