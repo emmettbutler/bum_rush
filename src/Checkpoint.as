@@ -13,17 +13,14 @@ package {
         public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null, spr_pos:DHPoint=null) {
             super(pos);
             this.dimensions = dim;
-
-            if(type == null) {
-                this.makeGraphic(dim.x, dim.y, 0xffff0000);
-            } else {
-                this.makeGraphic(dim.x, dim.y, 0xffff0000);
+            this.makeGraphic(dim.x, dim.y, 0xffff0000);
+            if(type != null) {
                 this.checkpoint_sprite = new GameObject(spr_pos);
                 if(type == Checkpoint.APARTMENT) {
                     this.checkpoint_sprite.loadGraphic(this.AptSprite, true, false, 768/6, 128);
-                    this.checkpoint_sprite.addAnimation("play", [0,1,2,3,4,5], this.frameRate, true);
+                    this.checkpoint_sprite.addAnimation("play", [0,1,2,3,4,5],
+                                                        this.frameRate, true);
                     this.checkpoint_sprite.play("play");
-                    FlxG.state.add(this.checkpoint_sprite);
                 }
             }
         }
@@ -38,6 +35,7 @@ package {
 
         override public function addVisibleObjects():void {
             FlxG.state.add(this);
+            FlxG.state.add(this.checkpoint_sprite);
         }
     }
 }
