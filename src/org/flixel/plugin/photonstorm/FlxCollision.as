@@ -27,8 +27,6 @@ package org.flixel.plugin.photonstorm
     import flash.utils.setTimeout;
     import flash.utils.clearTimeout;
 
-    import com.starmaid.Cibele.utils.DHPoint;
-
     import org.flixel.*;
 
     public class FlxCollision

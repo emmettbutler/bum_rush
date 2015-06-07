@@ -1,5 +1,6 @@
 package {
     import org.flixel.*;
+    import org.flixel.plugin.photonstorm.FlxCollision;
 
     public class PlayState extends GameState {
         [Embed(source="/../assets/instruction_anim.png")] private var InstructionSprite:Class;
@@ -11,9 +12,11 @@ package {
         private var started_race:Boolean = false, shown_start_anim:Boolean = false;
         private var race_time_left:Number, raceTimeAlive:Number;
         private static const RACE_LENGTH:Number = 61;
+        private static const RACE_LENGTH:Number = 60;
 
         override public function create():void {
             super.create();
+            this.collider = ScreenManager.getInstance().loadSingleTileBG("/../assets/map_1_collider.png");
             ScreenManager.getInstance().loadSingleTileBG("/../assets/map_1.png");
             this.gameActive = true;
 
@@ -142,20 +145,25 @@ package {
                 }
             }
 
-            FlxG.overlap(
-                PlayersController.getInstance().getPlayerColliders(),
-                PlayersController.getInstance().getPlayerColliders(),
-                this.overlapPlayers
-            );
-
             var colliders:Array = PlayersController.getInstance().getPlayerColliders().members,
-                checkpoint:Checkpoint;
+                checkpoint:Checkpoint, curPlayer:Player, curCollider:GameObject;
             for (var i:int = 0; i < colliders.length; i++) {
+                curCollider = colliders[i];
+                curPlayer = curCollider.parent as Player;
                 for (var k:int = 0; k < this.checkpoints.members.length; k++) {
                     checkpoint = this.checkpoints.members[k];
-                    if (colliders[i]._getRect().overlaps(checkpoint._getRect())) {
-                        this.overlapPlayerCheckpoints(colliders[i].parent, checkpoint);
+                    if (curCollider._getRect().overlaps(checkpoint._getRect())) {
+                        this.overlapPlayerCheckpoints(curPlayer, checkpoint);
                     }
+                }
+
+                var collisionData:Array = FlxCollision.pixelPerfectCheck(
+                    curCollider, this.collider, 255, null, 13, 15);
+                if (collisionData[0]) {
+                    curPlayer.colliding = true;
+                    curPlayer.collisionDirection = collisionData[1];
+                } else {
+                    curPlayer.colliding = false;
                 }
             }
         }
@@ -179,5 +187,6 @@ package {
             (player1Collider.parent as Player).collisionCallback(player2Collider.parent as Player);
             (player2Collider.parent as Player).collisionCallback(player1Collider.parent as Player);
         }
+
     }
 }

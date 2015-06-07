@@ -12,6 +12,8 @@ package {
         private var accel:DHPoint, directionsPressed:DHPoint,
                     collideDirection:DHPoint, throttle:Boolean,
                     facingVector:DHPoint;
+        private var _colliding:Boolean = false;
+        private var _collisionDirection:Array;
         private var lapIndicator:FlxText;
         private var _driver_name:String;
         private var driver_tag:Number, frameRate:Number = 12, _laps:Number = 0, lastLapTime:Number = -1;
@@ -68,6 +70,14 @@ package {
             this.mainSprite.addAnimation("idle_down", [24,25,26,27], this.frameRate, true);
             this.mainSprite.addAnimation("idle_left", [28,29,30,31], this.frameRate, true);
             this.mainSprite.play("idle_up");
+        }
+
+        public function set colliding(c:Boolean):void {
+            this._colliding = c;
+        }
+
+        public function set collisionDirection(c:Array):void {
+            this._collisionDirection = c;
         }
 
         public function getCollider():GameObject {
@@ -134,6 +144,37 @@ package {
                 this.accel.y = 0;
                 this.dir.x = 0;
                 this.dir.y = 0;
+            }
+
+            if (this._colliding) {
+                if (this._collisionDirection != null) {
+                    if (this._collisionDirection[0] == 1 &&
+                        this._collisionDirection[1] == 1 &&
+                        this._collisionDirection[2] == 1 &&
+                        this._collisionDirection[3] == 1)
+                    {
+                        // stuck!
+                    } else {
+                        if (this._collisionDirection[1] == 1) {
+                            // right
+                            this.dir.x = 0;
+                            this.accel.x = Math.min(0, this.accel.x);
+                        } else if (this._collisionDirection[0] == 1) {
+                            // left
+                            this.dir.x = 0;
+                            this.accel.x = Math.max(0, this.accel.x);
+                        }
+                        if (this._collisionDirection[3] == 1) {
+                            // down
+                            this.dir.y = 0;
+                            this.accel.y = Math.min(0, this.accel.y);
+                        } else if (this._collisionDirection[2] == 1) {
+                            // up
+                            this.dir.y = 0;
+                            this.accel.y = Math.max(0, this.accel.y);
+                        }
+                    }
+                }
             }
         }
 
