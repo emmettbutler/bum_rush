@@ -8,6 +8,12 @@ package {
     import flash.events.*;
     import flash.ui.Keyboard;
     import flash.utils.Timer;
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.PixelSnapping;
+    import flash.display.Loader;
+    import flash.geom.Matrix;
+    import flash.net.URLRequest;
 
     public class ScreenManager {
         public static const DEFAULT_ASPECT:Number = 640/360;
@@ -103,6 +109,38 @@ package {
         public function setupCamera(playerCamera:GameObject, zoomFactor:Number=1.2):void {
             var cam:FlxCamera = new FlxCamera(0, 0, screenWidth, screenHeight);
             FlxG.resetCameras(cam);
+        }
+
+        public function loadSingleTileBG(path:String):FlxExtSprite {
+            var _screen:ScreenManager = ScreenManager.getInstance();
+            var bg:FlxExtSprite = new FlxExtSprite(0, 0);
+            bg.scrollFactor = new FlxPoint(0, 0);
+            FlxG.state.add(bg);
+            var receivingMachine:Loader = new Loader();
+            receivingMachine.contentLoaderInfo.addEventListener(Event.COMPLETE,
+                function (event_load:Event):void {
+                    var bmp:Bitmap = new Bitmap(event_load.target.content.bitmapData);
+                    var imgDim:DHPoint = new DHPoint(bmp.width, bmp.height);
+                    var dim:DHPoint = _screen.calcFullscreenDimensionsAlt(imgDim);
+                    var origin:DHPoint = _screen.calcFullscreenOrigin(dim);
+                    var bgScale:Number = _screen.calcFullscreenScale(imgDim);
+                    var matrix:Matrix = new Matrix();
+                    matrix.scale(bgScale, bgScale);
+                    var scaledBMD:BitmapData = new BitmapData(bmp.width * bgScale,
+                                                            bmp.height * bgScale,
+                                                            true, 0x000000);
+                    scaledBMD.draw(bmp, matrix, null, null, null, true);
+                    bmp = new Bitmap(scaledBMD, PixelSnapping.NEVER, true);
+                    bg.loadExtGraphic(bmp, false, false, bmp.width, bmp.height, true);
+                    bg.x = origin.x;
+                    bg.y = origin.y;
+                    FlxG.stage.dispatchEvent(
+                        new DataEvent(GameState.EVENT_SINGLETILE_BG_LOADED,
+                                      {'bg_scale': bgScale, 'bg': bg}));
+                }
+            );
+            receivingMachine.load(new URLRequest(path));
+            return bg;
         }
 
         public static function getInstance():ScreenManager {

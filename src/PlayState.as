@@ -3,12 +3,9 @@ package {
 
     public class PlayState extends GameState {
         [Embed(source="/../assets/map_1.png")] private var map_1:Class;
-        private var mapSprite:GameObject;
 
         override public function create():void {
-            this.mapSprite = new GameObject(new DHPoint(0,0));
-            this.mapSprite.loadGraphic(map_1,false,false,1280,720);
-            FlxG.state.add(this.mapSprite);
+            ScreenManager.getInstance().loadSingleTileBG("/../assets/map_1.png");
             PlayersController.getInstance().addRegisteredPlayers();
         }
 

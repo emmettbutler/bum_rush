@@ -101,7 +101,6 @@ package {
                                           mapping:Object):void
         {
             if (control.value == 0 || control.value == 1) {
-                trace("control.id=" + control.id + "\ncontrol.value=" + control.value);
             } else {
                 return;
             }

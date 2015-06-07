@@ -124,18 +124,12 @@ package {
 
         public function controllerChanged(event:Event):void {
             var control:GameInputControl = event.target as GameInputControl;
-            //To get the value of the press you can use .value, or minValue and maxValue for on/off
-            //var num_val:Number = control.value;
-            //
-            //constant stream (Axis is very sensitive)
-            //trace("control.id=" + control.id);
-            //trace("control.value=" + control.value + " (" + control.minValue+" .. " + control.maxValue+")");
-            //
-            //trace just on/off to see each button
+            /*
             if(control.value >= control.maxValue){
                 trace("control.id=" + control.id + " has been pressed");
                 trace("control.value=" + control.value);
             }
+            */
 
             var mapping:Object = ControlResolver.controllerMappings[control.device.name];
 

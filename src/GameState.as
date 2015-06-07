@@ -6,6 +6,8 @@ package {
     public class GameState extends FlxState {
         protected var bornTime:Number, timeAlive:Number, curTime:Number;
 
+        public static const EVENT_SINGLETILE_BG_LOADED:String = "bg_loaded";
+
         override public function create():void {
             this.bornTime = new Date().valueOf();
         }
