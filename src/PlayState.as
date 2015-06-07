@@ -2,7 +2,9 @@ package {
     import org.flixel.*;
 
     public class PlayState extends GameState {
+        [Embed(source="/../assets/instruction_anim.png")] private var InstructionSprite:Class;
         private var checkpoints:FlxGroup;
+        private var instructions:GameObject;
 
         override public function create():void {
             ScreenManager.getInstance().loadSingleTileBG("/../assets/map_1.png");
@@ -74,10 +76,20 @@ package {
             }
 
             PlayersController.getInstance().addRegisteredPlayers();
+
+            this.instructions = new GameObject(new DHPoint(0,0));
+            this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
+            this.instructions.addAnimation("play",[0,1,2],.5,false);
+            FlxG.state.add(this.instructions);
+            this.instructions.play("play");
         }
 
         override public function update():void {
             super.update();
+
+            if(this.instructions.finished) {
+                this.instructions.visible = false;
+            }
 
             FlxG.overlap(
                 PlayersController.getInstance().getPlayerColliders(),
