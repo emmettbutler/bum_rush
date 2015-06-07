@@ -6,19 +6,24 @@ package {
 
     public class Player extends GameObject {
         [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
+        private var driver_sprite:Class;
         private var mainSprite:GameObject;
         private var controller:GameInputDevice;
         private var accel:DHPoint, directionsPressed:DHPoint,
                     collideDirection:DHPoint, throttle:Boolean,
                     facingVector:DHPoint;
         private var lapIndicator:FlxText;
-        private var frameRate:Number = 12, _laps:Number = 0, lastLapTime:Number = -1;
+        private var _driver_name:String;
+        private var driver_tag:Number, frameRate:Number = 12, _laps:Number = 0, lastLapTime:Number = -1;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
 
+        public static const DRIVER_NAMES:Array = ["Billy", "Wanda"];
+
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
-                               keyboard:Boolean=false):void
+                               keyboard:Boolean=false,
+                               _tag:Number=0):void
         {
             super(pos);
 
@@ -30,14 +35,30 @@ package {
             this.keyboardControls = keyboard;
 
             this.controller = controller;
+            this.driver_tag = _tag;
+            this.resolveTag();
             this.addAnimations();
             this.lapIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
             this.lapIndicator.setFormat(null, 30, 0xffff0000, "center");
         }
 
+        public function resolveTag():void {
+            switch(this.driver_tag) {
+                case ControlResolver.characterTags[0]:
+                this.driver_sprite = sprite_1;
+                this._driver_name = Player.DRIVER_NAMES[0];
+                break;
+
+                case ControlResolver.characterTags[1]:
+                this.driver_sprite = sprite_1;
+                this._driver_name = Player.DRIVER_NAMES[1];
+                break;
+            }
+        }
+
         public function addAnimations():void {
             this.mainSprite = new GameObject(this.pos, this);
-            this.mainSprite.loadGraphic(sprite_1, true, false, 32, 43);
+            this.mainSprite.loadGraphic(driver_sprite, true, false, 32, 43);
             this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.mainSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
@@ -64,6 +85,10 @@ package {
 
         public function get laps():Number {
             return this._laps;
+        }
+
+        public function get driver_name():String {
+            return this._driver_name;
         }
 
         public function crossCheckpoint(checkpoint:Checkpoint, lastIdx:Number):void {

@@ -1,6 +1,13 @@
 package {
     public class ControlResolver {
+        public static const player_1:Number = 0;
+        public static const player_2:Number = 1;
+
         {
+            public static var characterTags:Array = [
+                ControlResolver.player_1,
+                ControlResolver.player_2
+            ]
             public static var controllerMappings:Object = {
                 "PLAYSTATION(R)3 Controller": {
                     "right": "BUTTON_9",

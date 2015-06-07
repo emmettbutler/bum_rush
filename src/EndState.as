@@ -18,7 +18,7 @@ package {
 
             for(var i:Number = 0; i < player_list.length; i++) {
                 var t:FlxText;
-                t = new FlxText(100, this.list_offset, ScreenManager.getInstance().screenWidth, "Player " + (i + 1).toString() + " had " + this.player_list[i].laps.toString() + " booty calls!");
+                t = new FlxText(100, this.list_offset, ScreenManager.getInstance().screenWidth, player_list[i].driver_name + " had " + this.player_list[i].laps.toString() + " booty calls!");
                 t.size = 16;
                 t.color = 0xff000000;
                 t.alignment = "left";

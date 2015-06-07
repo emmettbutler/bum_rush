@@ -56,7 +56,8 @@ package {
             var _id:String = controller == null ?
                 (Math.random() * 100000) + "" : controller.id;
             this.registeredPlayers[_id] = {
-                'controller': keyboard ? 'keyboard' : controller
+                'controller': keyboard ? 'keyboard' : controller,
+                'tag': ControlResolver.characterTags[this.playersRegistered]
             };
         }
 
@@ -71,14 +72,17 @@ package {
         }
 
         public function addRegisteredPlayers():void {
-            var controller:GameInputDevice, player:Player;
+            var controller:GameInputDevice, player:Player, keyboard:Boolean, characterTag:Number;
             for (var kid:Object in this.registeredPlayers) {
                 if (this.registeredPlayers[kid]['controller'] == 'keyboard') {
-                    player = new Player(new DHPoint(40, 40 + Math.random() * 62), null, true);
+                    controller = null;
+                    keyboard = true;
                 } else {
                     controller = this.registeredPlayers[kid]['controller'];
-                    player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller);
+                    keyboard = false;
                 }
+                characterTag = this.registeredPlayers[kid]["tag"];
+                player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller, keyboard, characterTag);
                 this.players.add(player);
                 player.addVisibleObjects();
             }
