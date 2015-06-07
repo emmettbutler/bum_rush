@@ -159,14 +159,23 @@ package {
             }
 
             var colliders:Array = PlayersController.getInstance().getPlayerColliders().members,
-                checkpoint:Checkpoint, curPlayer:Player, curCollider:GameObject;
+                checkpoint:Checkpoint, curPlayer:Player, curCollider:GameObject,
+                k:int, curCompareCollider:GameObject, curComparePlayer:Player;
             for (var i:int = 0; i < colliders.length; i++) {
                 curCollider = colliders[i];
                 curPlayer = curCollider.parent as Player;
-                for (var k:int = 0; k < this.checkpoints.members.length; k++) {
+                for (k = 0; k < this.checkpoints.members.length; k++) {
                     checkpoint = this.checkpoints.members[k];
                     if (curCollider._getRect().overlaps(checkpoint._getRect())) {
                         this.overlapPlayerCheckpoints(curPlayer, checkpoint);
+                    }
+                }
+
+                for (k = 0; k < colliders.length; k++) {
+                    curCompareCollider = colliders[i];
+                    curComparePlayer = curCollider.parent as Player;
+                    if (curCollider._getRect().overlaps(curCompareCollider._getRect())) {
+                        this.overlapPlayers(curPlayer, curComparePlayer);
                     }
                 }
 
@@ -191,14 +200,10 @@ package {
             player.crossCheckpoint(checkpoint, this.checkpoints.length - 1);
         }
 
-        public function overlapPlayers(player1Collider:GameObject,
-                                       player2Collider:GameObject):void
+        public function overlapPlayers(player1:Player, player2:Player):void
         {
-            if (player1Collider == null || player2Collider == null) {
-                return;
-            }
-            (player1Collider.parent as Player).collisionCallback(player2Collider.parent as Player);
-            (player2Collider.parent as Player).collisionCallback(player1Collider.parent as Player);
+            player1.collisionCallback(player2);
+            player2.collisionCallback(player1);
         }
 
     }

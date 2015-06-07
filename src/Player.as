@@ -115,7 +115,7 @@ package {
         }
 
         public function updateMovement():void {
-            this.dir = this.dir.add(this.accel).limited(5);
+            this.dir = this.dir.add(this.accel).limited(6);
             this.setPos(this.pos.add(this.dir));
 
             if (this.throttle) {  // accelerating
@@ -292,7 +292,9 @@ package {
         }
 
         public function collisionCallback(player:Player):void {
-            var disp:DHPoint = this.getCollider().getMiddle().sub(player.getMiddle());
+            var disp:DHPoint = this.getCollider().getMiddle().sub(player.getCollider().getMiddle());
+            //var scaler:Number = player.dir._length();
+            //this.accel = disp.normalized().mulScl(Math.max(5, scaler));
         }
 
         override public function setPos(pos:DHPoint):void {
