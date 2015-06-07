@@ -24,7 +24,6 @@ package {
                 t.alignment = "left";
                 FlxG.state.add(t);
                 this.list_offset += 50;
-                trace(i);
             }
         }
 

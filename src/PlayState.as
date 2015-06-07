@@ -24,7 +24,8 @@ package {
             var checkpoint:Checkpoint;
             checkpoint = new Checkpoint(
                 new DHPoint(0, 0),
-                new DHPoint(10, 120)
+                new DHPoint(10, 120),
+                Checkpoint.HOME
             );
             this.checkpoints.add(checkpoint);
             checkpoint = new Checkpoint(
@@ -54,6 +55,10 @@ package {
                     cur.setPos(new DHPoint(
                         event.userData['bg'].width * .27,
                         event.userData['bg'].height * .88
+                    ));
+                    cur.setImgPos(new DHPoint(
+                        event.userData['bg'].width * .27,
+                        event.userData['bg'].height * .62
                     ));
                     cur.index = 3;
 

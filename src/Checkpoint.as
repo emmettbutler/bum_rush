@@ -4,6 +4,7 @@ package {
     public class Checkpoint extends GameObject{
         [Embed(source="/../assets/AptBuilding_6.png")] private var AptSprite:Class;
         [Embed(source="/../assets/BeerStore_1.png")] private var BoozeSprite:Class;
+        [Embed(source="/../assets/Home_1.png")] private var HomeSprite:Class;
 
         private var dimensions:DHPoint;
         private var idx:Number, frameRate:Number = 12;
@@ -11,6 +12,7 @@ package {
 
         public static const APARTMENT:String = "booty call spot";
         public static const BOOZE:String = "booze spot";
+        public static const HOME:String = "start at home";
 
         public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null) {
             super(pos);
@@ -33,6 +35,10 @@ package {
 
                 case Checkpoint.BOOZE:
                 this.checkpoint_sprite.loadGraphic(this.BoozeSprite, false, false, 128, 128);
+                break;
+
+                case Checkpoint.HOME:
+                this.checkpoint_sprite.loadGraphic(this.HomeSprite, false, false, 128, 128);
                 break;
             }
         }
