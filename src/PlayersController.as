@@ -95,8 +95,6 @@ package {
         }
 
         private function controllerAdded(gameInputEvent:GameInputEvent):void {
-            trace("Controller Added! GameInput.numDevices is " + GameInput.numDevices);
-            //Controller #1 - lazy test
             var device:GameInputDevice;
             this.controllers = new Array();
             for(var k:Number = 0; k < GameInput.numDevices; ++k) {
@@ -104,24 +102,23 @@ package {
                 if (device == null) {
                     continue;
                 }
+
+                var mapping:Object = ControlResolver.controllerMappings[device.name];
+                var usedButtons:Array = new Array();
+                for (var kButton:String in mapping) {
+                    usedButtons.push(mapping[kButton]);
+                }
                 //get all the buttons (loop through number of controls) and add the on change listener
                 //this indicates if a button pressed, and gets the value...
                 for(var i:Number = 0; i < device.numControls; ++i) {
                     control = device.getControlAt(i);
-                    control.addEventListener(Event.CHANGE, controllerChanged);
-                    trace("CONTROLS: " + control.id);
+                    if (usedButtons.indexOf(control.id) != -1) {
+                        control.addEventListener(Event.CHANGE, controllerChanged);
+                    }
                 }
                 device.enabled = true;
 
                 this.controllers.push(device);
-
-                trace("device.enabled - " + device.enabled);
-                trace("device.id - " + device.id);
-                trace("device.name - " + device.name);
-                trace("device.numControls - " + device.numControls);
-                trace("device.sampleInterval - " + device.sampleInterval);
-                trace("device.MAX_BUFFER - " + GameInputDevice.MAX_BUFFER_SIZE);
-                trace("device.numControls - " + device.numControls);
             }
         }
 
