@@ -3,12 +3,13 @@ package {
 
     public class PlayState extends GameState {
         [Embed(source="/../assets/instruction_anim.png")] private var InstructionSprite:Class;
+        [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
         private var checkpoints:FlxGroup;
-        private var instructions:GameObject;
+        private var instructions:GameObject, start_sprite:GameObject;
         private var timer_text:FlxText;
-        private var started_race:Boolean = false;
+        private var started_race:Boolean = false, shown_start_anim:Boolean = false;
         private var race_time_left:Number, raceTimeAlive:Number;
-        private static const RACE_LENGTH:Number = 60;
+        private static const RACE_LENGTH:Number = 61;
 
         override public function create():void {
             super.create();
@@ -88,6 +89,11 @@ package {
             this.timer_text.size = 20;
             FlxG.state.add(this.timer_text);
 
+            this.start_sprite = new GameObject(new DHPoint(0,0));
+            this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
+            this.start_sprite.addAnimation("play", [0,1,2], .5, false);
+            FlxG.state.add(this.start_sprite);
+
             this.instructions = new GameObject(new DHPoint(0,0));
             this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
             this.instructions.addAnimation("play",[0,1,2],.5,false);
@@ -100,9 +106,17 @@ package {
 
             if(this.instructions.finished) {
                 if(!this.started_race) {
-                    this.instructions.visible = false;
-                    this.started_race = true;
-                    this.startRaceTimer();
+                    if(!this.shown_start_anim) {
+                        this.instructions.visible = false;
+                        this.start_sprite.play("play");
+                        this.shown_start_anim = true;
+                    }
+
+                    if(this.start_sprite.finished) {
+                        this.start_sprite.visible = false;
+                        this.started_race = true;
+                        this.startRaceTimer();
+                    }
                 }
             }
 
