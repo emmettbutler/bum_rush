@@ -6,6 +6,7 @@ package {
         [Embed(source="/../assets/instruction_anim.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
+
         private var checkpoints:FlxGroup;
         private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
         private var timer_text:FlxText;

@@ -2,6 +2,8 @@ package {
     import org.flixel.*;
 
     public class RegistrationIndicator extends GameObject {
+        [Embed(source="/../assets/JoinUp_8.png")] private var ImgJoined1:Class;
+
         private var textBox:FlxText;
         private var image:GameObject;
         private var _name:String;
@@ -13,13 +15,15 @@ package {
             this.textBox.setFormat(null, 20, 0xffffffff, "center");
 
             this.image = new GameObject(pos);
-            this.image.makeGraphic(20, 20, 0xffff0000);
+            this.image.loadGraphic(ImgJoined1, true, false, 664 / 8, 136);
+            this.image.addAnimation("play", [0, 1, 2, 3, 4, 5, 6, 7], 12, false);
         }
 
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
             FlxG.state.add(this.textBox);
             FlxG.state.add(this.image);
+            this.image.play("play");
         }
 
         override public function setPos(pos:DHPoint):void {

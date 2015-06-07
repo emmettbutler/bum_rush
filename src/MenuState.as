@@ -51,7 +51,7 @@ package {
                 this.curIndicator = this.registerIndicators[i];
                 this.curIndicator.setPos(new DHPoint(
                     (ScreenManager.getInstance().screenWidth / (this.registerIndicators.length + 1)) * (i + 1),
-                    ScreenManager.getInstance().screenHeight - 100
+                    ScreenManager.getInstance().screenHeight - 200
                 ));
             }
         }
