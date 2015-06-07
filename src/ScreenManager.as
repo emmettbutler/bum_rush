@@ -135,7 +135,7 @@ package {
                     bg.x = origin.x;
                     bg.y = origin.y;
                     FlxG.stage.dispatchEvent(
-                        new DataEvent(GameState.EVENT_SINGLETILE_BG_LOADED,
+                        new DHDataEvent(GameState.EVENT_SINGLETILE_BG_LOADED,
                                       {'bg_scale': bgScale, 'bg': bg}));
                 }
             );
