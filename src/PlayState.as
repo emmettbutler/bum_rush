@@ -13,7 +13,7 @@ package {
         private var started_race:Boolean = false, shown_start_anim:Boolean = false;
         private var race_time_left:Number, raceTimeAlive:Number;
         private var collider:FlxExtSprite;
-        private static const RACE_LENGTH:Number = 61;
+        private static const RACE_LENGTH:Number = 60;
 
         override public function create():void {
             super.create();
@@ -102,7 +102,7 @@ package {
                 this.checkpoints.members[i].addVisibleObjects();
             }
 
-            PlayersController.getInstance().addRegisteredPlayers();
+            PlayersController.getInstance().addRegisteredPlayers(this.checkpoints.length);
 
             this.timer_text = new FlxText(10,10,1000,"");
             this.timer_text.size = 20;
@@ -118,20 +118,20 @@ package {
             FlxG.state.add(this.time_out_sprite);
             this.time_out_sprite.visible = false;
 
-            this.instructions = new GameObject(new DHPoint(0,0));
+            /*this.instructions = new GameObject(new DHPoint(0,0));
             this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
             this.instructions.addAnimation("play",[0,1,2],.5,false);
             FlxG.state.add(this.instructions);
-            this.instructions.play("play");
+            this.instructions.play("play");*/
         }
 
         override public function update():void {
             super.update();
 
-            if(this.instructions.finished) {
+            //if(this.instructions.finished) {
                 if(!this.started_race) {
                     if(!this.shown_start_anim) {
-                        this.instructions.visible = false;
+                        //this.instructions.visible = false;
                         this.start_sprite.play("play");
                         this.shown_start_anim = true;
                     }
@@ -142,7 +142,7 @@ package {
                         this.startRaceTimer();
                     }
                 }
-            }
+            //}
 
             if(this.started_race) {
                 this.raceTimeAlive = this.curTime - this.raceBornTime;
@@ -198,7 +198,7 @@ package {
         public function overlapPlayerCheckpoints(player:Player,
                                                  checkpoint:Checkpoint):void
         {
-            player.crossCheckpoint(checkpoint, this.checkpoints.length - 1);
+            player.crossCheckpoint(checkpoint);
         }
 
         public function overlapPlayers(player1:Player, player2:Player):void

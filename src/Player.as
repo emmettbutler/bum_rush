@@ -12,17 +12,18 @@ package {
                     collideDirection:DHPoint, throttle:Boolean,
                     facingVector:DHPoint;
         private var _colliding:Boolean = false;
-        private var _collisionDirection:Array;
-        private var lapIndicator:FlxText;
+        private var _collisionDirection:Array, _checkpointStatusList:Array;
+        private var completionIndicator:FlxText;
         private var _driver_name:String;
-        private var driver_tag:Number, frameRate:Number = 12, _laps:Number = 0, lastLapTime:Number = -1;
+        private var driver_tag:Number, frameRate:Number = 12, _checkpoints_completed:Number = 0, completionTime:Number = -1;
+        private var _checkpoints_complete:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
                                keyboard:Boolean=false,
-                               _tag:Number=0):void
+                               _tag:Number=0, checkpoint_count:Number=0):void
         {
             super(pos);
 
@@ -39,10 +40,16 @@ package {
             var tagData:Object = PlayersController.getInstance().resolveTag(this.driver_tag);
             this.driver_sprite = tagData['sprite'];
             this._driver_name = tagData['name'];
+            this._checkpointStatusList = new Array();
 
             this.addAnimations();
-            this.lapIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
-            this.lapIndicator.setFormat(null, 30, 0xffff0000, "center");
+            this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
+            this.completionIndicator.setFormat(null, 20, 0xffff0000, "center");
+
+            this._checkpointStatusList = new Array();
+            for(var i:Number = 0; i < checkpoint_count; i++) {
+                this._checkpointStatusList.push(false);
+            }
         }
 
         public function addAnimations():void {
@@ -73,30 +80,40 @@ package {
 
         override public function addVisibleObjects():void {
             FlxG.state.add(this.mainSprite);
-            FlxG.state.add(this.lapIndicator);
+            FlxG.state.add(this.completionIndicator);
         }
 
         public function get lastCheckpointIdx():Number {
             return this._lastCheckpointIdx;
         }
 
-        public function get laps():Number {
-            return this._laps;
+        public function get checkpoints_complete():Boolean {
+            return this._checkpoints_complete;
         }
 
         public function get driver_name():String {
             return this._driver_name;
         }
 
-        public function crossCheckpoint(checkpoint:Checkpoint, lastIdx:Number):void {
-            if (this._lastCheckpointIdx == checkpoint.index - 1 ||
-                (this._lastCheckpointIdx == lastIdx && checkpoint.index == 0))
+        public function get checkpointStatusList():Array {
+            return this._checkpointStatusList;
+        }
+
+        public function crossCheckpoint(checkpoint:Checkpoint):void {
+            if (!this._checkpointStatusList[checkpoint.index])
             {
-                this._lastCheckpointIdx = checkpoint.index;
-                if (this._lastCheckpointIdx == lastIdx) {
-                    this._laps += 1;
-                    this.lastLapTime = this.curTime;
-                    this.lapIndicator.text = this._laps + "";
+                var checkpointsComplete:Boolean = true;
+                this._checkpointStatusList[checkpoint.index] = true;
+                this._checkpoints_completed += 1;
+                for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
+                    if(!this._checkpointStatusList[n]) {
+                        checkpointsComplete = false;
+                    }
+                }
+                if(checkpointsComplete) {
+                    this._checkpoints_complete = true;
+                    this.completionTime = this.curTime;
+                    this.completionIndicator.text = "Checkpoints complete!";
                 }
             }
         }
@@ -109,8 +126,8 @@ package {
                 this.updateKeyboard();
             }
 
-            if ((this.curTime - this.lastLapTime) / 1000 >= 2) {
-                this.lapIndicator.text = "";
+            if ((this.curTime - this.completionTime) / 1000 >= 2) {
+                this.completionIndicator.text = "";
             }
         }
 
@@ -300,8 +317,8 @@ package {
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
             this.mainSprite.setPos(pos);
-            this.lapIndicator.x = pos.x;
-            this.lapIndicator.y = pos.y;
+            this.completionIndicator.x = pos.x;
+            this.completionIndicator.y = pos.y;
         }
     }
 }

@@ -97,7 +97,7 @@ package {
             return this.players.members;
         }
 
-        public function addRegisteredPlayers():void {
+        public function addRegisteredPlayers(checkpoint_count:Number):void {
             var controller:GameInputDevice, player:Player, keyboard:Boolean, characterTag:Number;
             for (var kid:Object in this.registeredPlayers) {
                 if (this.registeredPlayers[kid]['controller'] == 'keyboard') {
@@ -108,7 +108,7 @@ package {
                     keyboard = false;
                 }
                 characterTag = this.registeredPlayers[kid]["tag"];
-                player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller, keyboard, characterTag);
+                player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller, keyboard, characterTag, checkpoint_count);
                 this.players.add(player);
                 player.addVisibleObjects();
             }
