@@ -90,22 +90,24 @@ package org.flixel.plugin.photonstorm
                 }
             }
 
+            // get the origin point of each colliding object
             pointA.x = contactPos.x - int(cam.scroll.x * contact.scrollFactor.x) - contact.offset.x;
             pointA.y = contactPos.y - int(cam.scroll.y * contact.scrollFactor.y) - contact.offset.y;
-
             pointB.x = target.x - int(cam.scroll.x * target.scrollFactor.x) - target.offset.x;
             pointB.y = target.y - int(cam.scroll.y * target.scrollFactor.y) - target.offset.y;
 
+            // build a bounding box for each object involved in collision
             var boundsA:Rectangle = new Rectangle(pointA.x, pointA.y, contactPixels.width, contactPixels.height);
             var boundsB:Rectangle = new Rectangle(pointB.x, pointB.y, target.framePixels.width, target.framePixels.height);
 
+            // figure out the bounds of the intersection between the two bounding boxes
             var intersect:Rectangle = boundsA.intersection(boundsB);
 
             if (intersect.isEmpty() || intersect.width == 0 || intersect.height == 0) {
                 return [false, null];
             }
 
-            //    Normalise the values or it'll break the BitmapData creation below
+            // Normalise the values or it'll break the BitmapData creation below
             intersect.x = Math.floor(intersect.x);
             intersect.y = Math.floor(intersect.y);
             intersect.width = Math.ceil(intersect.width);
@@ -115,17 +117,18 @@ package org.flixel.plugin.photonstorm
                 return [false, null];
             }
 
-            //    Thanks to Chris Underwood for helping with the translate logic :)
-
+            // generate translation matrices. these are used to position the bitmaps
+            // of the colliding objects in the same way the objects themselves
+            // are positioned.
             var matrixA:Matrix = new Matrix;
             matrixA.translate(-(intersect.x - boundsA.x), -(intersect.y - boundsA.y));
-
             var matrixB:Matrix = new Matrix;
             matrixB.translate(-(intersect.x - boundsB.x), -(intersect.y - boundsB.y));
 
             var testA:BitmapData = contactPixels;
             var testB:BitmapData = target.framePixels;
 
+            // draw the overlap in an invisible bitmap
             var overlapArea:BitmapData = new BitmapData(intersect.width, intersect.height, true, 0x00000000);
             overlapArea.draw(testA, matrixA, new ColorTransform(1, 1, 1, 1, 255, -255, -255, alphaTolerance), BlendMode.NORMAL);
             overlapArea.draw(testB, matrixB, new ColorTransform(1, 1, 1, 1, 255, 255, 255, alphaTolerance), BlendMode.DIFFERENCE);
