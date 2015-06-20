@@ -9,6 +9,7 @@ package {
         private var dimensions:DHPoint;
         private var idx:Number, frameRate:Number = 12;
         private var checkpoint_sprite:GameObject;
+        private var _cp_type:String;
 
         public static const APARTMENT:String = "booty call spot";
         public static const BOOZE:String = "booze spot";
@@ -31,14 +32,17 @@ package {
                 this.checkpoint_sprite.addAnimation("play", [0,1,2,3,4,5],
                                                     this.frameRate, true);
                 this.checkpoint_sprite.play("play");
+                this._cp_type = Checkpoint.APARTMENT;
                 break;
 
                 case Checkpoint.BOOZE:
                 this.checkpoint_sprite.loadGraphic(this.BoozeSprite, false, false, 128, 128);
+                this._cp_type = Checkpoint.BOOZE;
                 break;
 
                 case Checkpoint.HOME:
                 this.checkpoint_sprite.loadGraphic(this.HomeSprite, false, false, 128, 128);
+                this._cp_type = Checkpoint.HOME;
                 break;
             }
         }
@@ -49,6 +53,10 @@ package {
 
         public function set index(n:Number):void {
             this.idx = n;
+        }
+
+        public function get cp_type():String {
+            return this._cp_type;
         }
 
         public function setImgPos(p:DHPoint):void {

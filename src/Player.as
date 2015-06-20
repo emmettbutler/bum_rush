@@ -17,7 +17,7 @@ package {
         private var completionIndicator:FlxText;
         private var _driver_name:String;
         private var driver_tag:Number, frameRate:Number = 12, _checkpoints_completed:Number = 0, completionTime:Number = -1;
-        private var _checkpoints_complete:Boolean = false;
+        private var _checkpoints_complete:Boolean = false, _winner:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
 
@@ -109,21 +109,31 @@ package {
             return this._checkpointStatusList;
         }
 
+        public function get winner():Boolean {
+            return this._winner;
+        }
+
         public function crossCheckpoint(checkpoint:Checkpoint):void {
-            if (!this._checkpointStatusList[checkpoint.index])
-            {
-                var checkpointsComplete:Boolean = true;
-                this._checkpointStatusList[checkpoint.index] = true;
-                this._checkpoints_completed += 1;
-                for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
-                    if(!this._checkpointStatusList[n]) {
-                        checkpointsComplete = false;
+            if(!this._checkpoints_complete) {
+                if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
+                {
+                    var checkpointsComplete:Boolean = true;
+                    this._checkpointStatusList[checkpoint.index] = true;
+                    this._checkpoints_completed += 1;
+                    for (var n:Number = 0; n < this._checkpointStatusList.length - 1; n++) {
+                        if(!this._checkpointStatusList[n]) {
+                            checkpointsComplete = false;
+                        }
+                    }
+                    if(checkpointsComplete) {
+                        this._checkpoints_complete = true;
+                        this.completionTime = this.curTime;
+                        this.completionIndicator.text = "Checkpoints complete!";
                     }
                 }
-                if(checkpointsComplete) {
-                    this._checkpoints_complete = true;
-                    this.completionTime = this.curTime;
-                    this.completionIndicator.text = "Checkpoints complete!";
+            } else {
+                if(checkpoint.cp_type == Checkpoint.HOME) {
+                    this._winner = true;
                 }
             }
         }

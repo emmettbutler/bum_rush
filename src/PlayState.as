@@ -10,8 +10,8 @@ package {
         private var checkpoints:FlxGroup;
         private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
         private var timer_text:FlxText;
-        private var started_race:Boolean = false, shown_start_anim:Boolean = false;
-        private var race_time_left:Number, raceTimeAlive:Number;
+        private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
+        private var race_time_left:Number, raceTimeAlive:Number, raceEndedAt:Number;
         private var collider:FlxExtSprite;
         private static const RACE_LENGTH:Number = 60;
 
@@ -151,10 +151,10 @@ package {
             }
 
             if(this.race_time_left <= 0) {
-                this.time_out_sprite.visible = true;
-                this.timer_text.visible = false;
-                if(Math.floor(this.raceTimeAlive/1000) >= Math.floor(PlayState.RACE_LENGTH + 5)) {
-                    this.gameActive = false;
+                this.endRace();
+            }
+            if(this.finished) {
+                if(this.race_time_left <= this.raceEndedAt - 5) {
                     FlxG.switchState(new EndState());
                 }
             }
@@ -190,10 +190,23 @@ package {
             super.destroy();
         }
 
+        public function endRace():void {
+            if(!this.finished) {
+                this.raceEndedAt = this.race_time_left;
+                this.finished = true;
+                this.time_out_sprite.visible = true;
+                this.timer_text.visible = false;
+                this.gameActive = false;
+            }
+        }
+
         public function overlapPlayerCheckpoints(player:Player,
                                                  checkpoint:Checkpoint):void
         {
             player.crossCheckpoint(checkpoint);
+            if(player.winner) {
+                this.endRace();
+            }
         }
 
         public function overlapPlayers(player1:Player, player2:Player):void
