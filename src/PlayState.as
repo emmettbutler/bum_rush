@@ -155,6 +155,7 @@ package {
             for (var i:int = 0; i < colliders.length; i++) {
                 curCollider = colliders[i];
                 curPlayer = curCollider.parent as Player;
+                curPlayer.colliding = false;
                 for (k = 0; k < this.checkpoints.members.length; k++) {
                     checkpoint = this.checkpoints.members[k];
                     if (curCollider._getRect().overlaps(checkpoint._getRect())) {
@@ -163,16 +164,23 @@ package {
                 }
 
                 for (k = 0; k < colliders.length; k++) {
-                    curCompareCollider = colliders[i];
+                    curCompareCollider = colliders[k];
                     curComparePlayer = curCollider.parent as Player;
-                    if (curCollider._getRect().overlaps(curCompareCollider._getRect())) {
-                        this.overlapPlayers(curPlayer, curComparePlayer);
+                    if (curCollider != curCompareCollider) {
+                        var collisionData:Array = FlxCollision.pixelPerfectCheck(
+                            curCollider, curCompareCollider, 255, null,
+                            curPlayer.collisionDirection, true, 4);
+                        if (collisionData[0]) {
+                            curPlayer.colliding = collisionData[0];
+                        }
                     }
                 }
 
-                var collisionData:Array = FlxCollision.pixelPerfectCheck(
+                collisionData = FlxCollision.pixelPerfectCheck(
                     curCollider, this.collider, 255, null, curPlayer.collisionDirection);
-                curPlayer.colliding = collisionData[0];
+                if (collisionData[0]) {
+                    curPlayer.colliding = collisionData[0];
+                }
             }
         }
 
@@ -197,12 +205,5 @@ package {
                 }
             }
         }
-
-        public function overlapPlayers(player1:Player, player2:Player):void
-        {
-            player1.collisionCallback(player2);
-            player2.collisionCallback(player1);
-        }
-
     }
 }

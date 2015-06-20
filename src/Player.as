@@ -170,6 +170,16 @@ package {
                 this.dir.y = 0;
             }
 
+            if (this._collisionDirection != null) {
+                /*
+                this.debugText.text = "[" +
+                    this._collisionDirection[0] + ", " +
+                    this._collisionDirection[1] + ", " +
+                    this._collisionDirection[2] + ", " +
+                    this._collisionDirection[3] + "]";
+                    */
+            }
+
             if (this._colliding) {
                 if (this._collisionDirection != null) {
                     if (this._collisionDirection[0] == 1 &&
@@ -200,6 +210,10 @@ package {
                     }
                 }
             }
+            this._collisionDirection[0] = 0;
+            this._collisionDirection[1] = 0;
+            this._collisionDirection[2] = 0;
+            this._collisionDirection[3] = 0;
         }
 
         public function updateDrivingAnimation():void {

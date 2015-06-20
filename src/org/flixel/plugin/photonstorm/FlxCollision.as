@@ -59,6 +59,7 @@ package org.flixel.plugin.photonstorm
                                                  camera:FlxCamera = null,
                                                  collideData:Array=null,
                                                  showCollider:Boolean=false,
+                                                 threshold_:Number=-1,
                                                  rotationOrigin:DHPoint=null):Array
         {
             var pointA:Point = new Point;
@@ -159,7 +160,8 @@ package org.flixel.plugin.photonstorm
             edgeRect.height = leftEdge.height;
             leftEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
             var leftEdgeCollisionBounds:Rectangle = leftEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
-            var collidingLeft:Boolean = leftEdgeCollisionBounds.width >= leftEdge.width - 1 && leftEdgeCollisionBounds.height >= leftEdge.height - 1;
+            var collidingLeft:Boolean = leftEdgeCollisionBounds.width >= leftEdge.width - 1 &&
+                leftEdgeCollisionBounds.height >= (threshold_ == -1 ? leftEdge.height - 1 : threshold_);
 
             var rightEdge:BitmapData = new BitmapData(2, Math.floor(boundsA.height));
             edgeRect.x = boundsA.width - rightEdge.width;
@@ -168,7 +170,8 @@ package org.flixel.plugin.photonstorm
             edgeRect.height = rightEdge.height;
             rightEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
             var rightEdgeCollisionBounds:Rectangle = rightEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
-            var collidingRight:Boolean = rightEdgeCollisionBounds.width >= rightEdge.width - 1 && rightEdgeCollisionBounds.height >= rightEdge.height - 1;
+            var collidingRight:Boolean = rightEdgeCollisionBounds.width >= rightEdge.width - 1 &&
+                rightEdgeCollisionBounds.height >= (threshold_ == -1 ? rightEdge.height - 1 : threshold_);
 
             var topEdge:BitmapData = new BitmapData(Math.floor(boundsA.width), 2);
             edgeRect.x = 0;
@@ -177,7 +180,8 @@ package org.flixel.plugin.photonstorm
             edgeRect.height = topEdge.height;
             topEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
             var topEdgeCollisionBounds:Rectangle = topEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
-            var collidingTop:Boolean = topEdgeCollisionBounds.height >= topEdge.height - 1 && topEdgeCollisionBounds.width >= topEdge.width - 1;
+            var collidingTop:Boolean = topEdgeCollisionBounds.height >= topEdge.height - 1 &&
+                topEdgeCollisionBounds.width >= (threshold_ == -1 ? topEdge.width - 1 : threshold_);
 
             var bottomEdge:BitmapData = new BitmapData(Math.floor(boundsA.width), 2);
             edgeRect.x = 0;
@@ -186,7 +190,8 @@ package org.flixel.plugin.photonstorm
             edgeRect.height = bottomEdge.height;
             bottomEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
             var bottomEdgeCollisionBounds:Rectangle = bottomEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
-            var collidingBottom:Boolean = bottomEdgeCollisionBounds.height >= bottomEdge.height - 1 && bottomEdgeCollisionBounds.width >= bottomEdge.width - 1;
+            var collidingBottom:Boolean = bottomEdgeCollisionBounds.height >= bottomEdge.height - 1 &&
+                bottomEdgeCollisionBounds.width >= (threshold_ == -1 ? bottomEdge.width - 1 : threshold_);
 
             var overlap:Rectangle = overlapArea.getColorBoundsRect(0xffffffff, 0xff00ffff);
             overlap.offset(intersect.x, intersect.y);
@@ -200,10 +205,10 @@ package org.flixel.plugin.photonstorm
                 if (collideData == null) {
                     collideData = new Array(0, 0, 0, 0);  // left, right, up, down
                 }
-                collideData[0] = collidingLeft ? 1 : 0;
-                collideData[1] = collidingRight ? 1 : 0;
-                collideData[2] = collidingTop ? 1 : 0;
-                collideData[3] = collidingBottom ? 1 : 0;
+                collideData[0] = collidingLeft || collideData[0] ? 1 : 0;
+                collideData[1] = collidingRight || collideData[1] ? 1 : 0;
+                collideData[2] = collidingTop || collideData[2] ? 1 : 0;
+                collideData[3] = collidingBottom || collideData[3] ? 1 : 0;
                 return [true, collideData];
             }
         }
