@@ -34,6 +34,10 @@ package org.flixel.plugin.photonstorm
         public static var CAMERA_WALL_OUTSIDE:uint = 0;
         public static var CAMERA_WALL_INSIDE:uint = 1;
 
+        {
+            private static var edgeRect:Rectangle = new Rectangle(0, 0, 1, 1);
+        }
+
         public function FlxCollision()
         {
         }
@@ -53,8 +57,7 @@ package org.flixel.plugin.photonstorm
         public static function pixelPerfectCheck(contact:FlxSprite, target:FlxSprite,
                                                  alphaTolerance:int = 255,
                                                  camera:FlxCamera = null,
-                                                 collisionWidthThreshold:Number=0,
-                                                 collisionHeightThreshold:Number=0,
+                                                 collideData:Array=null,
                                                  showCollider:Boolean=false,
                                                  rotationOrigin:DHPoint=null):Array
         {
@@ -149,6 +152,42 @@ package org.flixel.plugin.photonstorm
                 }, 500);
             }
 
+            var leftEdge:BitmapData = new BitmapData(2, Math.floor(boundsA.height));
+            edgeRect.x = 0;
+            edgeRect.y = 0;
+            edgeRect.width = leftEdge.width;
+            edgeRect.height = leftEdge.height;
+            leftEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
+            var leftEdgeCollisionBounds:Rectangle = leftEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
+            var collidingLeft:Boolean = leftEdgeCollisionBounds.width >= leftEdge.width - 1 && leftEdgeCollisionBounds.height >= leftEdge.height - 1;
+
+            var rightEdge:BitmapData = new BitmapData(2, Math.floor(boundsA.height));
+            edgeRect.x = boundsA.width - rightEdge.width;
+            edgeRect.y = 0;
+            edgeRect.width = rightEdge.width;
+            edgeRect.height = rightEdge.height;
+            rightEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
+            var rightEdgeCollisionBounds:Rectangle = rightEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
+            var collidingRight:Boolean = rightEdgeCollisionBounds.width >= rightEdge.width - 1 && rightEdgeCollisionBounds.height >= rightEdge.height - 1;
+
+            var topEdge:BitmapData = new BitmapData(Math.floor(boundsA.width), 2);
+            edgeRect.x = 0;
+            edgeRect.y = 0;
+            edgeRect.width = topEdge.width;
+            edgeRect.height = topEdge.height;
+            topEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
+            var topEdgeCollisionBounds:Rectangle = topEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
+            var collidingTop:Boolean = topEdgeCollisionBounds.height >= topEdge.height - 1 && topEdgeCollisionBounds.width >= topEdge.width - 1;
+
+            var bottomEdge:BitmapData = new BitmapData(Math.floor(boundsA.width), 2);
+            edgeRect.x = 0;
+            edgeRect.y = boundsA.height - bottomEdge.height;
+            edgeRect.width = bottomEdge.width;
+            edgeRect.height = bottomEdge.height;
+            bottomEdge.copyPixels(overlapArea, edgeRect, new Point(0, 0));
+            var bottomEdgeCollisionBounds:Rectangle = bottomEdge.getColorBoundsRect(0xffffffff, 0xff00ffff);
+            var collidingBottom:Boolean = bottomEdgeCollisionBounds.height >= bottomEdge.height - 1 && bottomEdgeCollisionBounds.width >= bottomEdge.width - 1;
+
             var overlap:Rectangle = overlapArea.getColorBoundsRect(0xffffffff, 0xff00ffff);
             overlap.offset(intersect.x, intersect.y);
 
@@ -158,28 +197,14 @@ package org.flixel.plugin.photonstorm
             else {
                 // added to include information about the direction of the collision
                 // with respect to contact
-
-                // don't use a dhpoint for these to avoid using "new" unnecessarily
-                var overlapOffsetX:Number = (intersect.x + intersect.width/2) - overlap.x;
-                var overlapOffsetY:Number = (intersect.y + intersect.height/2) - overlap.y;
-                var ret:Array = new Array(0, 0, 0, 0);  // left, right, up, down
-                if (overlap.width > collisionWidthThreshold) {
-                    ret[2] = overlapOffsetY > 0 ? 1 : 0;
-                    ret[3] = overlapOffsetY < 0 ? 1 : 0;
-                    if (overlap.height >= contact.height - 5) {
-                        ret[2] = 1;
-                        ret[3] = 1;
-                    }
+                if (collideData == null) {
+                    collideData = new Array(0, 0, 0, 0);  // left, right, up, down
                 }
-                if (overlap.height > collisionHeightThreshold) {
-                    ret[0] = overlapOffsetX > 0 ? 1 : 0;
-                    ret[1] = overlapOffsetX < 0 ? 1 : 0;
-                    if (overlap.width >= contact.width - 5) {
-                        ret[0] = 1;
-                        ret[1] = 1;
-                    }
-                }
-                return [true, ret];
+                collideData[0] = collidingLeft ? 1 : 0;
+                collideData[1] = collidingRight ? 1 : 0;
+                collideData[2] = collidingTop ? 1 : 0;
+                collideData[3] = collidingBottom ? 1 : 0;
+                return [true, collideData];
             }
         }
 
