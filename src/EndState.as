@@ -18,7 +18,7 @@ package {
 
             for(var i:Number = 0; i < player_list.length; i++) {
                 var t:FlxText;
-                if(player_list[i].checkpoints_complete) {
+                if(player_list[i].winner) {
                     t = new FlxText(100, this.list_offset, ScreenManager.getInstance().screenWidth, "Yoooo this is " + player_list[i].driver_name + ". Ya'll mind sleeping at a friends place tonight? I need the room. ;) ;) ;)");
                     t.size = 16;
                     t.color = 0xff000000;

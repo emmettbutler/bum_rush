@@ -9,9 +9,8 @@ package {
 
         private var checkpoints:FlxGroup;
         private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
-        private var timer_text:FlxText;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
-        private var race_time_left:Number, raceTimeAlive:Number, raceEndedAt:Number;
+        private var raceTimeAlive:Number, raceEndTimer:Number;
         private var collider:FlxExtSprite;
         private static const RACE_LENGTH:Number = 60;
 
@@ -104,10 +103,6 @@ package {
 
             PlayersController.getInstance().addRegisteredPlayers(this.checkpoints.length);
 
-            this.timer_text = new FlxText(10,10,1000,"");
-            this.timer_text.size = 20;
-            FlxG.state.add(this.timer_text);
-
             this.start_sprite = new GameObject(new DHPoint(0,0));
             this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
             this.start_sprite.addAnimation("play", [0,1,2], .5, false);
@@ -146,17 +141,10 @@ package {
 
             if(this.started_race) {
                 this.raceTimeAlive = this.curTime - this.raceBornTime;
-                this.race_time_left = Math.floor(PlayState.RACE_LENGTH - this.raceTimeAlive/1000);
-                this.timer_text.text = this.race_time_left + " seconds left!";
             }
 
-            if(this.race_time_left <= 0) {
-                if(!this.finished) {
-                    this.endRace();
-                }
-            }
             if(this.finished) {
-                if(this.race_time_left <= this.raceEndedAt - 5) {
+                if(this.raceEndTimer <= this.raceTimeAlive/1000) {
                     FlxG.switchState(new EndState());
                 }
             }
@@ -193,18 +181,17 @@ package {
         }
 
         public function endRace():void {
-            this.raceEndedAt = this.race_time_left;
+            this.raceEndTimer = (this.raceTimeAlive/1000) + 3;
             this.finished = true;
             this.time_out_sprite.visible = true;
-            this.timer_text.visible = false;
             this.gameActive = false;
         }
 
         public function overlapPlayerCheckpoints(player:Player,
                                                  checkpoint:Checkpoint):void
         {
-            player.crossCheckpoint(checkpoint);
             if(!this.finished) {
+                player.crossCheckpoint(checkpoint);
                 if(player.winner) {
                     this.endRace();
                 }
