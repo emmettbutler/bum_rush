@@ -151,7 +151,9 @@ package {
             }
 
             if(this.race_time_left <= 0) {
-                this.endRace();
+                if(!this.finished) {
+                    this.endRace();
+                }
             }
             if(this.finished) {
                 if(this.race_time_left <= this.raceEndedAt - 5) {
@@ -191,21 +193,21 @@ package {
         }
 
         public function endRace():void {
-            if(!this.finished) {
-                this.raceEndedAt = this.race_time_left;
-                this.finished = true;
-                this.time_out_sprite.visible = true;
-                this.timer_text.visible = false;
-                this.gameActive = false;
-            }
+            this.raceEndedAt = this.race_time_left;
+            this.finished = true;
+            this.time_out_sprite.visible = true;
+            this.timer_text.visible = false;
+            this.gameActive = false;
         }
 
         public function overlapPlayerCheckpoints(player:Player,
                                                  checkpoint:Checkpoint):void
         {
             player.crossCheckpoint(checkpoint);
-            if(player.winner) {
-                this.endRace();
+            if(!this.finished) {
+                if(player.winner) {
+                    this.endRace();
+                }
             }
         }
 
