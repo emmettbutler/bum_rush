@@ -7,6 +7,7 @@ package {
     public class Player extends GameObject {
         private var driver_sprite:Class;
         private var mainSprite:GameObject;
+        private var collider:GameObject;
         private var controller:GameInputDevice;
         private var accel:DHPoint, directionsPressed:DHPoint,
                     collideDirection:DHPoint, throttle:Boolean,
@@ -43,6 +44,7 @@ package {
             this._checkpointStatusList = new Array();
 
             this.addAnimations();
+
             this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
             this.completionIndicator.setFormat(null, 20, 0xffff0000, "center");
 
@@ -50,6 +52,12 @@ package {
             for(var i:Number = 0; i < checkpoint_count; i++) {
                 this._checkpointStatusList.push(false);
             }
+
+            this.collider = new GameObject(new DHPoint(0, 0), this);
+            this.collider.makeGraphic(this.mainSprite.width, this.mainSprite.height * .5, 0xffff0000);
+            this.collider.visible = false;
+
+            this._collisionDirection = new Array(0, 0, 0, 0);
         }
 
         public function addAnimations():void {
@@ -70,17 +78,19 @@ package {
             this._colliding = c;
         }
 
-        public function set collisionDirection(c:Array):void {
-            this._collisionDirection = c;
+        public function get collisionDirection():Array {
+            return this._collisionDirection;
         }
 
         public function getCollider():GameObject {
-            return this.mainSprite;
+            return this.collider;
         }
 
         override public function addVisibleObjects():void {
+            super.addVisibleObjects();
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.completionIndicator);
+            FlxG.state.add(this.collider);
         }
 
         public function get lastCheckpointIdx():Number {
@@ -319,6 +329,7 @@ package {
             this.mainSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
             this.completionIndicator.y = pos.y;
+            this.collider.setPos(pos.add(new DHPoint(0, this.mainSprite.height - this.collider.height)));
         }
     }
 }

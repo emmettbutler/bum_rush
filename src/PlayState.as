@@ -181,13 +181,8 @@ package {
                 }
 
                 var collisionData:Array = FlxCollision.pixelPerfectCheck(
-                    curCollider, this.collider, 255, null, 18, 20);
-                if (collisionData[0]) {
-                    curPlayer.colliding = true;
-                    curPlayer.collisionDirection = collisionData[1];
-                } else {
-                    curPlayer.colliding = false;
-                }
+                    curCollider, this.collider, 255, null, curPlayer.collisionDirection);
+                curPlayer.colliding = collisionData[0];
             }
         }
 
