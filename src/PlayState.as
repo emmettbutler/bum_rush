@@ -3,7 +3,7 @@ package {
     import org.flixel.plugin.photonstorm.FlxCollision;
 
     public class PlayState extends GameState {
-        [Embed(source="/../assets/instruction_anim.png")] private var InstructionSprite:Class;
+        [Embed(source="/../assets/intro.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
 
@@ -106,6 +106,7 @@ package {
             this.start_sprite = new GameObject(new DHPoint(0,0));
             this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
             this.start_sprite.addAnimation("play", [0,1,2], .5, false);
+            this.start_sprite.visible = false;
             FlxG.state.add(this.start_sprite);
 
             this.time_out_sprite = new GameObject(new DHPoint(0,0));
@@ -113,20 +114,23 @@ package {
             FlxG.state.add(this.time_out_sprite);
             this.time_out_sprite.visible = false;
 
-            /*this.instructions = new GameObject(new DHPoint(0,0));
+            this.instructions = new GameObject(new DHPoint(0,0));
             this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
-            this.instructions.addAnimation("play",[0,1,2],.5,false);
             FlxG.state.add(this.instructions);
-            this.instructions.play("play");*/
+
+            this.startRaceTimer();
         }
 
         override public function update():void {
             super.update();
 
-            //if(this.instructions.finished) {
+            this.raceTimeAlive = this.curTime - this.raceBornTime;
+
+            if(this.raceTimeAlive/1000 > 3) {
                 if(!this.started_race) {
                     if(!this.shown_start_anim) {
-                        //this.instructions.visible = false;
+                        this.instructions.visible = false;
+                        this.start_sprite.visible = true;
                         this.start_sprite.play("play");
                         this.shown_start_anim = true;
                     }
@@ -134,13 +138,8 @@ package {
                     if(this.start_sprite.finished) {
                         this.start_sprite.visible = false;
                         this.started_race = true;
-                        this.startRaceTimer();
                     }
                 }
-            //}
-
-            if(this.started_race) {
-                this.raceTimeAlive = this.curTime - this.raceBornTime;
             }
 
             if(this.finished) {
