@@ -3,6 +3,7 @@ package {
 
     import flash.ui.GameInputDevice;
     import flash.ui.GameInputControl;
+    import PlayerHud;
 
     public class Player extends GameObject {
         private var driver_sprite:Class;
@@ -20,6 +21,7 @@ package {
         private var _checkpoints_complete:Boolean = false, _winner:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
+        private var player_hud:PlayerHud;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
@@ -58,6 +60,8 @@ package {
             this.collider.visible = false;
 
             this._collisionDirection = new Array(0, 0, 0, 0);
+
+            this.player_hud = new PlayerHud(_tag);
         }
 
         public function addAnimations():void {
