@@ -20,6 +20,7 @@ package {
         private var _checkpoints_complete:Boolean = false, _winner:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
+        private var player_hud:PlayerHud;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
@@ -91,6 +92,8 @@ package {
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.completionIndicator);
             FlxG.state.add(this.collider);
+            this.player_hud = new PlayerHud(this.driver_tag);
+            this.player_hud.buildHud();
         }
 
         public function get lastCheckpointIdx():Number {
@@ -120,6 +123,7 @@ package {
                     var checkpointsComplete:Boolean = true;
                     this._checkpointStatusList[checkpoint.index] = true;
                     this._checkpoints_completed += 1;
+                    this.player_hud.finishedCheckpoint(checkpoint.cp_type);
                     for (var n:Number = 0; n < this._checkpointStatusList.length - 1; n++) {
                         if(!this._checkpointStatusList[n]) {
                             checkpointsComplete = false;
