@@ -3,7 +3,6 @@ package {
 
     import flash.ui.GameInputDevice;
     import flash.ui.GameInputControl;
-    import PlayerHud;
 
     public class Player extends GameObject {
         private var driver_sprite:Class;
@@ -60,8 +59,6 @@ package {
             this.collider.visible = false;
 
             this._collisionDirection = new Array(0, 0, 0, 0);
-
-            this.player_hud = new PlayerHud(_tag);
         }
 
         public function addAnimations():void {
@@ -95,6 +92,8 @@ package {
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.completionIndicator);
             FlxG.state.add(this.collider);
+            this.player_hud = new PlayerHud(this.driver_tag);
+            this.player_hud.buildHud();
         }
 
         public function get lastCheckpointIdx():Number {
@@ -124,6 +123,7 @@ package {
                     var checkpointsComplete:Boolean = true;
                     this._checkpointStatusList[checkpoint.index] = true;
                     this._checkpoints_completed += 1;
+                    this.player_hud.finishedCheckpoint(checkpoint.cp_type);
                     for (var n:Number = 0; n < this._checkpointStatusList.length - 1; n++) {
                         if(!this._checkpointStatusList[n]) {
                             checkpointsComplete = false;
