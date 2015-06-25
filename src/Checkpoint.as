@@ -5,6 +5,7 @@ package {
         [Embed(source="/../assets/AptBuilding_6.png")] private var AptSprite:Class;
         [Embed(source="/../assets/BeerStore_1.png")] private var BoozeSprite:Class;
         [Embed(source="/../assets/Home_1.png")] private var HomeSprite:Class;
+        [Embed(source="/../assets/sfx/getBeer.mp3")] private var CheckpointSFX:Class;
 
         private var dimensions:DHPoint;
         private var idx:Number, frameRate:Number = 12;
@@ -15,6 +16,8 @@ package {
         public static const BOOZE:String = "booze spot";
         public static const HOME:String = "start at home";
 
+        private var checkpointSound:FlxSound;
+
         public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null) {
             super(pos);
             this.dimensions = dim;
@@ -22,6 +25,10 @@ package {
             if(type != null) {
                 this.checkpoint_sprite = new GameObject(pos);
             }
+
+            this.checkpointSound = new FlxSound();
+            this.checkpointSound.loadEmbedded(CheckpointSFX,false);
+            this.checkpointSound.volume = .1;
 
             switch (type) {
                 case null:
@@ -63,6 +70,14 @@ package {
             if(this.checkpoint_sprite != null) {
                 this.checkpoint_sprite.setPos(p);
             }
+        }
+
+        public function playSfx():void {
+            this.checkpointSound.play();
+        }
+
+        public function stopSfx():void {
+            this.checkpointSound.stop();
         }
 
         override public function addVisibleObjects():void {

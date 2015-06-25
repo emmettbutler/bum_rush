@@ -5,6 +5,9 @@ package {
     import flash.ui.GameInputControl;
 
     public class Player extends GameObject {
+        [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
+        [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
+
         private var driver_sprite:Class;
         private var mainSprite:GameObject;
         private var collider:GameObject;
@@ -21,6 +24,9 @@ package {
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
         private var player_hud:PlayerHud;
+
+        private var accelSFX:FlxSound;
+        private var lastCheckpointSound:FlxSound;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
@@ -45,6 +51,14 @@ package {
             this._checkpointStatusList = new Array();
 
             this.addAnimations();
+
+            this.accelSFX = new FlxSound();
+            this.accelSFX.loadEmbedded(SfxAccel, true);
+            this.accelSFX.volume = .1;
+
+            this.lastCheckpointSound = new FlxSound();
+            this.lastCheckpointSound.loadEmbedded(SfxEnd, false);
+            this.lastCheckpointSound.volume = .1;
 
             this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
             this.completionIndicator.setFormat(null, 20, 0xffff0000, "center");
@@ -124,6 +138,9 @@ package {
                     this._checkpointStatusList[checkpoint.index] = true;
                     this._checkpoints_completed += 1;
                     this.player_hud.finishedCheckpoint(checkpoint.cp_type);
+
+                    checkpoint.playSfx();
+
                     for (var n:Number = 0; n < this._checkpointStatusList.length - 1; n++) {
                         if(!this._checkpointStatusList[n]) {
                             checkpointsComplete = false;
@@ -138,6 +155,7 @@ package {
             } else {
                 if(checkpoint.cp_type == Checkpoint.HOME) {
                     this._winner = true;
+                    this.lastCheckpointSound.play();
                 }
             }
         }
@@ -160,6 +178,9 @@ package {
             this.setPos(this.pos.add(this.dir));
 
             if (this.throttle) {  // accelerating
+                if(!this._stop_sounds) {
+                    this.accelSFX.play();
+                }
                 if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
                     this.accel = this.directionsPressed.mulScl(.4);
                 } else {
@@ -172,6 +193,10 @@ package {
                 this.accel.y = 0;
                 this.dir.x = 0;
                 this.dir.y = 0;
+            }
+
+            if(!this.throttle) {
+                this.accelSFX.stop();
             }
 
             if (this._collisionDirection != null) {
