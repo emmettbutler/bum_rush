@@ -16,8 +16,8 @@ package {
 
         override public function create():void {
             super.create();
-            this.collider = ScreenManager.getInstance().loadSingleTileBG("assets/map_1_collider.png");
-            ScreenManager.getInstance().loadSingleTileBG("assets/map_1.png");
+            this.collider = ScreenManager.getInstance().loadSingleTileBG("assets/map_2_collider.png");
+            ScreenManager.getInstance().loadSingleTileBG("assets/map_2.png");
             this.gameActive = true;
 
             this.checkpoints = new FlxGroup();
