@@ -54,9 +54,10 @@ package org.flixel.plugin.photonstorm
          *
          * @return    Boolean True if the sprites collide, false if not
          */
-        public static function pixelPerfectCheck(contact:FlxSprite, target:FlxSprite,
-                                                 alphaTolerance:int = 255,
-                                                 camera:FlxCamera = null,
+        public static function pixelPerfectCheck(contact:FlxSprite,
+                                                 target:FlxSprite,
+                                                 alphaTolerance:int=255,
+                                                 camera:FlxCamera=null,
                                                  collideData:Array=null,
                                                  showCollider:Boolean=false,
                                                  threshold_:Number=-1,
@@ -125,7 +126,7 @@ package org.flixel.plugin.photonstorm
             // of the colliding objects in the same way the objects themselves
             // are positioned.
             var matrixA:Matrix = new Matrix;
-            matrixA.translate(-(intersect.x - boundsA.x), -(intersect.y - boundsA.y));
+            matrixA.translate(intersect.x - boundsA.x, intersect.y - boundsA.y);
             var matrixB:Matrix = new Matrix;
             matrixB.translate(-(intersect.x - boundsB.x), -(intersect.y - boundsB.y));
 
@@ -133,7 +134,7 @@ package org.flixel.plugin.photonstorm
             var testB:BitmapData = target.framePixels;
 
             // draw the overlap in an invisible bitmap
-            var overlapArea:BitmapData = new BitmapData(intersect.width, intersect.height, true, 0x00000000);
+            var overlapArea:BitmapData = new BitmapData(contactPixels.width, contactPixels.height, true, 0x00000000);
             overlapArea.draw(testA, matrixA, new ColorTransform(1, 1, 1, 1, 255, -255, -255, alphaTolerance), BlendMode.NORMAL);
             overlapArea.draw(testB, matrixB, new ColorTransform(1, 1, 1, 1, 255, 255, 255, alphaTolerance), BlendMode.DIFFERENCE);
 
