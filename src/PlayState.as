@@ -110,6 +110,11 @@ package {
                     if(this.start_sprite.finished) {
                         this.start_sprite.visible = false;
                         this.started_race = true;
+                        var players_list:Array;
+                        players_list = PlayersController.getInstance().getPlayerList();
+                        for(var p:Number = 0; p < players_list.length; p++) {
+                            players_list[p].race_started = true;
+                        }
                     }
                 }
             }

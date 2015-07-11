@@ -24,6 +24,7 @@ package {
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
         private var player_hud:PlayerHud;
+        private var _race_started:Boolean = false;
 
         private var accelSFX:FlxSound;
         private var lastCheckpointSound:FlxSound;
@@ -101,6 +102,14 @@ package {
             return this._collisionDirection;
         }
 
+        public function set race_started(r:Boolean):void {
+            this._race_started = r;
+        }
+
+        public function get race_started():Boolean {
+            return this._race_started;
+        }
+
         public function getCollider():GameObject {
             return this.collider;
         }
@@ -173,14 +182,16 @@ package {
 
         override public function update():void {
             super.update();
-            this.updateDrivingAnimation();
-            this.updateMovement();
-            if (this.keyboardControls) {
-                this.updateKeyboard();
-            }
+            if(this.race_started) {
+                this.updateDrivingAnimation();
+                this.updateMovement();
+                if (this.keyboardControls) {
+                    this.updateKeyboard();
+                }
 
-            if ((this.curTime - this.completionTime) / 1000 >= 2) {
-                this.completionIndicator.text = "";
+                if ((this.curTime - this.completionTime) / 1000 >= 2) {
+                    this.completionIndicator.text = "";
+                }
             }
         }
 
