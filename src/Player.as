@@ -13,7 +13,7 @@ package {
         private var collider:GameObject;
         private var controller:GameInputDevice;
         private var accel:DHPoint, directionsPressed:DHPoint,
-                    collideDirection:DHPoint, throttle:Boolean,
+                    throttle:Boolean,
                     facingVector:DHPoint;
         private var _colliding:Boolean = false;
         private var _collisionDirection:Array, _checkpointStatusList:Array;
@@ -69,7 +69,10 @@ package {
             }
 
             this.collider = new GameObject(new DHPoint(0, 0), this);
-            this.collider.makeGraphic(this.mainSprite.width, this.mainSprite.height * .5, 0xffff0000);
+            this.collider.makeGraphic(this.mainSprite.width,
+                                      this.mainSprite.height * .5,
+                                      0xffff0000,
+                                      true);
             this.collider.visible = false;
 
             this._collisionDirection = new Array(0, 0, 0, 0);
@@ -206,7 +209,7 @@ package {
                     this._collisionDirection[1] + ", " +
                     this._collisionDirection[2] + ", " +
                     this._collisionDirection[3] + "]";
-                    */
+                */
             }
 
             if (this._colliding) {

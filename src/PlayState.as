@@ -150,25 +150,17 @@ package {
 
             var colliders:Array = PlayersController.getInstance().getPlayerColliders().members,
                 checkpoint:Checkpoint, curPlayer:Player, curCollider:GameObject,
-                k:int, curCompareCollider:GameObject, curComparePlayer:Player;
+                k:int, collisionData:Array;
             for (var i:int = 0; i < colliders.length; i++) {
                 curCollider = colliders[i];
                 curPlayer = curCollider.parent as Player;
                 curPlayer.colliding = false;
-                for (k = 0; k < this.checkpoints.members.length; k++) {
-                    checkpoint = this.checkpoints.members[k];
-                    if (curCollider._getRect().overlaps(checkpoint._getRect())) {
-                        this.overlapPlayerCheckpoints(curPlayer, checkpoint);
-                    }
-                }
 
                 for (k = 0; k < colliders.length; k++) {
-                    curCompareCollider = colliders[k];
-                    curComparePlayer = curCollider.parent as Player;
-                    if (curCollider != curCompareCollider) {
-                        var collisionData:Array = FlxCollision.pixelPerfectCheck(
-                            curCollider, curCompareCollider, 255, null,
-                            curPlayer.collisionDirection, true, 4);
+                    if (curCollider != colliders[k]) {
+                        collisionData = FlxCollision.pixelPerfectCheck(
+                            curCollider, colliders[k], 255, null,
+                            curPlayer.collisionDirection, false, 4);
                         if (collisionData[0]) {
                             curPlayer.colliding = collisionData[0];
                         }
@@ -176,9 +168,16 @@ package {
                 }
 
                 collisionData = FlxCollision.pixelPerfectCheck(
-                    curCollider, this.collider, 255, null, curPlayer.collisionDirection);
+                    curCollider, this.collider, 255, null, curPlayer.collisionDirection, false);
                 if (collisionData[0]) {
                     curPlayer.colliding = collisionData[0];
+                }
+
+                for (k = 0; k < this.checkpoints.members.length; k++) {
+                    checkpoint = this.checkpoints.members[k];
+                    if (curCollider._getRect().overlaps(checkpoint._getRect())) {
+                        this.overlapPlayerCheckpoints(curPlayer, checkpoint);
+                    }
                 }
             }
         }
