@@ -7,89 +7,61 @@ package {
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
 
-        private var checkpoints:FlxGroup;
+        private var checkpoints:Array;
         private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
         private var raceTimeAlive:Number, raceEndTimer:Number;
         private var collider:FlxExtSprite;
         private static const RACE_LENGTH:Number = 60;
 
+        private var map_paths:Array = ["assets/map_2"];
+        private var map_checkpoints:Array = [[Checkpoint.HOME, Checkpoint.BOOZE,  Checkpoint.MOVIES, Checkpoint.PARK, Checkpoint.BEACH, Checkpoint.DINNER]]
+        private var map_checkpoints_positions:Array = [[new DHPoint(.27, .75), new DHPoint(.47, .72), new DHPoint(.67, .43), new DHPoint(.91, .54), new DHPoint(.01, .54), new DHPoint(.11, .45)]]
+        private var active_map_index:Number;
+        private var home_cp_index:Number;
+
         override public function create():void {
             super.create();
-            this.collider = ScreenManager.getInstance().loadSingleTileBG("assets/map_2_collider.png");
-            ScreenManager.getInstance().loadSingleTileBG("assets/map_2.png");
+
+            //TODO pick a random map
+            this.active_map_index = 0;
+
+            this.collider = ScreenManager.getInstance().loadSingleTileBG(this.map_paths[this.active_map_index] + "_collider.png");
+            ScreenManager.getInstance().loadSingleTileBG(this.map_paths[this.active_map_index] + ".png");
             this.gameActive = true;
 
-            this.checkpoints = new FlxGroup();
+            this.checkpoints = new Array();
             var checkpoint:Checkpoint;
-            checkpoint = new Checkpoint(
-                new DHPoint(0, 0),
-                new DHPoint(10, 120),
-                Checkpoint.HOME
-            );
-            this.checkpoints.add(checkpoint);
-            checkpoint = new Checkpoint(
-                new DHPoint(0, 0),
-                new DHPoint(10, 120),
-                Checkpoint.BOOZE
-            );
-            this.checkpoints.add(checkpoint);
-            checkpoint = new Checkpoint(
-                new DHPoint(0, 0),
-                new DHPoint(120, 10)
-            );
-            this.checkpoints.add(checkpoint);
-            checkpoint = new Checkpoint(
-                new DHPoint(0, 0),
-                new DHPoint(120, 10),
-                Checkpoint.APARTMENT
-            );
-            this.checkpoints.add(checkpoint);
+            var i:Number = 0;
+            for(i = 0; i < this.map_checkpoints[this.active_map_index].length; i++) {
+                checkpoint = new Checkpoint(
+                    new DHPoint(100, 100),
+                    new DHPoint(20, 20),
+                    this.map_checkpoints[this.active_map_index][i]
+                );
+                this.checkpoints.push(checkpoint);
+                if(this.map_checkpoints[this.active_map_index][i] == Checkpoint.HOME) {
+                    this.home_cp_index = i;
+                }
+            }
 
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
                     var cur:Checkpoint;
-
-                    cur = that.checkpoints.members[0];
-                    cur.setPos(new DHPoint(
-                        event.userData['bg'].width * .27,
-                        event.userData['bg'].height * .88
-                    ));
-                    cur.setImgPos(new DHPoint(
-                        event.userData['bg'].width * .27,
-                        event.userData['bg'].height * .62
-                    ));
-                    cur.index = 3;
-
-                    cur = that.checkpoints.members[1];
-                    cur.setPos(new DHPoint(
-                        event.userData['bg'].width * .61,
-                        event.userData['bg'].height * .54
-                    ));
-                    cur.setImgPos(new DHPoint(
-                        event.userData['bg'].width * .67,
-                        event.userData['bg'].height * .43
-                    )); //errand
-                    cur.index = 1;
-
-                    cur = that.checkpoints.members[2];
-                    cur.setPos(new DHPoint(
-                        event.userData['bg'].width * .91,
-                        event.userData['bg'].height * .54
-                    ));
-                    cur.index = 0;
-
-                    cur = that.checkpoints.members[3];
-                    cur.setPos(new DHPoint(
-                        event.userData['bg'].width * .01,
-                        event.userData['bg'].height * .54
-                    ));
-                    cur.setImgPos(new DHPoint(
-                        event.userData['bg'].width * .11,
-                        event.userData['bg'].height * .45
-                    )); //booty call
-                    cur.index = 2;
+                    for(var p:Number = 0; p < that.checkpoints.length; p++) {
+                        var cp_pos:DHPoint = that.map_checkpoints_positions[that.active_map_index][p];
+                        cur = that.checkpoints[p];
+                        cur.setPos(new DHPoint(
+                            event.userData['bg'].width * cp_pos.x,
+                            event.userData['bg'].height * cp_pos.y
+                        ));
+                        cur.setImgPos(new DHPoint(
+                            event.userData['bg'].width * cp_pos.x,
+                            event.userData['bg'].height * cp_pos.y
+                        ));
+                        cur.index = p;
+                    }
 
                     FlxG.stage.removeEventListener(
                         GameState.EVENT_SINGLETILE_BG_LOADED,
@@ -97,11 +69,11 @@ package {
                     );
                 });
 
-            for (var i:int = 0; i < this.checkpoints.length; i++) {
-                this.checkpoints.members[i].addVisibleObjects();
+            for (i = 0; i < this.checkpoints.length; i++) {
+                this.checkpoints[i].addVisibleObjects();
             }
 
-            PlayersController.getInstance().addRegisteredPlayers(this.checkpoints.length);
+            PlayersController.getInstance().addRegisteredPlayers(this.checkpoints.length, this.active_map_index);
 
             this.start_sprite = new GameObject(new DHPoint(0,0));
             this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
@@ -156,6 +128,14 @@ package {
                 curPlayer = curCollider.parent as Player;
                 curPlayer.colliding = false;
 
+                var n:int;
+                for (n = 0; n < this.checkpoints.length; n++) {
+                    checkpoint = this.checkpoints[n];
+                    if (curCollider._getRect().overlaps(checkpoint._getRect())) {
+                        this.overlapPlayerCheckpoints(curPlayer, checkpoint);
+                    }
+                }
+
                 for (k = 0; k < colliders.length; k++) {
                     if (curCollider != colliders[k]) {
                         collisionData = FlxCollision.pixelPerfectCheck(
@@ -171,13 +151,6 @@ package {
                     curCollider, this.collider, 255, null, curPlayer.collisionDirection, false);
                 if (collisionData[0]) {
                     curPlayer.colliding = collisionData[0];
-                }
-
-                for (k = 0; k < this.checkpoints.members.length; k++) {
-                    checkpoint = this.checkpoints.members[k];
-                    if (curCollider._getRect().overlaps(checkpoint._getRect())) {
-                        this.overlapPlayerCheckpoints(curPlayer, checkpoint);
-                    }
                 }
             }
         }
@@ -197,7 +170,7 @@ package {
                                                  checkpoint:Checkpoint):void
         {
             if(!this.finished) {
-                player.crossCheckpoint(checkpoint);
+                player.crossCheckpoint(checkpoint, this.home_cp_index);
                 if(player.winner) {
                     this.endRace();
                 }

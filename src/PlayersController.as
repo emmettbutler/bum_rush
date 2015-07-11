@@ -12,6 +12,7 @@ package {
         public static const NUM_PLAYERS:Number = 2;
         {
             public static const DRIVER_NAMES:Array = ["Billy", "Wanda"];
+            public static const DRIVER_START_POS:Array = [[new DHPoint(543, 603), new DHPoint(543, 653)]];
         }
 
         public static var instance:PlayersController;
@@ -97,8 +98,9 @@ package {
             return this.players.members;
         }
 
-        public function addRegisteredPlayers(checkpoint_count:Number):void {
+        public function addRegisteredPlayers(checkpoint_count:Number, active_map_ind:Number):void {
             var controller:GameInputDevice, player:Player, keyboard:Boolean, characterTag:Number;
+            var cur:Number = 0;
             for (var kid:Object in this.registeredPlayers) {
                 if (this.registeredPlayers[kid]['controller'] == 'keyboard') {
                     controller = null;
@@ -108,9 +110,10 @@ package {
                     keyboard = false;
                 }
                 characterTag = this.registeredPlayers[kid]["tag"];
-                player = new Player(new DHPoint(40, 40 + Math.random() * 62), controller, keyboard, characterTag, checkpoint_count);
+                player = new Player(PlayersController.DRIVER_START_POS[active_map_ind][cur], controller, keyboard, characterTag, checkpoint_count);
                 this.players.add(player);
                 player.addVisibleObjects();
+                cur++;
             }
         }
 

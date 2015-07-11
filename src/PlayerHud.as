@@ -15,11 +15,11 @@ package {
         private var player_tag:Number;
         private static var _classData:Dictionary;
 
-        public static const HUD_BEER:String = "my beer";
-        public static const HUD_MOVIE:String = "my movie";
-        public static const HUD_TREE:String = "my tree";
-        public static const HUD_WATER:String = "my water";
-        public static const HUD_WEINER:String = "my weiner";
+        public static const HUD_BOOZE:String = "my beer";
+        public static const HUD_MOVIES:String = "my movie";
+        public static const HUD_PARK:String = "my tree";
+        public static const HUD_BEACH:String = "my water";
+        public static const HUD_DINNER:String = "my weiner";
         public static const HUD_ARROW:String = "my arrow";
         private var hud_objects:Dictionary;
         private var hud_finished_objects:Dictionary;
@@ -51,11 +51,17 @@ package {
 
         public function finishedCheckpoint(cp:String):void {
             if(cp == Checkpoint.HOME) {
-                this.hud_finished_objects[PlayerHud.HUD_WATER].visible = true;
             } else if (cp == Checkpoint.BOOZE) {
-                this.hud_finished_objects[PlayerHud.HUD_BEER].visible = true;
+                this.hud_finished_objects[PlayerHud.HUD_BOOZE].visible = true;
             } else if (cp == Checkpoint.APARTMENT) {
-                this.hud_finished_objects[PlayerHud.HUD_TREE].visible = true;
+            } else if (cp == Checkpoint.PARK) {
+                this.hud_finished_objects[PlayerHud.HUD_PARK].visible = true;
+            } else if (cp == Checkpoint.MOVIES) {
+                this.hud_finished_objects[PlayerHud.HUD_MOVIES].visible = true;
+            } else if (cp == Checkpoint.BEACH) {
+                this.hud_finished_objects[PlayerHud.HUD_BEACH].visible = true;
+            } else if (cp == Checkpoint.DINNER) {
+                this.hud_finished_objects[PlayerHud.HUD_DINNER].visible = true;
             }
         }
 
@@ -63,44 +69,44 @@ package {
             var struc:Dictionary = new Dictionary();
 
             struc['image_map'] = new Dictionary();
-            struc['image_map'][PlayerHud.HUD_BEER] = PlayerHud.HUDBeer;
-            struc['image_map'][PlayerHud.HUD_MOVIE] = PlayerHud.HUDMovie;
-            struc['image_map'][PlayerHud.HUD_TREE] = PlayerHud.HUDTree;
-            struc['image_map'][PlayerHud.HUD_WATER] = PlayerHud.HUDWater;
-            struc['image_map'][PlayerHud.HUD_WEINER] = PlayerHud.HUDWeiner;
+            struc['image_map'][PlayerHud.HUD_BOOZE] = PlayerHud.HUDBeer;
+            struc['image_map'][PlayerHud.HUD_MOVIES] = PlayerHud.HUDMovie;
+            struc['image_map'][PlayerHud.HUD_PARK] = PlayerHud.HUDTree;
+            struc['image_map'][PlayerHud.HUD_BEACH] = PlayerHud.HUDWater;
+            struc['image_map'][PlayerHud.HUD_DINNER] = PlayerHud.HUDWeiner;
 
             struc['instances'] = {};
             struc['instances'][0] = new Dictionary();
-            struc['instances'][0][PlayerHud.HUD_BEER] = {
+            struc['instances'][0][PlayerHud.HUD_BOOZE] = {
                 'pos': new DHPoint(10,10)
             };
-            struc['instances'][0][PlayerHud.HUD_MOVIE] = {
+            struc['instances'][0][PlayerHud.HUD_MOVIES] = {
                 'pos': new DHPoint(40,10)
             };
-            struc['instances'][0][PlayerHud.HUD_TREE] = {
+            struc['instances'][0][PlayerHud.HUD_PARK] = {
                 'pos': new DHPoint(70,10)
             };
-            struc['instances'][0][PlayerHud.HUD_WATER] = {
+            struc['instances'][0][PlayerHud.HUD_BEACH] = {
                 'pos': new DHPoint(20,40)
             };
-            struc['instances'][0][PlayerHud.HUD_WEINER] = {
+            struc['instances'][0][PlayerHud.HUD_DINNER] = {
                 'pos': new DHPoint(60,40)
             };
 
             struc['instances'][1] = new Dictionary();
-            struc['instances'][1][PlayerHud.HUD_BEER] = {
+            struc['instances'][1][PlayerHud.HUD_BOOZE] = {
                 'pos': new DHPoint(110,10)
             };
-            struc['instances'][1][PlayerHud.HUD_MOVIE] = {
+            struc['instances'][1][PlayerHud.HUD_MOVIES] = {
                 'pos': new DHPoint(140,10)
             };
-            struc['instances'][1][PlayerHud.HUD_TREE] = {
+            struc['instances'][1][PlayerHud.HUD_PARK] = {
                 'pos': new DHPoint(170,10)
             };
-            struc['instances'][1][PlayerHud.HUD_WATER] = {
+            struc['instances'][1][PlayerHud.HUD_BEACH] = {
                 'pos': new DHPoint(120,40)
             };
-            struc['instances'][1][PlayerHud.HUD_WEINER] = {
+            struc['instances'][1][PlayerHud.HUD_DINNER] = {
                 'pos': new DHPoint(160,40)
             };
             PlayerHud._classData = struc;

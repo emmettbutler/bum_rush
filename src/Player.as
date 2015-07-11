@@ -64,6 +64,7 @@ package {
             this.completionIndicator.setFormat(null, 20, 0xffff0000, "center");
 
             this._checkpointStatusList = new Array();
+
             for(var i:Number = 0; i < checkpoint_count; i++) {
                 this._checkpointStatusList.push(false);
             }
@@ -133,26 +134,33 @@ package {
             return this._winner;
         }
 
-        public function crossCheckpoint(checkpoint:Checkpoint):void {
+        public function crossCheckpoint(checkpoint:Checkpoint, home_ind:Number):void {
             if(!this._checkpoints_complete) {
-                if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
+                if (!this._checkpointStatusList[checkpoint.index])
                 {
-                    var checkpointsComplete:Boolean = true;
-                    this._checkpointStatusList[checkpoint.index] = true;
-                    this._checkpoints_completed += 1;
-                    this.player_hud.finishedCheckpoint(checkpoint.cp_type);
+                    if(checkpoint.cp_type != Checkpoint.HOME) {
+                        var checkpointsComplete:Boolean = true;
+                        this._checkpointStatusList[checkpoint.index] = true;
+                        this._checkpoints_completed += 1;
+                        this.player_hud.finishedCheckpoint(checkpoint.cp_type);
 
-                    checkpoint.playSfx();
+                        checkpoint.playSfx();
+                    }
 
-                    for (var n:Number = 0; n < this._checkpointStatusList.length - 1; n++) {
-                        if(!this._checkpointStatusList[n]) {
-                            checkpointsComplete = false;
+                    for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
+                        if(n != home_ind) {
+                            if(!this._checkpointStatusList[n]) {
+                                checkpointsComplete = false;
+                            }
                         }
                     }
-                    if(checkpointsComplete) {
-                        this._checkpoints_complete = true;
-                        this.completionTime = this.curTime;
-                        this.completionIndicator.text = "Checkpoints complete!";
+
+                    if(checkpoint.cp_type != Checkpoint.HOME) {
+                        if(checkpointsComplete) {
+                            this._checkpoints_complete = true;
+                            this.completionTime = this.curTime;
+                            this.completionIndicator.text = "Checkpoints complete!";
+                        }
                     }
                 }
             } else {
@@ -181,9 +189,7 @@ package {
             this.setPos(this.pos.add(this.dir));
 
             if (this.throttle) {  // accelerating
-                if(!this._stop_sounds) {
-                    this.accelSFX.play();
-                }
+                this.accelSFX.play();
                 if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
                     this.accel = this.directionsPressed.mulScl(.4);
                 } else {
