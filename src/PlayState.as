@@ -113,7 +113,7 @@ package {
                         var players_list:Array;
                         players_list = PlayersController.getInstance().getPlayerList();
                         for(var p:Number = 0; p < players_list.length; p++) {
-                            players_list[p].race_started = true;
+                            players_list[p].driving = true;
                         }
                     }
                 }

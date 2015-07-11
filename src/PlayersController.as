@@ -8,6 +8,7 @@ package {
 
     public class PlayersController {
         [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
+        [Embed(source="/../assets/Parking.png")] public var Spr1Parking:Class;
 
         public static const NUM_PLAYERS:Number = 2;
         {
@@ -20,6 +21,7 @@ package {
         private var players:FlxGroup, playerColliders:FlxGroup;
         private var registeredPlayers:Object;
         private var gameInput:GameInput;
+        public var parking_anims:Array = [Spr1Parking, Spr1Parking];
 
         private var controllers:Array;
         private var control:GameInputControl;

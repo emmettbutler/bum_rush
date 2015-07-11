@@ -9,6 +9,7 @@ package {
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
 
         private var driver_sprite:Class;
+        private var parking_anim:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
         private var controller:GameInputDevice;
@@ -19,12 +20,13 @@ package {
         private var _collisionDirection:Array, _checkpointStatusList:Array;
         private var completionIndicator:FlxText;
         private var _driver_name:String;
-        private var driver_tag:Number, frameRate:Number = 12, _checkpoints_completed:Number = 0, completionTime:Number = -1;
+        private var driver_tag:Number, frameRate:Number = 12, _checkpoints_completed:Number = 0, completionTime:Number = -1, checkInTime:Number = 0;
         private var _checkpoints_complete:Boolean = false, _winner:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var keyboardControls:Boolean = false;
         private var player_hud:PlayerHud;
-        private var _race_started:Boolean = false;
+        private var _driving:Boolean = false;
+        private var checking_in:Boolean = false;
 
         private var accelSFX:FlxSound;
         private var lastCheckpointSound:FlxSound;
@@ -92,6 +94,8 @@ package {
             this.mainSprite.addAnimation("idle_down", [24,25,26,27], this.frameRate, true);
             this.mainSprite.addAnimation("idle_left", [28,29,30,31], this.frameRate, true);
             this.mainSprite.play("idle_up");
+            this.parking_anim = new GameObject(new DHPoint(this.x, this.y));
+            this.parking_anim.loadGraphic(PlayersController.getInstance().parking_anims[driver_tag], false, false, 244, 26);
         }
 
         public function set colliding(c:Boolean):void {
@@ -102,12 +106,12 @@ package {
             return this._collisionDirection;
         }
 
-        public function set race_started(r:Boolean):void {
-            this._race_started = r;
+        public function set driving(r:Boolean):void {
+            this._driving = r;
         }
 
-        public function get race_started():Boolean {
-            return this._race_started;
+        public function get driving():Boolean {
+            return this._driving;
         }
 
         public function getCollider():GameObject {
@@ -117,6 +121,8 @@ package {
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
             FlxG.state.add(this.mainSprite);
+            FlxG.state.add(this.parking_anim);
+            this.parking_anim.visible = false;
             FlxG.state.add(this.completionIndicator);
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
@@ -154,6 +160,7 @@ package {
                         this.player_hud.finishedCheckpoint(checkpoint.cp_type);
 
                         checkpoint.playSfx();
+                        this.playerCheckIn(checkpoint);
                     }
 
                     for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
@@ -182,7 +189,7 @@ package {
 
         override public function update():void {
             super.update();
-            if(this.race_started) {
+            if(this.driving) {
                 this.updateDrivingAnimation();
                 this.updateMovement();
                 if (this.keyboardControls) {
@@ -192,7 +199,28 @@ package {
                 if ((this.curTime - this.completionTime) / 1000 >= 2) {
                     this.completionIndicator.text = "";
                 }
+            } else if(this.checking_in) {
+                this.parking_anim.x = this.mainSprite.x;
+                this.parking_anim.y = this.mainSprite.y;
+
+                if ((this.curTime - this.checkInTime) / 1000 >= 3) {
+                    this.playerCheckOut();
+                }
             }
+        }
+
+        public function playerCheckIn(checkpoint:Checkpoint):void {
+            this.driving = false;
+            this.checking_in = true;
+            this.parking_anim.visible = true;
+            this.checkInTime = this.curTime;
+            this.throttle = false;
+        }
+
+        public function playerCheckOut():void {
+            this.driving = true;
+            this.checking_in = false;
+            this.parking_anim.visible = false;
         }
 
         public function updateMovement():void {
@@ -209,10 +237,7 @@ package {
             } else if (this.dir._length() > 1) {  // not accelerating but moving forward
                 this.accel = this.dir.reverse().mulScl(.08);
             } else {  // stopped
-                this.accel.x = 0;
-                this.accel.y = 0;
-                this.dir.x = 0;
-                this.dir.y = 0;
+                stopDriving();
             }
 
             if(!this.throttle) {
@@ -263,6 +288,13 @@ package {
             this._collisionDirection[1] = 0;
             this._collisionDirection[2] = 0;
             this._collisionDirection[3] = 0;
+        }
+
+        public function stopDriving():void {
+            this.accel.x = 0;
+            this.accel.y = 0;
+            this.dir.x = 0;
+            this.dir.y = 0;
         }
 
         public function updateDrivingAnimation():void {
