@@ -80,7 +80,8 @@ package {
                 break;
             }
 
-            this.makeGraphic(this.checkpoint_sprite.width + 10, this.checkpoint_sprite.height + 10, 0xffff0000);
+            this.makeGraphic(this.checkpoint_sprite.width/2, this.checkpoint_sprite.height*2, 0xffff0000);
+            this.visible = false;
         }
 
         public function get index():Number {
