@@ -3,6 +3,7 @@ package {
 
     import flash.ui.GameInputDevice;
     import flash.ui.GameInputControl;
+    import flash.utils.Dictionary;
 
     public class Player extends GameObject {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
@@ -23,17 +24,37 @@ package {
         private var driver_tag:Number, frameRate:Number = 12, _checkpoints_completed:Number = 0, completionTime:Number = -1, checkInTime:Number = 0;
         private var _checkpoints_complete:Boolean = false, _winner:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
-        private var keyboardControls:Boolean = false;
         private var player_hud:PlayerHud;
         private var _driving:Boolean = false;
         private var checking_in:Boolean = false;
+        {
+            public static const CTRL_PAD:Number = 1;
+            public static const CTRL_KEYBOARD_1:Number = 2;
+            public static const CTRL_KEYBOARD_2:Number = 3;
+            private static var keyboardControls:Dictionary = new Dictionary();
+            keyboardControls[CTRL_KEYBOARD_1] = {
+                'up': "W",
+                'down': "S",
+                'left': "A",
+                'right': "D",
+                'throttle': "SPACE"
+            };
+            keyboardControls[CTRL_KEYBOARD_2] = {
+                'up': "I",
+                'down': "K",
+                'left': "J",
+                'right': "L",
+                'throttle': "P"
+            };
+        }
 
+        private var controlType:Number = CTRL_PAD;
         private var accelSFX:FlxSound;
         private var lastCheckpointSound:FlxSound;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
-                               keyboard:Boolean=false,
+                               ctrlType:Number=CTRL_PAD,
                                _tag:Number=0, checkpoint_count:Number=0):void
         {
             super(pos);
@@ -43,7 +64,7 @@ package {
             this.directionsPressed = new DHPoint(1, 0);
             this.facingVector = new DHPoint(1, 0);
             this.throttle = false;
-            this.keyboardControls = keyboard;
+            this.controlType = ctrlType;
 
             this.controller = controller;
             this.driver_tag = _tag;
@@ -192,8 +213,8 @@ package {
             if(this.driving) {
                 this.updateDrivingAnimation();
                 this.updateMovement();
-                if (this.keyboardControls) {
-                    this.updateKeyboard();
+                if (this.controlType == CTRL_KEYBOARD_1 || this.controlType == CTRL_KEYBOARD_2) {
+                    this.updateKeyboard(this.controlType);
                 }
 
                 if ((this.curTime - this.completionTime) / 1000 >= 2) {
@@ -345,32 +366,32 @@ package {
             }
         }
 
-        public function updateKeyboard():void {
-            if (FlxG.keys.justPressed("D")) {
+        public function updateKeyboard(ctrlType:Number=CTRL_KEYBOARD_1):void {
+            if (FlxG.keys.justPressed(keyboardControls[ctrlType]['right'])) {
                 this.directionsPressed.x = 1;
-            } else if (FlxG.keys.justReleased("D")){
+            } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['right'])){
                 this.directionsPressed.x = 0;
             }
-            if (FlxG.keys.justPressed("A")) {
+            if (FlxG.keys.justPressed(keyboardControls[ctrlType]['left'])) {
                 this.directionsPressed.x = -1;
-            } else if (FlxG.keys.justReleased("A")){
+            } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['left'])){
                 this.directionsPressed.x = 0;
             }
 
-            if (FlxG.keys.justPressed("W")) {
+            if (FlxG.keys.justPressed(keyboardControls[ctrlType]['up'])) {
                 this.directionsPressed.y = -1;
-            } else if (FlxG.keys.justReleased("W")){
+            } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['up'])){
                 this.directionsPressed.y = 0;
             }
-            if (FlxG.keys.justPressed("S")) {
+            if (FlxG.keys.justPressed(keyboardControls[ctrlType]['down'])) {
                 this.directionsPressed.y = 1;
-            } else if (FlxG.keys.justReleased("S")){
+            } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['down'])){
                 this.directionsPressed.y = 0;
             }
 
-            if (FlxG.keys.justPressed("SPACE")) {
+            if (FlxG.keys.justPressed(keyboardControls[ctrlType]['throttle'])) {
                 this.throttle = true;
-            } else if (FlxG.keys.justReleased("SPACE")) {
+            } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['throttle'])) {
                 this.throttle = false;
             }
         }

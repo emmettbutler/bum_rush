@@ -27,8 +27,6 @@ package {
             t = new FlxText(0, 250, ScreenManager.getInstance().screenWidth, "join to play");
             t.alignment = "left";
             add(t);
-
-            //PlayersController.getInstance().registerPlayer(null);
         }
 
         override public function update():void {
@@ -43,8 +41,10 @@ package {
             }
 
             // debug
-            if (FlxG.keys.justPressed("A")) {
-                this.registerPlayer(null);
+            if (FlxG.keys.justPressed("SPACE")) {
+                this.registerPlayer(null, Player.CTRL_KEYBOARD_1);
+            } else if (FlxG.keys.justPressed("P")) {
+                this.registerPlayer(null, Player.CTRL_KEYBOARD_2);
             }
 
             for (var i:int = 0; i < this.registerIndicators.length; i++) {
@@ -61,21 +61,21 @@ package {
         {
             super.controllerChanged(control, mapping);
             if (control.id == mapping["a"] && control.value == 1) {
-                this.registerPlayer(control);
+                this.registerPlayer(control, Player.CTRL_PAD);
             }
         }
 
-        public function registerPlayer(control:GameInputControl):void {
-            var device:GameInputDevice, keyboard:Boolean;
+        public function registerPlayer(control:GameInputControl,
+                                       ctrlType:Number=Player.CTRL_PAD):void
+        {
+            var device:GameInputDevice;
             if (control == null) {
                 device = null;
-                keyboard = true;
             } else {
                 device = control.device;
-                keyboard = false;
             }
             var tagData:Object = PlayersController.getInstance().registerPlayer(
-                device, keyboard);
+                device, ctrlType);
             if (tagData != null) {
                 this.lastRegisterTime = this.curTime;
                 var indicator:RegistrationIndicator = new RegistrationIndicator(

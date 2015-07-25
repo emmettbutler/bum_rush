@@ -60,7 +60,8 @@ package {
         }
 
         public function registerPlayer(controller:GameInputDevice,
-                                       keyboard:Boolean=false):Object {
+                                       ctrlType:Number=Player.CTRL_PAD):Object
+        {
             var _id:String = controller == null ?
                 (Math.random() * 100000) + "" : controller.id;
             if (_id in this.registeredPlayers) {
@@ -68,7 +69,10 @@ package {
             }
             var tag:Number = ControlResolver.characterTags[this.playersRegistered];
             this.registeredPlayers[_id] = {
-                'controller': keyboard ? 'keyboard' : controller,
+                'ctrl_type': ctrlType,
+                'controller': ctrlType == Player.CTRL_KEYBOARD_1 ||
+                              ctrlType == Player.CTRL_KEYBOARD_2 ?
+                              null : controller,
                 'tag': tag
             };
             return PlayersController.getInstance().resolveTag(tag);
@@ -101,18 +105,19 @@ package {
         }
 
         public function addRegisteredPlayers(checkpoint_count:Number, active_map_ind:Number):void {
-            var controller:GameInputDevice, player:Player, keyboard:Boolean, characterTag:Number;
+            var controller:GameInputDevice, player:Player, ctrlType:Number, characterTag:Number;
             var cur:Number = 0;
             for (var kid:Object in this.registeredPlayers) {
-                if (this.registeredPlayers[kid]['controller'] == 'keyboard') {
+                if (this.registeredPlayers[kid]['ctrl_type'] == Player.CTRL_KEYBOARD_1 ||
+                    this.registeredPlayers[kid]['ctrl_type'] == Player.CTRL_KEYBOARD_2)
+                {
                     controller = null;
-                    keyboard = true;
                 } else {
                     controller = this.registeredPlayers[kid]['controller'];
-                    keyboard = false;
                 }
                 characterTag = this.registeredPlayers[kid]["tag"];
-                player = new Player(PlayersController.DRIVER_START_POS[active_map_ind][cur], controller, keyboard, characterTag, checkpoint_count);
+                ctrlType = this.registeredPlayers[kid]['ctrl_type'];
+                player = new Player(PlayersController.DRIVER_START_POS[active_map_ind][cur], controller, ctrlType, characterTag, checkpoint_count);
                 this.players.add(player);
                 player.addVisibleObjects();
                 cur++;
