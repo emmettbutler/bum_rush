@@ -21,9 +21,11 @@ package {
         public static const HUD_BEACH:String = "my water";
         public static const HUD_DINNER:String = "my weiner";
         public static const HUD_ARROW:String = "my arrow";
+        public static const HUD_NUMBER:String = "my number";
         private var hud_objects:Dictionary;
         private var hud_finished_objects:Dictionary;
         private var base_pos_list:Array;
+        private var hud_numbers:Array;
 
         public function PlayerHud(p_tag:Number) {
             super(new DHPoint(0,0));
@@ -39,10 +41,14 @@ package {
                 curImg = _classData['image_map'][key];
                 var hud_piece:GameObject = new GameObject(_classData['instances'][this.player_tag][key]['pos']);
                 var arrow_hud_piece:GameObject = new GameObject(_classData['instances'][this.player_tag][key]['pos']);
+                var hud_num:FlxText = new FlxText(_classData['instances'][this.player_tag][PlayerHud.HUD_NUMBER]['pos'].x, _classData['instances'][this.player_tag][PlayerHud.HUD_NUMBER]['pos'].y, 100, _classData['instances'][this.player_tag][PlayerHud.HUD_NUMBER]['num_text']);
+                hud_num.size = 12;
+                hud_num.color = 0xff1f3446;
                 hud_piece.loadGraphic(_classData['image_map'][key],false,false,32,32);
                 arrow_hud_piece.loadGraphic(HUDArrow,false,false,32,32);
                 FlxG.state.add(hud_piece);
                 FlxG.state.add(arrow_hud_piece);
+                FlxG.state.add(hud_num);
                 arrow_hud_piece.visible = false;
                 this.hud_objects[key] = hud_piece;
                 this.hud_finished_objects[key] = arrow_hud_piece;
@@ -92,6 +98,10 @@ package {
             struc['instances'][0][PlayerHud.HUD_DINNER] = {
                 'pos': new DHPoint(60,40)
             };
+            struc['instances'][0][PlayerHud.HUD_NUMBER] = {
+                'pos': new DHPoint(18, 69),
+                'num_text': "PLAYER ONE"
+            };
 
             struc['instances'][1] = new Dictionary();
             struc['instances'][1][PlayerHud.HUD_BOOZE] = {
@@ -108,6 +118,10 @@ package {
             };
             struc['instances'][1][PlayerHud.HUD_DINNER] = {
                 'pos': new DHPoint(160,40)
+            };
+            struc['instances'][1][PlayerHud.HUD_NUMBER] = {
+                'pos': new DHPoint(118, 69),
+                'num_text': "PLAYER TWO"
             };
             PlayerHud._classData = struc;
             return struc;
