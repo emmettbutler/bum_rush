@@ -23,6 +23,7 @@ package {
         private var mainSprite:GameObject;
         private var collider:GameObject;
         private var controller:GameInputDevice;
+        private var startPos:DHPoint;
         private var accel:DHPoint, directionsPressed:DHPoint,
                     throttle:Boolean,
                     facingVector:DHPoint;
@@ -255,7 +256,6 @@ package {
 
             this.setPos(new DHPoint((this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2,
                                     (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2));
-            //this.mainSprite.angle = this.m_physBody.GetAngle() * (180 / Math.PI) ;
 
             this.updateMovement();
             if(this.driving) {
@@ -310,16 +310,6 @@ package {
 
             if(!this.throttle) {
                 this.accelSFX.stop();
-            }
-
-            if (this._collisionDirection != null) {
-                /*
-                this.debugText.text = "[" +
-                    this._collisionDirection[0] + ", " +
-                    this._collisionDirection[1] + ", " +
-                    this._collisionDirection[2] + ", " +
-                    this._collisionDirection[3] + "]";
-                */
             }
 
             if (this._colliding) {

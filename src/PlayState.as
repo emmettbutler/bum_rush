@@ -8,6 +8,8 @@ package {
     import Box2D.Common.Math.*;
     import Box2D.Dynamics.Joints.*;
 
+    import flash.display.Sprite;
+
     public class PlayState extends GameState {
         [Embed(source="/../assets/intro.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
@@ -32,8 +34,6 @@ package {
 
         override public function create():void {
             super.create();
-
-            this.setupWorld();
 
             //TODO pick a random map
             this.active_map_index = 0;
@@ -60,6 +60,10 @@ package {
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
+                    that.setupWorld(event.userData['bg']);
+                    PlayersController.getInstance().addRegisteredPlayers(
+                        that.checkpoints.length, that.active_map_index,
+                        that.m_world, that.groundBody);
                     var cur:Checkpoint;
                     for(var p:Number = 0; p < that.checkpoints.length; p++) {
                         var cp_pos:DHPoint = that.map_checkpoints_positions[that.active_map_index][p];
@@ -85,10 +89,6 @@ package {
                 this.checkpoints[i].addVisibleObjects();
             }
 
-            PlayersController.getInstance().addRegisteredPlayers(
-                this.checkpoints.length, this.active_map_index,
-                this.m_world, this.groundBody);
-
             this.start_sprite = new GameObject(new DHPoint(0,0));
             this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
             this.start_sprite.addAnimation("play", [0,1,2], .5, false);
@@ -110,7 +110,10 @@ package {
         override public function update():void {
             super.update();
 
-            this.m_world.Step(1.0 / 30.0, 10, 10);
+            if (this.m_world != null) {
+                this.m_world.Step(1.0 / 30.0, 10, 10);
+                m_world.DrawDebugData();
+            }
 
             this.raceTimeAlive = this.curTime - this.raceBornTime;
             if(this.raceTimeAlive/1000 > 3) {
@@ -186,9 +189,19 @@ package {
             }
         }
 
-        private function setupWorld():void{
+        private function setupWorld(bg:FlxSprite):void{
             var gravity:b2Vec2 = new b2Vec2(0, 0);
             m_world = new b2World(gravity, true);
+
+            var dbgDraw:b2DebugDraw = new b2DebugDraw();
+            var dbgSprite:Sprite = new Sprite();
+            FlxG.stage.addChild(dbgSprite);
+            dbgDraw.SetSprite(dbgSprite);
+            dbgDraw.SetDrawScale(30 / 2);
+            dbgDraw.SetFillAlpha(0.3);
+            dbgDraw.SetLineThickness(1.0);
+            dbgDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+            m_world.SetDebugDraw(dbgDraw);
 
             var ground:b2PolygonShape = new b2PolygonShape();
             var fixtureDef:b2FixtureDef = new b2FixtureDef();
@@ -199,6 +212,30 @@ package {
             groundBody = m_world.CreateBody(groundBd);
             fixtureDef.shape = ground;
             groundBody.CreateFixture2(ground);
+
+            // Create border of boxes
+            var wall:b2PolygonShape= new b2PolygonShape();
+            var wallBd:b2BodyDef = new b2BodyDef();
+            var wallB:b2Body;
+
+            // Left
+            wallBd.position.Set( bg.x / m_physScale, (bg.y + bg.height / 2) / m_physScale);
+            wall.SetAsBox(100 / m_physScale, bg.height / m_physScale);
+            wallB = m_world.CreateBody(wallBd);
+            wallB.CreateFixture2(wall);
+            // Right
+            wallBd.position.Set((bg.x + bg.width + 95) / m_physScale, bg.y / m_physScale);
+            wallB = m_world.CreateBody(wallBd);
+            wallB.CreateFixture2(wall);
+            // Top
+            wallBd.position.Set(bg.x / m_physScale / 2, (bg.y - 95) / m_physScale);
+            wall.SetAsBox(bg.height/m_physScale/2, 100/m_physScale);
+            wallB = m_world.CreateBody(wallBd);
+            wallB.CreateFixture2(wall);
+            // Bottom
+            wallBd.position.Set(bg.x / m_physScale / 2, (bg.y + bg.height + 95) / m_physScale);
+            wallB = m_world.CreateBody(wallBd);
+            wallB.CreateFixture2(wall);
         }
     }
 }
