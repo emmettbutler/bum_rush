@@ -257,9 +257,9 @@ package {
                                     (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2));
             //this.mainSprite.angle = this.m_physBody.GetAngle() * (180 / Math.PI) ;
 
+            this.updateMovement();
             if(this.driving) {
                 this.updateDrivingAnimation();
-                this.updateMovement();
                 if (this.controlType == CTRL_KEYBOARD_1 || this.controlType == CTRL_KEYBOARD_2) {
                     this.updateKeyboard(this.controlType);
                 }
@@ -283,6 +283,7 @@ package {
             this.parking_anim.visible = true;
             this.checkInTime = this.curTime;
             this.throttle = false;
+            this.m_physBody.SetLinearVelocity(new b2Vec2(0, 0));
         }
 
         public function playerCheckOut():void {
@@ -292,16 +293,18 @@ package {
         }
 
         public function updateMovement():void {
-            if (this.throttle) {  // accelerating
-                this.accelSFX.play();
-                var force:b2Vec2, accelMul:Number = 1;
-                if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
-                    force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
-                } else {
-                    force = new b2Vec2(this.facingVector.x * accelMul, this.facingVector.y * accelMul);
-                }
-                if (this.m_physBody.GetAngularVelocity() < 1) {
-                    this.m_physBody.ApplyImpulse(force, this.m_physBody.GetPosition())
+            if (!this.checking_in) {
+                if (this.throttle) {
+                    this.accelSFX.play();
+                    var force:b2Vec2, accelMul:Number = .5;
+                    if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
+                        force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
+                    } else {
+                        force = new b2Vec2(this.facingVector.x * accelMul, this.facingVector.y * accelMul);
+                    }
+                    if (this.m_physBody.GetAngularVelocity() < 1) {
+                        this.m_physBody.ApplyImpulse(force, this.m_physBody.GetPosition())
+                    }
                 }
             }
 
@@ -330,21 +333,37 @@ package {
                     } else {
                         if (this._collisionDirection[1] == 1) {
                             // right
-                            this.dir.x = 0;
-                            this.accel.x = Math.min(0, this.accel.x);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    Math.min(this.m_physBody.GetLinearVelocity().x, 0),
+                                    this.m_physBody.GetLinearVelocity().y
+                                )
+                            );
                         } else if (this._collisionDirection[0] == 1) {
                             // left
-                            this.dir.x = 0;
-                            this.accel.x = Math.max(0, this.accel.x);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    Math.max(this.m_physBody.GetLinearVelocity().x, 0),
+                                    this.m_physBody.GetLinearVelocity().y
+                                )
+                            );
                         }
                         if (this._collisionDirection[3] == 1) {
                             // down
-                            this.dir.y = 0;
-                            this.accel.y = Math.min(0, this.accel.y);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    this.m_physBody.GetLinearVelocity().x,
+                                    Math.min(this.m_physBody.GetLinearVelocity().y, 0)
+                                )
+                            );
                         } else if (this._collisionDirection[2] == 1) {
                             // up
-                            this.dir.y = 0;
-                            this.accel.y = Math.max(0, this.accel.y);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    this.m_physBody.GetLinearVelocity().x,
+                                    Math.max(this.m_physBody.GetLinearVelocity().y, 0)
+                                )
+                            );
                         }
                     }
                 }
