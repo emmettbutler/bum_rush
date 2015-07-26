@@ -120,8 +120,8 @@ package {
 
         public function setupPhysics():void {
             var box:b2PolygonShape = new b2PolygonShape();
-            box.SetAsBox(this.collider.width / m_physScale,
-                         this.collider.height / m_physScale);
+            box.SetAsBox((this.collider.width * 1.3) / m_physScale,
+                         (this.collider.height * 1.3) / m_physScale);
             var fixtureDef:b2FixtureDef = new b2FixtureDef();
             fixtureDef.shape = box;
             fixtureDef.density = 0.5;
@@ -296,7 +296,7 @@ package {
             if (!this.checking_in) {
                 if (this.throttle) {
                     this.accelSFX.play();
-                    var force:b2Vec2, accelMul:Number = .5;
+                    var force:b2Vec2, accelMul:Number = .8;
                     if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
                         force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
                     } else {
