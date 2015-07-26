@@ -53,12 +53,12 @@ package {
                         var cp_pos:DHPoint = that.map_checkpoints_positions[that.active_map_index][p];
                         cur = that.checkpoints[p];
                         cur.setPos(new DHPoint(
-                            event.userData['bg'].width * (cp_pos.x + .05),
-                            event.userData['bg'].height * cp_pos.y
+                            event.userData['bg'].x + event.userData['bg'].width * (cp_pos.x + .05),
+                            event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
                         ));
                         cur.setImgPos(new DHPoint(
-                            event.userData['bg'].width * cp_pos.x,
-                            event.userData['bg'].height * cp_pos.y
+                            event.userData['bg'].x + event.userData['bg'].width * cp_pos.x,
+                            event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
                         ));
                         cur.index = p;
                     }
