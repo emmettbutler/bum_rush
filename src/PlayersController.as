@@ -1,5 +1,12 @@
 package {
     import org.flixel.*;
+
+    import Box2D.Dynamics.*;
+    import Box2D.Collision.*;
+    import Box2D.Collision.Shapes.*;
+    import Box2D.Common.Math.*;
+    import Box2D.Dynamics.Joints.*;
+
     import flash.ui.GameInput;
     import flash.ui.GameInputDevice;
     import flash.ui.GameInputControl;
@@ -176,7 +183,9 @@ package {
         }
 
         public function addRegisteredPlayers(checkpoint_count:Number,
-                                             map_idx:Number):void
+                                             map_idx:Number,
+                                             world:b2World,
+                                             groundBody:b2Body):void
         {
             var controller:GameInputDevice, player:Player, ctrlType:Number, characterTag:Number;
             var cur:Number = 0;
@@ -192,18 +201,12 @@ package {
                 ctrlType = this.registeredPlayers[kid]['ctrl_type'];
                 player = new Player(
                     this.playerConfigs[characterTag]["start_positions"][map_idx],
-                    controller, ctrlType, characterTag, checkpoint_count);
+                    controller, world, groundBody, ctrlType, characterTag,
+                    checkpoint_count);
                 this.players.add(player);
                 player.addVisibleObjects();
                 cur++;
             }
-        }
-
-        private function addPlayer(controller:GameInputDevice):void {
-            var player:Player;
-            player = new Player(new DHPoint(40, 40 + Math.random() * 22), controller);
-            this.players.add(player);
-            player.addVisibleObjects();
         }
 
         public function addVisibleObjects():void {

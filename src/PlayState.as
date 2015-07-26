@@ -2,11 +2,18 @@ package {
     import org.flixel.*;
     import org.flixel.plugin.photonstorm.FlxCollision;
 
+    import Box2D.Dynamics.*;
+    import Box2D.Collision.*;
+    import Box2D.Collision.Shapes.*;
+    import Box2D.Common.Math.*;
+    import Box2D.Dynamics.Joints.*;
+
     public class PlayState extends GameState {
         [Embed(source="/../assets/intro.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
 
+        private var m_physScale:Number = 30
         private var checkpoints:Array;
         private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
@@ -14,14 +21,19 @@ package {
         private var collider:FlxExtSprite;
         private static const RACE_LENGTH:Number = 60;
 
+        public var m_world:b2World;
+
         private var map_paths:Array = ["assets/map_2"];
         private var map_checkpoints:Array = [[Checkpoint.HOME, Checkpoint.BOOZE,  Checkpoint.MOVIES, Checkpoint.PARK, Checkpoint.BEACH, Checkpoint.DINNER]]
         private var map_checkpoints_positions:Array = [[new DHPoint(.4, .62), new DHPoint(.5, .62), new DHPoint(.7, .25), new DHPoint(.8, .63), new DHPoint(.1, .27), new DHPoint(.3, .45)]]
         private var active_map_index:Number;
         private var home_cp_index:Number;
+        private var groundBody:b2Body;
 
         override public function create():void {
             super.create();
+
+            this.setupWorld();
 
             //TODO pick a random map
             this.active_map_index = 0;
@@ -73,7 +85,9 @@ package {
                 this.checkpoints[i].addVisibleObjects();
             }
 
-            PlayersController.getInstance().addRegisteredPlayers(this.checkpoints.length, this.active_map_index);
+            PlayersController.getInstance().addRegisteredPlayers(
+                this.checkpoints.length, this.active_map_index,
+                this.m_world, this.groundBody);
 
             this.start_sprite = new GameObject(new DHPoint(0,0));
             this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
@@ -96,8 +110,9 @@ package {
         override public function update():void {
             super.update();
 
-            this.raceTimeAlive = this.curTime - this.raceBornTime;
+            this.m_world.Step(1.0 / 30.0, 10, 10);
 
+            this.raceTimeAlive = this.curTime - this.raceBornTime;
             if(this.raceTimeAlive/1000 > 3) {
                 if(!this.started_race) {
                     if(!this.shown_start_anim) {
@@ -141,17 +156,6 @@ package {
                     }
                 }
 
-                for (k = 0; k < colliders.length; k++) {
-                    if (curCollider != colliders[k]) {
-                        collisionData = FlxCollision.pixelPerfectCheck(
-                            curCollider, colliders[k], 255, null,
-                            curPlayer.collisionDirection, false, 4);
-                        if (collisionData[0]) {
-                            curPlayer.colliding = collisionData[0];
-                        }
-                    }
-                }
-
                 collisionData = FlxCollision.pixelPerfectCheck(
                     curCollider, this.collider, 255, null, curPlayer.collisionDirection, false);
                 if (collisionData[0]) {
@@ -180,6 +184,21 @@ package {
                     this.endRace();
                 }
             }
+        }
+
+        private function setupWorld():void{
+            var gravity:b2Vec2 = new b2Vec2(0, 0);
+            m_world = new b2World(gravity, true);
+
+            var ground:b2PolygonShape = new b2PolygonShape();
+            var fixtureDef:b2FixtureDef = new b2FixtureDef();
+            var groundBd:b2BodyDef = new b2BodyDef();
+
+            groundBd.position.Set(0, 0);
+            ground.SetAsBox(10 / m_physScale, 10 / m_physScale);
+            groundBody = m_world.CreateBody(groundBd);
+            fixtureDef.shape = ground;
+            groundBody.CreateFixture2(ground);
         }
     }
 }
