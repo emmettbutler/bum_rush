@@ -10,25 +10,112 @@ package {
             ]
             public static var controllerMappings:Object = {
                 "PLAYSTATION(R)3 Controller": {
-                    "right": "BUTTON_9",
-                    "left": "BUTTON_11",
-                    "up": "BUTTON_10",
-                    "down": "BUTTON_8",
-                    "a": "BUTTON_18"
+                    "right": {
+                        "button": "BUTTON_9",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "left": {
+                        "button": "BUTTON_11",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "up": {
+                        "button": "BUTTON_10",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "down": {
+                        "button": "BUTTON_8",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "a": {
+                        "button": "BUTTON_18",
+                        "value_on": 1,
+                        "value_off": 0
+                    }
                 },
                 "Xbox 360 Wired Controller": {
-                    "right": "BUTTON_9",
-                    "left": "BUTTON_8",
-                    "up": "BUTTON_7",
-                    "down": "BUTTON_6",
-                    "a": "BUTTON_17"
+                    "right": {
+                        "button": "BUTTON_9",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "left": {
+                        "button": "BUTTON_8",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "up": {
+                        "button": "BUTTON_7",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "down": {
+                        "button": "BUTTON_6",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "a": {
+                        "button": "BUTTON_17",
+                        "value_on": 1,
+                        "value_off": 0
+                    }
                 },
                 "Wireless Controller": {  // PS4
-                    "right": "BUTTON_9",
-                    "left": "BUTTON_8",
-                    "up": "BUTTON_7",
-                    "down": "BUTTON_6",
-                    "a": "BUTTON_11"
+                    "right": {
+                        "button": "BUTTON_9",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "left": {
+                        "button": "BUTTON_8",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "up": {
+                        "button": "BUTTON_7",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "down": {
+                        "button": "BUTTON_6",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "a": {
+                        "button": "BUTTON_11",
+                        "value_on": 1,
+                        "value_off": 0
+                    }
+                },
+                "USB Gamepad": {  // USB NES controller
+                    "right": {
+                        "button": "AXIS_4",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "left": {
+                        "button": "AXIS_4",
+                        "value_on": -1,
+                        "value_off": 0
+                    },
+                    "up": {
+                        "button": "AXIS_5",
+                        "value_on": 1,
+                        "value_off": 0
+                    },
+                    "down": {
+                        "button": "AXIS_5",
+                        "value_on": -1,
+                        "value_off": 0
+                    },
+                    "a": {
+                        "button": "BUTTON_7",
+                        "value_on": 1,
+                        "value_off": 0
+                    }
                 }
             }
         }

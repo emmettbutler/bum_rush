@@ -3,6 +3,7 @@ package {
     import flash.ui.GameInput;
     import flash.ui.GameInputDevice;
     import flash.ui.GameInputControl;
+    import flash.utils.Dictionary;
     import flash.events.GameInputEvent;
     import flash.events.Event;
 
@@ -23,7 +24,7 @@ package {
         private var gameInput:GameInput;
         public var parking_anims:Array = [Spr1Parking, Spr1Parking];
 
-        private var controllers:Array;
+        private var controllers:Dictionary;
         private var control:GameInputControl;
 
         public function PlayersController() {
@@ -35,7 +36,7 @@ package {
             gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
                                        controllerUnusable);
 
-            controllers = new Array();
+            controllers = new Dictionary();
             this.registeredPlayers = new Object();
 
             if (GameInput.numDevices > 0) {
@@ -145,20 +146,29 @@ package {
 
         private function controllerAdded(gameInputEvent:GameInputEvent):void {
             var device:GameInputDevice;
-            this.controllers = new Array();
+            var config:Object = {};
+            this.controllers = new Dictionary();
             for(var k:Number = 0; k < GameInput.numDevices; ++k) {
+                config = {};
                 device = GameInput.getDeviceAt(k);
+                trace("got controller: " + device.name);
                 if (device == null) {
                     continue;
                 }
 
                 var mapping:Object = ControlResolver.controllerMappings[device.name];
                 var usedButtons:Array = new Array();
+                var buttonParams:Object, buttonName:String;
                 for (var kButton:String in mapping) {
-                    usedButtons.push(mapping[kButton]);
+                    buttonParams = mapping[kButton];
+                    buttonName = buttonParams["button"]
+                    usedButtons.push(buttonName);
+                    if (!(buttonName in config)) {
+                        config[buttonName] = new Array();
+                    }
+                    config[buttonName].push(buttonParams["value_on"])
+                    config[buttonName].push(buttonParams["value_off"])
                 }
-                //get all the buttons (loop through number of controls) and add the on change listener
-                //this indicates if a button pressed, and gets the value...
                 for(var i:Number = 0; i < device.numControls; ++i) {
                     control = device.getControlAt(i);
                     if (usedButtons.indexOf(control.id) != -1) {
@@ -167,25 +177,37 @@ package {
                 }
                 device.enabled = true;
 
-                this.controllers.push(device);
+                this.controllers[device.id] = config;
             }
         }
 
         public function controllerChanged(event:Event):void {
             var control:GameInputControl = event.target as GameInputControl;
-            /*
-            if(control.value >= control.maxValue){
+            var normValue:Number = Math.round(control.value);
+            var mapping:Object = ControlResolver.controllerMappings[control.device.name];
+            var allowedValues:Array = this.controllers[control.device.id][control.id];
+
+            if(allowedValues.indexOf(normValue) != -1){
+                /*
                 trace("control.id=" + control.id + " has been pressed");
                 trace("control.value=" + control.value);
-            }
-            */
+                trace("normValue=" + normValue);
+                trace("control.minValue=" + control.minValue);
+                trace("control.maxValue=" + control.maxValue);
+                trace();
+                */
 
-            var mapping:Object = ControlResolver.controllerMappings[control.device.name];
-
-            (FlxG.state as GameState).controllerChanged(control, mapping);
-            for (var i:int = 0; i < this.players.length; i++) {
-                this.players.members[i].controllerChanged(control, mapping);
+                var controlParams:Object = {
+                    'value': Math.round(control.value),
+                    'id': control.id,
+                    'device': control.device
+                };
+                (FlxG.state as GameState).controllerChanged(controlParams, mapping);
+                for (var i:int = 0; i < this.players.length; i++) {
+                    this.players.members[i].controllerChanged(controlParams, mapping);
+                }
             }
+
         }
 
         private function controllerRemoved( gameInputEvent:GameInputEvent ):void {

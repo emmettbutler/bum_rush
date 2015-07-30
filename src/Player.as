@@ -396,45 +396,45 @@ package {
             }
         }
 
-        public function controllerChanged(control:GameInputControl,
+        public function controllerChanged(control:Object,
                                           mapping:Object):void
         {
-            if (control.value == 0 || control.value == 1) {
-            } else {
-                return;
-            }
-            if (this.controller == null || control.device.id != this.controller.id) {
+            if (this.controller == null || control['device'].id != this.controller.id) {
                 return;
             }
 
-            if (control.id == mapping["right"]) {
-                if (control.value == 0) {
+            if (control['id'] == mapping["right"]["button"]) {
+                if (control['value'] == mapping["right"]["value_off"]) {
                     this.directionsPressed.x = 0;
-                } else {
+                } else if (control['value'] == mapping["right"]["value_on"]) {
                     this.directionsPressed.x = 1;
                 }
-            } else if (control.id == mapping["left"]) {
-                if (control.value == 0) {
+            }
+            if (control['id'] == mapping["left"]["button"]) {
+                if (control['value'] == mapping["left"]["value_off"]) {
                     this.directionsPressed.x = 0;
-                } else {
+                } else if (control['value'] == mapping["left"]["value_on"]) {
                     this.directionsPressed.x = -1;
                 }
-            } else if (control.id == mapping["up"]) {
-                if (control.value == 0) {
+            }
+            if (control['id'] == mapping["up"]["button"]) {
+                if (control['value'] == mapping["up"]["value_off"]) {
                     this.directionsPressed.y = 0;
-                } else {
+                } else if (control['value'] == mapping["up"]["value_on"]){
                     this.directionsPressed.y = 1;
                 }
-            } else if (control.id == mapping["down"]) {
-                if (control.value == 0) {
+            }
+            if (control['id'] == mapping["down"]["button"]) {
+                if (control['value'] == mapping["down"]["value_off"]) {
                     this.directionsPressed.y = 0;
-                } else {
+                } else if(control['value'] == mapping["down"]["value_on"]) {
                     this.directionsPressed.y = -1;
                 }
-            } else if (control.id == mapping["a"]) {
-                if (control.value == 1) {
+            }
+            if (control['id'] == mapping["a"]["button"]) {
+                if (control['value'] == mapping["a"]["value_on"]) {
                     this.throttle = true;
-                } else {
+                } else if (control["value"] == mapping["a"]["value_off"]){
                     this.throttle = false;
                 }
             }

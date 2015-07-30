@@ -32,7 +32,7 @@ package {
             this.raceBornTime = new Date().valueOf();
         }
 
-        public function controllerChanged(control:GameInputControl,
+        public function controllerChanged(control:Object,
                                           mapping:Object):void
         { }
     }

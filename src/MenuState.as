@@ -56,16 +56,16 @@ package {
             }
         }
 
-        override public function controllerChanged(control:GameInputControl,
+        override public function controllerChanged(control:Object,
                                                    mapping:Object):void
         {
             super.controllerChanged(control, mapping);
-            if (control.id == mapping["a"] && control.value == 1) {
+            if (control['id'] == mapping["a"]["button"] && control['value'] == mapping["a"]["value_on"]) {
                 this.registerPlayer(control, Player.CTRL_PAD);
             }
         }
 
-        public function registerPlayer(control:GameInputControl,
+        public function registerPlayer(control:Object,
                                        ctrlType:Number=Player.CTRL_PAD):void
         {
             var device:GameInputDevice;
