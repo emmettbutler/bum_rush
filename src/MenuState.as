@@ -32,7 +32,7 @@ package {
         override public function update():void {
             super.update();
 
-            if (PlayersController.getInstance().playersRegistered >= PlayersController.NUM_PLAYERS &&
+            if (PlayersController.getInstance().playersRegistered >= PlayersController.MIN_PLAYERS &&
                 (this.curTime - this.lastRegisterTime) / 1000 >
                  this.countdownLength && !this.stateSwitchLock)
             {

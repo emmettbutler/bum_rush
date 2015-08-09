@@ -11,11 +11,15 @@ package {
         [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
         [Embed(source="/../assets/Parking.png")] public var Spr1Parking:Class;
 
-        public static const NUM_PLAYERS:Number = 4;
+        public static const MIN_PLAYERS:Number = 4;
         public static const PLAYER_1:Number = 0;
         public static const PLAYER_2:Number = 1;
         public static const PLAYER_3:Number = 2;
         public static const PLAYER_4:Number = 3;
+        public static const PLAYER_5:Number = 4;
+        public static const PLAYER_6:Number = 5;
+        public static const PLAYER_7:Number = 6;
+        public static const PLAYER_8:Number = 7;
 
         public static var instance:PlayersController;
         private var players:FlxGroup, playerColliders:FlxGroup;
@@ -71,6 +75,42 @@ package {
                     new DHPoint(543, 753)
                 ],
                 "hud_pos": new DHPoint(310, 10)
+            };
+            playerConfigs[PLAYER_5] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Emmett",
+                "start_positions": [
+                    new DHPoint(543, 553)
+                ],
+                "hud_pos": new DHPoint(410, 10)
+            };
+            playerConfigs[PLAYER_6] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Nina",
+                "start_positions": [
+                    new DHPoint(543, 503)
+                ],
+                "hud_pos": new DHPoint(510, 10)
+            };
+            playerConfigs[PLAYER_7] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Diego",
+                "start_positions": [
+                    new DHPoint(543, 453)
+                ],
+                "hud_pos": new DHPoint(610, 10)
+            };
+            playerConfigs[PLAYER_8] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Michael",
+                "start_positions": [
+                    new DHPoint(543, 403)
+                ],
+                "hud_pos": new DHPoint(710, 10)
             };
 
             playerTags = new Array();
