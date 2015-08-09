@@ -42,7 +42,8 @@ package {
                 "name": "Billy",
                 "start_positions": [
                     new DHPoint(543, 603)
-                ]
+                ],
+                "hud_pos": new DHPoint(10, 10)
             };
             playerConfigs[PLAYER_2] = {
                 "parking_anim": Spr1Parking,
@@ -50,7 +51,8 @@ package {
                 "name": "Wanda",
                 "start_positions": [
                     new DHPoint(543, 653),
-                ]
+                ],
+                "hud_pos": new DHPoint(110, 10)
             };
             playerConfigs[PLAYER_3] = {
                 "parking_anim": Spr1Parking,
@@ -58,7 +60,8 @@ package {
                 "name": "Aaron",
                 "start_positions": [
                     new DHPoint(543, 703),
-                ]
+                ],
+                "hud_pos": new DHPoint(210, 10)
             };
             playerConfigs[PLAYER_4] = {
                 "parking_anim": Spr1Parking,
@@ -66,7 +69,8 @@ package {
                 "name": "Toni",
                 "start_positions": [
                     new DHPoint(543, 753)
-                ]
+                ],
+                "hud_pos": new DHPoint(310, 10)
             };
 
             playerTags = new Array();
