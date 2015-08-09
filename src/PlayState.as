@@ -219,21 +219,21 @@ package {
             var wallB:b2Body;
 
             // Left
-            wallBd.position.Set( bg.x / m_physScale, (bg.y + bg.height / 2) / m_physScale);
+            wallBd.position.Set((bg.x - (100 - bg.width * .01)) / m_physScale, (bg.y + bg.height) / m_physScale);
             wall.SetAsBox(100 / m_physScale, bg.height / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
             // Right
-            wallBd.position.Set((bg.x + bg.width + 95) / m_physScale, bg.y / m_physScale);
+            wallBd.position.Set((bg.x + bg.width * 2 + (100 - bg.width * .01)) / m_physScale, (bg.y + bg.height) / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
             // Top
-            wallBd.position.Set(bg.x / m_physScale / 2, (bg.y - 95) / m_physScale);
-            wall.SetAsBox(bg.height/m_physScale/2, 100/m_physScale);
+            wallBd.position.Set((bg.x + bg.width) / m_physScale, ((bg.y + bg.height * .28) - (100 - bg.height * .01)) / m_physScale);
+            wall.SetAsBox(bg.width / m_physScale, 100 / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
             // Bottom
-            wallBd.position.Set(bg.x / m_physScale / 2, (bg.y + bg.height + 95) / m_physScale);
+            wallBd.position.Set((bg.x + bg.width) / m_physScale, (bg.y + bg.height * 2.15) / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
         }
