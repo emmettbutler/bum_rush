@@ -29,7 +29,7 @@ package {
         public static const PLAYER_8:Number = 7;
 
         public static var instance:PlayersController;
-        private var players:FlxGroup, playerColliders:FlxGroup;
+        private var players:Array, playerColliders:Array;
         private var registeredPlayers:Object;
         private var gameInput:GameInput;
         private var controllers:Dictionary;
@@ -132,18 +132,19 @@ package {
                 this.controllerAdded(null);
             }
 
-            this.players = new FlxGroup();
-            this.playerColliders = new FlxGroup();
+            this.players = new Array();
+            this.playerColliders = new Array();
         }
 
         public static function reset():void {
             instance = new PlayersController();
         }
 
-        public function getPlayerColliders():FlxGroup {
+        public function getPlayerColliders():Array {
             if (this.players.length != this.playerColliders.length) {
+                this.playerColliders = new Array();
                 for (var i:int = 0; i < this.players.length; i++) {
-                    this.playerColliders.add(this.players.members[i].getCollider());
+                    this.playerColliders.push(this.players[i].getCollider());
                 }
             }
             return this.playerColliders;
@@ -179,7 +180,7 @@ package {
         }
 
         public function getPlayerList():Array {
-            return this.players.members;
+            return this.players;
         }
 
         public function addRegisteredPlayers(checkpoint_count:Number,
@@ -203,7 +204,7 @@ package {
                     this.playerConfigs[characterTag]["start_positions"][map_idx],
                     controller, world, groundBody, ctrlType, characterTag,
                     checkpoint_count);
-                this.players.add(player);
+                this.players.push(player);
                 player.addVisibleObjects();
                 cur++;
             }
@@ -211,13 +212,13 @@ package {
 
         public function addVisibleObjects():void {
             for (var i:int = 0; i < this.players.length; i++) {
-                this.players.members[i].addVisibleObjects();
+                this.players[i].addVisibleObjects();
             }
         }
 
         public function update():void {
             for (var i:int = 0; i < this.players.length; i++) {
-                this.players.members[i].update();
+                this.players[i].update();
             }
         }
 
@@ -281,7 +282,7 @@ package {
                 };
                 (FlxG.state as GameState).controllerChanged(controlParams, mapping);
                 for (var i:int = 0; i < this.players.length; i++) {
-                    this.players.members[i].controllerChanged(controlParams, mapping);
+                    this.players[i].controllerChanged(controlParams, mapping);
                 }
             }
 

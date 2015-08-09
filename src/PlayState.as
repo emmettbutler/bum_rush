@@ -143,7 +143,7 @@ package {
                 }
             }
 
-            var colliders:Array = PlayersController.getInstance().getPlayerColliders().members,
+            var colliders:Array = PlayersController.getInstance().getPlayerColliders(),
                 checkpoint:Checkpoint, curPlayer:Player, curCollider:GameObject,
                 k:int, collisionData:Array;
             for (var i:int = 0; i < colliders.length; i++) {
