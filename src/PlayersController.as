@@ -1,5 +1,12 @@
 package {
     import org.flixel.*;
+
+    import Box2D.Dynamics.*;
+    import Box2D.Collision.*;
+    import Box2D.Collision.Shapes.*;
+    import Box2D.Common.Math.*;
+    import Box2D.Dynamics.Joints.*;
+
     import flash.ui.GameInput;
     import flash.ui.GameInputDevice;
     import flash.ui.GameInputControl;
@@ -22,7 +29,7 @@ package {
         public static const PLAYER_8:Number = 7;
 
         public static var instance:PlayersController;
-        private var players:FlxGroup, playerColliders:FlxGroup;
+        private var players:Array, playerColliders:Array;
         private var registeredPlayers:Object;
         private var gameInput:GameInput;
         private var controllers:Dictionary;
@@ -125,18 +132,19 @@ package {
                 this.controllerAdded(null);
             }
 
-            this.players = new FlxGroup();
-            this.playerColliders = new FlxGroup();
+            this.players = new Array();
+            this.playerColliders = new Array();
         }
 
         public static function reset():void {
             instance = new PlayersController();
         }
 
-        public function getPlayerColliders():FlxGroup {
+        public function getPlayerColliders():Array {
             if (this.players.length != this.playerColliders.length) {
+                this.playerColliders = new Array();
                 for (var i:int = 0; i < this.players.length; i++) {
-                    this.playerColliders.add(this.players.members[i].getCollider());
+                    this.playerColliders.push(this.players[i].getCollider());
                 }
             }
             return this.playerColliders;
@@ -172,11 +180,13 @@ package {
         }
 
         public function getPlayerList():Array {
-            return this.players.members;
+            return this.players;
         }
 
         public function addRegisteredPlayers(checkpoint_count:Number,
-                                             map_idx:Number):void
+                                             map_idx:Number,
+                                             world:b2World,
+                                             groundBody:b2Body):void
         {
             var controller:GameInputDevice, player:Player, ctrlType:Number, characterTag:Number;
             var cur:Number = 0;
@@ -192,29 +202,23 @@ package {
                 ctrlType = this.registeredPlayers[kid]['ctrl_type'];
                 player = new Player(
                     this.playerConfigs[characterTag]["start_positions"][map_idx],
-                    controller, ctrlType, characterTag, checkpoint_count);
-                this.players.add(player);
+                    controller, world, groundBody, ctrlType, characterTag,
+                    checkpoint_count);
+                this.players.push(player);
                 player.addVisibleObjects();
                 cur++;
             }
         }
 
-        private function addPlayer(controller:GameInputDevice):void {
-            var player:Player;
-            player = new Player(new DHPoint(40, 40 + Math.random() * 22), controller);
-            this.players.add(player);
-            player.addVisibleObjects();
-        }
-
         public function addVisibleObjects():void {
             for (var i:int = 0; i < this.players.length; i++) {
-                this.players.members[i].addVisibleObjects();
+                this.players[i].addVisibleObjects();
             }
         }
 
         public function update():void {
             for (var i:int = 0; i < this.players.length; i++) {
-                this.players.members[i].update();
+                this.players[i].update();
             }
         }
 
@@ -278,7 +282,7 @@ package {
                 };
                 (FlxG.state as GameState).controllerChanged(controlParams, mapping);
                 for (var i:int = 0; i < this.players.length; i++) {
-                    this.players.members[i].controllerChanged(controlParams, mapping);
+                    this.players[i].controllerChanged(controlParams, mapping);
                 }
             }
 

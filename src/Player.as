@@ -1,6 +1,12 @@
 package {
     import org.flixel.*;
 
+    import Box2D.Dynamics.*;
+    import Box2D.Collision.*;
+    import Box2D.Collision.Shapes.*;
+    import Box2D.Common.Math.*;
+    import Box2D.Dynamics.Joints.*;
+
     import flash.ui.GameInputDevice;
     import flash.ui.GameInputControl;
     import flash.utils.Dictionary;
@@ -9,11 +15,15 @@ package {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
 
+        private var m_physScale:Number = 30
+        private var m_physBody:b2Body, m_groundBody:b2Body;
+        private var m_world:b2World;
         private var driver_sprite:Class;
         private var parking_anim:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
         private var controller:GameInputDevice;
+        private var startPos:DHPoint;
         private var accel:DHPoint, directionsPressed:DHPoint,
                     throttle:Boolean,
                     facingVector:DHPoint;
@@ -54,11 +64,15 @@ package {
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
+                               _world:b2World,
+                               groundBody:b2Body,
                                ctrlType:Number=CTRL_PAD,
                                _tag:Number=0, checkpoint_count:Number=0):void
         {
             super(pos);
 
+            this.m_world = _world;
+            this.m_groundBody = groundBody;
             this.dir = new DHPoint(0, 0);
             this.accel = new DHPoint(0, 0);
             this.directionsPressed = new DHPoint(1, 0);
@@ -100,7 +114,34 @@ package {
                                       true);
             this.collider.visible = false;
 
+            this.setupPhysics();
+
             this._collisionDirection = new Array(0, 0, 0, 0);
+        }
+
+        public function setupPhysics():void {
+            var box:b2PolygonShape = new b2PolygonShape();
+            box.SetAsBox((this.collider.width * 1.3) / m_physScale,
+                         (this.collider.height * 1.3) / m_physScale);
+            var fixtureDef:b2FixtureDef = new b2FixtureDef();
+            fixtureDef.shape = box;
+            fixtureDef.density = 0.5;
+            fixtureDef.restitution = 0.5;
+            var bd:b2BodyDef = new b2BodyDef();
+            bd.type = b2Body.b2_dynamicBody;
+            bd.position.Set(this.pos.x / m_physScale, (this.pos.y) / m_physScale);
+            m_physBody = this.m_world.CreateBody(bd);
+            m_physBody.CreateFixture(fixtureDef);
+
+            var jointDef:b2FrictionJointDef = new b2FrictionJointDef();
+            jointDef.localAnchorA.SetZero();
+            jointDef.localAnchorB.SetZero();
+            jointDef.bodyA = m_physBody;
+            jointDef.bodyB = m_groundBody;
+            jointDef.maxForce = 6;
+            jointDef.maxTorque = 5;
+            jointDef.collideConnected = true;
+            m_world.CreateJoint(jointDef as b2JointDef);
         }
 
         public function addAnimations():void {
@@ -212,9 +253,13 @@ package {
 
         override public function update():void {
             super.update();
+
+            this.setPos(new DHPoint((this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2,
+                                    (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2));
+
+            this.updateMovement();
             if(this.driving) {
                 this.updateDrivingAnimation();
-                this.updateMovement();
                 if (this.controlType == CTRL_KEYBOARD_1 || this.controlType == CTRL_KEYBOARD_2) {
                     this.updateKeyboard(this.controlType);
                 }
@@ -238,6 +283,7 @@ package {
             this.parking_anim.visible = true;
             this.checkInTime = this.curTime;
             this.throttle = false;
+            this.m_physBody.SetLinearVelocity(new b2Vec2(0, 0));
         }
 
         public function playerCheckOut():void {
@@ -247,34 +293,23 @@ package {
         }
 
         public function updateMovement():void {
-            this.dir = this.dir.add(this.accel).limited(6);
-            this.setPos(this.pos.add(this.dir));
-
-            if (this.throttle) {  // accelerating
-                this.accelSFX.play();
-                if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
-                    this.accel = this.directionsPressed.mulScl(.4);
-                } else {
-                    this.accel = this.facingVector.mulScl(.4);
+            if (!this.checking_in) {
+                if (this.throttle) {
+                    this.accelSFX.play();
+                    var force:b2Vec2, accelMul:Number = .8;
+                    if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
+                        force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
+                    } else {
+                        force = new b2Vec2(this.facingVector.x * accelMul, this.facingVector.y * accelMul);
+                    }
+                    if (this.m_physBody.GetAngularVelocity() < 1) {
+                        this.m_physBody.ApplyImpulse(force, this.m_physBody.GetPosition())
+                    }
                 }
-            } else if (this.dir._length() > 1) {  // not accelerating but moving forward
-                this.accel = this.dir.reverse().mulScl(.08);
-            } else {  // stopped
-                stopDriving();
             }
 
             if(!this.throttle) {
                 this.accelSFX.stop();
-            }
-
-            if (this._collisionDirection != null) {
-                /*
-                this.debugText.text = "[" +
-                    this._collisionDirection[0] + ", " +
-                    this._collisionDirection[1] + ", " +
-                    this._collisionDirection[2] + ", " +
-                    this._collisionDirection[3] + "]";
-                */
             }
 
             if (this._colliding) {
@@ -288,21 +323,37 @@ package {
                     } else {
                         if (this._collisionDirection[1] == 1) {
                             // right
-                            this.dir.x = 0;
-                            this.accel.x = Math.min(0, this.accel.x);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    Math.min(this.m_physBody.GetLinearVelocity().x, 0),
+                                    this.m_physBody.GetLinearVelocity().y
+                                )
+                            );
                         } else if (this._collisionDirection[0] == 1) {
                             // left
-                            this.dir.x = 0;
-                            this.accel.x = Math.max(0, this.accel.x);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    Math.max(this.m_physBody.GetLinearVelocity().x, 0),
+                                    this.m_physBody.GetLinearVelocity().y
+                                )
+                            );
                         }
                         if (this._collisionDirection[3] == 1) {
                             // down
-                            this.dir.y = 0;
-                            this.accel.y = Math.min(0, this.accel.y);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    this.m_physBody.GetLinearVelocity().x,
+                                    Math.min(this.m_physBody.GetLinearVelocity().y, 0)
+                                )
+                            );
                         } else if (this._collisionDirection[2] == 1) {
                             // up
-                            this.dir.y = 0;
-                            this.accel.y = Math.max(0, this.accel.y);
+                            this.m_physBody.SetLinearVelocity(
+                                new b2Vec2(
+                                    this.m_physBody.GetLinearVelocity().x,
+                                    Math.max(this.m_physBody.GetLinearVelocity().y, 0)
+                                )
+                            );
                         }
                     }
                 }
@@ -311,13 +362,6 @@ package {
             this._collisionDirection[1] = 0;
             this._collisionDirection[2] = 0;
             this._collisionDirection[3] = 0;
-        }
-
-        public function stopDriving():void {
-            this.accel.x = 0;
-            this.accel.y = 0;
-            this.dir.x = 0;
-            this.dir.y = 0;
         }
 
         public function updateDrivingAnimation():void {
@@ -444,12 +488,6 @@ package {
 
         override public function getMiddle():DHPoint {
             return this.mainSprite.getMiddle();
-        }
-
-        public function collisionCallback(player:Player):void {
-            var disp:DHPoint = this.getCollider().getMiddle().sub(player.getCollider().getMiddle());
-            //var scaler:Number = player.dir._length();
-            //this.accel = disp.normalized().mulScl(Math.max(5, scaler));
         }
 
         override public function setPos(pos:DHPoint):void {
