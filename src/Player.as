@@ -116,7 +116,9 @@ package {
             this.mainSprite.addAnimation("idle_left", [28,29,30,31], this.frameRate, true);
             this.mainSprite.play("idle_up");
             this.parking_anim = new GameObject(new DHPoint(this.x, this.y));
-            this.parking_anim.loadGraphic(PlayersController.getInstance().parking_anims[driver_tag], false, false, 244, 26);
+            this.parking_anim.loadGraphic(
+                PlayersController.getInstance().playerConfigs[driver_tag]["parking_anim"],
+                false, false, 244, 26);
         }
 
         public function set colliding(c:Boolean):void {

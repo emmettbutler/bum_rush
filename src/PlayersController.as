@@ -11,21 +11,20 @@ package {
         [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
         [Embed(source="/../assets/Parking.png")] public var Spr1Parking:Class;
 
-        public static const NUM_PLAYERS:Number = 2;
-        {
-            public static const DRIVER_NAMES:Array = ["Billy", "Wanda"];
-            public static const DRIVER_START_POS:Array = [[new DHPoint(543, 603), new DHPoint(543, 653)]];
-        }
+        public static const NUM_PLAYERS:Number = 4;
+        public static const PLAYER_1:Number = 0;
+        public static const PLAYER_2:Number = 1;
+        public static const PLAYER_3:Number = 2;
+        public static const PLAYER_4:Number = 3;
 
         public static var instance:PlayersController;
-
         private var players:FlxGroup, playerColliders:FlxGroup;
         private var registeredPlayers:Object;
         private var gameInput:GameInput;
-        public var parking_anims:Array = [Spr1Parking, Spr1Parking];
-
         private var controllers:Dictionary;
         private var control:GameInputControl;
+        public var playerConfigs:Dictionary;
+        public var playerTags:Array;
 
         public function PlayersController() {
             gameInput = new GameInput();
@@ -35,6 +34,45 @@ package {
                                        controllerRemoved);
             gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
                                        controllerUnusable);
+
+            playerConfigs = new Dictionary();
+            playerConfigs[PLAYER_1] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Billy",
+                "start_positions": [
+                    new DHPoint(543, 603)
+                ]
+            };
+            playerConfigs[PLAYER_2] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Wanda",
+                "start_positions": [
+                    new DHPoint(543, 653),
+                ]
+            };
+            playerConfigs[PLAYER_3] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Aaron",
+                "start_positions": [
+                    new DHPoint(543, 703),
+                ]
+            };
+            playerConfigs[PLAYER_4] = {
+                "parking_anim": Spr1Parking,
+                "sprite": sprite_1,
+                "name": "Toni",
+                "start_positions": [
+                    new DHPoint(543, 753)
+                ]
+            };
+
+            playerTags = new Array();
+            for (var _key:Object in this.playerConfigs) {
+                playerTags.push(_key);
+            }
 
             controllers = new Dictionary();
             this.registeredPlayers = new Object();
@@ -68,7 +106,7 @@ package {
             if (_id in this.registeredPlayers) {
                 return null;
             }
-            var tag:Number = ControlResolver.characterTags[this.playersRegistered];
+            var tag:Number = this.playerTags[this.playersRegistered];
             this.registeredPlayers[_id] = {
                 'ctrl_type': ctrlType,
                 'controller': ctrlType == Player.CTRL_KEYBOARD_1 ||
@@ -80,19 +118,7 @@ package {
         }
 
         public function resolveTag(tag:Number):Object {
-            var ret:Object = {};
-            switch(tag) {
-                case ControlResolver.characterTags[0]:
-                    ret['sprite'] = sprite_1;
-                    ret['name'] = DRIVER_NAMES[0];
-                break;
-
-                case ControlResolver.characterTags[1]:
-                    ret['sprite'] = sprite_1;
-                    ret['name'] = DRIVER_NAMES[1];
-                break;
-            }
-            return ret;
+            return this.playerConfigs[tag];
         }
 
         public function get playersRegistered():int {
@@ -105,7 +131,9 @@ package {
             return this.players.members;
         }
 
-        public function addRegisteredPlayers(checkpoint_count:Number, active_map_ind:Number):void {
+        public function addRegisteredPlayers(checkpoint_count:Number,
+                                             map_idx:Number):void
+        {
             var controller:GameInputDevice, player:Player, ctrlType:Number, characterTag:Number;
             var cur:Number = 0;
             for (var kid:Object in this.registeredPlayers) {
@@ -118,7 +146,9 @@ package {
                 }
                 characterTag = this.registeredPlayers[kid]["tag"];
                 ctrlType = this.registeredPlayers[kid]['ctrl_type'];
-                player = new Player(PlayersController.DRIVER_START_POS[active_map_ind][cur], controller, ctrlType, characterTag, checkpoint_count);
+                player = new Player(
+                    this.playerConfigs[characterTag]["start_positions"][map_idx],
+                    controller, ctrlType, characterTag, checkpoint_count);
                 this.players.add(player);
                 player.addVisibleObjects();
                 cur++;
