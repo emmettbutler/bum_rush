@@ -15,6 +15,8 @@ package {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
 
+        public static const COLLISION_TAG:String = "car_thing";
+
         private var m_physScale:Number = 30
         private var m_physBody:b2Body, m_groundBody:b2Body;
         private var m_world:b2World;
@@ -24,6 +26,7 @@ package {
         private var collider:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
+        private var dates:Array;
         private var accel:DHPoint, directionsPressed:DHPoint,
                     throttle:Boolean,
                     facingVector:DHPoint;
@@ -88,6 +91,8 @@ package {
             this._driver_name = tagData['name'];
             this._checkpointStatusList = new Array();
 
+            this.dates = new Array();
+
             this.addAnimations();
 
             this.accelSFX = new FlxSound();
@@ -119,6 +124,24 @@ package {
             this._collisionDirection = new Array(0, 0, 0, 0);
         }
 
+        public function removeDate():void {
+            var lastDate:Object;
+            if (this.dates.length > 0) {
+                lastDate = this.dates.pop();
+            }
+        }
+
+        public function addDate():void {
+            var _date:Object = {
+                'spr': null
+            };
+            this.dates.push(_date);
+        }
+
+        public function get bodyVelocity():Number {
+            return this.m_physBody.GetAngularVelocity();
+        }
+
         public function setupPhysics():void {
             var box:b2PolygonShape = new b2PolygonShape();
             box.SetAsBox((this.collider.width * 1.3) / m_physScale,
@@ -127,6 +150,7 @@ package {
             fixtureDef.shape = box;
             fixtureDef.density = 0.5;
             fixtureDef.restitution = 0.5;
+            fixtureDef.userData = {'tag': COLLISION_TAG, 'player': this};
             var bd:b2BodyDef = new b2BodyDef();
             bd.type = b2Body.b2_dynamicBody;
             bd.position.Set(this.pos.x / m_physScale, (this.pos.y) / m_physScale);

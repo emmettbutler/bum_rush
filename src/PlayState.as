@@ -16,6 +16,7 @@ package {
         [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
 
         private var m_physScale:Number = 30
+        private var listener:ContactListener;
         private var checkpoints:Array;
         private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
@@ -192,6 +193,9 @@ package {
         private function setupWorld(bg:FlxSprite):void{
             var gravity:b2Vec2 = new b2Vec2(0, 0);
             m_world = new b2World(gravity, true);
+
+            listener = new ContactListener();
+            m_world.SetContactListener(listener);
 
             var dbgDraw:b2DebugDraw = new b2DebugDraw();
             var dbgSprite:Sprite = new Sprite();
