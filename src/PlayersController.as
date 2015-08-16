@@ -15,7 +15,7 @@ package {
     import flash.events.Event;
 
     public class PlayersController {
-        [Embed(source="/../assets/Char1_32.png")] private var sprite_1:Class;
+        [Embed(source="/../assets/driver_emmett_64.png")] private var sprite_1:Class;
         [Embed(source="/../assets/Parking.png")] public var Spr1Parking:Class;
 
         public static const MIN_PLAYERS:Number = 4;

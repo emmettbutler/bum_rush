@@ -16,6 +16,10 @@ package {
             var fixAUserData:Object = contact.GetFixtureA().GetUserData();
             var fixBUserData:Object = contact.GetFixtureB().GetUserData();
 
+            if (fixAUserData == null || fixBUserData == null) {
+                return;
+            }
+
             if (fixAUserData['tag'] != Player.COLLISION_TAG ||
                 fixBUserData['tag'] != Player.COLLISION_TAG) {
                 return;

@@ -14,28 +14,37 @@ package {
     public class Player extends GameObject {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
+        [Embed(source="/../assets/car_p1_64.png")] private var ImgCar:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
 
         private var m_physScale:Number = 30
-        private var m_physBody:b2Body, m_groundBody:b2Body;
+        private var m_physBody:b2Body,
+                    m_groundBody:b2Body;
         private var m_world:b2World;
         private var driver_sprite:Class;
+        private var carSprite:GameObject;
         private var parking_anim:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
         private var dates:Array;
-        private var accel:DHPoint, directionsPressed:DHPoint,
+        private var accel:DHPoint,
+                    directionsPressed:DHPoint,
                     throttle:Boolean,
                     facingVector:DHPoint;
         private var _colliding:Boolean = false;
-        private var _collisionDirection:Array, _checkpointStatusList:Array;
+        private var _collisionDirection:Array,
+                    _checkpointStatusList:Array;
         private var completionIndicator:FlxText;
         private var _driver_name:String;
-        private var driver_tag:Number, frameRate:Number = 12, _checkpoints_completed:Number = 0, completionTime:Number = -1, checkInTime:Number = 0;
-        private var _checkpoints_complete:Boolean = false, _winner:Boolean = false;
+        private var driver_tag:Number, frameRate:Number = 12,
+                    _checkpoints_completed:Number = 0,
+                    completionTime:Number = -1,
+                    checkInTime:Number = 0;
+        private var _checkpoints_complete:Boolean = false,
+                    _winner:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var player_hud:PlayerHud;
         private var _driving:Boolean = false;
@@ -144,8 +153,8 @@ package {
 
         public function setupPhysics():void {
             var box:b2PolygonShape = new b2PolygonShape();
-            box.SetAsBox((this.collider.width * 1.3) / m_physScale,
-                         (this.collider.height * 1.3) / m_physScale);
+            box.SetAsBox((this.collider.width * .6) / m_physScale,
+                         (this.collider.height * .8) / m_physScale);
             var fixtureDef:b2FixtureDef = new b2FixtureDef();
             fixtureDef.shape = box;
             fixtureDef.density = 0.5;
@@ -169,17 +178,22 @@ package {
         }
 
         public function addAnimations():void {
+            this.carSprite = new GameObject(this.pos);
+            this.carSprite.loadGraphic(ImgCar, false, false, 64, 64);
+            this.carSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
+            this.carSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
+            this.carSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
+            this.carSprite.addAnimation("drive_left", [12,13,14,15], this.frameRate, true);
+            this.carSprite.play("drive_up");
+
             this.mainSprite = new GameObject(this.pos, this);
-            this.mainSprite.loadGraphic(driver_sprite, true, false, 32, 43);
+            this.mainSprite.loadGraphic(driver_sprite, true, false, 64, 64);
             this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.mainSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
             this.mainSprite.addAnimation("drive_left", [12,13,14,15], this.frameRate, true);
-            this.mainSprite.addAnimation("idle_right", [16,17,18,19], this.frameRate, true);
-            this.mainSprite.addAnimation("idle_up", [20,21,22,23], this.frameRate, true);
-            this.mainSprite.addAnimation("idle_down", [24,25,26,27], this.frameRate, true);
-            this.mainSprite.addAnimation("idle_left", [28,29,30,31], this.frameRate, true);
-            this.mainSprite.play("idle_up");
+            this.mainSprite.play("drive_up");
+
             this.parking_anim = new GameObject(new DHPoint(this.x, this.y));
             this.parking_anim.loadGraphic(
                 PlayersController.getInstance().playerConfigs[driver_tag]["parking_anim"],
@@ -208,6 +222,7 @@ package {
 
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
+            FlxG.state.add(this.carSprite);
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.parking_anim);
             this.parking_anim.visible = false;
@@ -393,20 +408,12 @@ package {
                 if(this.throttle) {
                     if(this.directionsPressed.x >= 0) {
                         this.mainSprite.play("drive_right");
+                        this.carSprite.play("drive_right");
                         this.facingVector.x = 1;
                         this.facingVector.y = 0;
                     } else {
                         this.mainSprite.play("drive_left");
-                        this.facingVector.x = -1;
-                        this.facingVector.y = 0;
-                    }
-                } else {
-                    if(this.directionsPressed.x >= 0) {
-                        this.mainSprite.play("idle_right");
-                        this.facingVector.x = 1;
-                        this.facingVector.y = 0;
-                    } else {
-                        this.mainSprite.play("idle_left");
+                        this.carSprite.play("drive_left");
                         this.facingVector.x = -1;
                         this.facingVector.y = 0;
                     }
@@ -415,22 +422,14 @@ package {
                 if(this.throttle) {
                     if(this.directionsPressed.y >= 0) {
                         this.mainSprite.play("drive_down");
+                        this.carSprite.play("drive_down");
                         this.facingVector.y = 1;
                         this.facingVector.x = 0;
                     } else {
                         this.mainSprite.play("drive_up");
+                        this.carSprite.play("drive_up");
                         this.facingVector.y = -1;
                         this.facingVector.x = 0;
-                    }
-                } else {
-                    if(this.directionsPressed.y >= 0) {
-                        this.mainSprite.play("idle_down");
-                        this.facingVector.x = 0;
-                        this.facingVector.y = 1;
-                    } else {
-                        this.mainSprite.play("idle_up");
-                        this.facingVector.x = 0;
-                        this.facingVector.y = -1;
                     }
                 }
             }
@@ -517,6 +516,7 @@ package {
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
             this.mainSprite.setPos(pos);
+            this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
             this.completionIndicator.y = pos.y;
             this.collider.setPos(pos.add(new DHPoint(0, this.mainSprite.height - this.collider.height)));
