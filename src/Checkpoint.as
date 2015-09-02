@@ -9,6 +9,7 @@ package {
         [Embed(source="/../assets/Park.png")] private var ParkSprite:Class;
         [Embed(source="/../assets/Beach.png")] private var BeachSprite:Class;
         [Embed(source="/../assets/Dinner.png")] private var DinnerSprite:Class;
+        [Embed(source="/../assets/NightClub_1.png")] private var ClubSprite:Class;
         [Embed(source="/../assets/sfx/getBeer.mp3")] private var CheckpointSFX:Class;
 
         private var dimensions:DHPoint;
@@ -23,6 +24,7 @@ package {
         public static const PARK:String = "picnicin";
         public static const BEACH:String = "swimmin";
         public static const DINNER:String = "chowin down";
+        public static const CLUB:String = "clubbin bae";
 
         private var checkpointSound:FlxSound;
 
@@ -78,6 +80,10 @@ package {
                 this.checkpoint_sprite.loadGraphic(this.DinnerSprite, false, false, 128, 128);
                 this._cp_type = Checkpoint.DINNER;
                 break;
+
+                case Checkpoint.CLUB:
+                this.checkpoint_sprite.loadGraphic(this.ClubSprite, false, false, 128, 128);
+                this._cp_type = Checkpoint.CLUB;
             }
 
             this.makeGraphic(this.checkpoint_sprite.width/2, this.checkpoint_sprite.height*2, 0xffff0000);

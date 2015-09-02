@@ -10,6 +10,7 @@ package {
         [Embed(source="/../assets/HUD_tree.png")] private static var HUDTree:Class;
         [Embed(source="/../assets/HUD_water.png")] private static var HUDWater:Class;
         [Embed(source="/../assets/HUD_weiner.png")] private static var HUDWeiner:Class;
+        [Embed(source="/../assets/HUD_nightClub.png")] private static var HUDClub:Class;
 
         private var player_icon:FlxText;
         private var player_tag:Number;
@@ -21,6 +22,7 @@ package {
         public static const HUD_DINNER:String = "my weiner";
         public static const HUD_ARROW:String = "my arrow";
         public static const HUD_NUMBER:String = "my number";
+        public static const HUD_CLUB:String = "my club";
         private var hud_objects:Dictionary;
         private var hud_finished_objects:Dictionary;
         private var base_pos_list:Array;
@@ -73,9 +75,13 @@ package {
             } else if (cp == Checkpoint.MOVIES) {
                 this.hud_finished_objects[PlayerHud.HUD_MOVIES].visible = true;
             } else if (cp == Checkpoint.BEACH) {
-                this.hud_finished_objects[PlayerHud.HUD_BEACH].visible = true;
+                if (this.hud_finished_objects[PlayerHud.HUD_BEACH] != null) {
+                    this.hud_finished_objects[PlayerHud.HUD_BEACH].visible = true;
+                }
             } else if (cp == Checkpoint.DINNER) {
                 this.hud_finished_objects[PlayerHud.HUD_DINNER].visible = true;
+            } else if (cp == Checkpoint.CLUB) {
+                this.hud_finished_objects[PlayerHud.HUD_CLUB].visible = true;
             }
         }
 
@@ -95,8 +101,8 @@ package {
                 "sprite": PlayerHud.HUDTree,
                 "pos": new DHPoint(60, 0)
             };
-            struc['image_map'][PlayerHud.HUD_BEACH] = {
-                "sprite": PlayerHud.HUDWater,
+            struc['image_map'][PlayerHud.HUD_CLUB] = {
+                "sprite": PlayerHud.HUDClub,
                 "pos": new DHPoint(10, 30)
             };
             struc['image_map'][PlayerHud.HUD_DINNER] = {

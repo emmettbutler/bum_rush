@@ -26,9 +26,9 @@ package {
 
         public var m_world:b2World;
 
-        private var map_paths:Array = ["assets/map_2"];
-        private var map_checkpoints:Array = [[Checkpoint.HOME, Checkpoint.BOOZE,  Checkpoint.MOVIES, Checkpoint.PARK, Checkpoint.BEACH, Checkpoint.DINNER]]
-        private var map_checkpoints_positions:Array = [[new DHPoint(.4, .62), new DHPoint(.5, .62), new DHPoint(.7, .25), new DHPoint(.8, .63), new DHPoint(.1, .27), new DHPoint(.3, .45)]]
+        private var map_paths:Array = ["assets/map_3", "assets/map_4", "assets/map_5"];
+        private var map_checkpoints:Array = [[Checkpoint.HOME, Checkpoint.BOOZE,  Checkpoint.MOVIES, Checkpoint.PARK, Checkpoint.CLUB, Checkpoint.DINNER]]
+        private var map_checkpoints_positions:Array = [[new DHPoint(.58, .539), new DHPoint(.4, .539), new DHPoint(.776, .24), new DHPoint(.68, .536), new DHPoint(.1, .17), new DHPoint(.4, .195)]]
         private var active_map_index:Number;
         private var home_cp_index:Number;
         private var groundBody:b2Body;
