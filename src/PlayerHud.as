@@ -48,7 +48,7 @@ package {
                     hud_num = new FlxText(
                         namePos.x, namePos.y, 100, playerConfig['name']);
                     hud_num.size = 12;
-                    hud_num.color = 0xff1f3446;
+                    hud_num.color = 0xff93cad1;
                     FlxG.state.add(hud_num);
                 } else {
                     hud_piece = new GameObject(playerConfig['hud_pos'].add(curImg['pos']));
@@ -87,30 +87,32 @@ package {
 
         public static function buildHudData():Dictionary {
             var struc:Dictionary = new Dictionary();
+            var screenWidth:Number = ScreenManager.getInstance().screenWidth;
+            var screenHeight:Number = ScreenManager.getInstance().screenHeight;
 
             struc['image_map'] = new Dictionary();
             struc['image_map'][PlayerHud.HUD_BOOZE] = {
                 "sprite": PlayerHud.HUDBeer,
-                "pos": new DHPoint(0, 0)
+                "pos": new DHPoint(screenWidth * .19, screenHeight - 45)
             };
             struc['image_map'][PlayerHud.HUD_MOVIES] = {
                 "sprite": PlayerHud.HUDMovie,
-                "pos": new DHPoint(30, 0)
+                "pos": new DHPoint(screenWidth * .215, screenHeight - 45)
             };
             struc['image_map'][PlayerHud.HUD_PARK] = {
                 "sprite": PlayerHud.HUDTree,
-                "pos": new DHPoint(60, 0)
+                "pos": new DHPoint(screenWidth * .24, screenHeight - 45)
             };
             struc['image_map'][PlayerHud.HUD_CLUB] = {
                 "sprite": PlayerHud.HUDClub,
-                "pos": new DHPoint(10, 30)
+                "pos": new DHPoint(screenWidth * .2, screenHeight - 80)
             };
             struc['image_map'][PlayerHud.HUD_DINNER] = {
                 "sprite": PlayerHud.HUDWeiner,
-                "pos": new DHPoint(50, 30)
+                "pos": new DHPoint(screenWidth * .23, screenHeight - 80)
             };
             struc['image_map'][PlayerHud.HUD_NUMBER] = {
-                "pos": new DHPoint(8, 59)
+                "pos": new DHPoint(screenWidth * .215, screenHeight - 100)
             };
             return struc;
         }
