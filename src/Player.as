@@ -184,7 +184,7 @@ package {
             this.carSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.carSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
             this.carSprite.addAnimation("drive_left", [12,13,14,15], this.frameRate, true);
-            this.carSprite.play("drive_up");
+            this.carSprite.play("drive_down");
 
             this.mainSprite = new GameObject(this.pos, this);
             this.mainSprite.loadGraphic(driver_sprite, true, false, 64, 64);
@@ -192,7 +192,7 @@ package {
             this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.mainSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
             this.mainSprite.addAnimation("drive_left", [12,13,14,15], this.frameRate, true);
-            this.mainSprite.play("drive_up");
+            this.mainSprite.play("drive_down");
 
             this.parking_anim = new GameObject(new DHPoint(this.x, this.y));
             this.parking_anim.loadGraphic(

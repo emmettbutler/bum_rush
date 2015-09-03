@@ -45,6 +45,9 @@ package {
                                        controllerRemoved);
             gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
                                        controllerUnusable);
+            var screenWidth:Number = ScreenManager.getInstance().screenWidth;
+            var screenHeight:Number = ScreenManager.getInstance().screenHeight;
+
 
             playerConfigs = new Dictionary();
             playerConfigs[PLAYER_1] = {
@@ -52,7 +55,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Billy",
                 "start_positions": [
-                    new DHPoint(543, 603)
+                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .45)
                 ],
                 "hud_pos": new DHPoint(10, 10)
             };
@@ -61,7 +64,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Wanda",
                 "start_positions": [
-                    new DHPoint(543, 653),
+                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .45)
                 ],
                 "hud_pos": new DHPoint(110, 10)
             };
@@ -70,7 +73,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Aaron",
                 "start_positions": [
-                    new DHPoint(543, 703),
+                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .51)
                 ],
                 "hud_pos": new DHPoint(210, 10)
             };
@@ -79,7 +82,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Toni",
                 "start_positions": [
-                    new DHPoint(543, 753)
+                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .51)
                 ],
                 "hud_pos": new DHPoint(310, 10)
             };
@@ -88,7 +91,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Emmett",
                 "start_positions": [
-                    new DHPoint(543, 553)
+                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .57)
                 ],
                 "hud_pos": new DHPoint(410, 10)
             };
@@ -97,7 +100,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Nina",
                 "start_positions": [
-                    new DHPoint(543, 503)
+                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .57)
                 ],
                 "hud_pos": new DHPoint(510, 10)
             };
@@ -106,7 +109,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Diego",
                 "start_positions": [
-                    new DHPoint(543, 453)
+                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .63)
                 ],
                 "hud_pos": new DHPoint(610, 10)
             };
@@ -115,7 +118,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Michael",
                 "start_positions": [
-                    new DHPoint(543, 403)
+                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .63)
                 ],
                 "hud_pos": new DHPoint(710, 10)
             };
