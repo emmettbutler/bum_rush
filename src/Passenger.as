@@ -75,7 +75,7 @@ package {
             if (this._state != STATE_STANDING) {
                 this._state = STATE_STANDING;
                 this._driver = null;
-                this.setPos(this.pos.add(hitVector.mulScl(1)));
+                this.setPos(this.pos.add(hitVector.mulScl(.6)));
             }
         }
 
@@ -100,7 +100,7 @@ package {
             if (this._driver != null) {
                 this.setPos(new DHPoint(
                     this._driver.getPos().x,
-                    this._driver.getPos().y - (30 * this.idx)
+                    this._driver.getPos().y - (25 * this.idx)
                 ));
                 var facingVector:DHPoint = this._driver.getFacingVector();
                 if (facingVector.x == 1) {
