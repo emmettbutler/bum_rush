@@ -181,6 +181,7 @@ package {
 
         public function addAnimations():void {
             this.carSprite = new GameObject(this.pos);
+            this.carSprite.zSorted = true;
             this.carSprite.loadGraphic(ImgCar, false, false, 64, 64);
             this.carSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.carSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
@@ -190,6 +191,11 @@ package {
 
             this.mainSprite = new GameObject(this.pos, this);
             this.mainSprite.loadGraphic(driver_sprite, true, false, 64, 64);
+            this.mainSprite.zSorted = true;
+            this.mainSprite.basePosOffset = new DHPoint(
+                this.mainSprite.width / 2,
+                this.mainSprite.height * 2
+            );
             this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.mainSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);

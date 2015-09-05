@@ -25,6 +25,11 @@ package {
 
             this.riding_sprite = new GameObject(this.pos);
             this.riding_sprite.loadGraphic(sprite_1, true, false, 64, 64);
+            this.riding_sprite.zSorted = true;
+            this.riding_sprite.basePosOffset = new DHPoint(
+                this.riding_sprite.width / 2,
+                this.riding_sprite.height * 2
+            );
             this.riding_sprite.addAnimation("ride_right", [0,1,2,3], this.frameRate, true);
             this.riding_sprite.addAnimation("ride_up", [4,5,6,7], this.frameRate, true);
             this.riding_sprite.addAnimation("ride_down", [8,9,10,11], this.frameRate, true);
@@ -33,6 +38,7 @@ package {
 
             this.standing_sprite = new GameObject(this.pos);
             this.standing_sprite.loadGraphic(sprite_1, true, false, 64, 64);
+            this.standing_sprite.zSorted = true;
             this.standing_sprite.addAnimation("stand", [0, 1], this.frameRate, true);
             this.standing_sprite.visible = false;
         }
