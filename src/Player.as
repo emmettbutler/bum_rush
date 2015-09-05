@@ -337,7 +337,7 @@ package {
             if (!this.checking_in) {
                 if (this.throttle) {
                     this.accelSFX.play();
-                    var force:b2Vec2, accelMul:Number = .8;
+                    var force:b2Vec2, accelMul:Number = .65;
                     if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
                         force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
                     } else {
