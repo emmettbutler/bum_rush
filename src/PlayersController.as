@@ -13,6 +13,7 @@ package {
     import flash.utils.Dictionary;
     import flash.events.GameInputEvent;
     import flash.events.Event;
+    import mx.utils.StringUtil;
 
     public class PlayersController {
         [Embed(source="/../assets/driver_emmett_64.png")] private var sprite_1:Class;
@@ -237,7 +238,7 @@ package {
                     continue;
                 }
 
-                var mapping:Object = ControlResolver.controllerMappings[device.name];
+                var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(device.name)];
                 var usedButtons:Array = new Array();
                 var buttonParams:Object, buttonName:String;
                 for (var kButton:String in mapping) {
@@ -257,7 +258,6 @@ package {
                     }
                 }
                 device.enabled = true;
-
                 this.controllers[device.id] = config;
             }
         }
@@ -265,19 +265,19 @@ package {
         public function controllerChanged(event:Event):void {
             var control:GameInputControl = event.target as GameInputControl;
             var normValue:Number = Math.round(control.value);
-            var mapping:Object = ControlResolver.controllerMappings[control.device.name];
+            var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(control.device.name)];
             var allowedValues:Array = this.controllers[control.device.id][control.id];
 
-            if(allowedValues.indexOf(normValue) != -1){
-                /*
-                trace("control.id=" + control.id + " has been pressed");
-                trace("control.value=" + control.value);
-                trace("normValue=" + normValue);
-                trace("control.minValue=" + control.minValue);
-                trace("control.maxValue=" + control.maxValue);
-                trace();
-                */
+            /*
+            trace("control.id=" + control.id + " has been pressed");
+            trace("control.value=" + control.value);
+            trace("normValue=" + normValue);
+            trace("control.minValue=" + control.minValue);
+            trace("control.maxValue=" + control.maxValue);
+            trace();
+            */
 
+            if(allowedValues.indexOf(normValue) != -1){
                 var controlParams:Object = {
                     'value': Math.round(control.value),
                     'id': control.id,
