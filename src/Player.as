@@ -49,6 +49,8 @@ package {
         private var player_hud:PlayerHud;
         private var _driving:Boolean = false;
         private var checking_in:Boolean = false;
+        private var lastPassengerRemoveTime:Number = 0;
+        private var passengerRemoveThreshold:Number = 1;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -137,20 +139,40 @@ package {
             return this.facingVector;
         }
 
-        public function removePassenger():void {
-            var lastDate:Object;
+        public function overlapsPassenger(passenger:Passenger):Boolean {
+            return this.carSprite._getRect().overlaps(passenger.getStandingHitbox());
+        }
+
+        public function removePassenger(hitVector:DHPoint):void {
+            if (this.timeAlive - this.lastPassengerRemoveTime < this.passengerRemoveThreshold) {
+                return;
+            }
+            var lastPassenger:Object;
             if (this.passengers.length > 0) {
-                lastDate = this.passengers.pop();
+                lastPassenger = this.passengers.pop();
+                this.lastPassengerRemoveTime = this.timeAlive;
+            }
+            if (lastPassenger != null) {
+                lastPassenger.leaveCar(hitVector);
             }
         }
 
         public function addPassenger(passenger:Passenger):void {
-            passenger.driver = this;
+            if (passenger.driver != null) {
+                return;
+            }
+            passenger.enterCar(this);
             this.passengers.push(passenger);
+            passenger.idx = this.passengers.indexOf(passenger);
         }
 
         public function get bodyVelocity():Number {
             return this.m_physBody.GetAngularVelocity();
+        }
+
+        public function get bodyLinearVelocity():DHPoint {
+            var vel:b2Vec2 = this.m_physBody.GetLinearVelocity();
+            return new DHPoint(vel.x * m_physScale, vel.y * m_physScale);
         }
 
         public function setupPhysics():void {
@@ -165,6 +187,7 @@ package {
             var bd:b2BodyDef = new b2BodyDef();
             bd.type = b2Body.b2_dynamicBody;
             bd.position.Set(this.pos.x / m_physScale, (this.pos.y) / m_physScale);
+            bd.fixedRotation = true;
             m_physBody = this.m_world.CreateBody(bd);
             m_physBody.CreateFixture(fixtureDef);
 
@@ -530,9 +553,6 @@ package {
             this.collider.setPos(pos.add(
                 new DHPoint(0,
                             this.mainSprite.height - this.collider.height)));
-            for (var i:int = 0; i < this.passengers.length; i++) {
-                this.passengers[i].setPos(pos);
-            }
 
         }
     }

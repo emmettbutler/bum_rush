@@ -14,6 +14,7 @@ package {
         private var riding_sprite:GameObject;
         private var standing_sprite:GameObject;
         private var frameRate:Number = 12;
+        public var idx:int = 0;
 
         private var _driver:Player;
 
@@ -21,7 +22,6 @@ package {
             super(new DHPoint(0, 0));
 
             this._type = TYPE_LILD;
-            this._state = STATE_RIDING;
 
             this.riding_sprite = new GameObject(this.pos);
             this.riding_sprite.loadGraphic(sprite_1, true, false, 64, 64);
@@ -43,8 +43,20 @@ package {
             this.standing_sprite.visible = false;
         }
 
+        public function getStandingHitbox():FlxRect {
+            return this.standing_sprite._getRect();
+        }
+
         public function set driver(d:Player):void {
             this._driver = d;
+        }
+
+        public function get driver():Player {
+            return this._driver;
+        }
+
+        public function isStanding():Boolean {
+            return this._state == STATE_STANDING;
         }
 
         override public function addVisibleObjects():void {
@@ -59,6 +71,21 @@ package {
             this.standing_sprite.setPos(pos);
         }
 
+        public function leaveCar(hitVector:DHPoint):void {
+            if (this._state != STATE_STANDING) {
+                this._state = STATE_STANDING;
+                this._driver = null;
+                this.setPos(this.pos.add(hitVector.mulScl(1)));
+            }
+        }
+
+        public function enterCar(driver:Player):void {
+            if (this._state != STATE_RIDING) {
+                this._driver = driver;
+                this._state = STATE_RIDING;
+            }
+        }
+
         override public function update():void {
             switch (this._state) {
                 case STATE_RIDING:
@@ -70,15 +97,21 @@ package {
         }
 
         public function updateDrivingAnimation():void {
-            var facingVector:DHPoint = this._driver.getFacingVector();
-            if (facingVector.x == 1) {
-                this.riding_sprite.play("ride_right");
-            } else if (facingVector.x == -1) {
-                this.riding_sprite.play("ride_left");
-            } else if (facingVector.y == 1) {
-                this.riding_sprite.play("ride_down");
-            } else if (facingVector.y == -1) {
-                this.riding_sprite.play("ride_up");
+            if (this._driver != null) {
+                this.setPos(new DHPoint(
+                    this._driver.getPos().x,
+                    this._driver.getPos().y - (30 * this.idx)
+                ));
+                var facingVector:DHPoint = this._driver.getFacingVector();
+                if (facingVector.x == 1) {
+                    this.riding_sprite.play("ride_right");
+                } else if (facingVector.x == -1) {
+                    this.riding_sprite.play("ride_left");
+                } else if (facingVector.y == 1) {
+                    this.riding_sprite.play("ride_down");
+                } else if (facingVector.y == -1) {
+                    this.riding_sprite.play("ride_up");
+                }
             }
         }
     }

@@ -25,11 +25,11 @@ package {
                 return;
             }
 
-            var playerAVel:Number = fixAUserData['player'].bodyVelocity;
-            var playerBVel:Number = fixBUserData['player'].bodyVelocity;
-            var crashVelocityThreshold:Number = 1;
+            var playerAVel:Number = fixAUserData['player'].bodyLinearVelocity._length();
+            var playerBVel:Number = fixBUserData['player'].bodyLinearVelocity._length();
+            var crashVelocityThreshold:Number = 400;
 
-            if (playerAVel < 1 && playerBVel < 1) {
+            if (playerAVel < crashVelocityThreshold && playerBVel < crashVelocityThreshold) {
                 return;
             }
 
@@ -40,7 +40,7 @@ package {
                 slowerPlayer = fixAUserData['player'];
             }
 
-            slowerPlayer.removePassenger();
+            slowerPlayer.removePassenger(fasterPlayer.bodyLinearVelocity);
         }
 
         override public function EndContact(contact:b2Contact):void {

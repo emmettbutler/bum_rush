@@ -228,9 +228,16 @@ package {
         }
 
         public function update():void {
-            var i:int;
+            var i:int, passenger:Passenger, player:Player;
             for (i = 0; i < this.players.length; i++) {
-                this.players[i].update();
+                player = this.players[i];
+                player.update();
+                for (var k:int = 0; k < this.passengers.length; k++) {
+                    passenger = this.passengers[k];
+                    if (passenger.isStanding() && player.overlapsPassenger(passenger)) {
+                        player.addPassenger(passenger);
+                    }
+                }
             }
             for (i = 0; i < this.passengers.length; i++) {
                 this.passengers[i].update();
