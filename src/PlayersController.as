@@ -56,7 +56,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Billy",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .45)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .2)
                 ],
                 "hud_pos": new DHPoint(10, 10)
             };
@@ -65,7 +65,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Wanda",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .45)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .2)
                 ],
                 "hud_pos": new DHPoint(110, 10)
             };
@@ -74,7 +74,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Aaron",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .51)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25)
                 ],
                 "hud_pos": new DHPoint(210, 10)
             };
@@ -83,7 +83,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Toni",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .51)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25)
                 ],
                 "hud_pos": new DHPoint(310, 10)
             };
@@ -92,7 +92,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Emmett",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .57)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3)
                 ],
                 "hud_pos": new DHPoint(410, 10)
             };
@@ -101,7 +101,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Nina",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .57)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3)
                 ],
                 "hud_pos": new DHPoint(510, 10)
             };
@@ -110,7 +110,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Diego",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .81, (screenHeight * 2) * .63)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35)
                 ],
                 "hud_pos": new DHPoint(610, 10)
             };
@@ -119,7 +119,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Michael",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .845, (screenHeight * 2) * .63)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35)
                 ],
                 "hud_pos": new DHPoint(710, 10)
             };

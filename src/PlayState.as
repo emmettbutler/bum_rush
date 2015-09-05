@@ -28,7 +28,7 @@ package {
 
         private var map_paths:Array = ["assets/map_3", "assets/map_4", "assets/map_5"];
         private var map_checkpoints:Array = [[Checkpoint.HOME, Checkpoint.BOOZE,  Checkpoint.MOVIES, Checkpoint.PARK, Checkpoint.CLUB, Checkpoint.DINNER]]
-        private var map_checkpoints_positions:Array = [[new DHPoint(.7765, .228), new DHPoint(.4, .539), new DHPoint(.875, .14), new DHPoint(.58, .02), new DHPoint(.1, .17), new DHPoint(.4, .195)]]
+        private var map_checkpoints_positions:Array = [[new DHPoint(.9, .01), new DHPoint(.5, -.01), new DHPoint(.8, .01), new DHPoint(.7, .01), new DHPoint(.0014, .03), new DHPoint(.2, .01)]]
         private var active_map_index:Number;
         private var home_cp_index:Number;
         private var groundBody:b2Body;
