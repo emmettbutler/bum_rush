@@ -59,14 +59,14 @@ package {
                 FlxG.switchState(new PlayState(this._cur_map));
             }
 
-            if(control['id'] == mapping["down"]["button"] && control['value'] == mapping["down"]["value_on"]) { //down
+            if(control['id'] == mapping["up"]["button"] && control['value'] == mapping["up"]["value_on"]) {
                 this._cur_map += 1;
                 if(this._cur_map > (this._maps.length - 1)) {
                     this._cur_map = 0;
                 }
                 this._picker.x = this._maps[this._cur_map].x + 100;
                 this._picker.y = this._maps[this._cur_map].y;
-            } else if (control['id'] == mapping["up"]["button"] && control['value'] == mapping["up"]["value_on"]) { //up
+            } else if (control['id'] == mapping["down"]["button"] && control['value'] == mapping["down"]["value_on"]) {
                 this._cur_map -= 1;
                 if(this._cur_map < 0) {
                     this._cur_map = this._maps.length - 1;
