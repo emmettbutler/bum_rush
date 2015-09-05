@@ -31,7 +31,7 @@ package {
         private var startPos:DHPoint;
         private var dates:Array;
         private var accel:DHPoint,
-                    _directionsPressed:DHPoint,
+                    directionsPressed:DHPoint,
                     throttle:Boolean,
                     facingVector:DHPoint;
         private var _colliding:Boolean = false;
@@ -87,7 +87,7 @@ package {
             this.m_groundBody = groundBody;
             this.dir = new DHPoint(0, 0);
             this.accel = new DHPoint(0, 0);
-            this._directionsPressed = new DHPoint(1, 0);
+            this.directionsPressed = new DHPoint(1, 0);
             this.facingVector = new DHPoint(1, 0);
             this.throttle = false;
             this.controlType = ctrlType;
@@ -331,17 +331,13 @@ package {
             this.parking_anim.visible = false;
         }
 
-        public function get directionsPressed():DHPoint {
-            return this._directionsPressed;
-        }
-
         public function updateMovement():void {
             if (!this.checking_in) {
                 if (this.throttle) {
                     this.accelSFX.play();
                     var force:b2Vec2, accelMul:Number = .8;
-                    if (this._directionsPressed.x != 0 || this._directionsPressed.y != 0) {
-                        force = new b2Vec2(this._directionsPressed.x * accelMul, this._directionsPressed.y * accelMul);
+                    if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
+                        force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
                     } else {
                         force = new b2Vec2(this.facingVector.x * accelMul, this.facingVector.y * accelMul);
                     }
@@ -408,9 +404,9 @@ package {
         }
 
         public function updateDrivingAnimation():void {
-            if(Math.abs(this._directionsPressed.x) > Math.abs(this._directionsPressed.y)) {
+            if(Math.abs(this.directionsPressed.x) > Math.abs(this.directionsPressed.y)) {
                 if(this.throttle) {
-                    if(this._directionsPressed.x >= 0) {
+                    if(this.directionsPressed.x >= 0) {
                         this.mainSprite.play("drive_right");
                         this.carSprite.play("drive_right");
                         this.facingVector.x = 1;
@@ -422,9 +418,9 @@ package {
                         this.facingVector.y = 0;
                     }
                 }
-            } else if(Math.abs(this._directionsPressed.y) > Math.abs(this._directionsPressed.x)) {
+            } else if(Math.abs(this.directionsPressed.y) > Math.abs(this.directionsPressed.x)) {
                 if(this.throttle) {
-                    if(this._directionsPressed.y >= 0) {
+                    if(this.directionsPressed.y >= 0) {
                         this.mainSprite.play("drive_down");
                         this.carSprite.play("drive_down");
                         this.facingVector.y = 1;
@@ -441,25 +437,25 @@ package {
 
         public function updateKeyboard(ctrlType:Number=CTRL_KEYBOARD_1):void {
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['right'])) {
-                this._directionsPressed.x = 1;
+                this.directionsPressed.x = 1;
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['right'])){
-                this._directionsPressed.x = 0;
+                this.directionsPressed.x = 0;
             }
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['left'])) {
-                this._directionsPressed.x = -1;
+                this.directionsPressed.x = -1;
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['left'])){
-                this._directionsPressed.x = 0;
+                this.directionsPressed.x = 0;
             }
 
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['up'])) {
-                this._directionsPressed.y = -1;
+                this.directionsPressed.y = -1;
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['up'])){
-                this._directionsPressed.y = 0;
+                this.directionsPressed.y = 0;
             }
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['down'])) {
-                this._directionsPressed.y = 1;
+                this.directionsPressed.y = 1;
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['down'])){
-                this._directionsPressed.y = 0;
+                this.directionsPressed.y = 0;
             }
 
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['throttle'])) {
@@ -478,30 +474,30 @@ package {
 
             if (control['id'] == mapping["right"]["button"]) {
                 if (control['value'] == mapping["right"]["value_off"]) {
-                    this._directionsPressed.x = 0;
+                    this.directionsPressed.x = 0;
                 } else if (control['value'] == mapping["right"]["value_on"]) {
-                    this._directionsPressed.x = 1;
+                    this.directionsPressed.x = 1;
                 }
             }
             if (control['id'] == mapping["left"]["button"]) {
                 if (control['value'] == mapping["left"]["value_off"]) {
-                    this._directionsPressed.x = 0;
+                    this.directionsPressed.x = 0;
                 } else if (control['value'] == mapping["left"]["value_on"]) {
-                    this._directionsPressed.x = -1;
+                    this.directionsPressed.x = -1;
                 }
             }
             if (control['id'] == mapping["up"]["button"]) {
                 if (control['value'] == mapping["up"]["value_off"]) {
-                    this._directionsPressed.y = 0;
+                    this.directionsPressed.y = 0;
                 } else if (control['value'] == mapping["up"]["value_on"]){
-                    this._directionsPressed.y = 1;
+                    this.directionsPressed.y = 1;
                 }
             }
             if (control['id'] == mapping["down"]["button"]) {
                 if (control['value'] == mapping["down"]["value_off"]) {
-                    this._directionsPressed.y = 0;
+                    this.directionsPressed.y = 0;
                 } else if(control['value'] == mapping["down"]["value_on"]) {
-                    this._directionsPressed.y = -1;
+                    this.directionsPressed.y = -1;
                 }
             }
             if (control['id'] == mapping["a"]["button"]) {
