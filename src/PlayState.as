@@ -232,12 +232,12 @@ package {
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
             // Top
-            wallBd.position.Set((bg.x + bg.width) / m_physScale, ((bg.y + bg.height * .28) - (100 - bg.height * .01)) / m_physScale);
+            wallBd.position.Set((bg.x + bg.width) / m_physScale, ((bg.y + bg.height * .01) / m_physScale));
             wall.SetAsBox(bg.width / m_physScale, 100 / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
             // Bottom
-            wallBd.position.Set((bg.x + bg.width) / m_physScale, (bg.y + bg.height * 2.15) / m_physScale);
+            wallBd.position.Set((bg.x + bg.width) / m_physScale, (bg.y + bg.height * 1.9) / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
         }
