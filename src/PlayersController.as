@@ -30,7 +30,7 @@ package {
         public static const PLAYER_8:Number = 7;
 
         public static var instance:PlayersController;
-        private var players:Array, playerColliders:Array;
+        private var players:Array, playerColliders:Array, passengers:Array;
         private var registeredPlayers:Object;
         private var gameInput:GameInput;
         private var controllers:Dictionary;
@@ -137,6 +137,7 @@ package {
             }
 
             this.players = new Array();
+            this.passengers = new Array();
             this.playerColliders = new Array();
         }
 
@@ -193,7 +194,7 @@ package {
                                              groundBody:b2Body):void
         {
             var controller:GameInputDevice, player:Player, ctrlType:Number, characterTag:Number;
-            var cur:Number = 0;
+            var cur:Number = 0, passenger:Passenger;
             for (var kid:Object in this.registeredPlayers) {
                 if (this.registeredPlayers[kid]['ctrl_type'] == Player.CTRL_KEYBOARD_1 ||
                     this.registeredPlayers[kid]['ctrl_type'] == Player.CTRL_KEYBOARD_2)
@@ -210,6 +211,12 @@ package {
                     checkpoint_count);
                 this.players.push(player);
                 player.addVisibleObjects();
+
+                passenger = new Passenger();
+                passenger.addVisibleObjects();
+                this.passengers.push(passenger);
+                player.addPassenger(passenger);
+
                 cur++;
             }
         }
@@ -221,8 +228,12 @@ package {
         }
 
         public function update():void {
-            for (var i:int = 0; i < this.players.length; i++) {
+            var i:int;
+            for (i = 0; i < this.players.length; i++) {
                 this.players[i].update();
+            }
+            for (i = 0; i < this.passengers.length; i++) {
+                this.passengers[i].update();
             }
         }
 

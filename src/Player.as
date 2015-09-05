@@ -29,7 +29,7 @@ package {
         private var collider:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
-        private var dates:Array;
+        private var passengers:Array;
         private var accel:DHPoint,
                     directionsPressed:DHPoint,
                     throttle:Boolean,
@@ -87,8 +87,8 @@ package {
             this.m_groundBody = groundBody;
             this.dir = new DHPoint(0, 0);
             this.accel = new DHPoint(0, 0);
-            this.directionsPressed = new DHPoint(1, 0);
-            this.facingVector = new DHPoint(1, 0);
+            this.directionsPressed = new DHPoint(0, 1);
+            this.facingVector = new DHPoint(0, 1);
             this.throttle = false;
             this.controlType = ctrlType;
 
@@ -100,7 +100,7 @@ package {
             this._driver_name = tagData['name'];
             this._checkpointStatusList = new Array();
 
-            this.dates = new Array();
+            this.passengers = new Array();
 
             this.addAnimations();
 
@@ -133,18 +133,20 @@ package {
             this._collisionDirection = new Array(0, 0, 0, 0);
         }
 
-        public function removeDate():void {
+        public function getFacingVector():DHPoint {
+            return this.facingVector;
+        }
+
+        public function removePassenger():void {
             var lastDate:Object;
-            if (this.dates.length > 0) {
-                lastDate = this.dates.pop();
+            if (this.passengers.length > 0) {
+                lastDate = this.passengers.pop();
             }
         }
 
-        public function addDate():void {
-            var _date:Object = {
-                'spr': null
-            };
-            this.dates.push(_date);
+        public function addPassenger(passenger:Passenger):void {
+            passenger.driver = this;
+            this.passengers.push(passenger);
         }
 
         public function get bodyVelocity():Number {
@@ -519,7 +521,13 @@ package {
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
             this.completionIndicator.y = pos.y;
-            this.collider.setPos(pos.add(new DHPoint(0, this.mainSprite.height - this.collider.height)));
+            this.collider.setPos(pos.add(
+                new DHPoint(0,
+                            this.mainSprite.height - this.collider.height)));
+            for (var i:int = 0; i < this.passengers.length; i++) {
+                this.passengers[i].setPos(pos);
+            }
+
         }
     }
 }

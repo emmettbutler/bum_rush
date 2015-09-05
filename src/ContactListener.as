@@ -40,7 +40,7 @@ package {
                 slowerPlayer = fixAUserData['player'];
             }
 
-            slowerPlayer.removeDate();
+            slowerPlayer.removePassenger();
         }
 
         override public function EndContact(contact:b2Contact):void {
