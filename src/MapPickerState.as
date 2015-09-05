@@ -21,6 +21,12 @@ package {
             this._cur_map = 0;
 
             var t:FlxText;
+            t = new FlxText(0, 100, ScreenManager.getInstance().screenWidth, "Up/Down and then A (or space) to select map.");
+            t.size = 16;
+            t.alignment = "left";
+            add(t);
+
+            var t:FlxText;
             t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "Map A");
             t.size = 16;
             t.alignment = "left";
@@ -29,11 +35,13 @@ package {
 
             t = new FlxText(0, 250, ScreenManager.getInstance().screenWidth, "Map B");
             t.alignment = "left";
+            t.size = 16;
             add(t);
             this._maps.push(t);
 
             t = new FlxText(0, 300, ScreenManager.getInstance().screenWidth, "Map C");
             t.alignment = "left";
+            t.size = 16;
             add(t);
             this._maps.push(t);
 
@@ -71,7 +79,7 @@ package {
         override public function update():void {
             super.update();
 
-            /*if(!this._picker_lock) {
+            if(!this._picker_lock) {
                 if(FlxG.keys.justPressed("DOWN")) {
                     this._picker_lock = true;
                     this._cur_map += 1;
@@ -80,14 +88,24 @@ package {
                     }
                     this._picker.x = this._maps[this._cur_map].x + 100;
                     this._picker.y = this._maps[this._cur_map].y;
-                } else if(FlxG.keys.justPressed("SPACE")) {
+                }
+                if(FlxG.keys.justPressed("UP")) {
+                    this._picker_lock = true;
+                    this._cur_map -= 1;
+                    if(this._cur_map < 0) {
+                        this._cur_map = this._maps.length - 1;
+                    }
+                    this._picker.x = this._maps[this._cur_map].x + 100;
+                    this._picker.y = this._maps[this._cur_map].y;
+                }
+                if(FlxG.keys.justPressed("SPACE")) {
                     FlxG.switchState(new PlayState(this._cur_map));
                 }
             } else {
-                if(FlxG.keys.justReleased("DOWN")) {
+                if(FlxG.keys.justReleased("DOWN") || FlxG.keys.justReleased("UP")) {
                     this._picker_lock = false;
                 }
-            }*/
+            }
         }
     }
 }
