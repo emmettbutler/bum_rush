@@ -192,11 +192,16 @@ package {
                 curPlayer.colliding = false;
 
                 var n:int;
+                var overlappingCheckpoint:Boolean = false;
                 for (n = 0; n < this.checkpoints.length; n++) {
                     checkpoint = this.checkpoints[n];
                     if (curCollider._getRect().overlaps(checkpoint._getRect())) {
                         this.overlapPlayerCheckpoints(curPlayer, checkpoint);
+                        overlappingCheckpoint = true;
                     }
+                }
+                if(!overlappingCheckpoint) {
+                    this.noCheckpointOverlap(curPlayer);
                 }
 
                 collisionData = FlxCollision.pixelPerfectCheck(
@@ -223,9 +228,15 @@ package {
         {
             if(!this.finished) {
                 player.crossCheckpoint(checkpoint, this.home_cp_index);
-                if(player.winner) {
+            }
+            if(player.winner) {
                     this.endRace();
-                }
+            }
+        }
+
+        public function noCheckpointOverlap(player:Player):void {
+            if(!this.finished) {
+                player.noCheckpointOverlap();
             }
         }
 

@@ -51,6 +51,9 @@ package {
         private var checking_in:Boolean = false;
         private var lastPassengerRemoveTime:Number = 0;
         private var passengerRemoveThreshold:Number = 1;
+        private var curCheckpoint:Checkpoint;
+        private var curHomeInd:Number;
+        private var myMeter:Meter;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -133,6 +136,8 @@ package {
             this.setupPhysics();
 
             this._collisionDirection = new Array(0, 0, 0, 0);
+
+            this.myMeter = new Meter(this.pos, 100, 50, 10);
         }
 
         public function getFacingVector():DHPoint {
@@ -261,6 +266,7 @@ package {
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
+            this.myMeter.addVisibleObjects();
         }
 
         public function get lastCheckpointIdx():Number {
@@ -283,41 +289,70 @@ package {
             return this._winner;
         }
 
+        public function completeCheckpoint():void {
+            this.checking_in = false;
+            this.parking_anim.visible = false;
+            this.myMeter.setVisible(false);
+
+            if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
+                var checkpointsComplete:Boolean = true;
+                this._checkpointStatusList[this.curCheckpoint.index] = true;
+                this._checkpoints_completed += 1;
+                this.player_hud.finishedCheckpoint(this.curCheckpoint.cp_type);
+
+                curCheckpoint.playSfx();
+            }
+
+            for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
+                if(n != this.curHomeInd) {
+                    if(!this._checkpointStatusList[n]) {
+                        checkpointsComplete = false;
+                    }
+                }
+            }
+
+            if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
+                if(checkpointsComplete) {
+                    this._checkpoints_complete = true;
+                    this.completionTime = this.curTime;
+                    this.completionIndicator.text = "Checkpoints complete!";
+                }
+            }
+
+        }
+
         public function crossCheckpoint(checkpoint:Checkpoint, home_ind:Number):void {
-            if(!this._checkpoints_complete) {
-                if (!this._checkpointStatusList[checkpoint.index])
+            if(!this._checkpoints_complete && !this.checking_in) {
+                if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
                 {
-                    if(checkpoint.cp_type != Checkpoint.HOME) {
-                        var checkpointsComplete:Boolean = true;
-                        this._checkpointStatusList[checkpoint.index] = true;
-                        this._checkpoints_completed += 1;
-                        this.player_hud.finishedCheckpoint(checkpoint.cp_type);
-
-                        checkpoint.playSfx();
-                        this.playerCheckIn(checkpoint);
-                    }
-
-                    for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
-                        if(n != home_ind) {
-                            if(!this._checkpointStatusList[n]) {
-                                checkpointsComplete = false;
-                            }
-                        }
-                    }
-
-                    if(checkpoint.cp_type != Checkpoint.HOME) {
-                        if(checkpointsComplete) {
-                            this._checkpoints_complete = true;
-                            this.completionTime = this.curTime;
-                            this.completionIndicator.text = "Checkpoints complete!";
-                        }
-                    }
+                    this.playerCheckIn(checkpoint);
+                    this.curCheckpoint = checkpoint;
+                    this.curHomeInd = home_ind;
                 }
             } else {
                 if(checkpoint.cp_type == Checkpoint.HOME) {
                     this._winner = true;
                     this.lastCheckpointSound.play();
                 }
+            }
+        }
+
+
+        public function playerCheckIn(checkpoint:Checkpoint):void {
+            //this.driving = false;
+            this.myMeter.setVisible(true);
+            this.checking_in = true;
+            this.parking_anim.visible = true;
+            this.checkInTime = this.curTime;
+            //this.throttle = false;
+            //this.m_physBody.SetLinearVelocity(new b2Vec2(0, 0));
+        }
+
+        public function noCheckpointOverlap():void {
+            if(this.checking_in) {
+                this.checking_in = false;
+                this.parking_anim.visible = false;
+                this.myMeter.setVisible(false);
             }
         }
 
@@ -337,44 +372,30 @@ package {
                 if ((this.curTime - this.completionTime) / 1000 >= 2) {
                     this.completionIndicator.text = "";
                 }
-            } else if(this.checking_in) {
+            }
+            if(this.checking_in) {
+                this.myMeter.setPos(this.pos);
                 this.parking_anim.x = this.mainSprite.x;
                 this.parking_anim.y = this.mainSprite.y;
+                this.myMeter.setPoints((((this.curTime - this.checkInTime)/1000)/3)*100);
 
                 if ((this.curTime - this.checkInTime) / 1000 >= 3) {
-                    this.playerCheckOut();
+                    this.completeCheckpoint()
                 }
             }
         }
 
-        public function playerCheckIn(checkpoint:Checkpoint):void {
-            this.driving = false;
-            this.checking_in = true;
-            this.parking_anim.visible = true;
-            this.checkInTime = this.curTime;
-            this.throttle = false;
-            this.m_physBody.SetLinearVelocity(new b2Vec2(0, 0));
-        }
-
-        public function playerCheckOut():void {
-            this.driving = true;
-            this.checking_in = false;
-            this.parking_anim.visible = false;
-        }
-
         public function updateMovement():void {
-            if (!this.checking_in) {
-                if (this.throttle) {
-                    this.accelSFX.play();
-                    var force:b2Vec2, accelMul:Number = .65;
-                    if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
-                        force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
-                    } else {
-                        force = new b2Vec2(this.facingVector.x * accelMul, this.facingVector.y * accelMul);
-                    }
-                    if (this.m_physBody.GetAngularVelocity() < 1) {
-                        this.m_physBody.ApplyImpulse(force, this.m_physBody.GetPosition())
-                    }
+            if (this.throttle) {
+                this.accelSFX.play();
+                var force:b2Vec2, accelMul:Number = .65;
+                if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
+                    force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
+                } else {
+                    force = new b2Vec2(this.facingVector.x * accelMul, this.facingVector.y * accelMul);
+                }
+                if (this.m_physBody.GetAngularVelocity() < 1) {
+                    this.m_physBody.ApplyImpulse(force, this.m_physBody.GetPosition())
                 }
             }
 
