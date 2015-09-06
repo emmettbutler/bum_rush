@@ -39,6 +39,8 @@ package {
             this.checkpointSound.loadEmbedded(CheckpointSFX,false);
             this.checkpointSound.volume = .1;
 
+            this._cp_type = type;
+
             switch (type) {
                 case null:
                 break;
@@ -48,42 +50,35 @@ package {
                 this.checkpoint_sprite.addAnimation("play", [0,1,2,3,4,5],
                                                     this.frameRate, true);
                 this.checkpoint_sprite.play("play");
-                this._cp_type = Checkpoint.APARTMENT;
                 break;
 
                 case Checkpoint.BOOZE:
                 this.checkpoint_sprite.loadGraphic(this.BoozeSprite, false, false, 128, 128);
-                this._cp_type = Checkpoint.BOOZE;
                 break;
 
                 case Checkpoint.HOME:
                 this.checkpoint_sprite.loadGraphic(this.HomeSprite, false, false, 128, 128);
-                this._cp_type = Checkpoint.HOME;
                 break;
 
                 case Checkpoint.MOVIES:
                 this.checkpoint_sprite.loadGraphic(this.MoviesSprite, false, false, 128, 128);
-                this._cp_type = Checkpoint.MOVIES;
                 break;
 
                 case Checkpoint.PARK:
                 this.checkpoint_sprite.loadGraphic(this.ParkSprite, false, false, 128, 128);
-                this._cp_type = Checkpoint.PARK;
                 break;
 
                 case Checkpoint.BEACH:
                 this.checkpoint_sprite.loadGraphic(this.BeachSprite, false, false, 128, 128);
-                this._cp_type = Checkpoint.BEACH;
                 break;
 
                 case Checkpoint.DINNER:
                 this.checkpoint_sprite.loadGraphic(this.DinnerSprite, false, false, 128, 128);
-                this._cp_type = Checkpoint.DINNER;
                 break;
 
                 case Checkpoint.CLUB:
                 this.checkpoint_sprite.loadGraphic(this.ClubSprite, false, false, 128, 128);
-                this._cp_type = Checkpoint.CLUB;
+                break;
             }
 
             this.makeGraphic(this.checkpoint_sprite.width, this.checkpoint_sprite.height, 0xffff0000);
