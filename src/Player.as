@@ -65,6 +65,7 @@ package {
         private var curHomeInd:Number;
         private var meter:Meter;
         private var streetPoints:Array;
+        private var particles:ParticleExplosion;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -151,10 +152,20 @@ package {
 
             this._collisionDirection = new Array(0, 0, 0, 0);
             this.meter = new Meter(this.pos, 100, 50, 10);
+            this.setupParticles();
         }
 
         public function getFacingVector():DHPoint {
             return this.facingVector;
+        }
+
+        public function setupParticles():void {
+            this.particles = new ParticleExplosion(13, 2, .4, 12);
+            this.particles.gravity = new DHPoint(0, .3);
+        }
+
+        public function runParticles():void {
+            this.particles.run(this.pos);
         }
 
         public function overlapsPassenger(passenger:Passenger):Boolean {
@@ -174,6 +185,7 @@ package {
                 var destPoint:DHPoint = this.streetPoints[
                     Math.floor(Math.random() * (this.streetPoints.length - 1))];
                 lastPassenger.leaveCar(hitVector, destPoint);
+                this.runParticles();
             }
         }
 
@@ -287,6 +299,7 @@ package {
             this.player_hud.buildHud();
             this.meter.addVisibleObjects();
             FlxG.state.add(this.checkmark_sprite);
+            this.particles.addVisibleObjects();
         }
 
         public function get lastCheckpointIdx():Number {
@@ -374,6 +387,10 @@ package {
 
         override public function update():void {
             super.update();
+
+            if (this.particles != null) {
+                this.particles.update();
+            }
 
             this.setPos(new DHPoint((this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2,
                                     (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2));

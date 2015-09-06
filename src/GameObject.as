@@ -25,8 +25,16 @@ package {
             return this._parent;
         }
 
+        public function set parent(g:GameObject):void {
+            this._parent = g;
+        }
+
         public function setDir(d:DHPoint):void {
             this.dir = d;
+        }
+
+        public function getDir():DHPoint {
+            return this.dir;
         }
 
         override public function update():void {
