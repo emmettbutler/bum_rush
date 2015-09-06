@@ -15,6 +15,7 @@ package {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
         [Embed(source="/../assets/car_p1_64.png")] private var ImgCar:Class;
+        [Embed(source="/../assets/HUD_arrow.png")] private static var HUDCheckmark:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
 
@@ -34,6 +35,7 @@ package {
         private var parking_anim:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
+        private var checkmark_sprite:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
         private var passengers:Array;
@@ -59,6 +61,7 @@ package {
         private var lastPassengerRemoveTime:Number = 0;
         private var passengerRemoveThreshold:Number = 1;
         private var curCheckpoint:Checkpoint;
+        private var lastCompletedCheckpoint:Checkpoint;
         private var curHomeInd:Number;
         private var meter:Meter;
         private var streetPoints:Array;
@@ -246,6 +249,10 @@ package {
             this.parking_anim.loadGraphic(
                 PlayersController.getInstance().playerConfigs[driver_tag]["parking_anim"],
                 false, false, 244, 26);
+
+            this.checkmark_sprite = new GameObject(new DHPoint(0, 0));
+            this.checkmark_sprite.loadGraphic(HUDCheckmark, false, false, 32, 32);
+            this.checkmark_sprite.visible = false;
         }
 
         public function set colliding(c:Boolean):void {
@@ -279,6 +286,7 @@ package {
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
             this.meter.addVisibleObjects();
+            FlxG.state.add(this.checkmark_sprite);
         }
 
         public function get lastCheckpointIdx():Number {
@@ -305,16 +313,17 @@ package {
             this.checking_in = false;
             this.parking_anim.visible = false;
             this.meter.setVisible(false);
-
             if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
-                var checkpointsComplete:Boolean = true;
+                this.lastCompletedCheckpoint = this.curCheckpoint;
                 this._checkpointStatusList[this.curCheckpoint.index] = true;
                 this._checkpoints_completed += 1;
-                this.player_hud.finishedCheckpoint(this.curCheckpoint.cp_type);
-
+                this.checkmark_sprite.visible = true;
+                this.checkmark_sprite.setPos(this.pos);
+                this.checkmark_sprite.setDir(
+                    this.player_hud.posOf(this.curCheckpoint.cp_type).sub(this.pos).normalized().mulScl(14));
                 curCheckpoint.playSfx();
             }
-
+            var checkpointsComplete:Boolean = true;
             for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
                 if(n != this.curHomeInd) {
                     if(!this._checkpointStatusList[n]) {
@@ -322,7 +331,6 @@ package {
                     }
                 }
             }
-
             if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
                 if(checkpointsComplete) {
                     this._checkpoints_complete = true;
@@ -330,7 +338,6 @@ package {
                     this.completionIndicator.text = "Checkpoints complete!";
                 }
             }
-
         }
 
         public function crossCheckpoint(checkpoint:Checkpoint, home_ind:Number):void {
@@ -390,6 +397,16 @@ package {
 
                 if ((this.curTime - this.checkInTime) / 1000 >= 3) {
                     this.completeCheckpoint()
+                }
+            }
+
+            if (this.checkmark_sprite.visible && this.lastCompletedCheckpoint != null) {
+                if (this.checkmark_sprite.getPos().sub(
+                        this.player_hud.posOf(
+                            this.lastCompletedCheckpoint.cp_type))._length() < 10)
+                {
+                    this.checkmark_sprite.visible = false;
+                    this.player_hud.markCheckpoint(this.lastCompletedCheckpoint.cp_type);
                 }
             }
         }

@@ -25,6 +25,10 @@ package {
             return this._parent;
         }
 
+        public function setDir(d:DHPoint):void {
+            this.dir = d;
+        }
+
         override public function update():void {
             super.update();
             this.curTime = new Date().valueOf();

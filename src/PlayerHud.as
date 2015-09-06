@@ -59,7 +59,11 @@ package {
             }
         }
 
-        public function finishedCheckpoint(cp:String):void {
+        public function posOf(tag:String):DHPoint {
+            return this.hud_objects[tag].getPos();
+        }
+
+        public function markCheckpoint(cp:String):void {
             if (this.hud_finished_objects[cp] != null) {
                 this.hud_finished_objects[cp].visible = true;
             }
