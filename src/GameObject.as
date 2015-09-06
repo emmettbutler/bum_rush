@@ -33,6 +33,10 @@ package {
             this.dir = d;
         }
 
+        public function getDir():DHPoint {
+            return this.dir;
+        }
+
         override public function update():void {
             super.update();
             this.curTime = new Date().valueOf();

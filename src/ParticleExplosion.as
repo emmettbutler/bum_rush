@@ -66,10 +66,10 @@ package {
                 p.setPos(this.pos.sub(
                     new DHPoint(p.frameWidth / 2, p.frameHeight / 2)));
                 speedMul = Math.random() * .5;
-                p.dir = new DHPoint(
+                p.setDir(new DHPoint(
                     Math.cos(angle) * (this.particleSpeed * speedMul),
                     Math.sin(angle) * (this.particleSpeed * speedMul)
-                );
+                ));
                 angle += (Math.PI * 2) / this.particleCount;
             }
         }
@@ -77,9 +77,9 @@ package {
         public function update():void {
             for(var i:int = 0; i < this.particles.length; i++) {
                 if (this.particles[i].active) {
-                    this.particles[i].dir = this.particles[i].dir.add(
+                    this.particles[i].setDir(this.particles[i].getDir().add(
                         this.particleGravity
-                    );
+                    ));
                     this.particles[i].angle += this.particleRotationSpeed;
                 }
             }
