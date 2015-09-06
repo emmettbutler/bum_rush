@@ -203,7 +203,7 @@ package {
 
             if (this.m_world != null) {
                 this.m_world.Step(1.0 / 30.0, 10, 10);
-                m_world.DrawDebugData();
+                //m_world.DrawDebugData();
             }
 
             this.raceTimeAlive = this.curTime - this.raceBornTime;
@@ -299,15 +299,15 @@ package {
             listener = new ContactListener();
             m_world.SetContactListener(listener);
 
-            var dbgDraw:b2DebugDraw = new b2DebugDraw();
-            var dbgSprite:Sprite = new Sprite();
-            FlxG.stage.addChild(dbgSprite);
-            dbgDraw.SetSprite(dbgSprite);
-            dbgDraw.SetDrawScale(30 / 2);
-            dbgDraw.SetFillAlpha(0.3);
-            dbgDraw.SetLineThickness(1.0);
-            dbgDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-            m_world.SetDebugDraw(dbgDraw);
+            //var dbgDraw:b2DebugDraw = new b2DebugDraw();
+            //var dbgSprite:Sprite = new Sprite();
+            //FlxG.stage.addChild(dbgSprite);
+            //dbgDraw.SetSprite(dbgSprite);
+            //dbgDraw.SetDrawScale(30 / 2);
+            //dbgDraw.SetFillAlpha(0.3);
+            //dbgDraw.SetLineThickness(1.0);
+            //dbgDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+            //m_world.SetDebugDraw(dbgDraw);
 
             var ground:b2PolygonShape = new b2PolygonShape();
             var fixtureDef:b2FixtureDef = new b2FixtureDef();
@@ -334,7 +334,7 @@ package {
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
             // Top
-            wallBd.position.Set((bg.x + bg.width) / m_physScale, ((bg.y + bg.height * .01) / m_physScale));
+            wallBd.position.Set((bg.x + bg.width) / m_physScale, ((bg.y - bg.height * .06) / m_physScale));
             wall.SetAsBox(bg.width / m_physScale, 100 / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
