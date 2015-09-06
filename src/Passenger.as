@@ -97,10 +97,13 @@ package {
                 case STATE_STANDING:
                     break;
                 case STATE_MOVING_TO_STREET:
-                    this.dir = this.destPos.sub(this.pos).normalized().mulScl(2);
+                    this.dir = this.destPos.sub(this.pos).normalized().mulScl(5);
+                    this.riding_sprite.angle += 9;
                     if (this.destPos.sub(this.pos)._length() < 10) {
                         this.dir = new DHPoint(0, 0);
                         this._state = STATE_STANDING;
+                        this.riding_sprite.angle = 0;
+                        this.standing_sprite.angle = 0;
                     }
                     break;
             }
