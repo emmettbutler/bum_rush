@@ -22,10 +22,10 @@ package {
             this._outerHeight = outerHeight;
 
             this._barFrame = new GameObject(pos);
-            this._barFrame.makeGraphic(this._outerWidth, this._outerHeight, 0xff7c6e6a);
+            this._barFrame.makeGraphic(this._outerWidth, this._outerHeight, 0xffffffff);
 
             this._innerBar = new GameObject(pos);
-            this._innerBar.makeGraphic(1, this._outerHeight - 1, 0xffe2678e);
+            this._innerBar.makeGraphic(1, this._outerHeight - 1, 0xffd82e5a);
             this._innerBar.scale.x = this._outerWidth * (maxPoints / this._maxPoints);
             this._innerBar.offset.x = -1 * (this._innerBar.scale.x / 2);
         }

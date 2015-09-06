@@ -346,7 +346,7 @@ package {
         public function checkIn(checkpoint:Checkpoint):void {
             this.meter.setVisible(true);
             this.checking_in = true;
-            this.parking_anim.visible = true;
+            //this.parking_anim.visible = true;
             this.checkInTime = this.curTime;
         }
 
@@ -376,7 +376,7 @@ package {
                 }
             }
             if(this.checking_in) {
-                this.meter.setPos(this.pos);
+                this.meter.setPos(this.pos.add(new DHPoint(30, -10)));
                 this.parking_anim.x = this.mainSprite.x;
                 this.parking_anim.y = this.mainSprite.y;
                 this.meter.setPoints((((this.curTime - this.checkInTime)/1000)/3)*100);
