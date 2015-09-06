@@ -12,6 +12,7 @@ package {
         public function GameObject(pos:DHPoint, parent:GameObject=null) {
             super(pos.x, pos.y);
             this.pos = new DHPoint(pos.x, pos.y);
+            this.dir = new DHPoint(0, 0);
             this._parent = parent;
             this.bornTime = new Date().valueOf();
             this.basePos = new DHPoint(0, 0);
@@ -28,6 +29,9 @@ package {
             super.update();
             this.curTime = new Date().valueOf();
             this.timeAlive = this.curTime - this.bornTime;
+            this.pos.x = this.x;
+            this.pos.y = this.y;
+            this.setPos(this.pos.add(this.dir));
             if (this.basePosOffset != null) {
                 this.basePos.x = this.pos.x + this.basePosOffset.x;
                 this.basePos.y = this.pos.y + this.basePosOffset.y;

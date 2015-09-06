@@ -6,6 +6,7 @@ package {
 
         public static const STATE_RIDING:Number = 1;
         public static const STATE_STANDING:Number = 2;
+        public static const STATE_MOVING_TO_STREET:Number = 3;
         private var _state:Number;
 
         public static const TYPE_LILD:Number = 1;
@@ -14,6 +15,7 @@ package {
         private var riding_sprite:GameObject;
         private var standing_sprite:GameObject;
         private var frameRate:Number = 12;
+        private var destPos:DHPoint;
         public var idx:int = 0;
 
         private var _driver:Player;
@@ -72,10 +74,10 @@ package {
         }
 
         public function leaveCar(hitVector:DHPoint, destPoint:DHPoint):void {
-            if (this._state != STATE_STANDING) {
-                this._state = STATE_STANDING;
+            if (this._state != STATE_MOVING_TO_STREET) {
+                this._state = STATE_MOVING_TO_STREET;
                 this._driver = null;
-                this.setPos(destPoint);
+                this.destPos = destPoint;
             }
         }
 
@@ -87,11 +89,19 @@ package {
         }
 
         override public function update():void {
+            super.update();
             switch (this._state) {
                 case STATE_RIDING:
                     this.updateDrivingAnimation();
                     break;
                 case STATE_STANDING:
+                    break;
+                case STATE_MOVING_TO_STREET:
+                    this.dir = this.destPos.sub(this.pos).normalized().mulScl(2);
+                    if (this.destPos.sub(this.pos)._length() < 10) {
+                        this.dir = new DHPoint(0, 0);
+                        this._state = STATE_STANDING;
+                    }
                     break;
             }
         }
