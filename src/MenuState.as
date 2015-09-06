@@ -37,7 +37,7 @@ package {
                  this.countdownLength && !this.stateSwitchLock)
             {
                 this.stateSwitchLock = true;
-                FlxG.switchState(new PlayState());
+                FlxG.switchState(new MapPickerState());
             }
 
             // debug

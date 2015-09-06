@@ -27,17 +27,56 @@ package {
         public var m_world:b2World;
 
         private var map_paths:Array = ["assets/map_3", "assets/map_4", "assets/map_5"];
-        private var map_checkpoints:Array = [[Checkpoint.HOME, Checkpoint.BOOZE,  Checkpoint.MOVIES, Checkpoint.PARK, Checkpoint.CLUB, Checkpoint.DINNER]]
-        private var map_checkpoints_positions:Array = [[new DHPoint(.9, .01), new DHPoint(.5, -.01), new DHPoint(.8, .01), new DHPoint(.7, .01), new DHPoint(.0014, .03), new DHPoint(.2, .01)]]
+        private var map_checkpoints:Array = [
+            [Checkpoint.HOME,
+             Checkpoint.BOOZE,
+             Checkpoint.MOVIES,
+             Checkpoint.PARK,
+             Checkpoint.CLUB,
+             Checkpoint.DINNER],
+            [Checkpoint.HOME,
+             Checkpoint.BOOZE,
+             Checkpoint.MOVIES,
+             Checkpoint.PARK,
+             Checkpoint.CLUB,
+             Checkpoint.DINNER],
+            [Checkpoint.HOME,
+             Checkpoint.BOOZE,
+             Checkpoint.MOVIES,
+             Checkpoint.PARK,
+             Checkpoint.CLUB,
+             Checkpoint.DINNER]
+        ];
+        private var map_checkpoints_positions:Array = [
+            [new DHPoint(.58, .539),
+             new DHPoint(.4, .539),
+             new DHPoint(.776, .24),
+             new DHPoint(.68, .536),
+             new DHPoint(.1, .17),
+             new DHPoint(.4, .195)],
+            [new DHPoint(.58, .539),
+             new DHPoint(.4, .539),
+             new DHPoint(.776, .24),
+             new DHPoint(.68, .536),
+             new DHPoint(.1, .17),
+             new DHPoint(.4, .195)],
+            [new DHPoint(.58, .539),
+             new DHPoint(.4, .539),
+             new DHPoint(.776, .24),
+             new DHPoint(.68, .536),
+             new DHPoint(.1, .17),
+             new DHPoint(.4, .195)]
+        ];
         private var active_map_index:Number;
         private var home_cp_index:Number;
         private var groundBody:b2Body;
 
+        public function PlayState(map:Number) {
+            this.active_map_index = map;
+        }
+
         override public function create():void {
             super.create();
-
-            //TODO pick a random map
-            this.active_map_index = 0;
 
             this.collider = ScreenManager.getInstance().loadSingleTileBG(this.map_paths[this.active_map_index] + "_collider.png");
             ScreenManager.getInstance().loadSingleTileBG(this.map_paths[this.active_map_index] + ".png");
