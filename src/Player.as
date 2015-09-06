@@ -153,7 +153,6 @@ package {
             this._collisionDirection = new Array(0, 0, 0, 0);
             this.meter = new Meter(this.pos, 100, 50, 10);
             this.setupParticles();
-            this.particles.addVisibleObjects();
         }
 
         public function getFacingVector():DHPoint {
@@ -300,6 +299,7 @@ package {
             this.player_hud.buildHud();
             this.meter.addVisibleObjects();
             FlxG.state.add(this.checkmark_sprite);
+            this.particles.addVisibleObjects();
         }
 
         public function get lastCheckpointIdx():Number {
