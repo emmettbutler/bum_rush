@@ -86,7 +86,7 @@ package {
                 this._cp_type = Checkpoint.CLUB;
             }
 
-            this.makeGraphic(this.checkpoint_sprite.width/2, this.checkpoint_sprite.height*2, 0xffff0000);
+            this.makeGraphic(this.checkpoint_sprite.width, this.checkpoint_sprite.height, 0xffff0000);
             this.visible = false;
         }
 
@@ -106,6 +106,11 @@ package {
             if(this.checkpoint_sprite != null) {
                 this.checkpoint_sprite.setPos(p);
             }
+        }
+
+        public function setHitboxSize(dim:DHPoint):void {
+            this.width = dim.x;
+            this.height = dim.y;
         }
 
         public function playSfx():void {

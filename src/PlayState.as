@@ -70,6 +70,46 @@ package {
              new DHPoint(.1, .17),
              new DHPoint(.4, .195)]
         ];
+        private var map_checkpoints_hitbox_pos:Array = [
+            [new DHPoint(.9, .08),
+             new DHPoint(.2, .15),
+             new DHPoint(.8, .1),
+             new DHPoint(.7, .1),
+             new DHPoint(.001, .15),
+             new DHPoint(.45, 0)],
+            [new DHPoint(.58, .539),
+             new DHPoint(.4, .539),
+             new DHPoint(.776, .24),
+             new DHPoint(.68, .536),
+             new DHPoint(.1, .17),
+             new DHPoint(.4, .195)],
+            [new DHPoint(.58, .539),
+             new DHPoint(.4, .539),
+             new DHPoint(.776, .24),
+             new DHPoint(.68, .536),
+             new DHPoint(.1, .17),
+             new DHPoint(.4, .195)]
+        ];
+        private var map_checkpoints_size:Array = [
+            [new DHPoint(100, 128),
+             new DHPoint(100, 128),
+             new DHPoint(100, 128),
+             new DHPoint(100, 128),
+             new DHPoint(100, 128),
+             new DHPoint(100, 128)],
+            [new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150)],
+            [new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150),
+             new DHPoint(150, 150)]
+        ];
         private var active_map_index:Number;
         private var home_cp_index:Number;
         private var groundBody:b2Body;
@@ -119,16 +159,16 @@ package {
                             var cp_pos:DHPoint = that.map_checkpoints_positions[that.active_map_index][p];
                             cur = that.checkpoints[p];
                             cur.setPos(new DHPoint(
-                                event.userData['bg'].x + event.userData['bg'].width * (cp_pos.x + .05),
-                                event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
+                                event.userData['bg'].x + event.userData['bg'].width * that.map_checkpoints_hitbox_pos[that.active_map_index][p].x,
+                                event.userData['bg'].y + event.userData['bg'].height * that.map_checkpoints_hitbox_pos[that.active_map_index][p].y
                             ));
                             cur.setImgPos(new DHPoint(
                                 event.userData['bg'].x + event.userData['bg'].width * cp_pos.x,
                                 event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
                             ));
+                            cur.setHitboxSize(that.map_checkpoints_size[that.active_map_index][p]);
                             cur.index = p;
                         }
-                    } else {
                         FlxG.state.add(that.instructions);
                     }
 
@@ -233,10 +273,12 @@ package {
         }
 
         public function endRace():void {
-            this.raceEndTimer = (this.raceTimeAlive/1000) + 3;
-            this.finished = true;
-            this.time_out_sprite.visible = true;
-            this.gameActive = false;
+            if(!this.finished) {
+                this.raceEndTimer = (this.raceTimeAlive/1000) + 3;
+                this.finished = true;
+                this.time_out_sprite.visible = true;
+                this.gameActive = false;
+            }
         }
 
         public function overlapPlayerCheckpoints(player:Player,

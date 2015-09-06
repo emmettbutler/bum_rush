@@ -133,7 +133,7 @@ package {
             this.collider = new GameObject(new DHPoint(0, 0), this);
             this.collider.makeGraphic(this.mainSprite.width,
                                       this.mainSprite.height * .5,
-                                      0xffff0000,
+                                      0xffffff00,
                                       true);
             this.collider.visible = false;
 
@@ -334,7 +334,7 @@ package {
                     this.curCheckpoint = checkpoint;
                     this.curHomeInd = home_ind;
                 }
-            } else {
+            } else if(this._checkpoints_complete && !this.checking_in){
                 if(checkpoint.cp_type == Checkpoint.HOME) {
                     this._winner = true;
                     this.lastCheckpointSound.play();
@@ -573,6 +573,7 @@ package {
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
             this.completionIndicator.y = pos.y;
+            this.collider.setPos(pos);
             this.collider.setPos(pos.add(
                 new DHPoint(0,
                             this.mainSprite.height - this.collider.height)));
