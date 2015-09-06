@@ -15,14 +15,8 @@ package {
         private var player_icon:FlxText;
         private var player_tag:Number;
 
-        public static const HUD_BOOZE:String = "my beer";
-        public static const HUD_MOVIES:String = "my movie";
-        public static const HUD_PARK:String = "my tree";
-        public static const HUD_BEACH:String = "my water";
-        public static const HUD_DINNER:String = "my weiner";
         public static const HUD_ARROW:String = "my arrow";
         public static const HUD_NUMBER:String = "my number";
-        public static const HUD_CLUB:String = "my club";
         private var hud_objects:Dictionary;
         private var hud_finished_objects:Dictionary;
         private var base_pos_list:Array;
@@ -66,22 +60,8 @@ package {
         }
 
         public function finishedCheckpoint(cp:String):void {
-            if(cp == Checkpoint.HOME) {
-            } else if (cp == Checkpoint.BOOZE) {
-                this.hud_finished_objects[PlayerHud.HUD_BOOZE].visible = true;
-            } else if (cp == Checkpoint.APARTMENT) {
-            } else if (cp == Checkpoint.PARK) {
-                this.hud_finished_objects[PlayerHud.HUD_PARK].visible = true;
-            } else if (cp == Checkpoint.MOVIES) {
-                this.hud_finished_objects[PlayerHud.HUD_MOVIES].visible = true;
-            } else if (cp == Checkpoint.BEACH) {
-                if (this.hud_finished_objects[PlayerHud.HUD_BEACH] != null) {
-                    this.hud_finished_objects[PlayerHud.HUD_BEACH].visible = true;
-                }
-            } else if (cp == Checkpoint.DINNER) {
-                this.hud_finished_objects[PlayerHud.HUD_DINNER].visible = true;
-            } else if (cp == Checkpoint.CLUB) {
-                this.hud_finished_objects[PlayerHud.HUD_CLUB].visible = true;
+            if (this.hud_finished_objects[cp] != null) {
+                this.hud_finished_objects[cp].visible = true;
             }
         }
 
@@ -91,23 +71,23 @@ package {
             var screenHeight:Number = ScreenManager.getInstance().screenHeight;
 
             struc['image_map'] = new Dictionary();
-            struc['image_map'][PlayerHud.HUD_BOOZE] = {
+            struc['image_map'][Checkpoint.BOOZE] = {
                 "sprite": PlayerHud.HUDBeer,
                 "pos": new DHPoint(screenWidth * .19, screenHeight - 45)
             };
-            struc['image_map'][PlayerHud.HUD_MOVIES] = {
+            struc['image_map'][Checkpoint.MOVIES] = {
                 "sprite": PlayerHud.HUDMovie,
                 "pos": new DHPoint(screenWidth * .215, screenHeight - 45)
             };
-            struc['image_map'][PlayerHud.HUD_PARK] = {
+            struc['image_map'][Checkpoint.PARK] = {
                 "sprite": PlayerHud.HUDTree,
                 "pos": new DHPoint(screenWidth * .24, screenHeight - 45)
             };
-            struc['image_map'][PlayerHud.HUD_CLUB] = {
+            struc['image_map'][Checkpoint.CLUB] = {
                 "sprite": PlayerHud.HUDClub,
                 "pos": new DHPoint(screenWidth * .2, screenHeight - 80)
             };
-            struc['image_map'][PlayerHud.HUD_DINNER] = {
+            struc['image_map'][Checkpoint.DINNER] = {
                 "sprite": PlayerHud.HUDWeiner,
                 "pos": new DHPoint(screenWidth * .23, screenHeight - 80)
             };
