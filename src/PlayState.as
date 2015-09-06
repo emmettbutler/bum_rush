@@ -11,7 +11,7 @@ package {
     import flash.display.Sprite;
 
     public class PlayState extends GameState {
-        [Embed(source="/../assets/intro.png")] private var InstructionSprite:Class;
+        [Embed(source="/../assets/intro_temp.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
 
@@ -23,6 +23,7 @@ package {
         private var raceTimeAlive:Number, raceEndTimer:Number;
         private var collider:FlxExtSprite;
         private static const RACE_LENGTH:Number = 60;
+        private var shown_instructions:Boolean = false;
 
         public var m_world:b2World;
 
@@ -156,10 +157,15 @@ package {
             }
 
             this.raceTimeAlive = this.curTime - this.raceBornTime;
-            if(this.raceTimeAlive/1000 > 3) {
+            if(this.raceTimeAlive/1000 > 7) {
                 if(!this.started_race) {
+                    this.instructions.visible = false;
+                    this.shown_instructions = true;
+                }
+            }
+            if(this.raceTimeAlive/1000 > 9) {
+                if(!this.started_race && this.shown_instructions) {
                     if(!this.shown_start_anim) {
-                        this.instructions.visible = false;
                         this.start_sprite.visible = true;
                         this.start_sprite.play("play");
                         this.shown_start_anim = true;
