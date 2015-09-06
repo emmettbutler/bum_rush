@@ -207,7 +207,8 @@ package {
         public function addRegisteredPlayers(checkpoint_count:Number,
                                              map_idx:Number,
                                              world:b2World,
-                                             groundBody:b2Body):void
+                                             groundBody:b2Body,
+                                             streetPoints:Array):void
         {
             var controller:GameInputDevice, player:Player, ctrlType:Number, characterTag:Number;
             var cur:Number = 0, passenger:Passenger;
@@ -223,7 +224,7 @@ package {
                 ctrlType = this.registeredPlayers[kid]['ctrl_type'];
                 player = new Player(
                     this.playerConfigs[characterTag]["start_positions"][map_idx],
-                    controller, world, groundBody, ctrlType, characterTag,
+                    controller, world, groundBody, streetPoints, ctrlType, characterTag,
                     checkpoint_count);
                 this.players.push(player);
                 player.addVisibleObjects();

@@ -22,6 +22,8 @@ package {
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
         private var raceTimeAlive:Number, raceEndTimer:Number;
         private var collider:FlxExtSprite;
+        private var bgsLoaded:Number = 0;
+        private var streetPoints:Array;
         private static const RACE_LENGTH:Number = 60;
         private var shown_instructions:Boolean = false;
 
@@ -104,31 +106,38 @@ package {
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
-                    that.setupWorld(event.userData['bg']);
-                    PlayersController.getInstance().addRegisteredPlayers(
-                        that.checkpoints.length, that.active_map_index,
-                        that.m_world, that.groundBody);
-                    var cur:Checkpoint;
-                    for(var p:Number = 0; p < that.checkpoints.length; p++) {
-                        var cp_pos:DHPoint = that.map_checkpoints_positions[that.active_map_index][p];
-                        cur = that.checkpoints[p];
-                        cur.setPos(new DHPoint(
-                            event.userData['bg'].x + event.userData['bg'].width * (cp_pos.x + .05),
-                            event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
-                        ));
-                        cur.setImgPos(new DHPoint(
-                            event.userData['bg'].x + event.userData['bg'].width * cp_pos.x,
-                            event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
-                        ));
-                        cur.index = p;
+                    that.bgsLoaded += 1;
+
+                    if (event.userData['bg'] == that.collider) {
+                        that.buildStreetGrid(event.userData['bg']);
+                        that.setupWorld(event.userData['bg']);
+                        PlayersController.getInstance().addRegisteredPlayers(
+                            that.checkpoints.length, that.active_map_index,
+                            that.m_world, that.groundBody, that.streetPoints);
+                        var cur:Checkpoint;
+                        for(var p:Number = 0; p < that.checkpoints.length; p++) {
+                            var cp_pos:DHPoint = that.map_checkpoints_positions[that.active_map_index][p];
+                            cur = that.checkpoints[p];
+                            cur.setPos(new DHPoint(
+                                event.userData['bg'].x + event.userData['bg'].width * (cp_pos.x + .05),
+                                event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
+                            ));
+                            cur.setImgPos(new DHPoint(
+                                event.userData['bg'].x + event.userData['bg'].width * cp_pos.x,
+                                event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
+                            ));
+                            cur.index = p;
+                        }
+                    } else {
+                        FlxG.state.add(that.instructions);
                     }
 
-                    FlxG.state.add(that.instructions);
-
-                    FlxG.stage.removeEventListener(
-                        GameState.EVENT_SINGLETILE_BG_LOADED,
-                        arguments.callee
-                    );
+                    if (that.bgsLoaded >= 2) {
+                        FlxG.stage.removeEventListener(
+                            GameState.EVENT_SINGLETILE_BG_LOADED,
+                            arguments.callee
+                        );
+                    }
                 });
 
             for (i = 0; i < this.checkpoints.length; i++) {
@@ -291,6 +300,38 @@ package {
             wallBd.position.Set((bg.x + bg.width) / m_physScale, (bg.y + bg.height * 1.9) / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
+        }
+
+        private function buildStreetGrid(collider:FlxExtSprite):void {
+            /*
+             * Assemble an array of non-collidable map points
+             */
+            this.streetPoints = new Array();
+            var cols:int = 40, rows:int = 30, xCoord:Number, yCoord:Number;
+            var collideTester:FlxSprite, collisionData:Array;
+
+            for (var i:int = 0; i < cols; i++) {
+                xCoord = i * (collider.width / cols);
+                for (var k:int = 0; k < rows; k++) {
+                    yCoord = k * (collider.height / rows);
+                    collideTester = new FlxSprite(xCoord, yCoord);
+                    collideTester.makeGraphic(
+                        collider.width / cols,
+                        collider.height / rows,
+                        0xffff0000
+                    );
+                    FlxG.state.add(collideTester);
+                    collisionData = FlxCollision.pixelPerfectCheck(
+                        collideTester, collider, 255, null, null, false);
+                    if (!collisionData[0]) {
+                        this.streetPoints.push(new DHPoint(
+                            xCoord + collideTester.width / 2,
+                            yCoord + collideTester.height / 2
+                        ));
+                    }
+                    FlxG.state.remove(collideTester);
+                }
+            }
         }
     }
 }

@@ -71,11 +71,11 @@ package {
             this.standing_sprite.setPos(pos);
         }
 
-        public function leaveCar(hitVector:DHPoint):void {
+        public function leaveCar(hitVector:DHPoint, destPoint:DHPoint):void {
             if (this._state != STATE_STANDING) {
                 this._state = STATE_STANDING;
                 this._driver = null;
-                this.setPos(this.pos.add(hitVector.mulScl(.6)));
+                this.setPos(destPoint);
             }
         }
 

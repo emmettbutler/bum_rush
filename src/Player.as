@@ -54,6 +54,7 @@ package {
         private var curCheckpoint:Checkpoint;
         private var curHomeInd:Number;
         private var meter:Meter;
+        private var streetPoints:Array;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -83,8 +84,10 @@ package {
                                controller:GameInputDevice,
                                _world:b2World,
                                groundBody:b2Body,
+                               streetPoints:Array,
                                ctrlType:Number=CTRL_PAD,
-                               _tag:Number=0, checkpoint_count:Number=0):void
+                               _tag:Number=0,
+                               checkpoint_count:Number=0):void
         {
             super(pos);
 
@@ -96,6 +99,7 @@ package {
             this.facingVector = new DHPoint(0, 1);
             this.throttle = false;
             this.controlType = ctrlType;
+            this.streetPoints = streetPoints;
 
             this.controller = controller;
             this.driver_tag = _tag;
@@ -157,7 +161,9 @@ package {
                 this.lastPassengerRemoveTime = this.timeAlive;
             }
             if (lastPassenger != null) {
-                lastPassenger.leaveCar(hitVector);
+                var destPoint:DHPoint = this.streetPoints[
+                    Math.floor(Math.random() * (this.streetPoints.length - 1))];
+                lastPassenger.leaveCar(hitVector, destPoint);
             }
         }
 
