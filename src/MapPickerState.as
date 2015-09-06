@@ -26,7 +26,6 @@ package {
             t.alignment = "left";
             add(t);
 
-            var t:FlxText;
             t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "Map A");
             t.size = 16;
             t.alignment = "left";

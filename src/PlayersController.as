@@ -56,7 +56,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Billy",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .2)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .2),
                     new DHPoint(543, 603),
                     new DHPoint(543, 603)
                 ],
@@ -67,7 +67,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Wanda",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .2)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .2),
                     new DHPoint(543, 653),
                     new DHPoint(543, 653)
                 ],
@@ -78,7 +78,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Aaron",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint(543, 703),
                     new DHPoint(543, 703)
                 ],
@@ -89,7 +89,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Toni",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint(543, 753),
                     new DHPoint(543, 753)
                 ],
@@ -100,7 +100,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Emmett",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
                     new DHPoint(543, 553),
                     new DHPoint(543, 553)
                 ],
@@ -111,7 +111,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Nina",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
                     new DHPoint(543, 503),
                     new DHPoint(543, 503)
                 ],
@@ -122,7 +122,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Diego",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35)
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35),
                     new DHPoint(543, 453),
                     new DHPoint(543, 453)
                 ],
@@ -133,7 +133,7 @@ package {
                 "sprite": sprite_1,
                 "name": "Michael",
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35)
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35),
                     new DHPoint(543, 403),
                     new DHPoint(543, 403)
                 ],
