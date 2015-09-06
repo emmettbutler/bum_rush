@@ -29,7 +29,7 @@ package {
         private var collider:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
-        private var dates:Array;
+        private var passengers:Array;
         private var accel:DHPoint,
                     directionsPressed:DHPoint,
                     throttle:Boolean,
@@ -49,6 +49,8 @@ package {
         private var player_hud:PlayerHud;
         private var _driving:Boolean = false;
         private var checking_in:Boolean = false;
+        private var lastPassengerRemoveTime:Number = 0;
+        private var passengerRemoveThreshold:Number = 1;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -87,8 +89,8 @@ package {
             this.m_groundBody = groundBody;
             this.dir = new DHPoint(0, 0);
             this.accel = new DHPoint(0, 0);
-            this.directionsPressed = new DHPoint(1, 0);
-            this.facingVector = new DHPoint(1, 0);
+            this.directionsPressed = new DHPoint(0, 1);
+            this.facingVector = new DHPoint(0, 1);
             this.throttle = false;
             this.controlType = ctrlType;
 
@@ -100,7 +102,7 @@ package {
             this._driver_name = tagData['name'];
             this._checkpointStatusList = new Array();
 
-            this.dates = new Array();
+            this.passengers = new Array();
 
             this.addAnimations();
 
@@ -133,22 +135,44 @@ package {
             this._collisionDirection = new Array(0, 0, 0, 0);
         }
 
-        public function removeDate():void {
-            var lastDate:Object;
-            if (this.dates.length > 0) {
-                lastDate = this.dates.pop();
+        public function getFacingVector():DHPoint {
+            return this.facingVector;
+        }
+
+        public function overlapsPassenger(passenger:Passenger):Boolean {
+            return this.carSprite._getRect().overlaps(passenger.getStandingHitbox());
+        }
+
+        public function removePassenger(hitVector:DHPoint):void {
+            if (this.timeAlive - this.lastPassengerRemoveTime < this.passengerRemoveThreshold) {
+                return;
+            }
+            var lastPassenger:Object;
+            if (this.passengers.length > 0) {
+                lastPassenger = this.passengers.pop();
+                this.lastPassengerRemoveTime = this.timeAlive;
+            }
+            if (lastPassenger != null) {
+                lastPassenger.leaveCar(hitVector);
             }
         }
 
-        public function addDate():void {
-            var _date:Object = {
-                'spr': null
-            };
-            this.dates.push(_date);
+        public function addPassenger(passenger:Passenger):void {
+            if (passenger.driver != null) {
+                return;
+            }
+            passenger.enterCar(this);
+            this.passengers.push(passenger);
+            passenger.idx = this.passengers.indexOf(passenger);
         }
 
         public function get bodyVelocity():Number {
             return this.m_physBody.GetAngularVelocity();
+        }
+
+        public function get bodyLinearVelocity():DHPoint {
+            var vel:b2Vec2 = this.m_physBody.GetLinearVelocity();
+            return new DHPoint(vel.x * m_physScale, vel.y * m_physScale);
         }
 
         public function setupPhysics():void {
@@ -163,6 +187,7 @@ package {
             var bd:b2BodyDef = new b2BodyDef();
             bd.type = b2Body.b2_dynamicBody;
             bd.position.Set(this.pos.x / m_physScale, (this.pos.y) / m_physScale);
+            bd.fixedRotation = true;
             m_physBody = this.m_world.CreateBody(bd);
             m_physBody.CreateFixture(fixtureDef);
 
@@ -179,6 +204,7 @@ package {
 
         public function addAnimations():void {
             this.carSprite = new GameObject(this.pos);
+            this.carSprite.zSorted = true;
             this.carSprite.loadGraphic(ImgCar, false, false, 64, 64);
             this.carSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.carSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
@@ -188,6 +214,11 @@ package {
 
             this.mainSprite = new GameObject(this.pos, this);
             this.mainSprite.loadGraphic(driver_sprite, true, false, 64, 64);
+            this.mainSprite.zSorted = true;
+            this.mainSprite.basePosOffset = new DHPoint(
+                this.mainSprite.width / 2,
+                this.mainSprite.height * 2
+            );
             this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.mainSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
@@ -335,7 +366,7 @@ package {
             if (!this.checking_in) {
                 if (this.throttle) {
                     this.accelSFX.play();
-                    var force:b2Vec2, accelMul:Number = .8;
+                    var force:b2Vec2, accelMul:Number = .65;
                     if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
                         force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
                     } else {
@@ -519,7 +550,10 @@ package {
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
             this.completionIndicator.y = pos.y;
-            this.collider.setPos(pos.add(new DHPoint(0, this.mainSprite.height - this.collider.height)));
+            this.collider.setPos(pos.add(
+                new DHPoint(0,
+                            this.mainSprite.height - this.collider.height)));
+
         }
     }
 }
