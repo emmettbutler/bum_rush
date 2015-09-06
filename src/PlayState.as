@@ -311,9 +311,9 @@ package {
             var collideTester:FlxSprite, collisionData:Array;
 
             for (var i:int = 0; i < cols; i++) {
-                xCoord = i * (collider.width / cols);
+                xCoord = collider.x + i * (collider.width / cols);
                 for (var k:int = 0; k < rows; k++) {
-                    yCoord = k * (collider.height / rows);
+                    yCoord = collider.y + k * (collider.height / rows);
                     collideTester = new FlxSprite(xCoord, yCoord);
                     collideTester.makeGraphic(
                         collider.width / cols,
