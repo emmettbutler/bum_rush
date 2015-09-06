@@ -53,7 +53,7 @@ package {
         private var passengerRemoveThreshold:Number = 1;
         private var curCheckpoint:Checkpoint;
         private var curHomeInd:Number;
-        private var myMeter:Meter;
+        private var meter:Meter;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -136,8 +136,7 @@ package {
             this.setupPhysics();
 
             this._collisionDirection = new Array(0, 0, 0, 0);
-
-            this.myMeter = new Meter(this.pos, 100, 50, 10);
+            this.meter = new Meter(this.pos, 100, 50, 10);
         }
 
         public function getFacingVector():DHPoint {
@@ -266,7 +265,7 @@ package {
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
-            this.myMeter.addVisibleObjects();
+            this.meter.addVisibleObjects();
         }
 
         public function get lastCheckpointIdx():Number {
@@ -292,7 +291,7 @@ package {
         public function completeCheckpoint():void {
             this.checking_in = false;
             this.parking_anim.visible = false;
-            this.myMeter.setVisible(false);
+            this.meter.setVisible(false);
 
             if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
                 var checkpointsComplete:Boolean = true;
@@ -325,7 +324,7 @@ package {
             if(!this._checkpoints_complete && !this.checking_in) {
                 if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
                 {
-                    this.playerCheckIn(checkpoint);
+                    this.checkIn(checkpoint);
                     this.curCheckpoint = checkpoint;
                     this.curHomeInd = home_ind;
                 }
@@ -338,21 +337,18 @@ package {
         }
 
 
-        public function playerCheckIn(checkpoint:Checkpoint):void {
-            //this.driving = false;
-            this.myMeter.setVisible(true);
+        public function checkIn(checkpoint:Checkpoint):void {
+            this.meter.setVisible(true);
             this.checking_in = true;
             this.parking_anim.visible = true;
             this.checkInTime = this.curTime;
-            //this.throttle = false;
-            //this.m_physBody.SetLinearVelocity(new b2Vec2(0, 0));
         }
 
-        public function noCheckpointOverlap():void {
+        public function checkOut():void {
             if(this.checking_in) {
                 this.checking_in = false;
                 this.parking_anim.visible = false;
-                this.myMeter.setVisible(false);
+                this.meter.setVisible(false);
             }
         }
 
@@ -374,10 +370,10 @@ package {
                 }
             }
             if(this.checking_in) {
-                this.myMeter.setPos(this.pos);
+                this.meter.setPos(this.pos);
                 this.parking_anim.x = this.mainSprite.x;
                 this.parking_anim.y = this.mainSprite.y;
-                this.myMeter.setPoints((((this.curTime - this.checkInTime)/1000)/3)*100);
+                this.meter.setPoints((((this.curTime - this.checkInTime)/1000)/3)*100);
 
                 if ((this.curTime - this.checkInTime) / 1000 >= 3) {
                     this.completeCheckpoint()
