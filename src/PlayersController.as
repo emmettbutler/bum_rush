@@ -57,7 +57,7 @@ package {
                 "name": "Billy",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
-                    new DHPoint(543, 603),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint(543, 603)
                 ],
                 "hud_pos": new DHPoint(10, 10)
@@ -68,7 +68,7 @@ package {
                 "name": "Wanda",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
-                    new DHPoint(543, 653),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .4),
                     new DHPoint(543, 653)
                 ],
                 "hud_pos": new DHPoint(110, 10)
@@ -79,7 +79,7 @@ package {
                 "name": "Aaron",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
-                    new DHPoint(543, 703),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .45),
                     new DHPoint(543, 703)
                 ],
                 "hud_pos": new DHPoint(210, 10)
@@ -90,7 +90,7 @@ package {
                 "name": "Toni",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
-                    new DHPoint(543, 753),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .45),
                     new DHPoint(543, 753)
                 ],
                 "hud_pos": new DHPoint(310, 10)
@@ -101,7 +101,7 @@ package {
                 "name": "Emmett",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35),
-                    new DHPoint(543, 553),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .5),
                     new DHPoint(543, 553)
                 ],
                 "hud_pos": new DHPoint(410, 10)
@@ -112,7 +112,7 @@ package {
                 "name": "Nina",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35),
-                    new DHPoint(543, 503),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .5),
                     new DHPoint(543, 503)
                 ],
                 "hud_pos": new DHPoint(510, 10)
@@ -123,7 +123,7 @@ package {
                 "name": "Diego",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .4),
-                    new DHPoint(543, 453),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .55),
                     new DHPoint(543, 453)
                 ],
                 "hud_pos": new DHPoint(610, 10)
@@ -134,7 +134,7 @@ package {
                 "name": "Michael",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .4),
-                    new DHPoint(543, 403),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .55),
                     new DHPoint(543, 403)
                 ],
                 "hud_pos": new DHPoint(710, 10)
