@@ -51,12 +51,12 @@ package {
              Checkpoint.DINNER]
         ];
         private var map_checkpoints_positions:Array = [
-            [new DHPoint(.58, .539),
-             new DHPoint(.4, .539),
-             new DHPoint(.776, .24),
-             new DHPoint(.68, .536),
-             new DHPoint(.1, .17),
-             new DHPoint(.4, .195)],
+            [new DHPoint(.9, .01),
+             new DHPoint(.2, .05),
+             new DHPoint(.8, .01),
+             new DHPoint(.7, .01),
+             new DHPoint(.001, .06),
+             new DHPoint(.5, 0)],
             [new DHPoint(.58, .539),
              new DHPoint(.4, .539),
              new DHPoint(.776, .24),
