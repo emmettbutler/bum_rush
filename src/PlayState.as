@@ -98,6 +98,9 @@ package {
                 }
             }
 
+            this.instructions = new GameObject(new DHPoint(0,0));
+            this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
+
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
@@ -120,6 +123,8 @@ package {
                         cur.index = p;
                     }
 
+                    FlxG.state.add(that.instructions);
+
                     FlxG.stage.removeEventListener(
                         GameState.EVENT_SINGLETILE_BG_LOADED,
                         arguments.callee
@@ -140,10 +145,6 @@ package {
             this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 1280, 720);
             FlxG.state.add(this.time_out_sprite);
             this.time_out_sprite.visible = false;
-
-            this.instructions = new GameObject(new DHPoint(0,0));
-            this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
-            FlxG.state.add(this.instructions);
 
             this.startRaceTimer();
         }
