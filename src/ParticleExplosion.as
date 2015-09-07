@@ -24,7 +24,7 @@ package {
             particleBaseScale:Number=.7,
             particleParent:GameObject=null,
             particleRotationSpeed=0,
-            particleType=Particle.TYPE_HEART)
+            particleType=Particle.TYPE_PLAIN)
         {
             this.particleCount = particleCount;
             this.particleSpeed = particleSpeed;

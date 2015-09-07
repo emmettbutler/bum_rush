@@ -8,3 +8,5 @@ src/*main.as
 
 .DS_Store
 *.pfx
+
+*.app
