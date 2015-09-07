@@ -5,3 +5,6 @@
 *main.xml
 src/*_loader.as
 src/*main.as
+
+.DS_Store
+*.pfx
