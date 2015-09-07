@@ -88,7 +88,7 @@ package {
             playerConfigs[PLAYER_3] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_2,
-                "car": ImgCar1,
+                "car": ImgCar3,
                 "name": "Aaron",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
@@ -100,7 +100,7 @@ package {
             playerConfigs[PLAYER_4] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
-                "car": ImgCar1,
+                "car": ImgCar4,
                 "name": "Toni",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
@@ -112,7 +112,7 @@ package {
             playerConfigs[PLAYER_5] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
-                "car": ImgCar1,
+                "car": ImgCar5,
                 "name": "Emmett",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35),
@@ -124,7 +124,7 @@ package {
             playerConfigs[PLAYER_6] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
-                "car": ImgCar1,
+                "car": ImgCar6,
                 "name": "Nina",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35),
@@ -136,7 +136,7 @@ package {
             playerConfigs[PLAYER_7] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
-                "car": ImgCar1,
+                "car": ImgCar7,
                 "name": "Diego",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .4),
@@ -148,7 +148,7 @@ package {
             playerConfigs[PLAYER_8] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
-                "car": ImgCar1,
+                "car": ImgCar8,
                 "name": "Michael",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .4),
