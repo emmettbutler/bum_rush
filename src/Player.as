@@ -15,6 +15,7 @@ package {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
         [Embed(source="/../assets/HUD_arrow.png")] private static var HUDCheckmark:Class;
+        [Embed(source="/../assets/HUD_TempHeart.png")] private static var HUDHeart:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
 
@@ -36,6 +37,7 @@ package {
         private var collider:GameObject;
         public var playerConfig:Object;
         private var checkmark_sprite:GameObject;
+        private var heart_sprite:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
         private var passengers:Array;
@@ -54,7 +56,9 @@ package {
                     checkInTime:Number = 0;
         private var _checkpoints_complete:Boolean = false,
                     _winner:Boolean = false,
-                    _race_started:Boolean = false;
+                    _race_started:Boolean = false,
+                    play_heart:Boolean = false,
+                    heart_scale_down:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var player_hud:PlayerHud;
         private var _driving:Boolean = false;
@@ -275,6 +279,10 @@ package {
             this.checkmark_sprite = new GameObject(new DHPoint(0, 0));
             this.checkmark_sprite.loadGraphic(HUDCheckmark, false, false, 32, 32);
             this.checkmark_sprite.visible = false;
+
+            this.heart_sprite = new GameObject(new DHPoint(0,0));
+            this.heart_sprite.loadGraphic(HUDHeart, false, false, 32, 24);
+            this.heart_sprite.visible = false;
         }
 
         public function set colliding(c:Boolean):void {
@@ -309,6 +317,7 @@ package {
             this.player_hud.buildHud();
             this.meter.addVisibleObjects();
             FlxG.state.add(this.checkmark_sprite);
+            FlxG.state.add(this.heart_sprite);
             this.particles.addVisibleObjects();
         }
 
@@ -353,6 +362,7 @@ package {
                 this.checkmark_sprite.setDir(
                     this.player_hud.posOf(this.curCheckpoint.cp_type).sub(this.pos).normalized().mulScl(14));
                 curCheckpoint.playSfx();
+                this.playHeart();
             }
             var checkpointsComplete:Boolean = true;
             for (var n:Number = 0; n < this._checkpointStatusList.length; n++) {
@@ -369,6 +379,14 @@ package {
                     this.completionIndicator.text = "Let's go home!";
                 }
             }
+        }
+
+        public function playHeart():void {
+            this.heart_sprite.scale = new DHPoint(.1,.1);
+            this.heart_sprite.visible = true;
+            this.heart_scale_down = false;
+            this.heart_sprite.setPos(this.pos);
+            this.play_heart = true;
         }
 
         public function crossCheckpoint(checkpoint:Checkpoint, home_ind:Number):void {
@@ -408,6 +426,24 @@ package {
 
             if (this.particles != null) {
                 this.particles.update();
+            }
+
+            if(this.play_heart) {
+                this.heart_sprite.setPos(new DHPoint(this.pos.x + 15, this.pos.y - 20));
+                if(this.heart_sprite.scale.x >= 1) {
+                    this.heart_scale_down = true;
+                }
+                if(!this.heart_scale_down) {
+                    this.heart_sprite.scale.x += .03;
+                    this.heart_sprite.scale.y += .03;
+                } else if(this.heart_scale_down) {
+                    this.heart_sprite.scale.x -= .03;
+                    this.heart_sprite.scale.y -= .03;
+                    if(this.heart_sprite.scale.x <= 0) {
+                        this.play_heart = false;
+                        this.heart_sprite.visible = false;
+                    }
+                }
             }
 
             this.setPos(new DHPoint((this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2,
