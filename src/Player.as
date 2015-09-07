@@ -53,7 +53,8 @@ package {
         private var driver_tag:Number, frameRate:Number = 12,
                     _checkpoints_completed:Number = 0,
                     completionTime:Number = -1,
-                    checkInTime:Number = 0;
+                    checkInTime:Number = 0,
+                    no_date_text_timer:Number = 0;
         private var _checkpoints_complete:Boolean = false,
                     _winner:Boolean = false,
                     _race_started:Boolean = false,
@@ -72,6 +73,7 @@ package {
         private var streetPoints:Array;
         private var particles:ParticleExplosion;
         private var car_sprite:Class;
+        private var no_date_text:FlxText;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -143,6 +145,9 @@ package {
 
             this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
             this.completionIndicator.setFormat(null, 20, 0xffd82e5a, "center");
+            this.no_date_text = new FlxText(this.pos.x, this.pos.y - 30, 200, "I need a date!");
+            this.no_date_text.setFormat(null, 20, 0xffd82e5a, "center");
+            this.no_date_text.visible = false;
 
             this._checkpointStatusList = new Array();
 
@@ -312,6 +317,7 @@ package {
             FlxG.state.add(this.parking_anim);
             this.parking_anim.visible = false;
             FlxG.state.add(this.completionIndicator);
+            FlxG.state.add(this.no_date_text);
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
@@ -393,14 +399,24 @@ package {
             if(!this._checkpoints_complete && !this.checking_in) {
                 if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
                 {
-                    this.checkIn(checkpoint);
-                    this.curCheckpoint = checkpoint;
-                    this.curHomeInd = home_ind;
+                    if(this.passengers.length > 0) {
+                        this.checkIn(checkpoint);
+                        this.curCheckpoint = checkpoint;
+                        this.curHomeInd = home_ind;
+                    } else {
+                        this.no_date_text.visible = true;
+                        this.no_date_text_timer = (this.curTime + 5) / 1000;
+                    }
                 }
             } else if(this._checkpoints_complete && !this.checking_in){
                 if(checkpoint.cp_type == Checkpoint.HOME) {
-                    this._winner = true;
-                    this.lastCheckpointSound.play();
+                    if(this.passengers.length > 0) {
+                        this._winner = true;
+                        this.lastCheckpointSound.play();
+                    } else {
+                        this.no_date_text.visible = true;
+                        this.no_date_text_timer = this.curTime + (5/1000);
+                    }
                 }
             }
         }
@@ -423,6 +439,14 @@ package {
 
         override public function update():void {
             super.update();
+
+            if(this.no_date_text.visible) {
+                this.no_date_text.x = this.x - 50;
+                this.no_date_text.y = this.y - 10;
+                if(this.no_date_text_timer < this.curTime) {
+                    this.no_date_text.visible = false;
+                }
+            }
 
             if (this.particles != null) {
                 this.particles.update();
