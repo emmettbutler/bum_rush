@@ -63,12 +63,12 @@ package {
              new DHPoint(.9, .5),
              new DHPoint(.1, .17),
              new DHPoint(.3, .16)],
-            [new DHPoint(.58, .539),
-             new DHPoint(.4, .539),
-             new DHPoint(.776, .24),
-             new DHPoint(.68, .536),
-             new DHPoint(.1, .17),
-             new DHPoint(.4, .195)]
+            [new DHPoint(.3, .2),
+             new DHPoint(.8, .2),
+             new DHPoint(.6, .01),
+             new DHPoint(.8, .52),
+             new DHPoint(.2, .17),
+             new DHPoint(.4, .18)]
         ];
         private var map_checkpoints_hitbox_pos:Array = [
             [new DHPoint(.9, .08),
@@ -83,12 +83,12 @@ package {
              new DHPoint(.9, .56),
              new DHPoint(.1, .23),
              new DHPoint(.3, .23)],
-            [new DHPoint(.58, .539),
-             new DHPoint(.4, .539),
-             new DHPoint(.776, .24),
-             new DHPoint(.68, .536),
-             new DHPoint(.1, .17),
-             new DHPoint(.4, .195)]
+            [new DHPoint(.3, .25),
+             new DHPoint(.8, .25),
+             new DHPoint(.6, .06),
+             new DHPoint(.75, .54),
+             new DHPoint(.15, .17),
+             new DHPoint(.4, .23)]
         ];
         private var map_checkpoints_size:Array = [
             [new DHPoint(100, 128),
@@ -106,7 +106,7 @@ package {
             [new DHPoint(150, 150),
              new DHPoint(150, 150),
              new DHPoint(150, 150),
-             new DHPoint(150, 150),
+             new DHPoint(150, 120),
              new DHPoint(150, 150),
              new DHPoint(150, 150)]
         ];
