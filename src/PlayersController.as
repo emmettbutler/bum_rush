@@ -67,6 +67,7 @@ package {
                 "car": ImgCar1,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Billy",
+                "font_color": 0xffe63552,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
@@ -80,6 +81,7 @@ package {
                 "car": ImgCar2,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Wanda",
+                "font_color": 0xff3bc6ff,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .4),
@@ -93,6 +95,7 @@ package {
                 "car": ImgCar3,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Aaron",
+                "font_color": 0xfff33bff,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .45),
@@ -106,6 +109,7 @@ package {
                 "car": ImgCar4,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Toni",
+                "font_color": 0xffffb43b,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .45),
@@ -119,6 +123,7 @@ package {
                 "car": ImgCar5,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Emmett",
+                "font_color": 0xff225acd,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .5),
@@ -132,6 +137,7 @@ package {
                 "car": ImgCar6,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Nina",
+                "font_color": 0xffff603b,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .5),
@@ -145,6 +151,7 @@ package {
                 "car": ImgCar7,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Diego",
+                "font_color": 0xffffa7e2,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .55),
@@ -158,6 +165,7 @@ package {
                 "car": ImgCar8,
                 "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Michael",
+                "font_color": 0xffb2b2b2,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .55),

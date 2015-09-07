@@ -42,7 +42,7 @@ package {
                     hud_num = new FlxText(
                         namePos.x, namePos.y, 100, playerConfig['name']);
                     hud_num.size = 12;
-                    hud_num.color = 0xff93cad1;
+                    hud_num.color = playerConfig['font_color'];
                     FlxG.state.add(hud_num);
                 } else {
                     hud_piece = new GameObject(playerConfig['hud_pos'].add(curImg['pos']));
