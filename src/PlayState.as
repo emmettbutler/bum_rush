@@ -91,24 +91,24 @@ package {
              new DHPoint(.4, .23)]
         ];
         private var map_checkpoints_size:Array = [
-            [new DHPoint(100, 128),
-             new DHPoint(100, 128),
-             new DHPoint(100, 128),
-             new DHPoint(100, 128),
-             new DHPoint(100, 128),
-             new DHPoint(100, 128)],
-            [new DHPoint(150, 150),
-             new DHPoint(150, 150),
-             new DHPoint(150, 150),
-             new DHPoint(150, 150),
-             new DHPoint(150, 150),
-             new DHPoint(150, 150)],
-            [new DHPoint(150, 150),
-             new DHPoint(150, 150),
-             new DHPoint(150, 150),
-             new DHPoint(150, 120),
-             new DHPoint(150, 150),
-             new DHPoint(150, 150)]
+            [new DHPoint(80, 128),
+             new DHPoint(80, 128),
+             new DHPoint(80, 128),
+             new DHPoint(80, 128),
+             new DHPoint(80, 128),
+             new DHPoint(80, 128)],
+            [new DHPoint(80, 150),
+             new DHPoint(80, 150),
+             new DHPoint(80, 150),
+             new DHPoint(80, 150),
+             new DHPoint(80, 150),
+             new DHPoint(80, 150)],
+            [new DHPoint(80, 150),
+             new DHPoint(80, 150),
+             new DHPoint(80, 150),
+             new DHPoint(80, 120),
+             new DHPoint(80, 150),
+             new DHPoint(80, 150)]
         ];
         private var active_map_index:Number;
         private var home_cp_index:Number;
