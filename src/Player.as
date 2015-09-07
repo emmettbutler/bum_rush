@@ -34,6 +34,7 @@ package {
         private var parking_anim:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
+        public var playerConfig:Object;
         private var checkmark_sprite:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
@@ -102,6 +103,8 @@ package {
                                checkpoint_count:Number=0):void
         {
             super(pos);
+
+            this.playerConfig = PlayersController.getInstance().playerConfigs[_tag];
 
             this.m_world = _world;
             this.m_groundBody = groundBody;

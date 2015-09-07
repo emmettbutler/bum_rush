@@ -5,8 +5,11 @@ package {
 
     public class EndState extends GameState {
         private var player_list:Array;
-        private var list_offset:Number = 100, endTimeBorn:Number = 0, endTimeAlive:Number = 0;
+        private var endTimeBorn:Number = 0, endTimeAlive:Number = 0;
         private var resetText:FlxText;
+        private var config:Object;
+        private var winner:Player = null, car_image:GameObject,
+                    driver_image:GameObject;
 
         override public function create():void {
             super.create();
@@ -19,19 +22,39 @@ package {
 
             for(var i:Number = 0; i < player_list.length; i++) {
                 var t:FlxText;
-                if(player_list[i].winner) {
-                    t = new FlxText(100, this.list_offset,
-                        ScreenManager.getInstance().screenWidth,
-                        "Yoooo this is " +
-                        player_list[i].driver_name +
-                        ". Ya'll mind sleeping at a friends place tonight? I need the room. ;) ;) ;)");
-                    t.size = 16;
-                    t.color = 0xffd82e5a;
-                    t.alignment = "left";
-                    FlxG.state.add(t);
-                    this.list_offset += 50;
+                config = player_list[i].playerConfig;
+                if(player_list[i].winner && winner == null) {
+                    winner = player_list[i];
+
+                    car_image = new GameObject(new DHPoint(
+                        ScreenManager.getInstance().screenWidth / 2,
+                        ScreenManager.getInstance().screenHeight / 2
+                    ));
+                    car_image.loadGraphic(config['car'], false, false, 64, 64);
+                    car_image.addAnimation("drive_down", [8,9,10,11], 12, true);
+                    FlxG.state.add(car_image);
+                    car_image.play("drive_down");
+
+                    driver_image = new GameObject(new DHPoint(
+                        ScreenManager.getInstance().screenWidth / 2,
+                        ScreenManager.getInstance().screenHeight / 2
+                    ));
+                    driver_image.loadGraphic(config['sprite'], false, false, 64, 64);
+                    driver_image.addAnimation("drive_down", [8,9,10,11], 12, true);
+                    FlxG.state.add(driver_image);
+                    driver_image.play("drive_down");
                 }
             }
+
+            t = new FlxText(100, 100,
+                ScreenManager.getInstance().screenWidth,
+                "Yoooo this is " +
+                winner.driver_name +
+                ". Ya'll mind sleeping at a friends place tonight? I need the room. ;) ;) ;)");
+            t.size = 16;
+            t.color = 0xffd82e5a;
+            t.alignment = "left";
+            FlxG.state.add(t);
 
             this.resetText = new FlxText(100, ScreenManager.getInstance().screenHeight - 100, ScreenManager.getInstance().screenWidth, "");
             this.resetText.color = 0xffd82e5a;
