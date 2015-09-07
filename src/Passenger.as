@@ -1,8 +1,10 @@
 package {
     import org.flixel.*;
 
+    import flash.utils.Dictionary;
+
     public class Passenger extends GameObject {
-        [Embed(source="/../assets/passenger_lilD_64.png")] private var sprite_1:Class;
+        [Embed(source="/../assets/passenger_lilD_64.png")] private static var sprite_1:Class;
 
         public static const STATE_RIDING:Number = 1;
         public static const STATE_STANDING:Number = 2;
@@ -20,10 +22,19 @@ package {
 
         private var _driver:Player;
 
-        public function Passenger() {
+        {
+            public static var passengerConfigs:Dictionary = new Dictionary();
+            passengerConfigs[TYPE_LILD] = {
+                "name": "Diego",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            }
+        }
+
+        public function Passenger(kind:Number) {
             super(new DHPoint(0, 0));
 
-            this._type = TYPE_LILD;
+            this._type = kind;
 
             this.riding_sprite = new GameObject(this.pos);
             this.riding_sprite.loadGraphic(sprite_1, true, false, 64, 64);

@@ -65,6 +65,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar1,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Billy",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
@@ -77,6 +78,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar2,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Wanda",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
@@ -89,6 +91,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_2,
                 "car": ImgCar3,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Aaron",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
@@ -101,6 +104,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar4,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Toni",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
@@ -113,6 +117,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar5,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Emmett",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35),
@@ -125,6 +130,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar6,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Nina",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35),
@@ -137,6 +143,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar7,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Diego",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .4),
@@ -149,6 +156,7 @@ package {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar8,
+                "starting_passenger": Passenger.TYPE_LILD,
                 "name": "Michael",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .4),
@@ -251,7 +259,9 @@ package {
                 this.players.push(player);
                 player.addVisibleObjects();
 
-                passenger = new Passenger();
+                passenger = new Passenger(
+                    this.playerConfigs[characterTag]['starting_passenger']
+                );
                 passenger.addVisibleObjects();
                 this.passengers.push(passenger);
                 player.addPassenger(passenger);

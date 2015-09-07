@@ -10,8 +10,11 @@ package {
         public function RegistrationIndicator(tagData:Object) {
             super(new DHPoint(0, 0));
             this._name = tagData['name'];
-            this.textBox = new FlxText(pos.x, pos.y, 200, tagData['name']);
-            this.textBox.setFormat(null, 20, 0xffffffff, "center");
+            var passenger_config:Object = Passenger.passengerConfigs[tagData['starting_passenger']];
+
+            this.textBox = new FlxText(pos.x, pos.y, 200,
+                tagData['name'] + " & " + passenger_config['name']);
+            this.textBox.setFormat(null, 17, 0xffffffff, "center");
 
             this.car_image = new GameObject(pos);
             this.car_image.loadGraphic(tagData['car'], true, false, 64, 64);
@@ -20,6 +23,10 @@ package {
             this.driver_image = new GameObject(pos);
             this.driver_image.loadGraphic(tagData['sprite'], true, false, 64, 64);
             this.driver_image.addAnimation("play", [8,9,10,11], 12, true);
+
+            this.passenger_image = new GameObject(pos);
+            this.passenger_image.loadGraphic(passenger_config['riding_sprite'], true, false, 64, 64);
+            this.passenger_image.addAnimation("play", [8,9,10,11], 12, true);
         }
 
         override public function addVisibleObjects():void {
@@ -27,14 +34,17 @@ package {
             FlxG.state.add(this.textBox);
             FlxG.state.add(this.car_image);
             FlxG.state.add(this.driver_image);
+            FlxG.state.add(this.passenger_image);
             this.car_image.play("play");
             this.driver_image.play("play");
+            this.passenger_image.play("play");
         }
 
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
             this.car_image.setPos(pos);
             this.driver_image.setPos(pos);
+            this.passenger_image.setPos(pos);
 
             this.textBox.x = this.car_image.getMiddle().x - this.textBox.width / 2;
             this.textBox.y = this.car_image.getPos().y + this.car_image.height + 20;
