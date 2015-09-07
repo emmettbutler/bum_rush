@@ -145,6 +145,15 @@ package {
             this.instructions_text = new GameObject(new DHPoint(0,0));
             this.instructions_text.loadGraphic(this.InstructionSprite,true,false,1280,720);
 
+            this.start_sprite = new GameObject(new DHPoint(0,0));
+            this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
+            this.start_sprite.addAnimation("play", [0,1,2], .5, false);
+            this.start_sprite.visible = false;
+
+            this.time_out_sprite = new GameObject(new DHPoint(0,0));
+            this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 1280, 720);
+            this.time_out_sprite.visible = false;
+
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
@@ -187,17 +196,6 @@ package {
                 this.checkpoints[i].addVisibleObjects();
             }
 
-            this.start_sprite = new GameObject(new DHPoint(0,0));
-            this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
-            this.start_sprite.addAnimation("play", [0,1,2], .5, false);
-            this.start_sprite.visible = false;
-            FlxG.state.add(this.start_sprite);
-
-            this.time_out_sprite = new GameObject(new DHPoint(0,0));
-            this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 1280, 720);
-            FlxG.state.add(this.time_out_sprite);
-            this.time_out_sprite.visible = false;
-
             this.startRaceTimer();
         }
 
@@ -220,6 +218,8 @@ package {
             if(this.raceTimeAlive/1000 > 9) {
                 if(!this.started_race && this.shown_instructions) {
                     if(!this.shown_start_anim) {
+                        FlxG.state.add(this.start_sprite);
+                        FlxG.state.add(this.time_out_sprite);
                         this.start_sprite.visible = true;
                         this.start_sprite.play("play");
                         this.shown_start_anim = true;

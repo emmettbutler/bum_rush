@@ -628,7 +628,7 @@ package {
             this.mainSprite.setPos(pos);
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
-            this.completionIndicator.y = pos.y;
+            this.completionIndicator.y = pos.y - 10;
             this.collider.setPos(pos);
             this.collider.setPos(pos.add(
                 new DHPoint(0,
