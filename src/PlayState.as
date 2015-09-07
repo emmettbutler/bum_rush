@@ -130,7 +130,7 @@ package {
             var i:Number = 0;
             for(i = 0; i < this.map_checkpoints[this.active_map_index].length; i++) {
                 checkpoint = new Checkpoint(
-                    new DHPoint(100, 100),
+                    new DHPoint(-1000, -1000),
                     new DHPoint(20, 20),
                     this.map_checkpoints[this.active_map_index][i]
                 );

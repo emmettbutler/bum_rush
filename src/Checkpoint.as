@@ -44,44 +44,37 @@ package {
             switch (type) {
                 case null:
                 break;
-
                 case Checkpoint.APARTMENT:
-                this.checkpoint_sprite.loadGraphic(this.AptSprite, true, false, 768/6, 128);
-                this.checkpoint_sprite.addAnimation("play", [0,1,2,3,4,5],
-                                                    this.frameRate, true);
-                this.checkpoint_sprite.play("play");
+                    this.checkpoint_sprite.loadGraphic(this.AptSprite, true, false, 768/6, 128);
+                    this.checkpoint_sprite.addAnimation("play", [0,1,2,3,4,5],
+                                                        this.frameRate, true);
+                    this.checkpoint_sprite.play("play");
                 break;
-
                 case Checkpoint.BOOZE:
-                this.checkpoint_sprite.loadGraphic(this.BoozeSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.BoozeSprite, false, false, 128, 128);
                 break;
-
                 case Checkpoint.HOME:
-                this.checkpoint_sprite.loadGraphic(this.HomeSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.HomeSprite, false, false, 128, 128);
                 break;
-
                 case Checkpoint.MOVIES:
-                this.checkpoint_sprite.loadGraphic(this.MoviesSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.MoviesSprite, false, false, 128, 128);
                 break;
-
                 case Checkpoint.PARK:
-                this.checkpoint_sprite.loadGraphic(this.ParkSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.ParkSprite, false, false, 128, 128);
                 break;
-
                 case Checkpoint.BEACH:
-                this.checkpoint_sprite.loadGraphic(this.BeachSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.BeachSprite, false, false, 128, 128);
                 break;
-
                 case Checkpoint.DINNER:
-                this.checkpoint_sprite.loadGraphic(this.DinnerSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.DinnerSprite, false, false, 128, 128);
                 break;
-
                 case Checkpoint.CLUB:
-                this.checkpoint_sprite.loadGraphic(this.ClubSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.ClubSprite, false, false, 128, 128);
                 break;
             }
 
-            this.makeGraphic(this.checkpoint_sprite.width, this.checkpoint_sprite.height, 0xffff0000);
+            this.makeGraphic(this.checkpoint_sprite.width,
+                             this.checkpoint_sprite.height, 0xffff0000);
             this.visible = false;
         }
 
