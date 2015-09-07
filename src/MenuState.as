@@ -5,9 +5,11 @@ package {
     import flash.ui.GameInputDevice;
 
     public class MenuState extends GameState {
-        private var countdownLength:Number = 1, lastRegisterTime:Number = -1;
+        private var countdownLength:Number = 5, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
         private var registerIndicators:Array;
+        private var timerText:FlxText;
+        private var playersToMinimum:Number, secondsRemaining:Number;
 
         private var curIndicator:RegistrationIndicator;
 
@@ -20,25 +22,44 @@ package {
             this.registerIndicators = new Array();
 
             var t:FlxText;
-            t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "bootycall");
-            t.size = 16;
-            t.alignment = "left";
+            t = new FlxText(0,
+                            ScreenManager.getInstance().screenHeight / 2 - 150,
+                            ScreenManager.getInstance().screenWidth,
+                            "Bumrush");
+            t.size = 25;
+            t.alignment = "center";
             add(t);
-            t = new FlxText(0, 250, ScreenManager.getInstance().screenWidth, "join to play");
-            t.alignment = "left";
+            t = new FlxText(0,
+                            ScreenManager.getInstance().screenHeight / 2 - 100,
+                            ScreenManager.getInstance().screenWidth,
+                            "Press P, SPACE, or A on controller to join");
+            t.size = 20;
+            t.alignment = "center";
             add(t);
+
+            this.timerText = new FlxText(0,
+                                         ScreenManager.getInstance().screenHeight / 2,
+                                         ScreenManager.getInstance().screenWidth, "");
+            this.timerText.setFormat(null, 20, 0xffffffff, "center");
+            FlxG.state.add(this.timerText);
         }
 
         override public function update():void {
             super.update();
 
-            if (PlayersController.getInstance().playersRegistered >= PlayersController.MIN_PLAYERS &&
-                (this.curTime - this.lastRegisterTime) / 1000 >
-                 this.countdownLength && !this.stateSwitchLock)
-            {
-                this.stateSwitchLock = true;
-                FlxG.switchState(new MapPickerState());
+            if (PlayersController.getInstance().playersRegistered >= PlayersController.MIN_PLAYERS) {
+                if ((this.curTime - this.lastRegisterTime) / 1000 > this.countdownLength && !this.stateSwitchLock)
+                {
+                    this.stateSwitchLock = true;
+                    FlxG.switchState(new MapPickerState());
+                }
+                secondsRemaining = (this.countdownLength - ((this.curTime - this.lastRegisterTime) / 1000))
+                this.timerText.text = "Starting in " + secondsRemaining.toFixed(1) + " seconds!";
+            } else {
+                playersToMinimum = PlayersController.MIN_PLAYERS - PlayersController.getInstance().playersRegistered;
+                this.timerText.text = "Need " + playersToMinimum + " more player" + (playersToMinimum > 1 ? "s" : "");
             }
+
 
             // debug
             if (FlxG.keys.justPressed("SPACE")) {
