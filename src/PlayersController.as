@@ -17,6 +17,15 @@ package {
 
     public class PlayersController {
         [Embed(source="/../assets/driver_emmett_64.png")] private var sprite_1:Class;
+        [Embed(source="/../assets/driver_nina_64.png")] private var sprite_2:Class;
+        [Embed(source="/../assets/car_p1_64.png")] private var ImgCar1:Class;
+        [Embed(source="/../assets/car_p2_64.png")] private var ImgCar2:Class;
+        [Embed(source="/../assets/temp_car_1.png")] private var ImgCar3:Class;
+        [Embed(source="/../assets/temp_car_2.png")] private var ImgCar4:Class;
+        [Embed(source="/../assets/temp_car_3.png")] private var ImgCar5:Class;
+        [Embed(source="/../assets/temp_car_4.png")] private var ImgCar6:Class;
+        [Embed(source="/../assets/temp_car_5.png")] private var ImgCar7:Class;
+        [Embed(source="/../assets/temp_car_6.png")] private var ImgCar8:Class;
         [Embed(source="/../assets/Parking.png")] public var Spr1Parking:Class;
 
         public static const MIN_PLAYERS:Number = 2;
@@ -55,6 +64,7 @@ package {
             playerConfigs[PLAYER_1] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
+                "car": ImgCar1,
                 "name": "Billy",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
@@ -66,6 +76,7 @@ package {
             playerConfigs[PLAYER_2] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
+                "car": ImgCar2,
                 "name": "Wanda",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
@@ -76,7 +87,8 @@ package {
             };
             playerConfigs[PLAYER_3] = {
                 "parking_anim": Spr1Parking,
-                "sprite": sprite_1,
+                "sprite": sprite_2,
+                "car": ImgCar1,
                 "name": "Aaron",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
@@ -88,6 +100,7 @@ package {
             playerConfigs[PLAYER_4] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
+                "car": ImgCar1,
                 "name": "Toni",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
@@ -99,6 +112,7 @@ package {
             playerConfigs[PLAYER_5] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
+                "car": ImgCar1,
                 "name": "Emmett",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35),
@@ -110,6 +124,7 @@ package {
             playerConfigs[PLAYER_6] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
+                "car": ImgCar1,
                 "name": "Nina",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35),
@@ -121,6 +136,7 @@ package {
             playerConfigs[PLAYER_7] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
+                "car": ImgCar1,
                 "name": "Diego",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .4),
@@ -132,6 +148,7 @@ package {
             playerConfigs[PLAYER_8] = {
                 "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
+                "car": ImgCar1,
                 "name": "Michael",
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .4),

@@ -14,7 +14,6 @@ package {
     public class Player extends GameObject {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
-        [Embed(source="/../assets/car_p1_64.png")] private var ImgCar:Class;
         [Embed(source="/../assets/HUD_arrow.png")] private static var HUDCheckmark:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
@@ -66,6 +65,7 @@ package {
         private var meter:Meter;
         private var streetPoints:Array;
         private var particles:ParticleExplosion;
+        private var car_sprite:Class;
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -118,6 +118,7 @@ package {
             var tagData:Object = PlayersController.getInstance().resolveTag(this.driver_tag);
             this.driver_sprite = tagData['sprite'];
             this._driver_name = tagData['name'];
+            this.car_sprite = tagData['car'];
             this._checkpointStatusList = new Array();
 
             this.passengers = new Array();
@@ -237,7 +238,7 @@ package {
         public function addAnimations():void {
             this.carSprite = new GameObject(this.pos);
             this.carSprite.zSorted = true;
-            this.carSprite.loadGraphic(ImgCar, false, false, 64, 64);
+            this.carSprite.loadGraphic(car_sprite, false, false, 64, 64);
             this.carSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.carSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.carSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
