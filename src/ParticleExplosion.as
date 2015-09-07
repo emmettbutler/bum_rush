@@ -13,6 +13,7 @@ package {
         private var particleShrinkRateFrames:Number;
         private var particleParent:GameObject;
         private var particleRotationSpeed:Number;
+        private var particleType:Number;
 
         public function ParticleExplosion(
             particleCount:Number=25,
@@ -22,7 +23,8 @@ package {
             particleSpeed:Number=13,
             particleBaseScale:Number=.7,
             particleParent:GameObject=null,
-            particleRotationSpeed=0)
+            particleRotationSpeed=0,
+            particleType=Particle.TYPE_HEART)
         {
             this.particleCount = particleCount;
             this.particleSpeed = particleSpeed;
@@ -34,13 +36,15 @@ package {
             this.particleBaseScale = particleBaseScale;
             this.particleParent = particleParent;
             this.particleRotationSpeed = particleRotationSpeed;
+            this.particleType = particleType;
 
             var curPart:Particle, speedMul:Number;
             for (var i:int = 0; i < this.particleCount; i++) {
                 curPart = new Particle(this.lifespan,
                                        this.particleShrinkFactor,
                                        this.particleShrinkRateFrames,
-                                       this.particleBaseScale);
+                                       this.particleBaseScale,
+                                       this.particleType);
                 curPart.parent = this.particleParent;
                 this.particles.push(curPart);
             }

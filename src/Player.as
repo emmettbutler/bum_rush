@@ -51,7 +51,6 @@ package {
         private var completionIndicator:FlxText;
         private var _driver_name:String;
         private var driver_tag:Number, frameRate:Number = 12,
-                    _checkpoints_completed:Number = 0,
                     completionTime:Number = -1,
                     checkInTime:Number = 0,
                     no_date_text_timer:Number = 0;
@@ -71,7 +70,11 @@ package {
         private var curHomeInd:Number;
         private var meter:Meter;
         private var streetPoints:Array;
-        private var particles:ParticleExplosion;
+        private var impactParticles:ParticleExplosion;
+        private var heartParticles:Array;
+        private var lastHeartParticleRun:Number = 0,
+                    heartParticleInterval:Number = .2,
+                    curHeartParticleIndex:Number = 0;
         private var car_sprite:Class;
         private var no_date_text:FlxText;
         {
@@ -175,12 +178,17 @@ package {
         }
 
         public function setupParticles():void {
-            this.particles = new ParticleExplosion(13, 2, .4, 12);
-            this.particles.gravity = new DHPoint(0, .3);
-        }
+            impactParticles = new ParticleExplosion(13, 2, .4, 12);
+            impactParticles.gravity = new DHPoint(0, .3);
 
-        public function runParticles():void {
-            this.particles.run(this.pos);
+            this.heartParticles = new Array();
+            var hearts:ParticleExplosion;
+            for (var i:int = 0; i < 5; i++) {
+                hearts = new ParticleExplosion(13, 3, .6, 15, 2, .7, null, 0,
+                                               Particle.TYPE_HEART);
+                hearts.gravity = new DHPoint(0, 0);
+                this.heartParticles.push(hearts);
+            }
         }
 
         public function overlapsPassenger(passenger:Passenger):Boolean {
@@ -200,7 +208,7 @@ package {
                 var destPoint:DHPoint = this.streetPoints[
                     Math.floor(Math.random() * (this.streetPoints.length - 1))];
                 lastPassenger.leaveCar(hitVector, destPoint);
-                this.runParticles();
+                this.impactParticles.run(this.getMiddle());
             }
         }
 
@@ -324,7 +332,10 @@ package {
             this.meter.addVisibleObjects();
             FlxG.state.add(this.checkmark_sprite);
             FlxG.state.add(this.heart_sprite);
-            this.particles.addVisibleObjects();
+            this.impactParticles.addVisibleObjects();
+            for (var i:int = 0; i < this.heartParticles.length; i++) {
+                this.heartParticles[i].addVisibleObjects();
+            }
         }
 
         public function get lastCheckpointIdx():Number {
@@ -362,7 +373,6 @@ package {
             if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
                 this.lastCompletedCheckpoint = this.curCheckpoint;
                 this._checkpointStatusList[this.curCheckpoint.index] = true;
-                this._checkpoints_completed += 1;
                 this.checkmark_sprite.visible = true;
                 this.checkmark_sprite.setPos(this.pos);
                 this.checkmark_sprite.setDir(
@@ -448,8 +458,25 @@ package {
                 }
             }
 
-            if (this.particles != null) {
-                this.particles.update();
+            if (this.impactParticles != null) {
+                this.impactParticles.update();
+            }
+            for (var h:int = 0; h < this.heartParticles.length; h++) {
+                if (this.heartParticles[h] != null) {
+                    this.heartParticles[h].update();
+                }
+            }
+
+            if (this._checkpoints_complete) {
+                if ((this.curTime - this.lastHeartParticleRun) / 1000 > this.heartParticleInterval) {
+                    this.lastHeartParticleRun = this.curTime;
+                    this.heartParticles[this.curHeartParticleIndex].run(this.getMiddle());
+                    if (this.curHeartParticleIndex >= this.heartParticles.length - 1) {
+                        this.curHeartParticleIndex = 0;
+                    } else {
+                        this.curHeartParticleIndex += 1;
+                    }
+                }
             }
 
             if(this.play_heart) {
