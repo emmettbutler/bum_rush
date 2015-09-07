@@ -18,7 +18,7 @@ package {
         private var m_physScale:Number = 30
         private var listener:ContactListener;
         private var checkpoints:Array;
-        private var instructions:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
+        private var instructions:GameObject, instructions_text:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
         private var raceTimeAlive:Number, raceEndTimer:Number;
         private var collider:FlxExtSprite;
@@ -141,7 +141,9 @@ package {
             }
 
             this.instructions = new GameObject(new DHPoint(0,0));
-            this.instructions.loadGraphic(this.InstructionSprite,true,false,1280,720);
+            this.instructions.makeGraphic(ScreenManager.getInstance().screenWidth, ScreenManager.getInstance().screenHeight, 0xff000000);
+            this.instructions_text = new GameObject(new DHPoint(0,0));
+            this.instructions_text.loadGraphic(this.InstructionSprite,true,false,1280,720);
 
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
@@ -170,6 +172,7 @@ package {
                             cur.index = p;
                         }
                         FlxG.state.add(that.instructions);
+                        FlxG.state.add(that.instructions_text);
                     }
 
                     if (that.bgsLoaded >= 2) {
@@ -210,6 +213,7 @@ package {
             if(this.raceTimeAlive/1000 > 7) {
                 if(!this.started_race) {
                     this.instructions.visible = false;
+                    this.instructions_text.visible = false;
                     this.shown_instructions = true;
                 }
             }
