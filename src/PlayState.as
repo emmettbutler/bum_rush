@@ -121,8 +121,8 @@ package {
         override public function create():void {
             super.create();
 
-            this.collider = ScreenManager.getInstance().loadSingleTileBG(this.map_paths[this.active_map_index] + "_collider.png");
-            ScreenManager.getInstance().loadSingleTileBG(this.map_paths[this.active_map_index] + ".png");
+            this.collider = ScreenManager.getInstance().loadSingleTileBG("../" + this.map_paths[this.active_map_index] + "_collider.png");
+            ScreenManager.getInstance().loadSingleTileBG("../" + this.map_paths[this.active_map_index] + ".png");
             this.gameActive = true;
 
             this.checkpoints = new Array();
