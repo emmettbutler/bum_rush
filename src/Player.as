@@ -133,7 +133,7 @@ package {
             this.lastCheckpointSound.volume = .1;
 
             this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
-            this.completionIndicator.setFormat(null, 20, 0xffff0000, "center");
+            this.completionIndicator.setFormat(null, 20, 0xffd82e5a, "center");
 
             this._checkpointStatusList = new Array();
 
@@ -348,7 +348,7 @@ package {
                 if(checkpointsComplete) {
                     this._checkpoints_complete = true;
                     this.completionTime = this.curTime;
-                    this.completionIndicator.text = "Checkpoints complete!";
+                    this.completionIndicator.text = "Let's go home!";
                 }
             }
         }
