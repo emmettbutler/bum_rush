@@ -52,7 +52,8 @@ package {
                     completionTime:Number = -1,
                     checkInTime:Number = 0;
         private var _checkpoints_complete:Boolean = false,
-                    _winner:Boolean = false;
+                    _winner:Boolean = false,
+                    _race_started:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
         private var player_hud:PlayerHud;
         private var _driving:Boolean = false;
@@ -323,6 +324,14 @@ package {
             return this._winner;
         }
 
+        public function get race_started():Boolean {
+            return this._race_started;
+        }
+
+        public function set race_started(v:Boolean):void {
+            this._race_started = v;
+        }
+
         public function completeCheckpoint():void {
             this.checking_in = false;
             this.parking_anim.visible = false;
@@ -396,16 +405,21 @@ package {
             this.setPos(new DHPoint((this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2,
                                     (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2));
 
-            if(this.driving) {
-                this.updateMovement();
-                this.updateDrivingAnimation();
-                if (this.controlType == CTRL_KEYBOARD_1 || this.controlType == CTRL_KEYBOARD_2) {
-                    this.updateKeyboard(this.controlType);
-                }
+            if(this.race_started) {
+                if(this.driving) {
+                    this.updateMovement();
+                    this.updateDrivingAnimation();
+                    if (this.controlType == CTRL_KEYBOARD_1 || this.controlType == CTRL_KEYBOARD_2) {
+                        this.updateKeyboard(this.controlType);
+                    }
 
-                if ((this.curTime - this.completionTime) / 1000 >= 2) {
-                    this.completionIndicator.text = "";
+                    if ((this.curTime - this.completionTime) / 1000 >= 2) {
+                        this.completionIndicator.text = "";
+                    }
                 }
+            } else {
+                this.mainSprite.play("drive_down");
+                this.carSprite.play("drive_down");
             }
             if(this.checking_in) {
                 this.meter.setPos(this.pos.add(new DHPoint(30, -10)));
