@@ -1,3 +1,7 @@
 .*.swp
 .*.un~
 *.swf
+
+*main.xml
+src/*_loader.as
+src/*main.as
