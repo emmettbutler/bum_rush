@@ -395,8 +395,8 @@ package {
             this.setPos(new DHPoint((this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2,
                                     (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2));
 
-            this.updateMovement();
             if(this.driving) {
+                this.updateMovement();
                 this.updateDrivingAnimation();
                 if (this.controlType == CTRL_KEYBOARD_1 || this.controlType == CTRL_KEYBOARD_2) {
                     this.updateKeyboard(this.controlType);
