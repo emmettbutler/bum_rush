@@ -19,7 +19,8 @@ package {
         [Embed(source="/../assets/driver_emmett_64.png")] private var sprite_1:Class;
         [Embed(source="/../assets/Parking.png")] public var Spr1Parking:Class;
 
-        public static const MIN_PLAYERS:Number = 4;
+        public static const MIN_PLAYERS:Number = 2;
+        public static const MAX_PLAYERS:Number = 8;
         public static const PLAYER_1:Number = 0;
         public static const PLAYER_2:Number = 1;
         public static const PLAYER_3:Number = 2;
@@ -174,6 +175,9 @@ package {
         public function registerPlayer(controller:GameInputDevice,
                                        ctrlType:Number=Player.CTRL_PAD):Object
         {
+            if (this.playersRegistered >= MAX_PLAYERS) {
+                return null;
+            }
             var _id:String = controller == null ?
                 (Math.random() * 100000) + "" : controller.id;
             if (_id in this.registeredPlayers) {
@@ -210,7 +214,8 @@ package {
                                              groundBody:b2Body,
                                              streetPoints:Array):void
         {
-            var controller:GameInputDevice, player:Player, ctrlType:Number, characterTag:Number;
+            var controller:GameInputDevice, player:Player, ctrlType:Number,
+                characterTag:Number, pos:DHPoint;
             var cur:Number = 0, passenger:Passenger;
             for (var kid:Object in this.registeredPlayers) {
                 if (this.registeredPlayers[kid]['ctrl_type'] == Player.CTRL_KEYBOARD_1 ||
@@ -222,10 +227,10 @@ package {
                 }
                 characterTag = this.registeredPlayers[kid]["tag"];
                 ctrlType = this.registeredPlayers[kid]['ctrl_type'];
+                pos = this.playerConfigs[characterTag]["start_positions"][map_idx];
                 player = new Player(
-                    this.playerConfigs[characterTag]["start_positions"][map_idx],
-                    controller, world, groundBody, streetPoints, ctrlType, characterTag,
-                    checkpoint_count);
+                    pos, controller, world, groundBody, streetPoints, ctrlType,
+                    characterTag, checkpoint_count);
                 this.players.push(player);
                 player.addVisibleObjects();
 
