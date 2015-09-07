@@ -154,6 +154,7 @@ package {
 
             this._collisionDirection = new Array(0, 0, 0, 0);
             this.meter = new Meter(this.pos, 100, 50, 10);
+            this.meter.setVisible(false);
             this.setupParticles();
         }
 
