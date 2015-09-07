@@ -11,8 +11,12 @@ package {
         public static const STATE_MOVING_TO_STREET:Number = 3;
         private var _state:Number;
 
+        public static const STACK_INTERVAL:Number = 25;
+
         public static const TYPE_LILD:Number = 1;
         private var _type:Number;
+
+        public var passengerConfig:Object;
 
         private var riding_sprite:GameObject;
         private var standing_sprite:GameObject;
@@ -35,9 +39,11 @@ package {
             super(new DHPoint(0, 0));
 
             this._type = kind;
+            this.passengerConfig = passengerConfigs[this._type];
 
             this.riding_sprite = new GameObject(this.pos);
-            this.riding_sprite.loadGraphic(sprite_1, true, false, 64, 64);
+            this.riding_sprite.loadGraphic(this.passengerConfig['riding_sprite'],
+                                           true, false, 64, 64);
             this.riding_sprite.zSorted = true;
             this.riding_sprite.basePosOffset = new DHPoint(
                 this.riding_sprite.width / 2,
@@ -50,7 +56,8 @@ package {
             this.riding_sprite.play("ride_down");
 
             this.standing_sprite = new GameObject(this.pos);
-            this.standing_sprite.loadGraphic(sprite_1, true, false, 64, 64);
+            this.standing_sprite.loadGraphic(this.passengerConfig['standing_sprite'],
+                                             true, false, 64, 64);
             this.standing_sprite.zSorted = true;
             this.standing_sprite.addAnimation("stand", [0, 1], this.frameRate, true);
             this.standing_sprite.visible = false;
@@ -124,7 +131,7 @@ package {
             if (this._driver != null) {
                 this.setPos(new DHPoint(
                     this._driver.getPos().x,
-                    this._driver.getPos().y - (25 * this.idx)
+                    this._driver.getPos().y - (Passenger.STACK_INTERVAL * this.idx)
                 ));
                 var facingVector:DHPoint = this._driver.getFacingVector();
                 if (facingVector.x == 1) {

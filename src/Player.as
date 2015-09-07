@@ -204,6 +204,10 @@ package {
             passenger.idx = this.passengers.indexOf(passenger);
         }
 
+        public function getPassengers():Array {
+            return this.passengers;
+        }
+
         public function get bodyVelocity():Number {
             return this.m_physBody.GetAngularVelocity();
         }
