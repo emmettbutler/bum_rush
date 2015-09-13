@@ -210,6 +210,10 @@ package {
                 lastPassenger.leaveCar(hitVector, destPoint);
                 this.impactParticles.run(this.getMiddle());
             }
+            if (this.passengers.length == 0) {
+                this.checking_in = false;
+                this.meter.setVisible(false);
+            }
         }
 
         public function addPassenger(passenger:Passenger):void {
