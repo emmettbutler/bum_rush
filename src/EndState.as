@@ -58,11 +58,34 @@ package {
             }
 
             t = new FlxText(100, 100,
-                ScreenManager.getInstance().screenWidth,
-                "Yoooo this is " +
-                winner.driver_name +
-                ". Ya'll mind sleeping at a friends place tonight? I need the room. ;) ;) ;)");
-            t.size = 16;
+                ScreenManager.getInstance().screenWidth, "");
+            if(cur_player.getPassengers().length == 1) {
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " date! An intimate evening awaits...";
+            } else if(cur_player.getPassengers().length == 2){
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " dates!";
+            } else if(cur_player.getPassengers().length == 3){
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " dates!";
+            } else if(cur_player.getPassengers().length == 4){
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " dates!";
+            } else if(cur_player.getPassengers().length == 5){
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " dates!";
+            } else if(cur_player.getPassengers().length == 6){
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " dates!";
+            } else if(cur_player.getPassengers().length == 7){
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " dates!";
+            } else if(cur_player.getPassengers().length == 8){
+                t.text = winner.driver_name +
+                " brought home " + cur_player.getPassengers().length + " dates!";
+            }
+
+            t.size = 24;
             t.color = 0xffd82e5a;
             t.alignment = "left";
             FlxG.state.add(t);
