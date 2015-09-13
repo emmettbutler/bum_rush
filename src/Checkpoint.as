@@ -5,7 +5,7 @@ package {
         [Embed(source="/../assets/AptBuilding_6.png")] private var AptSprite:Class;
         [Embed(source="/../assets/BeerStore_1.png")] private var BoozeSprite:Class;
         [Embed(source="/../assets/Home_1.png")] private var HomeSprite:Class;
-        [Embed(source="/../assets/Movies.png")] private var MoviesSprite:Class;
+        [Embed(source="/../assets/MovieTheater_1.png")] private var MoviesSprite:Class;
         [Embed(source="/../assets/Park.png")] private var ParkSprite:Class;
         [Embed(source="/../assets/Beach.png")] private var BeachSprite:Class;
         [Embed(source="/../assets/Dinner.png")] private var DinnerSprite:Class;
