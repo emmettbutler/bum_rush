@@ -4,6 +4,7 @@ package {
 
     public class Particle extends GameObject {
         [Embed(source="/../assets/HUD_TempHeart.png")] private static var HUDHeart:Class;
+        [Embed(source="/../assets/temp_smoke.png")] private static var ExhaustImg:Class;
 
         private var lifespan:Number, shrinkFactor:Number, shrinkRateFrames:Number;
         private var framesAlive:Number, baseScale:Number;
@@ -15,6 +16,7 @@ package {
 
         public static const TYPE_PLAIN:Number = 1;
         public static const TYPE_HEART:Number = 2;
+        public static const TYPE_EXHAUST:Number = 3;
 
         public function Particle(lifespan:Number,
                                  shrinkFactor:Number=.6,
@@ -38,6 +40,9 @@ package {
                 break;
                 case TYPE_HEART:
                     this.loadGraphic(HUDHeart, true, true, 32, 24);
+                break;
+                case TYPE_EXHAUST:
+                    this.loadGraphic(ExhaustImg, true, true, 32, 32);
                 break;
             }
 

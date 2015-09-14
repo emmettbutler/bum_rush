@@ -75,6 +75,11 @@ package {
         private var lastHeartParticleRun:Number = 0,
                     heartParticleInterval:Number = .2,
                     curHeartParticleIndex:Number = 0;
+        private var exhaustParticles:Array;
+        private var lastExhaustParticleRun:Number = 0,
+                    exhaustParticleInterval:Number = .2,
+                    curExhaustParticleIndex:Number = 0;
+        private var exhaustPos:DHPoint;
         private var car_sprite:Class;
         private var no_date_text:FlxText;
         {
@@ -181,13 +186,25 @@ package {
             impactParticles = new ParticleExplosion(13, 2, .4, 12);
             impactParticles.gravity = new DHPoint(0, .3);
 
+            var i:int = 0;
+
             this.heartParticles = new Array();
             var hearts:ParticleExplosion;
-            for (var i:int = 0; i < 5; i++) {
+            for (i = 0; i < 5; i++) {
                 hearts = new ParticleExplosion(13, 3, .6, 15, 2, .7, null, 0,
                                                Particle.TYPE_HEART);
                 hearts.gravity = new DHPoint(0, 0);
                 this.heartParticles.push(hearts);
+            }
+
+            this.exhaustParticles = new Array();
+            var exhaust:ParticleExplosion;
+            for (i = 0; i < 5; i++) {
+                exhaust = new ParticleExplosion(5, 4, .8, 10, 1, .7,
+                                                this.carSprite, 1,
+                                                Particle.TYPE_EXHAUST);
+                exhaust.gravity = new DHPoint(0,0);
+                this.exhaustParticles.push(exhaust);
             }
         }
 
@@ -337,8 +354,12 @@ package {
             FlxG.state.add(this.checkmark_sprite);
             FlxG.state.add(this.heart_sprite);
             this.impactParticles.addVisibleObjects();
-            for (var i:int = 0; i < this.heartParticles.length; i++) {
+            var i:int = 0;
+            for (i = 0; i < this.heartParticles.length; i++) {
                 this.heartParticles[i].addVisibleObjects();
+            }
+            for (i = 0; i < this.exhaustParticles.length; i++) {
+                this.exhaustParticles[i].addVisibleObjects();
             }
         }
 
@@ -465,9 +486,15 @@ package {
             if (this.impactParticles != null) {
                 this.impactParticles.update();
             }
-            for (var h:int = 0; h < this.heartParticles.length; h++) {
-                if (this.heartParticles[h] != null) {
-                    this.heartParticles[h].update();
+            var p:int = 0;
+            for (p = 0; p < this.heartParticles.length; p++) {
+                if (this.heartParticles[p] != null) {
+                    this.heartParticles[p].update();
+                }
+            }
+            for (p = 0; p < this.exhaustParticles.length; p++) {
+                if (this.exhaustParticles[p] != null) {
+                    this.exhaustParticles[p].update();
                 }
             }
 
@@ -538,6 +565,19 @@ package {
                 {
                     this.checkmark_sprite.visible = false;
                     this.player_hud.markCheckpoint(this.lastCompletedCheckpoint.cp_type);
+                }
+            }
+
+            if(this.throttle) {
+                if ((this.curTime - this.lastExhaustParticleRun) / 1000 > this.exhaustParticleInterval) {
+                        this.lastExhaustParticleRun = this.curTime;
+                        this.setExhaustPos();
+                        this.exhaustParticles[this.curExhaustParticleIndex].run(this.exhaustPos);
+                        if (this.curExhaustParticleIndex >= this.exhaustParticles.length - 1) {
+                            this.curExhaustParticleIndex = 0;
+                        } else {
+                            this.curExhaustParticleIndex += 1;
+                        }
                 }
             }
         }
@@ -720,6 +760,22 @@ package {
 
         override public function getMiddle():DHPoint {
             return this.mainSprite.getMiddle();
+        }
+
+        public function setExhaustPos():void {
+            if(this.facingVector.x == 1) {
+                //right
+                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(-10, this.carSprite.height/2));
+            } else if(this.facingVector.x == -1) {
+                //left
+                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(this.carSprite.width + 10, this.carSprite.height/2));
+            } else if(this.facingVector.y == 1) {
+                //down
+                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(this.carSprite.width/2, -10));
+            } else if(this.facingVector.y == -1) {
+                //up
+                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(this.carSprite.width/2, this.carSprite.height));
+            }
         }
 
         override public function setPos(pos:DHPoint):void {
