@@ -150,7 +150,7 @@ def package_application(entry_point_class, swf_path, platform="air", outfile_nam
     elif platform == "windows":
         target = "-target bundle"
         outfile = outfile_name
-    command = "adt -package -storetype pkcs12 -keystore bootycallcert.pfx {target} {outfile} {entry_point_class}.xml {swf_path} assets".format(
+    command = "adt -package -storetype pkcs12 -tsa none -keystore bootycallcert.pfx {target} {outfile} {entry_point_class}.xml {swf_path} assets".format(
         entry_point_class=entry_point_class, swf_path=swf_path, target=target, outfile=outfile)
     print command
     subprocess.call(command.split(), shell=platform == "windows")
