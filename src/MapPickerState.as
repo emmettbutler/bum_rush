@@ -10,6 +10,8 @@ package {
         private var _cur_map:Number;
         private var _picker_lock:Boolean = false;
         private var _players:Array;
+        private var _basic_label:FlxText;
+        private var _advanced_label:FlxText;
         private var i:Number;
 
         override public function create():void {
@@ -21,10 +23,15 @@ package {
             this._cur_map = 0;
 
             var t:FlxText;
-            t = new FlxText(0, 100, ScreenManager.getInstance().screenWidth, "Up/Down and then A (or space) to select map.");
+            t = new FlxText(0, 50, ScreenManager.getInstance().screenWidth, "Up/Down and then A (or space) to select map.");
             t.size = 16;
             t.alignment = "left";
             add(t);
+
+            var _basic_label = new FlxText(0, 100, ScreenManager.getInstance().screenWidth, "Basic Maps");
+            _basic_label.size = 16;
+            _basic_label.alignment = "left";
+            add(_basic_label);
 
             t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "Map A");
             t.size = 16;
@@ -39,6 +46,29 @@ package {
             this._maps.push(t);
 
             t = new FlxText(0, 300, ScreenManager.getInstance().screenWidth, "Map C");
+            t.alignment = "left";
+            t.size = 16;
+            add(t);
+            this._maps.push(t);
+
+            var _advanced_label = new FlxText(0, 400, ScreenManager.getInstance().screenWidth, "Advanced Maps");
+            _advanced_label.size = 16;
+            _advanced_label.alignment = "left";
+            add(_advanced_label);
+
+            t = new FlxText(0, 450, ScreenManager.getInstance().screenWidth, "Map D");
+            t.size = 16;
+            t.alignment = "left";
+            add(t);
+            this._maps.push(t);
+
+            t = new FlxText(0, 500, ScreenManager.getInstance().screenWidth, "Map E");
+            t.alignment = "left";
+            t.size = 16;
+            add(t);
+            this._maps.push(t);
+
+            t = new FlxText(0, 550, ScreenManager.getInstance().screenWidth, "Map F");
             t.alignment = "left";
             t.size = 16;
             add(t);

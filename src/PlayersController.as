@@ -69,6 +69,9 @@ package {
                 "name": "Billy",
                 "font_color": 0xffe63552,
                 "start_positions": [
+                    new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .2),
+                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .36),
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
@@ -83,9 +86,12 @@ package {
                 "name": "Wanda",
                 "font_color": 0xff3bc6ff,
                 "start_positions": [
+                    new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .2),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .36),
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
-                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .4),
-                    new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .4)
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
+                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
                 ],
                 "hud_pos": new DHPoint(110, 10)
             };
@@ -97,9 +103,12 @@ package {
                 "name": "Aaron",
                 "font_color": 0xfff33bff,
                 "start_positions": [
+                    new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .3),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .41),
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .45),
-                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .45)
+                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .45),
                 ],
                 "hud_pos": new DHPoint(210, 10)
             };
@@ -111,6 +120,9 @@ package {
                 "name": "Toni",
                 "font_color": 0xffffb43b,
                 "start_positions": [
+                    new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .3),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .41),
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .45),
                     new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .45)
@@ -125,9 +137,12 @@ package {
                 "name": "Emmett",
                 "font_color": 0xff225acd,
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .35),
-                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .5),
-                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .5)
+                    new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .35),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .3),
+                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .46),
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
+                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
                 ],
                 "hud_pos": new DHPoint(410, 10)
             };
@@ -139,9 +154,12 @@ package {
                 "name": "Nina",
                 "font_color": 0xffff603b,
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .35),
-                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .5),
-                    new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .5)
+                    new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .35),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .3),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .46),
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
+                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
                 ],
                 "hud_pos": new DHPoint(510, 10)
             };
@@ -153,9 +171,12 @@ package {
                 "name": "Diego",
                 "font_color": 0xffffa7e2,
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .4),
-                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .55),
-                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .55)
+                    new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .4),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .35),
+                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .51),
+                    new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
+                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
                 ],
                 "hud_pos": new DHPoint(610, 10)
             };
@@ -167,9 +188,12 @@ package {
                 "name": "Michael",
                 "font_color": 0xffb2b2b2,
                 "start_positions": [
-                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .4),
-                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .55),
-                    new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .55)
+                    new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .4),
+                    new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .35),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .51)
+                    ,new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
+                    new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
                 ],
                 "hud_pos": new DHPoint(710, 10)
             };

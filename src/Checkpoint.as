@@ -8,7 +8,7 @@ package {
         [Embed(source="/../assets/MovieTheater_1.png")] private var MoviesSprite:Class;
         [Embed(source="/../assets/Park.png")] private var ParkSprite:Class;
         [Embed(source="/../assets/Beach.png")] private var BeachSprite:Class;
-        [Embed(source="/../assets/Dinner.png")] private var DinnerSprite:Class;
+        [Embed(source="/../assets/BigFranks_21.png")] private var DinnerSprite:Class;
         [Embed(source="/../assets/NightClub_1.png")] private var ClubSprite:Class;
         [Embed(source="/../assets/sfx/getBeer.mp3")] private var CheckpointSFX:Class;
 
@@ -66,7 +66,9 @@ package {
                     this.checkpoint_sprite.loadGraphic(this.BeachSprite, false, false, 128, 128);
                 break;
                 case Checkpoint.DINNER:
-                    this.checkpoint_sprite.loadGraphic(this.DinnerSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.DinnerSprite, false, false, 146, 85);
+                    this.checkpoint_sprite.addAnimation("anim", [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,29,20,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], this.frameRate, true);
+                    this.checkpoint_sprite.play("anim");
                 break;
                 case Checkpoint.CLUB:
                     this.checkpoint_sprite.loadGraphic(this.ClubSprite, false, false, 128, 128);
