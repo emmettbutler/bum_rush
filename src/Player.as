@@ -297,7 +297,7 @@ package {
             this.mainSprite.zSorted = true;
             this.mainSprite.basePosOffset = new DHPoint(
                 this.mainSprite.width / 2,
-                this.mainSprite.height * 2
+                this.mainSprite.height * 5
             );
             this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);

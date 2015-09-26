@@ -47,7 +47,7 @@ package {
             this.riding_sprite.zSorted = true;
             this.riding_sprite.basePosOffset = new DHPoint(
                 this.riding_sprite.width / 2,
-                this.riding_sprite.height * 2
+                this.riding_sprite.height * 5
             );
             this.riding_sprite.addAnimation("ride_right", [0,1,2,3], this.frameRate, true);
             this.riding_sprite.addAnimation("ride_up", [4,5,6,7], this.frameRate, true);
