@@ -42,6 +42,10 @@ package {
                                          ScreenManager.getInstance().screenWidth, "");
             this.timerText.setFormat(null, 20, 0xffffffff, "center");
             FlxG.state.add(this.timerText);
+
+            if (FlxG.music != null) {
+                FlxG.music.stop();
+            }
         }
 
         override public function update():void {

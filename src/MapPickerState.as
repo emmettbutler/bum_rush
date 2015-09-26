@@ -28,7 +28,7 @@ package {
             t.alignment = "left";
             add(t);
 
-            var _basic_label = new FlxText(0, 100, ScreenManager.getInstance().screenWidth, "Basic Maps");
+            _basic_label = new FlxText(0, 100, ScreenManager.getInstance().screenWidth, "Basic Maps");
             _basic_label.size = 16;
             _basic_label.alignment = "left";
             add(_basic_label);
@@ -51,7 +51,7 @@ package {
             add(t);
             this._maps.push(t);
 
-            var _advanced_label = new FlxText(0, 400, ScreenManager.getInstance().screenWidth, "Advanced Maps");
+            _advanced_label = new FlxText(0, 400, ScreenManager.getInstance().screenWidth, "Advanced Maps");
             _advanced_label.size = 16;
             _advanced_label.alignment = "left";
             add(_advanced_label);

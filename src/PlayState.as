@@ -14,6 +14,8 @@ package {
         [Embed(source="/../assets/intro_temp.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
+        [Embed(source = "../assets/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
+        [Embed(source = "../assets/bumrush_bgm_loop.mp3")] private var SndBGM:Class;
 
         private var m_physScale:Number = 30
         private var listener:ContactListener;
@@ -24,6 +26,7 @@ package {
         private var collider:FlxExtSprite;
         private var bgsLoaded:Number = 0;
         private var streetPoints:Array;
+        private var bgmStarted:Boolean, bgmLoopStarted:Boolean;
         private static const RACE_LENGTH:Number = 60;
         private var shown_instructions:Boolean = false;
 
@@ -279,6 +282,11 @@ package {
                 //m_world.DrawDebugData();
             }
 
+            if (!this.bgmLoopStarted && this.raceTimeAlive / 1000 >= 9 + 6) {
+                this.bgmLoopStarted = true;
+                FlxG.playMusic(SndBGM, 1);
+            }
+
             this.raceTimeAlive = this.curTime - this.raceBornTime;
             if(this.raceTimeAlive/1000 > 7) {
                 if(!this.started_race) {
@@ -295,6 +303,10 @@ package {
                         this.start_sprite.visible = true;
                         this.start_sprite.play("play");
                         this.shown_start_anim = true;
+                        if (FlxG.music != null) {
+                            FlxG.music.stop();
+                        }
+                        FlxG.play(SndBGMIntro, 1);
                     }
 
                     if(this.start_sprite.finished) {

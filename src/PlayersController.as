@@ -190,8 +190,8 @@ package {
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .35),
-                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .51)
-                    ,new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .51),
+                    new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
                 ],
