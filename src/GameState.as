@@ -45,7 +45,7 @@ package {
                 PlayersController.getInstance().update();
             }
 
-            if(FlxG.keys.justPressed("R")) {
+            if(FlxG.keys.justPressed("Y")) {
                 FlxG.switchState(new MenuState());
             }
         }
