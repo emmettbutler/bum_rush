@@ -4,7 +4,7 @@ package {
     import flash.utils.Dictionary;
 
     public class Passenger extends GameObject {
-        [Embed(source="/../assets/passenger_lilD_64.png")] private static var sprite_1:Class;
+        [Embed(source="/../assets/images/characters/passenger_lilD_64.png")] private static var sprite_1:Class;
 
         public static const STATE_RIDING:Number = 1;
         public static const STATE_STANDING:Number = 2;

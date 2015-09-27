@@ -5,12 +5,12 @@ package {
     import flash.ui.GameInputDevice;
 
     public class MapPickerState extends GameState {
-        [Embed(source="/../assets/map_3_thumb.png")] private var ImgMapThumb3:Class;
-        [Embed(source="/../assets/map_4_thumb.png")] private var ImgMapThumb4:Class;
-        [Embed(source="/../assets/map_5_thumb.png")] private var ImgMapThumb5:Class;
-        [Embed(source="/../assets/map_6_thumb.png")] private var ImgMapThumb6:Class;
-        [Embed(source="/../assets/map_7_thumb.png")] private var ImgMapThumb7:Class;
-        [Embed(source="/../assets/map_8_thumb.png")] private var ImgMapThumb8:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_3_thumb.png")] private var ImgMapThumb3:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_4_thumb.png")] private var ImgMapThumb4:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_5_thumb.png")] private var ImgMapThumb5:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_6_thumb.png")] private var ImgMapThumb6:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_7_thumb.png")] private var ImgMapThumb7:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_8_thumb.png")] private var ImgMapThumb8:Class;
 
         private var _maps:Array;
         private var _picker:FlxSprite;
@@ -82,7 +82,7 @@ package {
             add(thumb_);
             this._maps.push(thumb_);
 
-            rowY += ScreenManager.getInstance().screenHeight * .3;
+            rowY += ScreenManager.getInstance().screenHeight * .4;
 
             _advanced_label = new FlxText(
                 0, rowY - 50,

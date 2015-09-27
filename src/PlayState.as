@@ -11,11 +11,11 @@ package {
     import flash.display.Sprite;
 
     public class PlayState extends GameState {
-        [Embed(source="/../assets/intro_temp.png")] private var InstructionSprite:Class;
-        [Embed(source="/../assets/readysetgo.png")] private var StartSprite:Class;
-        [Embed(source="/../assets/timeout.png")] private var TimeOutSprite:Class;
-        [Embed(source = "../assets/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
-        [Embed(source = "../assets/bumrush_bgm_loop.mp3")] private var SndBGM:Class;
+        [Embed(source="/../assets/images/ui/intro_temp.png")] private var InstructionSprite:Class;
+        [Embed(source="/../assets/images/ui/readysetgo.png")] private var StartSprite:Class;
+        [Embed(source="/../assets/images/ui/timeout.png")] private var TimeOutSprite:Class;
+        [Embed(source = "../assets/audio/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
+        [Embed(source = "../assets/audio/bumrush_bgm_loop.mp3")] private var SndBGM:Class;
 
         private var m_physScale:Number = 30
         private var listener:ContactListener;
@@ -32,7 +32,13 @@ package {
 
         public var m_world:b2World;
 
-        private var map_paths:Array = ["assets/map_6", "assets/map_7", "assets/map_8", "assets/map_3", "assets/map_4", "assets/map_5"];
+        private var map_paths:Array = [
+            "map_6",
+            "map_7",
+            "map_8",
+            "map_3",
+            "map_4",
+            "map_5"];
         private var map_checkpoints:Array = [
             [Checkpoint.HOME,
              Checkpoint.BOOZE,
@@ -196,8 +202,9 @@ package {
         override public function create():void {
             super.create();
 
-            this.collider = ScreenManager.getInstance().loadSingleTileBG("../" + this.map_paths[this.active_map_index] + "_collider.png");
-            ScreenManager.getInstance().loadSingleTileBG("../" + this.map_paths[this.active_map_index] + ".png");
+            var pathPrefix:String = "../assets/images/worlds/maps/";
+            this.collider = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + this.map_paths[this.active_map_index] + "_collider.png");
+            ScreenManager.getInstance().loadSingleTileBG(pathPrefix + this.map_paths[this.active_map_index] + ".png");
             this.gameActive = true;
 
             this.checkpoints = new Array();

@@ -4,13 +4,13 @@ package {
     import flash.utils.Dictionary;
 
     public class PlayerHud extends GameObject {
-        [Embed(source="/../assets/HUD_arrow.png")] private static var HUDCheckmark:Class;
-        [Embed(source="/../assets/HUD_beer.png")] private static var HUDBeer:Class;
-        [Embed(source="/../assets/HUD_movie.png")] private static var HUDMovie:Class;
-        [Embed(source="/../assets/HUD_tree.png")] private static var HUDTree:Class;
-        [Embed(source="/../assets/HUD_water.png")] private static var HUDWater:Class;
-        [Embed(source="/../assets/HUD_weiner.png")] private static var HUDWeiner:Class;
-        [Embed(source="/../assets/HUD_nightClub.png")] private static var HUDClub:Class;
+        [Embed(source="/../assets/images/ui/HUD_arrow.png")] private static var HUDCheckmark:Class;
+        [Embed(source="/../assets/images/ui/HUD_beer.png")] private static var HUDBeer:Class;
+        [Embed(source="/../assets/images/ui/HUD_movie.png")] private static var HUDMovie:Class;
+        [Embed(source="/../assets/images/ui/HUD_tree.png")] private static var HUDTree:Class;
+        [Embed(source="/../assets/images/ui/HUD_water.png")] private static var HUDWater:Class;
+        [Embed(source="/../assets/images/ui/HUD_weiner.png")] private static var HUDWeiner:Class;
+        [Embed(source="/../assets/images/ui/HUD_nightClub.png")] private static var HUDClub:Class;
 
         private var player_icon:FlxText;
         private var player_tag:Number;

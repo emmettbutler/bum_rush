@@ -16,8 +16,8 @@ package {
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
         [Embed(source="/../assets/sfx/collide.mp3")] private var SfxCollide:Class;
         [Embed(source="/../assets/sfx/passenger.mp3")] private var SfxPassenger:Class;
-        [Embed(source="/../assets/HUD_arrow.png")] private static var HUDCheckmark:Class;
-        [Embed(source="/../assets/HUD_TempHeart.png")] private static var HUDHeart:Class;
+        [Embed(source="/../assets/images/ui/HUD_arrow.png")] private static var HUDCheckmark:Class;
+        [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
 
@@ -34,7 +34,6 @@ package {
         private var m_world:b2World;
         private var driver_sprite:Class;
         private var carSprite:GameObject;
-        private var parking_anim:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
         public var playerConfig:Object;
@@ -320,11 +319,6 @@ package {
             this.mainSprite.addAnimation("drive_left", [12,13,14,15], this.frameRate, true);
             this.mainSprite.play("drive_down");
 
-            this.parking_anim = new GameObject(new DHPoint(this.x, this.y));
-            this.parking_anim.loadGraphic(
-                PlayersController.getInstance().playerConfigs[driver_tag]["parking_anim"],
-                false, false, 244, 26);
-
             this.checkmark_sprite = new GameObject(new DHPoint(0, 0));
             this.checkmark_sprite.loadGraphic(HUDCheckmark, false, false, 32, 32);
             this.checkmark_sprite.visible = false;
@@ -358,8 +352,6 @@ package {
             super.addVisibleObjects();
             FlxG.state.add(this.carSprite);
             FlxG.state.add(this.mainSprite);
-            FlxG.state.add(this.parking_anim);
-            this.parking_anim.visible = false;
             FlxG.state.add(this.completionIndicator);
             FlxG.state.add(this.no_date_text);
             FlxG.state.add(this.collider);
@@ -408,7 +400,6 @@ package {
 
         public function completeCheckpoint():void {
             this.checking_in = false;
-            this.parking_anim.visible = false;
             this.meter.setVisible(false);
             if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
                 this.lastCompletedCheckpoint = this.curCheckpoint;
@@ -477,14 +468,12 @@ package {
         public function checkIn(checkpoint:Checkpoint):void {
             this.meter.setVisible(true);
             this.checking_in = true;
-            //this.parking_anim.visible = true;
             this.checkInTime = this.curTime;
         }
 
         public function checkOut():void {
             if(this.checking_in) {
                 this.checking_in = false;
-                this.parking_anim.visible = false;
                 this.meter.setVisible(false);
             }
         }
@@ -566,8 +555,6 @@ package {
             }
             if(this.checking_in) {
                 this.meter.setPos(this.pos.add(new DHPoint(30, -10)));
-                this.parking_anim.x = this.mainSprite.x;
-                this.parking_anim.y = this.mainSprite.y;
                 this.meter.setPoints((((this.curTime - this.checkInTime)/1000)/3)*100);
 
                 if ((this.curTime - this.checkInTime) / 1000 >= 3) {

@@ -2,14 +2,13 @@ package {
     import org.flixel.*;
 
     public class Checkpoint extends GameObject{
-        [Embed(source="/../assets/AptBuilding_6.png")] private var AptSprite:Class;
-        [Embed(source="/../assets/BeerStore_1.png")] private var BoozeSprite:Class;
-        [Embed(source="/../assets/Home_1.png")] private var HomeSprite:Class;
-        [Embed(source="/../assets/MovieTheater_1.png")] private var MoviesSprite:Class;
-        [Embed(source="/../assets/Park.png")] private var ParkSprite:Class;
-        [Embed(source="/../assets/Beach.png")] private var BeachSprite:Class;
-        [Embed(source="/../assets/BigFranks_21.png")] private var DinnerSprite:Class;
-        [Embed(source="/../assets/NightClub_1.png")] private var ClubSprite:Class;
+        [Embed(source="/../assets/images/worlds/BeerStore_1.png")] private var BoozeSprite:Class;
+        [Embed(source="/../assets/images/worlds/Home_1.png")] private var HomeSprite:Class;
+        [Embed(source="/../assets/images/worlds/MovieTheater_1.png")] private var MoviesSprite:Class;
+        [Embed(source="/../assets/images/worlds/Park.png")] private var ParkSprite:Class;
+        [Embed(source="/../assets/images/worlds/Beach.png")] private var BeachSprite:Class;
+        [Embed(source="/../assets/images/worlds/BigFranks_21.png")] private var DinnerSprite:Class;
+        [Embed(source="/../assets/images/worlds/NightClub_1.png")] private var ClubSprite:Class;
         [Embed(source="/../assets/sfx/passenger.mp3")] private var CheckpointSFX:Class;
 
         private var dimensions:DHPoint;
@@ -17,7 +16,6 @@ package {
         private var checkpoint_sprite:GameObject;
         private var _cp_type:String;
 
-        public static const APARTMENT:String = "booty call spot";
         public static const BOOZE:String = "booze spot";
         public static const HOME:String = "start at home";
         public static const MOVIES:String = "movie theatre";
@@ -43,12 +41,6 @@ package {
 
             switch (type) {
                 case null:
-                break;
-                case Checkpoint.APARTMENT:
-                    this.checkpoint_sprite.loadGraphic(this.AptSprite, true, false, 768/6, 128);
-                    this.checkpoint_sprite.addAnimation("play", [0,1,2,3,4,5],
-                                                        this.frameRate, true);
-                    this.checkpoint_sprite.play("play");
                 break;
                 case Checkpoint.BOOZE:
                     this.checkpoint_sprite.loadGraphic(this.BoozeSprite, false, false, 128, 128);

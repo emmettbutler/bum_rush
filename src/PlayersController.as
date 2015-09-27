@@ -16,17 +16,16 @@ package {
     import mx.utils.StringUtil;
 
     public class PlayersController {
-        [Embed(source="/../assets/driver_emmett_64.png")] private var sprite_1:Class;
-        [Embed(source="/../assets/driver_nina_64.png")] private var sprite_2:Class;
-        [Embed(source="/../assets/car_p1_64.png")] private var ImgCar1:Class;
-        [Embed(source="/../assets/car_p2_64.png")] private var ImgCar2:Class;
-        [Embed(source="/../assets/temp_car_1.png")] private var ImgCar3:Class;
-        [Embed(source="/../assets/temp_car_2.png")] private var ImgCar4:Class;
-        [Embed(source="/../assets/temp_car_3.png")] private var ImgCar5:Class;
-        [Embed(source="/../assets/temp_car_4.png")] private var ImgCar6:Class;
-        [Embed(source="/../assets/temp_car_5.png")] private var ImgCar7:Class;
-        [Embed(source="/../assets/temp_car_6.png")] private var ImgCar8:Class;
-        [Embed(source="/../assets/Parking.png")] public var Spr1Parking:Class;
+        [Embed(source="/../assets/images/characters/driver_emmett_64.png")] private var sprite_1:Class;
+        [Embed(source="/../assets/images/characters/driver_nina_64.png")] private var sprite_2:Class;
+        [Embed(source="/../assets/images/characters/car_p1_64.png")] private var ImgCar1:Class;
+        [Embed(source="/../assets/images/characters/car_p2_64.png")] private var ImgCar2:Class;
+        [Embed(source="/../assets/images/characters/temp_car_1.png")] private var ImgCar3:Class;
+        [Embed(source="/../assets/images/characters/temp_car_2.png")] private var ImgCar4:Class;
+        [Embed(source="/../assets/images/characters/temp_car_3.png")] private var ImgCar5:Class;
+        [Embed(source="/../assets/images/characters/temp_car_4.png")] private var ImgCar6:Class;
+        [Embed(source="/../assets/images/characters/temp_car_5.png")] private var ImgCar7:Class;
+        [Embed(source="/../assets/images/characters/temp_car_6.png")] private var ImgCar8:Class;
 
         public static const MIN_PLAYERS:Number = 2;
         public static const MAX_PLAYERS:Number = 8;
@@ -62,7 +61,6 @@ package {
 
             playerConfigs = new Dictionary();
             playerConfigs[PLAYER_1] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar1,
                 "starting_passenger": Passenger.TYPE_LILD,
@@ -79,7 +77,6 @@ package {
                 "hud_pos": new DHPoint(10, 10)
             };
             playerConfigs[PLAYER_2] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar2,
                 "starting_passenger": Passenger.TYPE_LILD,
@@ -96,7 +93,6 @@ package {
                 "hud_pos": new DHPoint(110, 10)
             };
             playerConfigs[PLAYER_3] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_2,
                 "car": ImgCar3,
                 "starting_passenger": Passenger.TYPE_LILD,
@@ -113,7 +109,6 @@ package {
                 "hud_pos": new DHPoint(210, 10)
             };
             playerConfigs[PLAYER_4] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar4,
                 "starting_passenger": Passenger.TYPE_LILD,
@@ -130,7 +125,6 @@ package {
                 "hud_pos": new DHPoint(310, 10)
             };
             playerConfigs[PLAYER_5] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar5,
                 "starting_passenger": Passenger.TYPE_LILD,
@@ -147,7 +141,6 @@ package {
                 "hud_pos": new DHPoint(410, 10)
             };
             playerConfigs[PLAYER_6] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar6,
                 "starting_passenger": Passenger.TYPE_LILD,
@@ -164,7 +157,6 @@ package {
                 "hud_pos": new DHPoint(510, 10)
             };
             playerConfigs[PLAYER_7] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar7,
                 "starting_passenger": Passenger.TYPE_LILD,
@@ -181,7 +173,6 @@ package {
                 "hud_pos": new DHPoint(610, 10)
             };
             playerConfigs[PLAYER_8] = {
-                "parking_anim": Spr1Parking,
                 "sprite": sprite_1,
                 "car": ImgCar8,
                 "starting_passenger": Passenger.TYPE_LILD,

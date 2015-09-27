@@ -3,8 +3,8 @@ package {
     import org.flixel.*;
 
     public class Particle extends GameObject {
-        [Embed(source="/../assets/HUD_TempHeart.png")] private static var HUDHeart:Class;
-        [Embed(source="/../assets/temp_smoke.png")] private static var ExhaustImg:Class;
+        [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
+        [Embed(source="/../assets/images/misc/temp_smoke.png")] private static var ExhaustImg:Class;
 
         private var lifespan:Number, shrinkFactor:Number, shrinkRateFrames:Number;
         private var framesAlive:Number, baseScale:Number;
