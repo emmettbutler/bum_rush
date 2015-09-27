@@ -56,13 +56,13 @@ package {
                 {
                     "type": Checkpoint.MOVIES,
                     "pos": new DHPoint(.8, .28),
-                    "hitbox_pos": new DHPoint(.8, .3),
+                    "hitbox_pos": new DHPoint(.8, .35),
                     "size": new DHPoint(80, 128)
                 },
                 {
                     "type": Checkpoint.PARK,
-                    "pos": new DHPoint(.7, .599),
-                    "hitbox_pos": new DHPoint(.7, .55),
+                    "pos": new DHPoint(.3, .48),
+                    "hitbox_pos": new DHPoint(.3, .56),
                     "size": new DHPoint(80, 128)
                 },
                 {
@@ -150,7 +150,7 @@ package {
                 {
                     "type": Checkpoint.DINNER,
                     "pos": new DHPoint(.35, .18),
-                    "hitbox_pos": new DHPoint(.15, .23),
+                    "hitbox_pos": new DHPoint(.35, .25),
                     "size": new DHPoint(80, 150)
                 }
             ],
@@ -187,8 +187,8 @@ package {
                 },
                 {
                     "type": Checkpoint.DINNER,
-                    "pos": new DHPoint(.5, 0),
-                    "hitbox_pos": new DHPoint(.45, 0),
+                    "pos": new DHPoint(.5, .05),
+                    "hitbox_pos": new DHPoint(.43, .05),
                     "size": new DHPoint(80, 128)
                 }
             ],
@@ -263,8 +263,8 @@ package {
                 },
                 {
                     "type": Checkpoint.DINNER,
-                    "pos": new DHPoint(.4, .18),
-                    "hitbox_pos": new DHPoint(.4, .23),
+                    "pos": new DHPoint(.4, .23),
+                    "hitbox_pos": new DHPoint(.4, .28),
                     "size": new DHPoint(80, 150)
                 }
             ]
