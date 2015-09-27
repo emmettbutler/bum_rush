@@ -15,6 +15,7 @@ package {
         [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
         [Embed(source="/../assets/sfx/collide.mp3")] private var SfxCollide:Class;
+        [Embed(source="/../assets/sfx/passenger.mp3")] private var SfxPassenger:Class;
         [Embed(source="/../assets/HUD_arrow.png")] private static var HUDCheckmark:Class;
         [Embed(source="/../assets/HUD_TempHeart.png")] private static var HUDHeart:Class;
 
@@ -83,9 +84,7 @@ package {
         private var exhaustPos:DHPoint;
         private var car_sprite:Class;
         private var no_date_text:FlxText;
-        private var collideSfx:FlxSound;
-        private var lastCollideSfxTime:Number;
-        private var collideSfxThreshold:Number = 1;
+
         {
             public static const CTRL_PAD:Number = 1;
             public static const CTRL_KEYBOARD_1:Number = 2;
@@ -110,6 +109,8 @@ package {
         private var controlType:Number = CTRL_PAD;
         private var accelSFX:FlxSound;
         private var lastCheckpointSound:FlxSound;
+        private var collideSfx:FlxSound;
+        private var passengerSfx:FlxSound;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
@@ -159,7 +160,9 @@ package {
             this.collideSfx.loadEmbedded(SfxCollide, false);
             this.collideSfx.volume = 1;
 
-            this.lastCollideSfxTime = 0;
+            this.passengerSfx = new FlxSound();
+            this.passengerSfx.loadEmbedded(SfxPassenger, false);
+            this.passengerSfx.volume = 1;
 
             this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
             this.completionIndicator.setFormat(null, 20, 0xffd82e5a, "center");
@@ -222,14 +225,6 @@ package {
             return this.carSprite._getRect().overlaps(passenger.getStandingHitbox());
         }
 
-        public function playCollisionSfx():void {
-            if (this.timeAlive - this.lastCollideSfxTime < this.collideSfxThreshold) {
-                return;
-            }
-            this.lastCollideSfxTime = this.timeAlive;
-            this.collideSfx.play();
-        }
-
         public function removePassenger(hitVector:DHPoint):void {
             if (this.timeAlive - this.lastPassengerRemoveTime < this.passengerRemoveThreshold) {
                 return;
@@ -249,7 +244,7 @@ package {
                 this.checking_in = false;
                 this.meter.setVisible(false);
             }
-            this.playCollisionSfx();
+            this.collideSfx.play();
         }
 
         public function addPassenger(passenger:Passenger):void {
@@ -259,6 +254,7 @@ package {
             passenger.enterCar(this);
             this.passengers.push(passenger);
             passenger.idx = this.passengers.indexOf(passenger);
+            passengerSfx.play();
         }
 
         public function getPassengers():Array {

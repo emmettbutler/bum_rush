@@ -10,7 +10,7 @@ package {
         [Embed(source="/../assets/Beach.png")] private var BeachSprite:Class;
         [Embed(source="/../assets/BigFranks_21.png")] private var DinnerSprite:Class;
         [Embed(source="/../assets/NightClub_1.png")] private var ClubSprite:Class;
-        [Embed(source="/../assets/sfx/getBeer.mp3")] private var CheckpointSFX:Class;
+        [Embed(source="/../assets/sfx/passenger.mp3")] private var CheckpointSFX:Class;
 
         private var dimensions:DHPoint;
         private var idx:Number, frameRate:Number = 12;
