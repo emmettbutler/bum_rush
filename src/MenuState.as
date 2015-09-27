@@ -5,6 +5,8 @@ package {
     import flash.ui.GameInputDevice;
 
     public class MenuState extends GameState {
+        [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
+
         private var countdownLength:Number = 5, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
         private var registerIndicators:Array;
@@ -26,21 +28,19 @@ package {
                             ScreenManager.getInstance().screenHeight / 2 - 150,
                             ScreenManager.getInstance().screenWidth,
                             "Bumrush");
-            t.size = 25;
-            t.alignment = "center";
+            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"center");
             add(t);
             t = new FlxText(0,
                             ScreenManager.getInstance().screenHeight / 2 - 100,
                             ScreenManager.getInstance().screenWidth,
                             "Press P, SPACE, or A on controller to join");
-            t.size = 20;
-            t.alignment = "center";
+            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"center");
             add(t);
 
             this.timerText = new FlxText(0,
                                          ScreenManager.getInstance().screenHeight / 2,
                                          ScreenManager.getInstance().screenWidth, "");
-            this.timerText.setFormat(null, 20, 0xffffffff, "center");
+            this.timerText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"center");
             FlxG.state.add(this.timerText);
 
             if (FlxG.music != null) {

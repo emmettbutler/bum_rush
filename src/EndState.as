@@ -4,6 +4,7 @@ package {
     import flash.ui.GameInputControl;
 
     public class EndState extends GameState {
+        [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
         private var player_list:Array;
         private var endTimeBorn:Number = 0, endTimeAlive:Number = 0;
         private var resetText:FlxText;
@@ -85,14 +86,12 @@ package {
                 " brought home " + cur_player.getPassengers().length + " dates!";
             }
 
-            t.size = 24;
-            t.color = 0xffd82e5a;
+            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffd82e5a);
             t.alignment = "left";
             FlxG.state.add(t);
 
             this.resetText = new FlxText(100, ScreenManager.getInstance().screenHeight - 100, ScreenManager.getInstance().screenWidth, "");
-            this.resetText.color = 0xffd82e5a;
-            this.resetText.size = 14;
+            this.resetText.setFormat("Pixel_Berry_08_84_Ltd.Edition",14,0xffd82e5a);
             FlxG.state.add(this.resetText);
         }
 

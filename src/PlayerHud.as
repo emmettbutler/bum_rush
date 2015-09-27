@@ -41,7 +41,7 @@ package {
                     namePos = playerConfig['hud_pos'].add(curImg['pos']);
                     hud_num = new FlxText(
                         namePos.x, namePos.y, 100, playerConfig['name']);
-                    hud_num.size = 12;
+                    hud_num.setFormat("Pixel_Berry_08_84_Ltd.Edition",12);
                     hud_num.color = playerConfig['font_color'];
                     FlxG.state.add(hud_num);
                 } else {

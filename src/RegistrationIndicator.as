@@ -2,6 +2,8 @@ package {
     import org.flixel.*;
 
     public class RegistrationIndicator extends GameObject {
+        [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
+
         private var textBox:FlxText;
         private var car_image:GameObject, driver_image:GameObject,
                     passenger_image:GameObject;
@@ -14,7 +16,7 @@ package {
 
             this.textBox = new FlxText(pos.x, pos.y, 200,
                 tagData['name'] + " & " + passenger_config['name']);
-            this.textBox.setFormat(null, 17, 0xffffffff, "center");
+            this.textBox.setFormat("Pixel_Berry_08_84_Ltd.Edition",17,0xffffffff,"center");
 
             this.car_image = new GameObject(pos);
             this.car_image.loadGraphic(tagData['car'], true, false, 64, 64);
