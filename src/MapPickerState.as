@@ -5,6 +5,7 @@ package {
     import flash.ui.GameInputDevice;
 
     public class MapPickerState extends GameState {
+        [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
         [Embed(source="/../assets/images/worlds/maps/map_3_thumb.png")] private var ImgMapThumb3:Class;
         [Embed(source="/../assets/images/worlds/maps/map_4_thumb.png")] private var ImgMapThumb4:Class;
         [Embed(source="/../assets/images/worlds/maps/map_5_thumb.png")] private var ImgMapThumb5:Class;
@@ -38,7 +39,7 @@ package {
             var t:FlxText;
             t = new FlxText(0, 50, ScreenManager.getInstance().screenWidth,
                             "Where do you want to go?");
-            t.size = 20;
+            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffd82e5a);
             t.alignment = "center";
             add(t);
 
@@ -54,7 +55,7 @@ package {
             _basic_label = new FlxText(
                 0, rowY - 50,
                 ScreenManager.getInstance().screenWidth, "Basic Maps");
-            _basic_label.size = 16;
+            _basic_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffd82e5a);
             _basic_label.alignment = "center";
             add(_basic_label);
 
@@ -87,7 +88,7 @@ package {
             _advanced_label = new FlxText(
                 0, rowY - 50,
                 ScreenManager.getInstance().screenWidth, "Advanced Maps");
-            _advanced_label.size = 16;
+            _advanced_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffd82e5a);
             _advanced_label.alignment = "center";
             add(_advanced_label);
 

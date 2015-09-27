@@ -65,25 +65,25 @@ package {
                 " brought home " + cur_player.getPassengers().length + " date! An intimate evening awaits...";
             } else if(cur_player.getPassengers().length == 2){
                 t.text = winner.driver_name +
-                " brought home " + cur_player.getPassengers().length + " dates!";
+                " brought home " + cur_player.getPassengers().length + " dates! Not bad, not bad...";
             } else if(cur_player.getPassengers().length == 3){
                 t.text = winner.driver_name +
-                " brought home " + cur_player.getPassengers().length + " dates!";
+                " brought home " + cur_player.getPassengers().length + " dates! Not too shabby! You must look really cute tonight!";
             } else if(cur_player.getPassengers().length == 4){
                 t.text = winner.driver_name +
-                " brought home " + cur_player.getPassengers().length + " dates!";
+                " brought home " + cur_player.getPassengers().length + " dates! Impressive! Your sweet smile really did the trick.";
             } else if(cur_player.getPassengers().length == 5){
                 t.text = winner.driver_name +
-                " brought home " + cur_player.getPassengers().length + " dates!";
+                " brought home " + cur_player.getPassengers().length + " dates! You're a natural born charmer'!";
             } else if(cur_player.getPassengers().length == 6){
                 t.text = winner.driver_name +
-                " brought home " + cur_player.getPassengers().length + " dates!";
+                " brought home " + cur_player.getPassengers().length + " dates! Do you even have room for that many people in your bed...?!";
             } else if(cur_player.getPassengers().length == 7){
                 t.text = winner.driver_name +
-                " brought home " + cur_player.getPassengers().length + " dates!";
+                " brought home " + cur_player.getPassengers().length + " dates! WOW! Are you a sex magnet or something?!";
             } else if(cur_player.getPassengers().length == 8){
                 t.text = winner.driver_name +
-                " brought home " + cur_player.getPassengers().length + " dates!";
+                " brought home " + cur_player.getPassengers().length + " dates! Looks like you'll need to borrow the dorm nextdoor, too!";
             }
 
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffd82e5a);

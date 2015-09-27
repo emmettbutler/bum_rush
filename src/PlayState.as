@@ -93,7 +93,7 @@ package {
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.5, .55),
+                    "pos": new DHPoint(.5, .53),
                     "hitbox_pos": new DHPoint(.5, .59),
                     "size": new DHPoint(80, 150)
                 },

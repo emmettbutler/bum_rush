@@ -27,7 +27,7 @@ package {
             t = new FlxText(0,
                             ScreenManager.getInstance().screenHeight / 2 - 150,
                             ScreenManager.getInstance().screenWidth,
-                            "Bumrush");
+                            "Bum Rush");
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"center");
             add(t);
             t = new FlxText(0,
