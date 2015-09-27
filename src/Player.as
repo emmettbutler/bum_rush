@@ -417,7 +417,6 @@ package {
                 this.checkmark_sprite.setPos(this.pos);
                 this.checkmark_sprite.setDir(
                     this.player_hud.posOf(this.curCheckpoint.cp_type).sub(this.pos).normalized().mulScl(14));
-                curCheckpoint.playSfx();
                 this.playHeart();
             }
             var checkpointsComplete:Boolean = true;
@@ -428,8 +427,12 @@ package {
                     }
                 }
             }
+            if(!checkpointsComplete) {
+                curCheckpoint.playSfx();
+            }
             if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
                 if(checkpointsComplete) {
+                    this.lastCheckpointSound.play();
                     this._checkpoints_complete = true;
                     this.completionTime = this.curTime;
                     this.completionIndicator.text = "Let's go home!";
@@ -462,7 +465,6 @@ package {
                 if(checkpoint.cp_type == Checkpoint.HOME) {
                     if(this.passengers.length > 0) {
                         this._winner = true;
-                        this.lastCheckpointSound.play();
                     } else {
                         this.no_date_text.visible = true;
                         this.no_date_text_timer = this.curTime + (5/1000);

@@ -37,7 +37,7 @@ package {
 
             this.checkpointSound = new FlxSound();
             this.checkpointSound.loadEmbedded(CheckpointSFX,false);
-            this.checkpointSound.volume = .1;
+            this.checkpointSound.volume = 1;
 
             this._cp_type = type;
 
