@@ -17,6 +17,7 @@ package {
         [Embed(source="/../assets/audio/collide.mp3")] private var SfxCollide:Class;
         [Embed(source="/../assets/audio/passenger.mp3")] private var SfxPassenger:Class;
         [Embed(source="/../assets/images/ui/HUD_arrow.png")] private static var HUDCheckmark:Class;
+        [Embed(source="/../assets/images/misc/highlight.png")] private static var ImgHighlight:Class;
         [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
@@ -33,6 +34,7 @@ package {
                     m_groundBody:b2Body;
         private var m_world:b2World;
         private var driver_sprite:Class;
+        private var highlight_sprite:GameObject;
         private var carSprite:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
@@ -94,14 +96,16 @@ package {
                 'down': "S",
                 'left': "A",
                 'right': "D",
-                'throttle': "SPACE"
+                'throttle': "R",
+                'highlight': "E"
             };
             keyboardControls[CTRL_KEYBOARD_2] = {
                 'up': "I",
                 'down': "K",
                 'left': "J",
                 'right': "L",
-                'throttle': "P"
+                'throttle': "P",
+                'highlight': "O"
             };
         }
 
@@ -301,6 +305,15 @@ package {
         }
 
         public function addAnimations():void {
+            var tagData:Object = PlayersController.getInstance().resolveTag(this.driver_tag);
+
+            this.highlight_sprite = new GameObject(this.pos);
+            this.highlight_sprite.zSorted = true;
+            this.highlight_sprite.basePosOffset = new DHPoint(0, -10);
+            this.highlight_sprite.loadGraphic(ImgHighlight, false, false, 64, 64);
+            this.highlight_sprite.color = tagData["tint"];
+            this.highlight_sprite.visible = false;
+
             this.carSprite = new GameObject(this.pos);
             this.carSprite.zSorted = true;
             this.carSprite.loadGraphic(car_sprite, false, false, 64, 64);
@@ -354,6 +367,7 @@ package {
 
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
+            FlxG.state.add(this.highlight_sprite);
             FlxG.state.add(this.carSprite);
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.completionIndicator);
@@ -720,6 +734,12 @@ package {
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['throttle'])) {
                 this.throttle = false;
             }
+
+            if (FlxG.keys.justPressed(keyboardControls[ctrlType]['highlight'])) {
+                this.highlight_sprite.visible = true;
+            } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['highlight'])) {
+                this.highlight_sprite.visible = false;
+            }
         }
 
         public function controllerChanged(control:Object,
@@ -764,6 +784,13 @@ package {
                     this.throttle = false;
                 }
             }
+            if (control['id'] == mapping["b"]["button"]) {
+                if (control['value'] == mapping["b"]["value_on"]) {
+                    this.highlight_sprite.visible = true;
+                } else if (control["value"] == mapping["b"]["value_off"]){
+                    this.highlight_sprite.visible = false;
+                }
+            }
         }
 
         override public function getMiddle():DHPoint {
@@ -788,6 +815,7 @@ package {
 
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
+            this.highlight_sprite.setPos(pos);
             this.mainSprite.setPos(pos);
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;

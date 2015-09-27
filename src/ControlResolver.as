@@ -108,6 +108,11 @@ package {
                         "button": "BUTTON_7",
                         "value_on": 1,
                         "value_off": 0
+                    },
+                    "b": {
+                        "button": "BUTTON_8",
+                        "value_on": 1,
+                        "value_off": 0
                     }
                 }
             }

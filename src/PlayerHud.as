@@ -43,7 +43,7 @@ package {
                     hud_name = new FlxText(
                         0, 0, 100, playerConfig['name']);
                     hud_name.setFormat("Pixel_Berry_08_84_Ltd.Edition",12);
-                    hud_name.color = playerConfig['font_color'];
+                    hud_name.color = playerConfig['tint'];
                     FlxG.state.add(hud_name);
                 } else {
                     hud_piece = new GameObject(new DHPoint(0, 0));

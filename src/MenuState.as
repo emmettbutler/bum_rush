@@ -33,7 +33,7 @@ package {
             t = new FlxText(0,
                             ScreenManager.getInstance().screenHeight / 2 - 100,
                             ScreenManager.getInstance().screenWidth,
-                            "Press P, SPACE, or A on controller to join");
+                            "Press A to join");
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"center");
             add(t);
 
@@ -66,7 +66,7 @@ package {
 
 
             // debug
-            if (FlxG.keys.justPressed("SPACE")) {
+            if (FlxG.keys.justPressed("R")) {
                 this.registerPlayer(null, Player.CTRL_KEYBOARD_1);
             } else if (FlxG.keys.justPressed("P")) {
                 this.registerPlayer(null, Player.CTRL_KEYBOARD_2);
