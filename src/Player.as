@@ -12,10 +12,10 @@ package {
     import flash.utils.Dictionary;
 
     public class Player extends GameObject {
-        [Embed(source="/../assets/sfx/drive.mp3")] private var SfxAccel:Class;
-        [Embed(source="/../assets/sfx/donk.mp3")] private var SfxEnd:Class;
-        [Embed(source="/../assets/sfx/collide.mp3")] private var SfxCollide:Class;
-        [Embed(source="/../assets/sfx/passenger.mp3")] private var SfxPassenger:Class;
+        [Embed(source="/../assets/audio/drive.mp3")] private var SfxAccel:Class;
+        [Embed(source="/../assets/audio/donk.mp3")] private var SfxEnd:Class;
+        [Embed(source="/../assets/audio/collide.mp3")] private var SfxCollide:Class;
+        [Embed(source="/../assets/audio/passenger.mp3")] private var SfxPassenger:Class;
         [Embed(source="/../assets/images/ui/HUD_arrow.png")] private static var HUDCheckmark:Class;
         [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
 
