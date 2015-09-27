@@ -14,49 +14,67 @@ package {
 
         private var player_icon:FlxText;
         private var player_tag:Number;
+        private static var _classData:Dictionary;
 
         public static const HUD_ARROW:String = "my arrow";
-        public static const HUD_NUMBER:String = "my number";
+        public static const HUD_NAME:String = "my number";
         private var hud_objects:Dictionary;
         private var hud_finished_objects:Dictionary;
-        private var base_pos_list:Array;
+        private var base_pos:DHPoint;
         private var hud_numbers:Array;
+        private var hud_name:FlxText;
 
         public function PlayerHud(p_tag:Number) {
             super(new DHPoint(0,0));
             this.player_tag = p_tag;
             this.hud_objects = new Dictionary();
             this.hud_finished_objects = new Dictionary();
+            this.base_pos = new DHPoint(0, 0);
         }
 
         public function buildHud():void {
-            var curImg:Object, hud_piece:GameObject, checkmark:GameObject,
-                hud_num:FlxText, namePos:DHPoint;
-            var _classData:Dictionary = PlayerHud.buildHudData();
+            var curImg:Object, hud_piece:GameObject, checkmark:GameObject;
+            PlayerHud._classData = PlayerHud.buildHudData();
             var playerConfig:Object = PlayersController.getInstance().playerConfigs[this.player_tag];
-            for(var _key:Object in _classData['image_map']) {
-                curImg = _classData['image_map'][_key];
+            for(var _key:Object in PlayerHud._classData['image_map']) {
+                curImg = PlayerHud._classData['image_map'][_key];
 
-                if (_key == PlayerHud.HUD_NUMBER) {
-                    namePos = playerConfig['hud_pos'].add(curImg['pos']);
-                    hud_num = new FlxText(
-                        namePos.x, namePos.y, 100, playerConfig['name']);
-                    hud_num.setFormat("Pixel_Berry_08_84_Ltd.Edition",12);
-                    hud_num.color = playerConfig['font_color'];
-                    FlxG.state.add(hud_num);
+                if (_key == PlayerHud.HUD_NAME) {
+                    hud_name = new FlxText(
+                        0, 0, 100, playerConfig['name']);
+                    hud_name.setFormat("Pixel_Berry_08_84_Ltd.Edition",12);
+                    hud_name.color = playerConfig['font_color'];
+                    FlxG.state.add(hud_name);
                 } else {
-                    hud_piece = new GameObject(playerConfig['hud_pos'].add(curImg['pos']));
+                    hud_piece = new GameObject(new DHPoint(0, 0));
                     hud_piece.loadGraphic(curImg["sprite"], false, false, 32, 32);
                     this.hud_objects[_key] = hud_piece;
                     FlxG.state.add(hud_piece);
 
-                    checkmark = new GameObject(playerConfig['hud_pos'].add(curImg['pos']));
+                    checkmark = new GameObject(new DHPoint(0, 0));
                     checkmark.loadGraphic(HUDCheckmark, false, false, 32, 32);
                     checkmark.visible = false;
                     this.hud_finished_objects[_key] = checkmark;
                     FlxG.state.add(checkmark);
                 }
             }
+        }
+
+        override public function setPos(pos:DHPoint):void {
+            if (this.base_pos.x == pos.x && this.base_pos.y == pos.y) {
+                return;
+            }
+            this.base_pos = pos;
+            var curData:Object;
+            for (var kTag:Object in this.hud_finished_objects) {
+                curData = PlayerHud._classData['image_map'][kTag];
+                this.hud_objects[kTag].setPos(this.base_pos.add(curData['pos']))
+                this.hud_finished_objects[kTag].setPos(this.base_pos.add(curData['pos']))
+            }
+            curData = PlayerHud._classData['image_map'][PlayerHud.HUD_NAME];
+            var textPos:DHPoint = this.base_pos.add(curData['pos']);
+            this.hud_name.x = textPos.x;
+            this.hud_name.y = textPos.y;
         }
 
         public function posOf(tag:String):DHPoint {
@@ -77,26 +95,26 @@ package {
             struc['image_map'] = new Dictionary();
             struc['image_map'][Checkpoint.BOOZE] = {
                 "sprite": PlayerHud.HUDBeer,
-                "pos": new DHPoint(screenWidth * .19, screenHeight - 45)
+                "pos": new DHPoint(0, 0)
             };
             struc['image_map'][Checkpoint.MOVIES] = {
                 "sprite": PlayerHud.HUDMovie,
-                "pos": new DHPoint(screenWidth * .215, screenHeight - 45)
+                "pos": new DHPoint(36, 0)
             };
             struc['image_map'][Checkpoint.PARK] = {
                 "sprite": PlayerHud.HUDTree,
-                "pos": new DHPoint(screenWidth * .24, screenHeight - 45)
+                "pos": new DHPoint(72, 0)
             };
             struc['image_map'][Checkpoint.CLUB] = {
                 "sprite": PlayerHud.HUDClub,
-                "pos": new DHPoint(screenWidth * .2, screenHeight - 80)
+                "pos": new DHPoint(15, 35)
             };
             struc['image_map'][Checkpoint.DINNER] = {
                 "sprite": PlayerHud.HUDWeiner,
-                "pos": new DHPoint(screenWidth * .23, screenHeight - 80)
+                "pos": new DHPoint(58, 35)
             };
-            struc['image_map'][PlayerHud.HUD_NUMBER] = {
-                "pos": new DHPoint(screenWidth * .215, screenHeight - 100)
+            struc['image_map'][PlayerHud.HUD_NAME] = {
+                "pos": new DHPoint(36, 65)
             };
             return struc;
         }

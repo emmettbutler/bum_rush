@@ -194,6 +194,10 @@ package {
             return this.facingVector;
         }
 
+        public function setHudPos(pos:DHPoint):void {
+            this.player_hud.setPos(pos);
+        }
+
         public function setupParticles():void {
             impactParticles = new ParticleExplosion(13, 2, .4, 12);
             impactParticles.gravity = new DHPoint(0, .3);

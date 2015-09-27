@@ -73,8 +73,7 @@ package {
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
-                ],
-                "hud_pos": new DHPoint(10, 10)
+                ]
             };
             playerConfigs[PLAYER_2] = {
                 "sprite": sprite_1,
@@ -89,8 +88,7 @@ package {
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
-                ],
-                "hud_pos": new DHPoint(110, 10)
+                ]
             };
             playerConfigs[PLAYER_3] = {
                 "sprite": sprite_2,
@@ -105,8 +103,7 @@ package {
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .45),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .45),
-                ],
-                "hud_pos": new DHPoint(210, 10)
+                ]
             };
             playerConfigs[PLAYER_4] = {
                 "sprite": sprite_1,
@@ -121,8 +118,7 @@ package {
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .45),
                     new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .45)
-                ],
-                "hud_pos": new DHPoint(310, 10)
+                ]
             };
             playerConfigs[PLAYER_5] = {
                 "sprite": sprite_1,
@@ -137,8 +133,7 @@ package {
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
-                ],
-                "hud_pos": new DHPoint(410, 10)
+                ]
             };
             playerConfigs[PLAYER_6] = {
                 "sprite": sprite_1,
@@ -153,8 +148,7 @@ package {
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
-                ],
-                "hud_pos": new DHPoint(510, 10)
+                ]
             };
             playerConfigs[PLAYER_7] = {
                 "sprite": sprite_1,
@@ -169,8 +163,7 @@ package {
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
-                ],
-                "hud_pos": new DHPoint(610, 10)
+                ]
             };
             playerConfigs[PLAYER_8] = {
                 "sprite": sprite_1,
@@ -185,8 +178,7 @@ package {
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
-                ],
-                "hud_pos": new DHPoint(710, 10)
+                ]
             };
 
             playerTags = new Array();
@@ -304,6 +296,10 @@ package {
             for (i = 0; i < this.players.length; i++) {
                 player = this.players[i];
                 player.update();
+                player.setHudPos(new DHPoint(
+                    ((ScreenManager.getInstance().screenWidth / (this.players.length + 1)) * (i + 1)) - 50,
+                    ScreenManager.getInstance().screenHeight - 100
+                ));
                 for (var k:int = 0; k < this.passengers.length; k++) {
                     passenger = this.passengers[k];
                     if (passenger.isStanding() && player.overlapsPassenger(passenger)) {
