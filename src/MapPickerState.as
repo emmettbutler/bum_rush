@@ -5,6 +5,13 @@ package {
     import flash.ui.GameInputDevice;
 
     public class MapPickerState extends GameState {
+        [Embed(source="/../assets/map_3_thumb.png")] private var ImgMapThumb3:Class;
+        [Embed(source="/../assets/map_4_thumb.png")] private var ImgMapThumb4:Class;
+        [Embed(source="/../assets/map_5_thumb.png")] private var ImgMapThumb5:Class;
+        [Embed(source="/../assets/map_6_thumb.png")] private var ImgMapThumb6:Class;
+        [Embed(source="/../assets/map_7_thumb.png")] private var ImgMapThumb7:Class;
+        [Embed(source="/../assets/map_8_thumb.png")] private var ImgMapThumb8:Class;
+
         private var _maps:Array;
         private var _picker:FlxSprite;
         private var _cur_map:Number;
@@ -12,72 +19,101 @@ package {
         private var _players:Array;
         private var _basic_label:FlxText;
         private var _advanced_label:FlxText;
+        private var highlight_dim:DHPoint;
+        private var row_count:Number;
         private var i:Number;
 
         override public function create():void {
             super.create();
             this._players = PlayersController.getInstance().getPlayerList();
 
+            var thumb_dim:DHPoint = new DHPoint(300, 169);
+            this.highlight_dim = new DHPoint(9, 9);
+            this.row_count = 3;
+
             ScreenManager.getInstance();
             this._maps = new Array();
             this._cur_map = 0;
 
             var t:FlxText;
-            t = new FlxText(0, 50, ScreenManager.getInstance().screenWidth, "Up/Down and then A (or space) to select map.");
-            t.size = 16;
-            t.alignment = "left";
+            t = new FlxText(0, 50, ScreenManager.getInstance().screenWidth,
+                            "Where do you want to go?");
+            t.size = 20;
+            t.alignment = "center";
             add(t);
 
-            _basic_label = new FlxText(0, 100, ScreenManager.getInstance().screenWidth, "Basic Maps");
-            _basic_label.size = 16;
-            _basic_label.alignment = "left";
-            add(_basic_label);
-
-            t = new FlxText(0, 200, ScreenManager.getInstance().screenWidth, "Map A");
-            t.size = 16;
-            t.alignment = "left";
-            add(t);
-            this._maps.push(t);
-
-            t = new FlxText(0, 250, ScreenManager.getInstance().screenWidth, "Map B");
-            t.alignment = "left";
-            t.size = 16;
-            add(t);
-            this._maps.push(t);
-
-            t = new FlxText(0, 300, ScreenManager.getInstance().screenWidth, "Map C");
-            t.alignment = "left";
-            t.size = 16;
-            add(t);
-            this._maps.push(t);
-
-            _advanced_label = new FlxText(0, 400, ScreenManager.getInstance().screenWidth, "Advanced Maps");
-            _advanced_label.size = 16;
-            _advanced_label.alignment = "left";
-            add(_advanced_label);
-
-            t = new FlxText(0, 450, ScreenManager.getInstance().screenWidth, "Map D");
-            t.size = 16;
-            t.alignment = "left";
-            add(t);
-            this._maps.push(t);
-
-            t = new FlxText(0, 500, ScreenManager.getInstance().screenWidth, "Map E");
-            t.alignment = "left";
-            t.size = 16;
-            add(t);
-            this._maps.push(t);
-
-            t = new FlxText(0, 550, ScreenManager.getInstance().screenWidth, "Map F");
-            t.alignment = "left";
-            t.size = 16;
-            add(t);
-            this._maps.push(t);
-
-            this._picker = new FlxSprite(this._maps[0].x + 100, this._maps[0].y);
-            this._picker.makeGraphic(20, 20, 0xffffffff);
+            this._picker = new FlxSprite(0, 0);
+            this._picker.makeGraphic(thumb_dim.x + this.highlight_dim.x * 2,
+                                     thumb_dim.y + this.highlight_dim.y * 2,
+                                     0xffffffff);
             add(this._picker);
 
+            var rowY:Number = ScreenManager.getInstance().screenHeight * .3;
+            var colSpacing:Number = 100;
+
+            _basic_label = new FlxText(
+                0, rowY - 50,
+                ScreenManager.getInstance().screenWidth, "Basic Maps");
+            _basic_label.size = 16;
+            _basic_label.alignment = "center";
+            add(_basic_label);
+
+            var thumb_:FlxSprite = new FlxSprite(
+                ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
+                rowY
+            );
+            thumb_.loadGraphic(ImgMapThumb6, false, false, thumb_dim.x, thumb_dim.y);
+            add(thumb_);
+            this._maps.push(thumb_);
+
+            thumb_ = new FlxSprite(
+                ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2,
+                rowY
+            );
+            thumb_.loadGraphic(ImgMapThumb7, false, false, thumb_dim.x, thumb_dim.y);
+            add(thumb_);
+            this._maps.push(thumb_);
+
+            thumb_ = new FlxSprite(
+                ScreenManager.getInstance().screenWidth * .5 + thumb_dim.x / 2 + colSpacing,
+                rowY
+            );
+            thumb_.loadGraphic(ImgMapThumb8, false, false, thumb_dim.x, thumb_dim.y);
+            add(thumb_);
+            this._maps.push(thumb_);
+
+            rowY += ScreenManager.getInstance().screenHeight * .3;
+
+            _advanced_label = new FlxText(
+                0, rowY - 50,
+                ScreenManager.getInstance().screenWidth, "Advanced Maps");
+            _advanced_label.size = 16;
+            _advanced_label.alignment = "center";
+            add(_advanced_label);
+
+            thumb_ = new FlxSprite(
+                ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
+                rowY
+            );
+            thumb_.loadGraphic(ImgMapThumb3, false, false, thumb_dim.x, thumb_dim.y);
+            add(thumb_);
+            this._maps.push(thumb_);
+
+            thumb_ = new FlxSprite(
+                ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2,
+                rowY
+            );
+            thumb_.loadGraphic(ImgMapThumb4, false, false, thumb_dim.x, thumb_dim.y);
+            add(thumb_);
+            this._maps.push(thumb_);
+
+            thumb_ = new FlxSprite(
+                ScreenManager.getInstance().screenWidth * .5 + thumb_dim.x / 2 + colSpacing,
+                rowY
+            );
+            thumb_.loadGraphic(ImgMapThumb5, false, false, thumb_dim.x, thumb_dim.y);
+            add(thumb_);
+            this._maps.push(thumb_);
         }
 
         override public function controllerChanged(control:Object,
@@ -85,24 +121,22 @@ package {
         {
             super.controllerChanged(control, mapping);
             if (control['id'] == mapping["a"]["button"] && control['value'] == mapping["a"]["value_on"]) {
-                FlxG.switchState(new PlayState(this._cur_map));
+                this.startRace();
             }
 
             if(control['id'] == mapping["up"]["button"] && control['value'] == mapping["up"]["value_on"]) {
-                this._cur_map += 1;
-                if(this._cur_map > (this._maps.length - 1)) {
-                    this._cur_map = 0;
-                }
-                this._picker.x = this._maps[this._cur_map].x + 100;
-                this._picker.y = this._maps[this._cur_map].y;
+                this._cur_map -= this.row_count;
             } else if (control['id'] == mapping["down"]["button"] && control['value'] == mapping["down"]["value_on"]) {
+                this._cur_map += this.row_count;
+            } else if (control['id'] == mapping["right"]["button"] && control['value'] == mapping["right"]["value_on"]) {
+                this._cur_map += 1;
+            } else if (control['id'] == mapping["left"]["button"] && control['value'] == mapping["left"]["value_on"]) {
                 this._cur_map -= 1;
-                if(this._cur_map < 0) {
-                    this._cur_map = this._maps.length - 1;
-                }
-                this._picker.x = this._maps[this._cur_map].x + 100;
-                this._picker.y = this._maps[this._cur_map].y;
             }
+        }
+
+        public function startRace():void {
+            FlxG.switchState(new PlayState(this._cur_map));
         }
 
         override public function update():void {
@@ -111,30 +145,41 @@ package {
             if(!this._picker_lock) {
                 if(FlxG.keys.justPressed("DOWN")) {
                     this._picker_lock = true;
-                    this._cur_map += 1;
-                    if(this._cur_map >= this._maps.length) {
-                        this._cur_map = 0;
-                    }
-                    this._picker.x = this._maps[this._cur_map].x + 100;
-                    this._picker.y = this._maps[this._cur_map].y;
+                    this._cur_map += row_count;
                 }
                 if(FlxG.keys.justPressed("UP")) {
                     this._picker_lock = true;
+                    this._cur_map -= row_count;
+                }
+                if(FlxG.keys.justPressed("LEFT")) {
+                    this._picker_lock = true;
                     this._cur_map -= 1;
-                    if(this._cur_map < 0) {
-                        this._cur_map = this._maps.length - 1;
-                    }
-                    this._picker.x = this._maps[this._cur_map].x + 100;
-                    this._picker.y = this._maps[this._cur_map].y;
+                }
+                if(FlxG.keys.justPressed("RIGHT")) {
+                    this._picker_lock = true;
+                    this._cur_map += 1;
                 }
                 if(FlxG.keys.justPressed("SPACE")) {
-                    FlxG.switchState(new PlayState(this._cur_map));
+                    this.startRace();
                 }
             } else {
-                if(FlxG.keys.justReleased("DOWN") || FlxG.keys.justReleased("UP")) {
+                if(FlxG.keys.justReleased("DOWN") ||
+                   FlxG.keys.justReleased("UP") ||
+                   FlxG.keys.justReleased("RIGHT") ||
+                   FlxG.keys.justReleased("LEFT")
+                ) {
                     this._picker_lock = false;
                 }
             }
+
+            if(this._cur_map >= this._maps.length) {
+                this._cur_map = this._cur_map % 3;
+            } else if(this._cur_map < 0) {
+                this._cur_map = this._maps.length + this._cur_map;
+            }
+
+            this._picker.x = this._maps[this._cur_map].x - this.highlight_dim.x;
+            this._picker.y = this._maps[this._cur_map].y - this.highlight_dim.y;
         }
     }
 }
