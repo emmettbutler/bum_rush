@@ -93,7 +93,7 @@ package {
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.5, .53),
+                    "pos": new DHPoint(.5, .52),
                     "hitbox_pos": new DHPoint(.5, .59),
                     "size": new DHPoint(80, 150)
                 },
@@ -143,13 +143,13 @@ package {
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.1, 0),
+                    "pos": new DHPoint(.1, .02),
                     "hitbox_pos": new DHPoint(.1, .05),
                     "size": new DHPoint(80, 150)
                 },
                 {
                     "type": Checkpoint.DINNER,
-                    "pos": new DHPoint(.35, .18),
+                    "pos": new DHPoint(.35, .19),
                     "hitbox_pos": new DHPoint(.35, .25),
                     "size": new DHPoint(80, 150)
                 }
@@ -201,13 +201,13 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.4, .15),
+                    "pos": new DHPoint(.4, .16),
                     "hitbox_pos": new DHPoint(.4, .21),
                     "size": new DHPoint(80, 150)
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.9, 0),
+                    "pos": new DHPoint(.9, .02),
                     "hitbox_pos": new DHPoint(.9, .06),
                     "size": new DHPoint(80, 150)
                 },
@@ -225,7 +225,7 @@ package {
                 },
                 {
                     "type": Checkpoint.DINNER,
-                    "pos": new DHPoint(.3, .16),
+                    "pos": new DHPoint(.29, .21),
                     "hitbox_pos": new DHPoint(.3, .23),
                     "size": new DHPoint(80, 150)
                 }
