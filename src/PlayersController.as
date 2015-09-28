@@ -69,7 +69,7 @@ package {
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .2),
-                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .36),
+                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .46),
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
@@ -84,7 +84,7 @@ package {
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .2),
-                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .36),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .46),
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
@@ -99,7 +99,7 @@ package {
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .25),
-                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .41),
+                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .51),
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .45),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .45),
@@ -114,7 +114,7 @@ package {
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .25),
-                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .41),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .51),
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .45),
                     new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .45)
@@ -129,7 +129,7 @@ package {
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .35),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .3),
-                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .46),
+                    new DHPoint((screenWidth * 2) * .385, (screenHeight * 2) * .56),
                     new DHPoint((screenWidth * 2) * .935, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
@@ -144,7 +144,7 @@ package {
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .35),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .3),
-                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .46),
+                    new DHPoint((screenWidth * 2) * .423, (screenHeight * 2) * .56),
                     new DHPoint((screenWidth * 2) * .97, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4)
