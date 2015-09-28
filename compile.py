@@ -142,6 +142,10 @@ def package_application(entry_point_class, swf_path, platform="air", outfile_nam
     To generate cibelecert.pfx:
         adt -certificate -cn SelfSign -ou QE -o "Emmett and Nina" -c US 2048-RSA bootycallcert.pfx AmanoJyakku!
     """
+    command = 'adt -certificate -cn SelfSign -ou QE -o "Emmett_Butler" -c US 2048-RSA bootycallcert.pfx AmanoJyakku!'
+    print command
+    subprocess.call(command.split(), shell=platform == "windows")
+
     outfile = "{}.air".format(outfile_name)
     target = ""
     if platform == "mac":
