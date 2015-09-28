@@ -13,7 +13,14 @@ package {
 
         public static const STACK_INTERVAL:Number = 25;
 
-        public static const TYPE_LILD:Number = 1;
+        public static const TYPE_A:Number = 1;
+        public static const TYPE_B:Number = 2;
+        public static const TYPE_C:Number = 3;
+        public static const TYPE_D:Number = 4;
+        public static const TYPE_E:Number = 5;
+        public static const TYPE_F:Number = 6;
+        public static const TYPE_G:Number = 7;
+        public static const TYPE_H:Number = 8;
         private var _type:Number;
 
         public var passengerConfig:Object;
@@ -28,11 +35,46 @@ package {
 
         {
             public static var passengerConfigs:Dictionary = new Dictionary();
-            passengerConfigs[TYPE_LILD] = {
+            passengerConfigs[TYPE_A] = {
                 "name": "Diego",
                 "riding_sprite": sprite_1,
                 "standing_sprite": sprite_1
-            }
+            };
+            passengerConfigs[TYPE_B] = {
+                "name": "Mike",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            };
+            passengerConfigs[TYPE_C] = {
+                "name": "Steph",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            };
+            passengerConfigs[TYPE_D] = {
+                "name": "Sarah",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            };
+            passengerConfigs[TYPE_E] = {
+                "name": "Sam",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            };
+            passengerConfigs[TYPE_F] = {
+                "name": "Sean",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            };
+            passengerConfigs[TYPE_G] = {
+                "name": "Arielle",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            };
+            passengerConfigs[TYPE_H] = {
+                "name": "Adam",
+                "riding_sprite": sprite_1,
+                "standing_sprite": sprite_1
+            };
         }
 
         public function Passenger(kind:Number) {

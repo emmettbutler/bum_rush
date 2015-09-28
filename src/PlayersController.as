@@ -63,8 +63,8 @@ package {
             playerConfigs[PLAYER_1] = {
                 "sprite": sprite_1,
                 "car": ImgCar1,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Billy",
+                "starting_passenger": Passenger.TYPE_A,
+                "name": "Josh",
                 "tint": 0xffe63552,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .25),
@@ -78,8 +78,8 @@ package {
             playerConfigs[PLAYER_2] = {
                 "sprite": sprite_1,
                 "car": ImgCar2,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Wanda",
+                "starting_passenger": Passenger.TYPE_B,
+                "name": "Jen",
                 "tint": 0xff3bc6ff,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .25),
@@ -93,8 +93,8 @@ package {
             playerConfigs[PLAYER_3] = {
                 "sprite": sprite_2,
                 "car": ImgCar3,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Aaron",
+                "starting_passenger": Passenger.TYPE_C,
+                "name": "Lacey",
                 "tint": 0xfff33bff,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .3),
@@ -108,8 +108,8 @@ package {
             playerConfigs[PLAYER_4] = {
                 "sprite": sprite_1,
                 "car": ImgCar4,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Toni",
+                "starting_passenger": Passenger.TYPE_D,
+                "name": "Aaron",
                 "tint": 0xffffb43b,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .3),
@@ -123,8 +123,8 @@ package {
             playerConfigs[PLAYER_5] = {
                 "sprite": sprite_1,
                 "car": ImgCar5,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Emmett",
+                "starting_passenger": Passenger.TYPE_E,
+                "name": "Dan",
                 "tint": 0xff225acd,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .35),
@@ -138,8 +138,8 @@ package {
             playerConfigs[PLAYER_6] = {
                 "sprite": sprite_1,
                 "car": ImgCar6,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Nina",
+                "starting_passenger": Passenger.TYPE_F,
+                "name": "Toni",
                 "tint": 0xffff603b,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .35),
@@ -151,10 +151,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_7] = {
-                "sprite": sprite_1,
+                "sprite": sprite_2,
                 "car": ImgCar7,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Diego",
+                "starting_passenger": Passenger.TYPE_G,
+                "name": "Nina",
                 "tint": 0xffffa7e2,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .4),
@@ -168,8 +168,8 @@ package {
             playerConfigs[PLAYER_8] = {
                 "sprite": sprite_1,
                 "car": ImgCar8,
-                "starting_passenger": Passenger.TYPE_LILD,
-                "name": "Michael",
+                "starting_passenger": Passenger.TYPE_H,
+                "name": "Emmett",
                 "tint": 0xffb2b2b2,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .4),
