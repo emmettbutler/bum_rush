@@ -137,7 +137,7 @@ package {
         }
 
         public function startRace():void {
-            FlxG.switchState(new PlayState(this._cur_map));
+            FlxG.switchState(new InstructionState(this._cur_map));
         }
 
         override public function update():void {
