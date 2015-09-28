@@ -44,7 +44,7 @@ package {
                     FlxG.state.add(driver_image);
                     driver_image.play("drive_down");
 
-                    var passengers_string:String = "";
+                    var passengers_string:String = "You brought home ";
 
                     for (var k:int = 0; k < cur_player.getPassengers().length; k++) {
                         passenger = cur_player.getPassengers()[k];
@@ -66,7 +66,7 @@ package {
                 }
             }
 
-            var commentString:String = "tester " + winner.getPassengers().length;
+            var commentString:String = "";
             if(winner.getPassengers().length == 1) {
                 commentString = winner.driver_name +
                 " brought home " + winner.getPassengers().length + " date! An intimate evening awaits...";
