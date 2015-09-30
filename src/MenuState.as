@@ -12,6 +12,7 @@ package {
         private var registerIndicators:Array;
         private var timerText:FlxText;
         private var playersToMinimum:Number, secondsRemaining:Number;
+        private var bg:FlxExtSprite, toon_text:FlxExtSprite;
 
         private var curIndicator:RegistrationIndicator;
 
@@ -21,26 +22,37 @@ package {
             PlayersController.reset();
             ScreenManager.getInstance();
 
+            var pathPrefix:String = "../assets/images/ui/";
+            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "bg.png");
+            this.toon_text = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "text_temp.png");
+
             this.registerIndicators = new Array();
+            var indicator:RegistrationIndicator;
+            for (var k:Object in PlayersController.getInstance().playerConfigs) {
+                indicator = new RegistrationIndicator(PlayersController.getInstance().playerConfigs[k]);
+                this.registerIndicators.push(indicator);
+                indicator.addVisibleObjects();
+            }
 
             var t:FlxText;
-            t = new FlxText(0,
-                            ScreenManager.getInstance().screenHeight / 2 - 150,
-                            ScreenManager.getInstance().screenWidth,
-                            "Bum Rush");
-            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"center");
-            add(t);
-            t = new FlxText(0,
-                            ScreenManager.getInstance().screenHeight / 2 - 100,
+            t = new FlxText(ScreenManager.getInstance().screenWidth * .05,
+                            ScreenManager.getInstance().screenHeight * .8,
                             ScreenManager.getInstance().screenWidth,
                             "Press A to join");
+            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
+            add(t);
+
+            t = new FlxText(0,
+                            ScreenManager.getInstance().screenHeight * .96,
+                            ScreenManager.getInstance().screenWidth,
+                            "Bum Rush - by Nina Freeman, Emmett Butler, Diego Garcia and Max Coburn");
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"center");
             add(t);
 
-            this.timerText = new FlxText(0,
-                                         ScreenManager.getInstance().screenHeight / 2,
+            this.timerText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
+                                         ScreenManager.getInstance().screenHeight * .85,
                                          ScreenManager.getInstance().screenWidth, "");
-            this.timerText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"center");
+            this.timerText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"left");
             FlxG.state.add(this.timerText);
 
             if (FlxG.music != null) {
@@ -73,11 +85,6 @@ package {
             }
 
             for (var i:int = 0; i < this.registerIndicators.length; i++) {
-                this.curIndicator = this.registerIndicators[i];
-                this.curIndicator.setPos(new DHPoint(
-                    (ScreenManager.getInstance().screenWidth / (this.registerIndicators.length + 1)) * (i + 1),
-                    ScreenManager.getInstance().screenHeight - 200
-                ));
             }
         }
 
@@ -88,6 +95,15 @@ package {
             if (control['id'] == mapping["a"]["button"] && control['value'] == mapping["a"]["value_on"]) {
                 this.registerPlayer(control, Player.CTRL_PAD);
             }
+        }
+
+        public function getRegistrationIndicatorByTag(t:Number):RegistrationIndicator {
+            for (var i:int = 0; i < this.registerIndicators.length; i++) {
+                if (this.registerIndicators[i].tag == t) {
+                    return this.registerIndicators[i];
+                }
+            }
+            return null;
         }
 
         public function registerPlayer(control:Object,
@@ -103,11 +119,8 @@ package {
                 device, ctrlType);
             if (tagData != null) {
                 this.lastRegisterTime = this.curTime;
-                var indicator:RegistrationIndicator = new RegistrationIndicator(
-                    tagData
-                );
-                indicator.addVisibleObjects();
-                this.registerIndicators.push(indicator);
+                var indicator:RegistrationIndicator = this.getRegistrationIndicatorByTag(tagData['tag']);
+                indicator.joined = true;
             }
         }
     }
