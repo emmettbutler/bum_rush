@@ -21,6 +21,7 @@ package {
         [Embed(source="/../assets/images/misc/highlight.png")] private static var ImgHighlight:Class;
         [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
         [Embed(source="/../assets/images/ui/need_date.png")] private static var ImgNoDate:Class;
+        [Embed(source="/../assets/images/ui/go_home.png")] private static var ImgGoHome:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
 
@@ -53,7 +54,7 @@ package {
         private var _colliding:Boolean = false;
         private var _collisionDirection:Array,
                     _checkpointStatusList:Array;
-        private var completionIndicator:FlxText;
+        private var completionIndicator:GameObject;
         private var _driver_name:String;
         private var driver_tag:Number, frameRate:Number = 12,
                     completionTime:Number = -1,
@@ -169,8 +170,9 @@ package {
             this.passengerSfx.loadEmbedded(SfxPassenger, false);
             this.passengerSfx.volume = 1;
 
-            this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
-            this.completionIndicator.setFormat(null, 20, 0xffd82e5a, "center");
+            this.completionIndicator = new GameObject(new DHPoint(0,0));
+            this.completionIndicator.loadGraphic(ImgGoHome, false, false, 78, 33);
+            this.completionIndicator.visible = false;
 
             this.no_date_text = new GameObject(new DHPoint(this.pos.x, this.pos.y));
             this.no_date_text.loadGraphic(ImgNoDate, false, false, 59, 30);
@@ -447,7 +449,7 @@ package {
                     this.lastCheckpointSound.play();
                     this._checkpoints_complete = true;
                     this.completionTime = this.curTime;
-                    this.completionIndicator.text = "Let's go home!";
+                    this.completionIndicator.visible = true;
                 }
             }
         }
@@ -567,7 +569,7 @@ package {
                     }
 
                     if ((this.curTime - this.completionTime) / 1000 >= 2) {
-                        this.completionIndicator.text = "";
+                        this.completionIndicator.visible = false;
                     }
                 }
             } else {
@@ -822,7 +824,7 @@ package {
             this.mainSprite.setPos(pos);
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
-            this.completionIndicator.y = pos.y - 10;
+            this.completionIndicator.y = pos.y - 30;
             this.collider.setPos(pos);
             this.collider.setPos(pos.add(
                 new DHPoint(0,
