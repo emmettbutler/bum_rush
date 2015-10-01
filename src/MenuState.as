@@ -10,7 +10,7 @@ package {
         private var countdownLength:Number = 5, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
         private var registerIndicators:Array;
-        private var timerText:FlxText;
+        private var timerText:FlxText, joinText:FlxText, teamText:FlxText;
         private var playersToMinimum:Number, secondsRemaining:Number;
         private var bg:FlxExtSprite, toon_text:FlxExtSprite;
 
@@ -34,20 +34,19 @@ package {
                 indicator.addVisibleObjects();
             }
 
-            var t:FlxText;
-            t = new FlxText(ScreenManager.getInstance().screenWidth * .05,
+            this.joinText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
                             ScreenManager.getInstance().screenHeight * .8,
                             ScreenManager.getInstance().screenWidth,
-                            "Press A to join");
-            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
-            add(t);
+                            "Bum Rush - Press A to join");
+            this.joinText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
+            add(this.joinText);
 
-            t = new FlxText(0,
+            this.teamText = new FlxText(0,
                             ScreenManager.getInstance().screenHeight * .96,
                             ScreenManager.getInstance().screenWidth,
-                            "Bum Rush - by Nina Freeman, Emmett Butler, Diego Garcia and Max Coburn");
-            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"center");
-            add(t);
+                            "by Nina Freeman, Emmett Butler,\nDiego Garcia and Max Coburn");
+            this.teamText.setFormat("Pixel_Berry_08_84_Ltd.Edition",12,0xffffffff,"left");
+            add(this.teamText);
 
             this.timerText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
                                          ScreenManager.getInstance().screenHeight * .85,
@@ -58,6 +57,21 @@ package {
             if (FlxG.music != null) {
                 FlxG.music.stop();
             }
+            //y pos of background plus a percentage of the height of the bg
+            //listener
+            var that:MenuState = this;
+            FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
+                function(event:DHDataEvent):void {
+                    var _bg:FlxExtSprite = event.userData['bg']
+                    that.joinText.y = _bg.height * .8;
+                    that.joinText.x = _bg.width * .06;
+
+                    that.teamText.y = _bg.height * .905;
+                    that.teamText.x = _bg.width * .06;
+
+                    that.timerText.y = _bg.height * .85;
+                    that.timerText.x = _bg.width * .06;
+            });
         }
 
         override public function update():void {

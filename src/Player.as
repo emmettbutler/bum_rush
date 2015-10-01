@@ -12,6 +12,7 @@ package {
     import flash.utils.Dictionary;
 
     public class Player extends GameObject {
+        [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
         [Embed(source="/../assets/audio/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/audio/donk.mp3")] private var SfxEnd:Class;
         [Embed(source="/../assets/audio/collide.mp3")] private var SfxCollide:Class;
@@ -19,6 +20,7 @@ package {
         [Embed(source="/../assets/images/ui/HUD_arrow.png")] private static var HUDCheckmark:Class;
         [Embed(source="/../assets/images/misc/highlight.png")] private static var ImgHighlight:Class;
         [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
+        [Embed(source="/../assets/images/ui/need_date.png")] private static var ImgNoDate:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
 
@@ -84,7 +86,7 @@ package {
                     curExhaustParticleIndex:Number = 0;
         private var exhaustPos:DHPoint;
         private var car_sprite:Class;
-        private var no_date_text:FlxText;
+        private var no_date_text:GameObject;
 
         {
             public static const CTRL_PAD:Number = 1;
@@ -169,8 +171,9 @@ package {
 
             this.completionIndicator = new FlxText(this.pos.x, this.pos.y - 30, 200, "");
             this.completionIndicator.setFormat(null, 20, 0xffd82e5a, "center");
-            this.no_date_text = new FlxText(this.pos.x, this.pos.y - 30, 200, "I need a date!");
-            this.no_date_text.setFormat(null, 20, 0xffd82e5a, "center");
+
+            this.no_date_text = new GameObject(new DHPoint(this.pos.x, this.pos.y));
+            this.no_date_text.loadGraphic(ImgNoDate, false, false, 59, 30);
             this.no_date_text.visible = false;
 
             this._checkpointStatusList = new Array();
@@ -500,8 +503,8 @@ package {
             super.update();
 
             if(this.no_date_text.visible) {
-                this.no_date_text.x = this.x - 50;
-                this.no_date_text.y = this.y - 10;
+                this.no_date_text.x = this.x;
+                this.no_date_text.y = this.y - 30;
                 if(this.no_date_text_timer < this.curTime) {
                     this.no_date_text.visible = false;
                 }
