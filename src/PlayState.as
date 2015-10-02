@@ -360,7 +360,7 @@ package {
                 //m_world.DrawDebugData();
             }
 
-            if (!this.bgmLoopStarted && this.raceTimeAlive / 1000 >= 9 + 6) {
+            if (!this.bgmLoopStarted && this.raceTimeAlive / 1000 >= 1 + 6) {
                 this.bgmLoopStarted = true;
                 FlxG.playMusic(SndBGM, 1);
             }
