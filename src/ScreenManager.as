@@ -114,6 +114,7 @@ package {
         public function loadSingleTileBG(path:String, auto_add:Boolean=true, animated:Boolean=false, width:Number=0, height:Number=0):FlxExtSprite {
             var _screen:ScreenManager = ScreenManager.getInstance();
             var bg:FlxExtSprite = new FlxExtSprite(0, 0);
+            bg.makeGraphic(10, 10, 0x00ffffff);
             bg.scrollFactor = new FlxPoint(0, 0);
             if (auto_add) {
                 FlxG.state.add(bg);

@@ -10,7 +10,8 @@ package {
         private var countdownLength:Number = 5, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
         private var registerIndicators:Array;
-        private var timerText:FlxText, joinText:FlxText, teamText:FlxText;
+        private var timerText:FlxText, joinText:FlxText, teamText:FlxText,
+                    loadingText:FlxText;
         private var playersToMinimum:Number, secondsRemaining:Number;
         private var bg:FlxExtSprite, toon_text:FlxExtSprite, speech_bubble:FlxExtSprite;
 
@@ -35,6 +36,13 @@ package {
                 this.registerIndicators.push(indicator);
                 indicator.addVisibleObjects();
             }
+
+            this.loadingText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
+                            ScreenManager.getInstance().screenHeight * .8,
+                            ScreenManager.getInstance().screenWidth,
+                            "Freshening up...");
+            this.loadingText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
+            FlxG.state.add(this.loadingText);
 
             this.joinText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
                             ScreenManager.getInstance().screenHeight * .8,
@@ -64,16 +72,18 @@ package {
                     var _bg:FlxExtSprite = event.userData['bg']
                     if (_bg == that.bg) {
                         FlxG.state.add(that.joinText);
-                        that.joinText.y = _bg.y + _bg.height * .8;
+                        that.joinText.y = _bg.y + _bg.height * .83;
                         that.joinText.x = _bg.width * .06;
 
                         FlxG.state.add(that.teamText);
-                        that.teamText.y = _bg.y + _bg.height * .905;
+                        that.teamText.y = _bg.y + _bg.height * .935;
                         that.teamText.x = _bg.width * .06;
 
                         FlxG.state.add(that.timerText);
-                        that.timerText.y = _bg.y + _bg.height * .85;
+                        that.timerText.y = _bg.y + _bg.height * .87;
                         that.timerText.x = _bg.width * .06;
+
+                        that.loadingText.visible = false;
 
                         FlxG.stage.removeEventListener(
                             GameState.EVENT_SINGLETILE_BG_LOADED,
@@ -124,6 +134,10 @@ package {
                 this.registerIndicators[i].destroy();
             }
             this.registerIndicators = null;
+            this.joinText.destroy();
+            this.teamText.destroy();
+            this.timerText.destroy();
+            this.loadingText.destroy();
             super.destroy();
         }
 
