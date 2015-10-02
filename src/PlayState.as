@@ -371,7 +371,7 @@ package {
                     this.shown_instructions = true;
                 }
             }
-            if(this.raceTimeAlive/1000 > 9) {
+            if(this.raceTimeAlive/1000 > 1) {
                 if(!this.started_race && this.shown_instructions) {
                     if(!this.shown_start_anim) {
                         FlxG.state.add(this.start_sprite);

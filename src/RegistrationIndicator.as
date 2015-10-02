@@ -34,8 +34,8 @@ package {
             this.joined_sprite.visible = false;
             this.joined_sprite.addAnimation("start", [0], 13, false);
             this.joined_sprite.addAnimation("buzz", [1, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2], 17, false);
-            this.joined_sprite.addAnimation("heart", [4, 5, 4, 5, 4, 5, 4, 5], 13, true);
-            this.joined_sprite.addAnimation("ask", [6, 7], 13, true);
+            this.joined_sprite.addAnimation("heart", [4, 5, 4, 5, 4, 5, 4, 5], 7, true);
+            this.joined_sprite.addAnimation("ask", [6, 7], 7, true);
             this.joined_sprite.addAnimation("shock", [8], 13, false);
             this.joined_sprite.play("start");
 

@@ -64,15 +64,15 @@ package {
                     var _bg:FlxExtSprite = event.userData['bg']
                     if (_bg == that.bg) {
                         FlxG.state.add(that.joinText);
-                        that.joinText.y = _bg.height * .8;
+                        that.joinText.y = _bg.y + _bg.height * .8;
                         that.joinText.x = _bg.width * .06;
 
                         FlxG.state.add(that.teamText);
-                        that.teamText.y = _bg.height * .905;
+                        that.teamText.y = _bg.y + _bg.height * .905;
                         that.teamText.x = _bg.width * .06;
 
                         FlxG.state.add(that.timerText);
-                        that.timerText.y = _bg.height * .85;
+                        that.timerText.y = _bg.y + _bg.height * .85;
                         that.timerText.x = _bg.width * .06;
 
                         FlxG.stage.removeEventListener(
