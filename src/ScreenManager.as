@@ -111,7 +111,7 @@ package {
             FlxG.resetCameras(cam);
         }
 
-        public function loadSingleTileBG(path:String, auto_add:Boolean=true):FlxExtSprite {
+        public function loadSingleTileBG(path:String, auto_add:Boolean=true, animated:Boolean=false, width:Number=0, height:Number=0):FlxExtSprite {
             var _screen:ScreenManager = ScreenManager.getInstance();
             var bg:FlxExtSprite = new FlxExtSprite(0, 0);
             bg.scrollFactor = new FlxPoint(0, 0);
@@ -122,18 +122,31 @@ package {
             receivingMachine.contentLoaderInfo.addEventListener(Event.COMPLETE,
                 function (event_load:Event):void {
                     var bmp:Bitmap = new Bitmap(event_load.target.content.bitmapData);
-                    var imgDim:DHPoint = new DHPoint(bmp.width, bmp.height);
+                    var imgDim:DHPoint = new DHPoint(width == 0 ? bmp.width : width,
+                                                     height == 0 ? bmp.height : height);
                     var dim:DHPoint = _screen.calcFullscreenDimensionsAlt(imgDim);
                     var origin:DHPoint = _screen.calcFullscreenOrigin(dim);
                     var bgScale:Number = _screen.calcFullscreenScale(imgDim);
                     var matrix:Matrix = new Matrix();
                     matrix.scale(bgScale, bgScale);
-                    var scaledBMD:BitmapData = new BitmapData(bmp.width * bgScale,
-                                                            bmp.height * bgScale,
-                                                            true, 0x000000);
+                    var widthMul:Number;
+                    if (width == 0) {
+                        widthMul = 1;
+                    } else {
+                        widthMul = bmp.width / width;
+                    }
+                    var scaledBMD:BitmapData = new BitmapData(
+                        bmp.width * bgScale,
+                        bmp.height * bgScale,
+                        true, 0x000000);
                     scaledBMD.draw(bmp, matrix, null, null, null, true);
                     bmp = new Bitmap(scaledBMD, PixelSnapping.NEVER, true);
-                    bg.loadExtGraphic(bmp, false, false, bmp.width, bmp.height, true);
+                    bg.loadExtGraphic(bmp,
+                                      animated,
+                                      false,
+                                      width == 0 ? bmp.width : (width * bgScale),
+                                      height == 0 ? bmp.height : (height * bgScale),
+                                      true);
                     bg.x = origin.x;
                     bg.y = origin.y;
                     FlxG.stage.dispatchEvent(

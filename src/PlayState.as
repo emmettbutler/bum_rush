@@ -11,7 +11,6 @@ package {
     import flash.display.Sprite;
 
     public class PlayState extends GameState {
-        [Embed(source="/../assets/images/ui/intro_temp.png")] private var InstructionSprite:Class;
         [Embed(source="/../assets/images/ui/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/images/ui/timeout.png")] private var TimeOutSprite:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
@@ -20,7 +19,7 @@ package {
         private var m_physScale:Number = 30
         private var listener:ContactListener;
         private var checkpoints:Array;
-        private var instructions:GameObject, instructions_text:GameObject, start_sprite:GameObject, time_out_sprite:GameObject;
+        private var start_sprite:GameObject, time_out_sprite:GameObject;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
         private var raceTimeAlive:Number, raceEndTimer:Number;
         private var collider:FlxExtSprite;
@@ -300,11 +299,6 @@ package {
                 }
             }
 
-            this.instructions = new GameObject(new DHPoint(0,0));
-            this.instructions.makeGraphic(ScreenManager.getInstance().screenWidth, ScreenManager.getInstance().screenHeight, 0xff000000);
-            this.instructions_text = new GameObject(new DHPoint(0,0));
-            this.instructions_text.loadGraphic(this.InstructionSprite,true,false,1280,720);
-
             this.start_sprite = new GameObject(new DHPoint(0,0));
             this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
             this.start_sprite.addAnimation("play", [0,1,2], .5, false);
@@ -341,8 +335,6 @@ package {
                             cur.setHitboxSize(curData["size"]);
                             cur.index = p;
                         }
-                        FlxG.state.add(that.instructions);
-                        FlxG.state.add(that.instructions_text);
                     }
 
                     if (that.bgsLoaded >= 2) {
@@ -374,10 +366,8 @@ package {
             }
 
             this.raceTimeAlive = this.curTime - this.raceBornTime;
-            if(this.raceTimeAlive/1000 > 7) {
+            if(this.raceTimeAlive/1000 > 1) {
                 if(!this.started_race) {
-                    this.instructions.visible = false;
-                    this.instructions_text.visible = false;
                     this.shown_instructions = true;
                 }
             }

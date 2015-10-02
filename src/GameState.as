@@ -20,13 +20,13 @@ package {
 
         override public function update():void {
             this.sortedObjects.length = 0;
-            var basic:GameObject, i:uint = 0;
+            var basic:FlxSprite, i:uint = 0;
             while(i < length) {
                 // maintain a list of GameObjects to be z-sorted by their foot position
                 if (members[i] is GameObject && (members[i] as GameObject).zSorted) {
                     this.sortedObjects.push(members[i]);
                 }
-                basic = members[i++] as GameObject;
+                basic = members[i++] as FlxSprite;
                 if (basic != null) {
                     if(basic.active && basic.exists && basic.scale != null) {
                         basic.preUpdate();

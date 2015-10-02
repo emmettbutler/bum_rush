@@ -12,7 +12,7 @@ package {
         private var registerIndicators:Array;
         private var timerText:FlxText, joinText:FlxText, teamText:FlxText;
         private var playersToMinimum:Number, secondsRemaining:Number;
-        private var bg:FlxExtSprite, toon_text:FlxExtSprite;
+        private var bg:FlxExtSprite, toon_text:FlxExtSprite, speech_bubble:FlxExtSprite;
 
         private var curIndicator:RegistrationIndicator;
 
@@ -25,6 +25,8 @@ package {
             var pathPrefix:String = "../assets/images/ui/";
             this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "bg.png");
             this.toon_text = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "text_temp.png");
+            this.speech_bubble = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "speechBubble.png");
+            this.speech_bubble.visible = false;
 
             this.registerIndicators = new Array();
             var indicator:RegistrationIndicator;
@@ -39,20 +41,17 @@ package {
                             ScreenManager.getInstance().screenWidth,
                             "Bum Rush - Press A to join");
             this.joinText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
-            add(this.joinText);
 
             this.teamText = new FlxText(0,
                             ScreenManager.getInstance().screenHeight * .96,
                             ScreenManager.getInstance().screenWidth,
                             "by Nina Freeman, Emmett Butler,\nDiego Garcia and Max Coburn");
             this.teamText.setFormat("Pixel_Berry_08_84_Ltd.Edition",12,0xffffffff,"left");
-            add(this.teamText);
 
             this.timerText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
                                          ScreenManager.getInstance().screenHeight * .85,
                                          ScreenManager.getInstance().screenWidth, "");
             this.timerText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"left");
-            FlxG.state.add(this.timerText);
 
             if (FlxG.music != null) {
                 FlxG.music.stop();
@@ -63,14 +62,24 @@ package {
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
                     var _bg:FlxExtSprite = event.userData['bg']
-                    that.joinText.y = _bg.height * .8;
-                    that.joinText.x = _bg.width * .06;
+                    if (_bg == that.bg) {
+                        FlxG.state.add(that.joinText);
+                        that.joinText.y = _bg.height * .8;
+                        that.joinText.x = _bg.width * .06;
 
-                    that.teamText.y = _bg.height * .905;
-                    that.teamText.x = _bg.width * .06;
+                        FlxG.state.add(that.teamText);
+                        that.teamText.y = _bg.height * .905;
+                        that.teamText.x = _bg.width * .06;
 
-                    that.timerText.y = _bg.height * .85;
-                    that.timerText.x = _bg.width * .06;
+                        FlxG.state.add(that.timerText);
+                        that.timerText.y = _bg.height * .85;
+                        that.timerText.x = _bg.width * .06;
+
+                        FlxG.stage.removeEventListener(
+                            GameState.EVENT_SINGLETILE_BG_LOADED,
+                            arguments.callee
+                        );
+                    }
             });
         }
 
@@ -81,7 +90,7 @@ package {
                 if ((this.curTime - this.lastRegisterTime) / 1000 > this.countdownLength && !this.stateSwitchLock)
                 {
                     this.stateSwitchLock = true;
-                    FlxG.switchState(new MapPickerState());
+                    this.startIntro();
                 }
                 secondsRemaining = (this.countdownLength - ((this.curTime - this.lastRegisterTime) / 1000))
                 this.timerText.text = "Starting in " + secondsRemaining.toFixed(1) + " seconds!";
@@ -99,7 +108,23 @@ package {
             }
 
             for (var i:int = 0; i < this.registerIndicators.length; i++) {
+                this.registerIndicators[i].update();
+                if (this.registerIndicators[i].state == RegistrationIndicator.STATE_DONE) {
+                    FlxG.switchState(new MapPickerState());
+                } else if (this.registerIndicators[i].state == RegistrationIndicator.STATE_ASK) {
+                    this.speech_bubble.visible = true;
+                } else if (this.registerIndicators[i].state == RegistrationIndicator.STATE_SHOCK) {
+                    this.speech_bubble.visible = false;
+                }
             }
+        }
+
+        override public function destroy():void {
+            for (var i:int = 0; i < this.registerIndicators.length; i++) {
+                this.registerIndicators[i].destroy();
+            }
+            this.registerIndicators = null;
+            super.destroy();
         }
 
         override public function controllerChanged(control:Object,
@@ -135,6 +160,18 @@ package {
                 this.lastRegisterTime = this.curTime;
                 var indicator:RegistrationIndicator = this.getRegistrationIndicatorByTag(tagData['tag']);
                 indicator.joined = true;
+            }
+        }
+
+        public function startIntro():void {
+            this.toon_text.visible = false;
+            this.timerText.visible = false;
+            this.joinText.visible = false;
+            this.teamText.visible = false;
+            var cur:RegistrationIndicator;
+            for (var i:int = 0; i < this.registerIndicators.length; i++) {
+                cur = this.registerIndicators[i];
+                cur.startIntro();
             }
         }
     }
