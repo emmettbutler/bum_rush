@@ -111,11 +111,13 @@ package {
             FlxG.resetCameras(cam);
         }
 
-        public function loadSingleTileBG(path:String):FlxExtSprite {
+        public function loadSingleTileBG(path:String, auto_add:Boolean=true):FlxExtSprite {
             var _screen:ScreenManager = ScreenManager.getInstance();
             var bg:FlxExtSprite = new FlxExtSprite(0, 0);
             bg.scrollFactor = new FlxPoint(0, 0);
-            FlxG.state.add(bg);
+            if (auto_add) {
+                FlxG.state.add(bg);
+            }
             var receivingMachine:Loader = new Loader();
             receivingMachine.contentLoaderInfo.addEventListener(Event.COMPLETE,
                 function (event_load:Event):void {

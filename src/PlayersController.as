@@ -61,8 +61,10 @@ package {
 
             playerConfigs = new Dictionary();
             playerConfigs[PLAYER_1] = {
+                "tag": PLAYER_1,
                 "sprite": sprite_1,
                 "car": ImgCar1,
+                "join_prefix": "bernard",
                 "starting_passenger": Passenger.TYPE_A,
                 "name": "Josh",
                 "tint": 0xffe63552,
@@ -76,8 +78,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_2] = {
+                "tag": PLAYER_2,
                 "sprite": sprite_1,
                 "car": ImgCar2,
+                "join_prefix": "billy",
                 "starting_passenger": Passenger.TYPE_B,
                 "name": "Jen",
                 "tint": 0xff3bc6ff,
@@ -91,8 +95,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_3] = {
+                "tag": PLAYER_3,
                 "sprite": sprite_2,
                 "car": ImgCar3,
+                "join_prefix": "ermit",
                 "starting_passenger": Passenger.TYPE_C,
                 "name": "Lacey",
                 "tint": 0xfff33bff,
@@ -106,8 +112,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_4] = {
+                "tag": PLAYER_4,
                 "sprite": sprite_1,
                 "car": ImgCar4,
+                "join_prefix": "keiko",
                 "starting_passenger": Passenger.TYPE_D,
                 "name": "Aaron",
                 "tint": 0xffffb43b,
@@ -121,8 +129,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_5] = {
+                "tag": PLAYER_5,
                 "sprite": sprite_1,
                 "car": ImgCar5,
+                "join_prefix": "laura",
                 "starting_passenger": Passenger.TYPE_E,
                 "name": "Dan",
                 "tint": 0xff225acd,
@@ -136,8 +146,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_6] = {
+                "tag": PLAYER_6,
                 "sprite": sprite_1,
                 "car": ImgCar6,
+                "join_prefix": "mim",
                 "starting_passenger": Passenger.TYPE_F,
                 "name": "Toni",
                 "tint": 0xffff603b,
@@ -151,8 +163,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_7] = {
+                "tag": PLAYER_7,
                 "sprite": sprite_2,
                 "car": ImgCar7,
+                "join_prefix": "nonny",
                 "starting_passenger": Passenger.TYPE_G,
                 "name": "Nina",
                 "tint": 0xffffa7e2,
@@ -166,8 +180,10 @@ package {
                 ]
             };
             playerConfigs[PLAYER_8] = {
+                "tag": PLAYER_8,
                 "sprite": sprite_1,
                 "car": ImgCar8,
+                "join_prefix": "rachel",
                 "starting_passenger": Passenger.TYPE_H,
                 "name": "Emmett",
                 "tint": 0xffb2b2b2,
