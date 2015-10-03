@@ -469,7 +469,7 @@ package {
                     this.completionIndicator.visible = true;
                 }
             }
-            if(this._checkpoints_complete){
+            if(checkpointsComplete){
                 if(curCheckpoint.cp_type == Checkpoint.HOME) {
                     this._winner = true;
                 }
@@ -495,29 +495,31 @@ package {
                 this.been_there.visible = true;
                 this.been_there_timer = (this.curTime + 5) / 1000;
             }
-            if(!this._checkpoints_complete && !this.checking_in) {
-                if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
-                {
-                    if(this.passengers.length > 0) {
-                        this.checkIn(checkpoint);
-                        this.curCheckpoint = checkpoint;
-                        this.curHomeInd = home_ind;
-                    } else {
-                        if(!this.been_there.visible) {
-                            this.no_date_text.visible = true;
-                            this.no_date_text_timer = (this.curTime + 5) / 1000;
+            if (!this.checking_in) {
+                if(!this._checkpoints_complete) {
+                    if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
+                    {
+                        if(this.passengers.length > 0) {
+                            this.checkIn(checkpoint);
+                            this.curCheckpoint = checkpoint;
+                            this.curHomeInd = home_ind;
+                        } else {
+                            if(!this.been_there.visible) {
+                                this.no_date_text.visible = true;
+                                this.no_date_text_timer = (this.curTime + 5) / 1000;
+                            }
                         }
                     }
-                }
-            } else if(this._checkpoints_complete && !this.checking_in){
-                if(checkpoint.cp_type == Checkpoint.HOME) {
-                    if(this.passengers.length > 0) {
-                        this.checkIn(checkpoint);
-                        this.curCheckpoint = checkpoint;
-                        this.curHomeInd = home_ind;
-                    } else {
-                        this.no_date_text.visible = true;
-                        this.no_date_text_timer = this.curTime + (5/1000);
+                } else {
+                    if(checkpoint.cp_type == Checkpoint.HOME) {
+                        if(this.passengers.length > 0) {
+                            this.checkIn(checkpoint);
+                            this.curCheckpoint = checkpoint;
+                            this.curHomeInd = home_ind;
+                        } else {
+                            this.no_date_text.visible = true;
+                            this.no_date_text_timer = this.curTime + (5/1000);
+                        }
                     }
                 }
             }
