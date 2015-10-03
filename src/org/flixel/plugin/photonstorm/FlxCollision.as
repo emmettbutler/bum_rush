@@ -133,6 +133,9 @@ package org.flixel.plugin.photonstorm
                 }, 500);
             }
 
+            var ccTopRight:Boolean, ccTopLeft:Boolean, ccBottomRight:Boolean,
+                ccBottomLeft:Boolean;
+
             var leftEdge:BitmapData = new BitmapData(2, Math.floor(boundsA.height));
             edgeRect.x = 0;
             edgeRect.y = 0;
@@ -173,6 +176,26 @@ package org.flixel.plugin.photonstorm
             var collidingBottom:Boolean = bottomEdgeCollisionBounds.height >= bottomEdge.height - 1 &&
                 bottomEdgeCollisionBounds.width >= (threshold_ == -1 ? bottomEdge.width - 1 : threshold_);
 
+            ccTopLeft = leftEdgeCollisionBounds.width >= leftEdge.width - 1 &&
+                leftEdgeCollisionBounds.height >= 10 &&
+                topEdgeCollisionBounds.height >= topEdgeCollisionBounds.height - 1 &&
+                topEdgeCollisionBounds.width >= 10;
+
+            ccTopRight = rightEdgeCollisionBounds.width >= rightEdge.width - 1 &&
+                rightEdgeCollisionBounds.height >= 10 &&
+                topEdgeCollisionBounds.height >= topEdgeCollisionBounds.height - 1 &&
+                topEdgeCollisionBounds.width >= 10;
+
+            ccBottomLeft = leftEdgeCollisionBounds.width >= leftEdge.width - 1 &&
+                leftEdgeCollisionBounds.height >= 10 &&
+                bottomEdgeCollisionBounds.height >= bottomEdgeCollisionBounds.height - 1 &&
+                bottomEdgeCollisionBounds.width >= 10;
+
+            ccBottomRight = rightEdgeCollisionBounds.width >= rightEdge.width - 1 &&
+                rightEdgeCollisionBounds.height >= 10 &&
+                bottomEdgeCollisionBounds.height >= bottomEdgeCollisionBounds.height - 1 &&
+                bottomEdgeCollisionBounds.width >= 10;
+
             var overlap:Rectangle = overlapArea.getColorBoundsRect(0xffffffff, 0xff00ffff);
             overlap.offset(intersect.x, intersect.y);
 
@@ -196,10 +219,10 @@ package org.flixel.plugin.photonstorm
                 if (collideData == null) {
                     collideData = new Array(0, 0, 0, 0);  // left, right, up, down
                 }
-                collideData[0] = collidingLeft || collideData[0] ? 1 : 0;
-                collideData[1] = collidingRight || collideData[1] ? 1 : 0;
-                collideData[2] = collidingTop || collideData[2] ? 1 : 0;
-                collideData[3] = collidingBottom || collideData[3] ? 1 : 0;
+                collideData[0] = ccTopLeft || ccBottomLeft || collidingLeft || collideData[0] ? 1 : 0;
+                collideData[1] = ccTopRight || ccBottomRight || collidingRight || collideData[1] ? 1 : 0;
+                collideData[2] = ccTopLeft || ccTopRight || collidingTop || collideData[2] ? 1 : 0;
+                collideData[3] = ccBottomLeft || ccBottomRight || collidingBottom || collideData[3] ? 1 : 0;
                 return [true, collideData];
             }
         }
