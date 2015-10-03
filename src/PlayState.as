@@ -423,6 +423,8 @@ package {
                     if (curCollider._getRect().overlaps(checkpoint._getRect())) {
                         this.overlapPlayerCheckpoints(curPlayer, checkpoint);
                         overlappingCheckpoint = true;
+                    } else {
+                        curPlayer.setVisitedNotification(checkpoint);
                     }
                 }
                 if(!overlappingCheckpoint && !this.finished) {

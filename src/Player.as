@@ -22,6 +22,7 @@ package {
         [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
         [Embed(source="/../assets/images/ui/need_date.png")] private static var ImgNoDate:Class;
         [Embed(source="/../assets/images/ui/go_home.png")] private static var ImgGoHome:Class;
+        [Embed(source="/../assets/images/ui/alreadydone.png")] private static var ImgBeenThere:Class;
 
         public static const COLLISION_TAG:String = "car_thing";
 
@@ -88,6 +89,9 @@ package {
         private var exhaustPos:DHPoint;
         private var car_sprite:Class;
         private var no_date_text:GameObject;
+        private var been_there:GameObject;
+        private var been_there_timer:Number;
+        private var _showBeenThereList:Array;
 
         {
             public static const CTRL_PAD:Number = 1;
@@ -178,10 +182,21 @@ package {
             this.no_date_text.loadGraphic(ImgNoDate, false, false, 59, 30);
             this.no_date_text.visible = false;
 
+            this.been_there = new GameObject(new DHPoint(this.pos.x, this.pos.y));
+            this.been_there.loadGraphic(ImgBeenThere, false, false, 90, 33);
+            this.been_there.visible = false;
+
             this._checkpointStatusList = new Array();
 
-            for(var i:Number = 0; i < checkpoint_count; i++) {
+            var i:Number = 0
+            for(i = 0; i < checkpoint_count; i++) {
                 this._checkpointStatusList.push(false);
+            }
+
+            this._showBeenThereList = new Array();
+
+            for(i = 0; i < checkpoint_count; i++) {
+                this._showBeenThereList.push(false);
             }
 
             this.collider = new GameObject(new DHPoint(0, 0), this);
@@ -377,6 +392,7 @@ package {
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.completionIndicator);
             FlxG.state.add(this.no_date_text);
+            FlxG.state.add(this.been_there);
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
@@ -462,7 +478,17 @@ package {
             this.play_heart = true;
         }
 
+        public function setVisitedNotification(c:Checkpoint):void {
+            if(this._checkpointStatusList[c.index] && !this._showBeenThereList[c.index]) {
+                this._showBeenThereList[c.index] = true;
+            }
+        }
+
         public function crossCheckpoint(checkpoint:Checkpoint, home_ind:Number):void {
+            if(this._showBeenThereList[checkpoint.index] && !this.no_date_text.visible) {
+                this.been_there.visible = true;
+                this.been_there_timer = (this.curTime + 5) / 1000;
+            }
             if(!this._checkpoints_complete && !this.checking_in) {
                 if (!this._checkpointStatusList[checkpoint.index] && checkpoint.cp_type != Checkpoint.HOME)
                 {
@@ -471,8 +497,10 @@ package {
                         this.curCheckpoint = checkpoint;
                         this.curHomeInd = home_ind;
                     } else {
-                        this.no_date_text.visible = true;
-                        this.no_date_text_timer = (this.curTime + 5) / 1000;
+                        if(!this.been_there.visible) {
+                            this.no_date_text.visible = true;
+                            this.no_date_text_timer = (this.curTime + 5) / 1000;
+                        }
                     }
                 }
             } else if(this._checkpoints_complete && !this.checking_in){
@@ -509,6 +537,13 @@ package {
                 this.no_date_text.y = this.y - 30;
                 if(this.no_date_text_timer < this.curTime) {
                     this.no_date_text.visible = false;
+                }
+            }
+            if(this.been_there.visible) {
+                this.been_there.x = this.pos.x;
+                this.been_there.y = this.pos.y - 33;
+                if(this.been_there_timer < this.curTime) {
+                    this.been_there.visible = false;
                 }
             }
 
