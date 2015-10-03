@@ -84,13 +84,13 @@ package {
             super.update();
 
             if (this._state == STATE_INTRO_START) {
-                if (this.timeAlive - this.lastStateSwitchTime >= 1 * 1000) {
+                if (this.timeAlive - this.lastStateSwitchTime >= 2.1 * 1000) {
                     this.lastStateSwitchTime = this.timeAlive;
                     this._state = STATE_BUZZ;
                     this.joined_sprite.play("buzz");
                 }
             } else if (this._state == STATE_BUZZ) {
-                if (this.timeAlive - this.lastStateSwitchTime >= 2 * 1000) {
+                if (this.timeAlive - this.lastStateSwitchTime >= 1.5 * 1000) {
                     this.lastStateSwitchTime = this.timeAlive;
                     this._state = STATE_PHONE;
                     this.joined_sprite.visible = false;
@@ -118,7 +118,7 @@ package {
                     this.joined_sprite.play("shock");
                 }
             } else if (this._state == STATE_SHOCK) {
-                if (this.timeAlive - this.lastStateSwitchTime >= 2 * 1000) {
+                if (this.timeAlive - this.lastStateSwitchTime >= 3 * 1000) {
                     this.lastStateSwitchTime = this.timeAlive;
                     this._state = STATE_DONE;
                 }

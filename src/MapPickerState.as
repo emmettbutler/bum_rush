@@ -6,6 +6,7 @@ package {
 
     public class MapPickerState extends GameState {
         [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
+        [Embed(source = "../assets/audio/bumrush_select_loop.mp3")] private var SndBGMLoop:Class;
         [Embed(source="/../assets/images/worlds/maps/map_3_thumb.png")] private var ImgMapThumb3:Class;
         [Embed(source="/../assets/images/worlds/maps/map_4_thumb.png")] private var ImgMapThumb4:Class;
         [Embed(source="/../assets/images/worlds/maps/map_5_thumb.png")] private var ImgMapThumb5:Class;
@@ -115,6 +116,11 @@ package {
             thumb_.loadGraphic(ImgMapThumb5, false, false, thumb_dim.x, thumb_dim.y);
             add(thumb_);
             this._maps.push(thumb_);
+
+            if (FlxG.music != null) {
+                FlxG.music.stop();
+            }
+            FlxG.playMusic(SndBGMLoop, 1);
         }
 
         override public function controllerChanged(control:Object,

@@ -6,6 +6,8 @@ package {
 
     public class MenuState extends GameState {
         [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
+        [Embed(source = "../assets/audio/bumrush_select_loop.mp3")] private var SndBGMLoop:Class;
+        [Embed(source = "../assets/audio/bumrush_intro.mp3")] private var SndIntroScene:Class;
 
         private var countdownLength:Number = 5, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
@@ -64,6 +66,7 @@ package {
             if (FlxG.music != null) {
                 FlxG.music.stop();
             }
+            FlxG.playMusic(SndBGMLoop, 1);
             //y pos of background plus a percentage of the height of the bg
             //listener
             var that:MenuState = this;
@@ -187,6 +190,8 @@ package {
                 cur = this.registerIndicators[i];
                 cur.startIntro();
             }
+            FlxG.music.stop();
+            FlxG.play(SndIntroScene, 1);
         }
     }
 }
