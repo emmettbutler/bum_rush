@@ -274,14 +274,16 @@ package {
             this.collideSfx.play();
         }
 
-        public function addPassenger(passenger:Passenger):void {
+        public function addPassenger(passenger:Passenger, playSound:Boolean=true):void {
             if (passenger.driver != null) {
                 return;
             }
             passenger.enterCar(this);
             this.passengers.push(passenger);
             passenger.idx = this.passengers.indexOf(passenger);
-            passengerSfx.play();
+            if (playSound) {
+                passengerSfx.play();
+            }
         }
 
         public function getPassengers():Array {

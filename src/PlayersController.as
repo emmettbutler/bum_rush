@@ -295,7 +295,7 @@ package {
                 );
                 passenger.addVisibleObjects();
                 this.passengers.push(passenger);
-                player.addPassenger(passenger);
+                player.addPassenger(passenger, false);
 
                 cur++;
             }
