@@ -40,6 +40,7 @@ package {
                 slowerPlayer = fixAUserData['player'];
             }
 
+            FlxG.shake(.007, .3);
             slowerPlayer.removePassenger(fasterPlayer.bodyLinearVelocity);
         }
 
