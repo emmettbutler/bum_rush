@@ -300,7 +300,7 @@ package {
             }
 
             this.start_sprite = new GameObject(new DHPoint(0,0));
-            this.start_sprite.loadGraphic(this.StartSprite, true, false, 975/3, 117);
+            this.start_sprite.loadGraphic(this.StartSprite, true, false, 325, 117);
             this.start_sprite.addAnimation("play", [0,1,2], .5, false);
             this.start_sprite.visible = false;
 
