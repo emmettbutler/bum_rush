@@ -299,6 +299,10 @@ package {
 
                 cur++;
             }
+
+            for (var i:int = 0; i < this.players.length; i++) {
+                this.players[i].addMeter();
+            }
         }
 
         public function addVisibleObjects():void {

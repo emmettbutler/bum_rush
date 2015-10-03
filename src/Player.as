@@ -409,6 +409,9 @@ package {
             for (i = 0; i < this.heartParticles.length; i++) {
                 this.heartParticles[i].addVisibleObjects();
             }
+        }
+
+        public function addMeter():void {
             this.meter.addVisibleObjects();
         }
 
