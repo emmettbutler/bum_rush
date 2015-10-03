@@ -305,7 +305,7 @@ package {
             this.start_sprite.visible = false;
 
             this.time_out_sprite = new GameObject(new DHPoint(0,0));
-            this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 1280, 720);
+            this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 902, 204);
             this.time_out_sprite.visible = false;
 
             var that:PlayState = this;
@@ -322,6 +322,7 @@ package {
                         var cur:Checkpoint, curData:Object;
 
                         that.start_sprite.setPos(new DHPoint(event.userData['bg'].x + event.userData['bg'].width * .4, event.userData['bg'].y + event.userData['bg'].height * .4));
+                        that.time_out_sprite.setPos(new DHPoint(event.userData['bg'].x + event.userData['bg'].width * .15, event.userData['bg'].y + event.userData['bg'].height * .3));
 
                         for(var p:Number = 0; p < that.checkpoints.length; p++) {
                             curData = that.checkpoints_data[that.active_map_index][p];
