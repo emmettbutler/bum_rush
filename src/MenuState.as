@@ -178,10 +178,10 @@ package {
             if (control['id'] == mapping["a"]["button"]){
                 if (control['value'] == mapping["a"]["value_on"]) {
                     this.registerPlayer(control, Player.CTRL_PAD);
-                    this.confirmButtonCount += 1;
+                    this.confirmButtonCount = Math.min(this.confirmButtonCount + 1, this.registeredPlayers);
                     this.lastConfirmButtonTime = this.timeAlive;
                 } else if (control['value'] == mapping["a"]["value_off"]) {
-                    this.confirmButtonCount -= 1;
+                    this.confirmButtonCount = Math.max(this.confirmButtonCount - 1, 0);
                 }
             }
         }
