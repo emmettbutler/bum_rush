@@ -5,7 +5,7 @@ package {
         [Embed(source="/../assets/images/worlds/BeerStore_1.png")] private var BoozeSprite:Class;
         [Embed(source="/../assets/images/worlds/Home_1.png")] private var HomeSprite:Class;
         [Embed(source="/../assets/images/worlds/MovieTheater_1.png")] private var MoviesSprite:Class;
-        [Embed(source="/../assets/images/worlds/Park.png")] private var ParkSprite:Class;
+        [Embed(source="/../assets/images/worlds/donkersDugout_3.png")] private var ParkSprite:Class;
         [Embed(source="/../assets/images/worlds/Beach.png")] private var BeachSprite:Class;
         [Embed(source="/../assets/images/worlds/BigFranks_21.png")] private var DinnerSprite:Class;
         [Embed(source="/../assets/images/worlds/NightClub_1.png")] private var ClubSprite:Class;
@@ -52,7 +52,9 @@ package {
                     this.checkpoint_sprite.loadGraphic(this.MoviesSprite, false, false, 128, 128);
                 break;
                 case Checkpoint.PARK:
-                    this.checkpoint_sprite.loadGraphic(this.ParkSprite, false, false, 128, 128);
+                    this.checkpoint_sprite.loadGraphic(this.ParkSprite, false, false, 384 / 3, 128);
+                    this.checkpoint_sprite.addAnimation("anim", [0,1,2], 7, true);
+                    this.checkpoint_sprite.play("anim");
                 break;
                 case Checkpoint.BEACH:
                     this.checkpoint_sprite.loadGraphic(this.BeachSprite, false, false, 128, 128);
