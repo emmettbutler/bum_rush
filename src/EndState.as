@@ -44,7 +44,7 @@ package {
                     FlxG.state.add(driver_image);
                     driver_image.play("drive_down");
 
-                    var passengers_string:String = "You brought home ";
+                    var passengers_string:String = winner.driver_name + " brought home ";
 
                     for (var k:int = 0; k < cur_player.getPassengers().length; k++) {
                         passenger = cur_player.getPassengers()[k];
@@ -68,41 +68,27 @@ package {
 
             var commentString:String = "";
             if(winner.getPassengers().length == 1) {
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " date! An intimate evening awaits...";
+                commentString = passengers_string + ". An intimate evening awaits...";
             } else if(winner.getPassengers().length == 2){
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " dates! Not bad, not bad...";
+                commentString = passengers_string + ". Not bad, not bad...";
             } else if(winner.getPassengers().length == 3){
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " dates! Not too shabby! You must look really cute tonight!";
+                commentString = passengers_string + ". Not too shabby! You must look really cute tonight!";
             } else if(winner.getPassengers().length == 4){
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " dates! Impressive! Your sweet smile really did the trick.";
+                commentString = passengers_string + ". Impressive! Your sweet smile really did the trick.";
             } else if(winner.getPassengers().length == 5){
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " dates! You're a natural born charmer'!";
+                commentString = passengers_string + ". You're a natural born charmer'!";
             } else if(winner.getPassengers().length == 6){
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " dates! Do you even have room for that many people in your bed...?!";
+                commentString = passengers_string + ". Do you even have room for that many people in your bed...?!";
             } else if(winner.getPassengers().length == 7){
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " dates! WOW! Are you a sex magnet or something?!";
+                commentString = passengers_string + ". WOW! Are you a sex magnet or something?!";
             } else if(winner.getPassengers().length == 8){
-                commentString = winner.driver_name +
-                " brought home " + winner.getPassengers().length + " dates! Looks like you'll need to borrow the dorm next door, too!";
+                commentString = passengers_string + ". Looks like you'll need to borrow the dorm next door, too!";
             }
 
             t = new FlxText(100, 100,
                 ScreenManager.getInstance().screenWidth, commentString);
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffd82e5a);
             t.alignment = "left";
-            FlxG.state.add(t);
-
-            t = new FlxText(0, ScreenManager.getInstance().screenHeight - 200,
-                            ScreenManager.getInstance().screenWidth, passengers_string);
-            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffd82e5a);
-            t.alignment = "center";
             FlxG.state.add(t);
 
             this.resetText = new FlxText(100, ScreenManager.getInstance().screenHeight - 100, ScreenManager.getInstance().screenWidth, "");
