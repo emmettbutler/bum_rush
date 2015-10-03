@@ -9,6 +9,7 @@ package {
         [Embed(source="/../assets/images/worlds/Beach.png")] private var BeachSprite:Class;
         [Embed(source="/../assets/images/worlds/BigFranks_21.png")] private var DinnerSprite:Class;
         [Embed(source="/../assets/images/worlds/NightClub_1.png")] private var ClubSprite:Class;
+        [Embed(source="/../assets/images/worlds/street_overlay_1.png")] private var ImgStreetMarker:Class;
         [Embed(source="/../assets/audio/passenger.mp3")] private var CheckpointSFX:Class;
 
         private var dimensions:DHPoint;
@@ -69,9 +70,7 @@ package {
                 break;
             }
 
-            this.makeGraphic(this.checkpoint_sprite.width,
-                             this.checkpoint_sprite.height, 0xffff0000);
-            this.visible = false;
+            this.loadGraphic(ImgStreetMarker, false, false, 80, 40);
         }
 
         public function get index():Number {
@@ -92,9 +91,8 @@ package {
             }
         }
 
-        public function setHitboxSize(dim:DHPoint):void {
-            this.width = dim.x;
-            this.height = dim.y;
+        public function setMarkerRotation(r:Number):void {
+            this.angle = r;
         }
 
         public function playSfx():void {
