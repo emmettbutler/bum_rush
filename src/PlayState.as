@@ -300,7 +300,7 @@ package {
             }
 
             this.start_sprite = new GameObject(new DHPoint(0,0));
-            this.start_sprite.loadGraphic(this.StartSprite, true, false, 1280, 720);
+            this.start_sprite.loadGraphic(this.StartSprite, true, false, 975/3, 117);
             this.start_sprite.addAnimation("play", [0,1,2], .5, false);
             this.start_sprite.visible = false;
 
@@ -320,6 +320,9 @@ package {
                             that.checkpoints.length, that.active_map_index,
                             that.m_world, that.groundBody, that.streetPoints);
                         var cur:Checkpoint, curData:Object;
+
+                        that.start_sprite.setPos(new DHPoint(event.userData['bg'].x + event.userData['bg'].width * .4, event.userData['bg'].y + event.userData['bg'].height * .4));
+
                         for(var p:Number = 0; p < that.checkpoints.length; p++) {
                             curData = that.checkpoints_data[that.active_map_index][p];
                             var cp_pos:DHPoint = curData["pos"];
