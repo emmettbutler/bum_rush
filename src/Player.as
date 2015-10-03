@@ -396,7 +396,9 @@ package {
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
-            this.meter.addVisibleObjects();
+            for (i = 0; i < this.exhaustParticles.length; i++) {
+                this.exhaustParticles[i].addVisibleObjects();
+            }
             FlxG.state.add(this.checkmark_sprite);
             FlxG.state.add(this.heart_sprite);
             this.impactParticles.addVisibleObjects();
@@ -404,9 +406,7 @@ package {
             for (i = 0; i < this.heartParticles.length; i++) {
                 this.heartParticles[i].addVisibleObjects();
             }
-            for (i = 0; i < this.exhaustParticles.length; i++) {
-                this.exhaustParticles[i].addVisibleObjects();
-            }
+            this.meter.addVisibleObjects();
         }
 
         public function get lastCheckpointIdx():Number {
@@ -468,6 +468,11 @@ package {
                     this.completionIndicator.visible = true;
                 }
             }
+            if(this._checkpoints_complete){
+                if(curCheckpoint.cp_type == Checkpoint.HOME) {
+                    this._winner = true;
+                }
+            }
         }
 
         public function playHeart():void {
@@ -506,7 +511,9 @@ package {
             } else if(this._checkpoints_complete && !this.checking_in){
                 if(checkpoint.cp_type == Checkpoint.HOME) {
                     if(this.passengers.length > 0) {
-                        this._winner = true;
+                        this.checkIn(checkpoint);
+                        this.curCheckpoint = checkpoint;
+                        this.curHomeInd = home_ind;
                     } else {
                         this.no_date_text.visible = true;
                         this.no_date_text_timer = this.curTime + (5/1000);
