@@ -13,9 +13,11 @@ package {
         private var stateSwitchLock:Boolean = false;
         private var registerIndicators:Array;
         private var timerText:FlxText, joinText:FlxText, teamText:FlxText,
-                    loadingText:FlxText;
+                    loadingText:FlxText, skipText:FlxText;
         private var playersToMinimum:Number, secondsRemaining:Number;
         private var bg:FlxExtSprite, toon_text:FlxExtSprite, speech_bubble:FlxExtSprite;
+        private var confirmButtonCount:Number = 0, lastConfirmButtonTime:Number = 0;
+        private var introStarted:Boolean = false, registeredPlayers:Number = 0;
 
         private var curIndicator:RegistrationIndicator;
 
@@ -45,6 +47,14 @@ package {
                             "Freshening up...");
             this.loadingText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
             FlxG.state.add(this.loadingText);
+
+            this.skipText = new FlxText(0,
+                            ScreenManager.getInstance().screenHeight * .96,
+                            ScreenManager.getInstance().screenWidth,
+                            "All players hold A to skip");
+            this.skipText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xccffffff,"right");
+            FlxG.state.add(this.skipText);
+            this.skipText.visible = false;
 
             this.joinText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
                             ScreenManager.getInstance().screenHeight * .8,
@@ -112,6 +122,18 @@ package {
                 this.timerText.text = "Need " + playersToMinimum + " more player" + (playersToMinimum > 1 ? "s" : "");
             }
 
+            if (this.introStarted) {
+                if (this.confirmButtonCount == 0) {
+                    this.skipText.text = "All players hold A to skip";
+                } else if (this.confirmButtonCount < this.registeredPlayers) {
+                    this.skipText.text = "All players hold A to skip (" + this.confirmButtonCount + "/" + this.registeredPlayers + ")";
+                } else if (this.confirmButtonCount == this.registeredPlayers) {
+                    this.skipText.text = "Skipping...";
+                }
+                if (FlxG.keys.justPressed("B") || this.allPlayersSkipping()) {
+                    FlxG.switchState(new MapPickerState());
+                }
+            }
 
             // debug
             if (FlxG.keys.justPressed("R")) {
@@ -132,6 +154,11 @@ package {
             }
         }
 
+        public function allPlayersSkipping():Boolean {
+            return this.confirmButtonCount == this.registeredPlayers &&
+                this.timeAlive - this.lastConfirmButtonTime >= 2 * 1000;
+        }
+
         override public function destroy():void {
             for (var i:int = 0; i < this.registerIndicators.length; i++) {
                 this.registerIndicators[i].destroy();
@@ -148,8 +175,14 @@ package {
                                                    mapping:Object):void
         {
             super.controllerChanged(control, mapping);
-            if (control['id'] == mapping["a"]["button"] && control['value'] == mapping["a"]["value_on"]) {
-                this.registerPlayer(control, Player.CTRL_PAD);
+            if (control['id'] == mapping["a"]["button"]){
+                if (control['value'] == mapping["a"]["value_on"]) {
+                    this.registerPlayer(control, Player.CTRL_PAD);
+                    this.confirmButtonCount += 1;
+                    this.lastConfirmButtonTime = this.timeAlive;
+                } else if (control['value'] == mapping["a"]["value_off"]) {
+                    this.confirmButtonCount -= 1;
+                }
             }
         }
 
@@ -175,6 +208,7 @@ package {
                 device, ctrlType);
             if (tagData != null) {
                 this.lastRegisterTime = this.curTime;
+                this.registeredPlayers += 1;
                 var indicator:RegistrationIndicator = this.getRegistrationIndicatorByTag(tagData['tag']);
                 indicator.joined = true;
             }
@@ -185,6 +219,8 @@ package {
             this.timerText.visible = false;
             this.joinText.visible = false;
             this.teamText.visible = false;
+            this.skipText.visible = true;
+            this.introStarted = true;
             var cur:RegistrationIndicator;
             for (var i:int = 0; i < this.registerIndicators.length; i++) {
                 cur = this.registerIndicators[i];
