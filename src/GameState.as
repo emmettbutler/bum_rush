@@ -22,16 +22,15 @@ package {
             this.sortedObjects.length = 0;
             var basic:FlxSprite, i:uint = 0;
             while(i < length) {
-                // maintain a list of GameObjects to be z-sorted by their foot position
-                if (members[i] is GameObject && (members[i] as GameObject).zSorted) {
-                    this.sortedObjects.push(members[i]);
-                }
                 basic = members[i++] as FlxSprite;
                 if (basic != null) {
                     if(basic.active && basic.exists && basic.scale != null) {
                         basic.preUpdate();
                         basic.update();
                         basic.postUpdate();
+                    }
+                    if (basic is GameObject && (basic as GameObject).zSorted) {
+                        this.sortedObjects.push(basic as GameObject);
                     }
                 }
             }
@@ -66,7 +65,7 @@ package {
         private function insertSortedObjects():void {
             var sortedObjectsCounter:int = 0;
             var cur:GameObject;
-            for (var i:int = 0; i < this.members.length; i++) {
+            for (var i:int = 0; i < this.length; i++) {
                 if (this.members[i] != null && this.members[i] is GameObject){
                     cur = this.members[i] as GameObject;
                     if (cur.zSorted) {

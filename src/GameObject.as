@@ -41,16 +41,7 @@ package {
             super.update();
             this.curTime = new Date().valueOf();
             this.timeAlive = this.curTime - this.bornTime;
-            this.pos.x = this.x;
-            this.pos.y = this.y;
             this.setPos(this.pos.add(this.dir));
-            if (this.basePosOffset != null) {
-                this.basePos.x = this.pos.x + this.basePosOffset.x;
-                this.basePos.y = this.pos.y + this.basePosOffset.y;
-            } else {
-                this.basePos.x = this.pos.x + this.width / 2;
-                this.basePos.y = this.pos.y + this.height;
-            }
             this.debugText.x = this.x;
             this.debugText.y = this.y - 30;
         }
@@ -63,6 +54,13 @@ package {
             this.x = pos.x;
             this.y = pos.y;
             this.pos = new DHPoint(this.x, this.y);
+            if (this.basePosOffset != null) {
+                this.basePos.x = this.pos.x + this.basePosOffset.x;
+                this.basePos.y = this.pos.y + this.basePosOffset.y;
+            } else {
+                this.basePos.x = this.pos.x + this.width / 2;
+                this.basePos.y = this.pos.y + this.height;
+            }
         }
 
         public function getPos():DHPoint {

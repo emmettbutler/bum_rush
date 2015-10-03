@@ -329,14 +329,15 @@ package {
 
             this.highlight_sprite = new GameObject(this.pos);
             this.highlight_sprite.zSorted = true;
-            this.highlight_sprite.basePosOffset = new DHPoint(0, -10);
+            this.highlight_sprite.basePosOffset = new DHPoint(0, -2000);
             this.highlight_sprite.loadGraphic(ImgHighlight, false, false, 64, 64);
             this.highlight_sprite.color = tagData["tint"];
             this.highlight_sprite.visible = false;
 
             this.carSprite = new GameObject(this.pos);
-            this.carSprite.zSorted = true;
             this.carSprite.loadGraphic(car_sprite, false, false, 64, 64);
+            this.carSprite.basePosOffset = new DHPoint(0, -1000);
+            this.carSprite.zSorted = true;
             this.carSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.carSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
             this.carSprite.addAnimation("drive_down", [8,9,10,11], this.frameRate, true);
@@ -348,7 +349,7 @@ package {
             this.mainSprite.zSorted = true;
             this.mainSprite.basePosOffset = new DHPoint(
                 this.mainSprite.width / 2,
-                this.mainSprite.height * 5
+                1000
             );
             this.mainSprite.addAnimation("drive_right", [0,1,2,3], this.frameRate, true);
             this.mainSprite.addAnimation("drive_up", [4,5,6,7], this.frameRate, true);
@@ -727,11 +728,19 @@ package {
                     if(this.directionsPressed.x >= 0) {
                         this.mainSprite.play("drive_right");
                         this.carSprite.play("drive_right");
+                        this.mainSprite.basePosOffset = new DHPoint(
+                            this.mainSprite.width / 2,
+                            3000
+                        );
                         this.facingVector.x = 1;
                         this.facingVector.y = 0;
                     } else {
                         this.mainSprite.play("drive_left");
                         this.carSprite.play("drive_left");
+                        this.mainSprite.basePosOffset = new DHPoint(
+                            this.mainSprite.width / 2,
+                            1000
+                        );
                         this.facingVector.x = -1;
                         this.facingVector.y = 0;
                     }
@@ -862,6 +871,8 @@ package {
 
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
+            pos.x = Math.round(pos.x);
+            pos.y = Math.round(pos.y);
             this.highlight_sprite.setPos(pos);
             this.mainSprite.setPos(pos);
             this.carSprite.setPos(pos);
