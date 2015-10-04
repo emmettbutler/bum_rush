@@ -11,6 +11,7 @@ package {
         [Embed(source="/../assets/images/ui/HUD_water.png")] private static var HUDWater:Class;
         [Embed(source="/../assets/images/ui/HUD_weiner.png")] private static var HUDWeiner:Class;
         [Embed(source="/../assets/images/ui/HUD_nightClub.png")] private static var HUDClub:Class;
+        [Embed(source="/../assets/images/ui/text_back.png")] private static var ImgTextBack:Class;
 
         private var player_icon:FlxText;
         private var player_tag:Number;
@@ -23,6 +24,7 @@ package {
         private var base_pos:DHPoint;
         private var hud_numbers:Array;
         private var hud_name:FlxText;
+        private var hud_name_back:GameObject;
 
         public function PlayerHud(p_tag:Number) {
             super(new DHPoint(0,0));
@@ -40,9 +42,13 @@ package {
                 curImg = PlayerHud._classData['image_map'][_key];
 
                 if (_key == PlayerHud.HUD_NAME) {
+                    hud_name_back = new GameObject(new DHPoint(0, 0));
+                    hud_name_back.loadGraphic(ImgTextBack, false, false, 90, 20);
+                    FlxG.state.add(hud_name_back);
+
                     hud_name = new FlxText(
-                        0, 0, 100, playerConfig['name']);
-                    hud_name.setFormat("Pixel_Berry_08_84_Ltd.Edition",12);
+                        0, 0, 90, playerConfig['name']);
+                    hud_name.setFormat("Pixel_Berry_08_84_Ltd.Edition",12, 0xff000000, "center");
                     hud_name.color = playerConfig['tint'];
                     FlxG.state.add(hud_name);
                 } else {
@@ -75,6 +81,7 @@ package {
             var textPos:DHPoint = this.base_pos.add(curData['pos']);
             this.hud_name.x = textPos.x;
             this.hud_name.y = textPos.y;
+            this.hud_name_back.setPos(textPos.add(new DHPoint(0, 3)));
         }
 
         public function posOf(tag:String):DHPoint {
@@ -114,7 +121,7 @@ package {
                 "pos": new DHPoint(58, 35)
             };
             struc['image_map'][PlayerHud.HUD_NAME] = {
-                "pos": new DHPoint(36, 65)
+                "pos": new DHPoint(0, 65)
             };
             return struc;
         }
