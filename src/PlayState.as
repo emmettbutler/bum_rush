@@ -502,6 +502,7 @@ package {
                     this.home_cp_index = i;
                 }
                 checkpoint.setMarkerRotation(this.checkpoints_data[this.active_map_index][i]["marker_rotation"]);
+                checkpoint.addVisibleObjects();
             }
 
             for(i = 0; i < this.decorations_data[this.active_map_index].length; i++) {
@@ -563,6 +564,7 @@ package {
                             cur.index = p;
                             cur.setMarkerIconPos();
                         }
+
                         for(var i:int = 0; i < that.decorations.length; i++) {
                             curData = that.decorations_data[that.active_map_index][i];
                             that.decorations[i].setPos(
@@ -590,10 +592,6 @@ package {
                         );
                     }
                 });
-
-            for (i = 0; i < this.checkpoints.length; i++) {
-                this.checkpoints[i].addVisibleObjects();
-            }
 
             this.startRaceTimer();
         }
