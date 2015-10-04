@@ -435,6 +435,30 @@ package {
                 {
                     "type": "tree",
                     "pos": new DHPoint(.925, .227)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.534, .239)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.441, .561)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.196, .599)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.718, .419)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.223, .268)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.824, .229)
                 }
             ],
             [
@@ -481,6 +505,14 @@ package {
                 {
                     "type": "clam",
                     "pos": new DHPoint(.211, .092)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.711, .275)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.110, .493)
                 }
             ],
             [
@@ -515,6 +547,18 @@ package {
                 {
                     "type": "tree",
                     "pos": new DHPoint(.48, .65)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.629, .124)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.105, .174)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.430, .575)
                 }
             ],
             [
@@ -553,6 +597,14 @@ package {
                 {
                     "type": "dog",
                     "pos": new DHPoint(.86, .63)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.210, .257)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.858, .250)
                 }
             ],
             [
@@ -566,7 +618,7 @@ package {
                 },
                 {
                     "type": "makeout",
-                    "pos": new DHPoint(.88, .25)
+                    "pos": new DHPoint(.88, .344)
                 },
                 {
                     "type": "dog",
@@ -583,6 +635,10 @@ package {
                 {
                     "type": "tree",
                     "pos": new DHPoint(.47, .66)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.23, .4)
                 }
             ]
         ];
