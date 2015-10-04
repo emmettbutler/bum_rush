@@ -18,6 +18,7 @@ package {
         private var bg:FlxExtSprite, toon_text:FlxExtSprite, speech_bubble:FlxExtSprite;
         private var confirmButtonCount:Number = 0, lastConfirmButtonTime:Number = 0;
         private var introStarted:Boolean = false, registeredPlayers:Number = 0;
+        private var blackLayer:GameObject;
 
         private var curIndicator:RegistrationIndicator;
 
@@ -29,6 +30,14 @@ package {
 
             var pathPrefix:String = "../assets/images/ui/";
             this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "bg.png");
+            this.blackLayer = new GameObject(new DHPoint(0, 0));
+            this.blackLayer.makeGraphic(
+                ScreenManager.getInstance().screenWidth,
+                ScreenManager.getInstance().screenHeight,
+                0xff000000
+            );
+            this.add(this.blackLayer);
+            this.blackLayer.visible = false;
             this.toon_text = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "text_temp.png");
             this.speech_bubble = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "speechBubble.png");
             this.speech_bubble.visible = false;
@@ -147,6 +156,10 @@ package {
                 this.registerIndicators[i].update();
                 if (this.registerIndicators[i].state == RegistrationIndicator.STATE_DONE) {
                     FlxG.switchState(new MapPickerState());
+                } else if (this.registerIndicators[i].state == RegistrationIndicator.STATE_PHONE) {
+                    this.blackLayer.visible = true;
+                } else if (this.registerIndicators[i].state == RegistrationIndicator.STATE_HEART) {
+                    this.blackLayer.visible = false;
                 } else if (this.registerIndicators[i].state == RegistrationIndicator.STATE_ASK) {
                     this.speech_bubble.visible = true;
                 } else if (this.registerIndicators[i].state == RegistrationIndicator.STATE_SHOCK) {
