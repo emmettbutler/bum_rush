@@ -277,6 +277,14 @@ package {
                 }
             ]
         ];
+        private var decoration_types:Object = {
+            "tree": {
+                "graphic": DecorTreeSprite,
+                "size": new DHPoint(24, 34),
+                "anim_frames": [0],
+                "framerate": .5
+            }
+        };
         private var decorations_data:Array = [
             [
                 {
@@ -503,53 +511,40 @@ package {
             ],
             [
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.1, .07)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.16, .12)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.14, .22)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.26, .43)
+                    "type": "tree",
+                    "pos": new DHPoint(.26, .45)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.44, .30)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.61, .51)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.67, .51)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.48, .65)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.89, .37)
                 }
             ],
             [
@@ -575,7 +570,7 @@ package {
 
             this.checkpoints = new Array();
             this.decorations = new Array();
-            var checkpoint:Checkpoint, decoration:GameObject;
+            var checkpoint:Checkpoint, decoration:GameObject, decorConfig:Object;
             var i:Number = 0, curDecorInfo:Object;
             for(i = 0; i < this.checkpoints_data[this.active_map_index].length; i++) {
                 checkpoint = new Checkpoint(
@@ -592,14 +587,16 @@ package {
 
             for(i = 0; i < this.decorations_data[this.active_map_index].length; i++) {
                 curDecorInfo = this.decorations_data[this.active_map_index][i];
+                decorConfig = this.decoration_types[curDecorInfo['type']];
                 decoration = new GameObject(new DHPoint(-100, -100));
-                decoration.loadGraphic(curDecorInfo['graphic'],
+                decoration.loadGraphic(decorConfig['graphic'],
                                        true, false,
-                                       curDecorInfo['size'].x,
-                                       curDecorInfo['size'].y);
-                if (curDecorInfo['anim_frames'].length != 1) {
-                    decoration.addAnimation("run", curDecorInfo['anim_frames'],
-                                            curDecorInfo['framerate'], true);
+                                       decorConfig['size'].x,
+                                       decorConfig['size'].y);
+                decoration.zSorted = true;
+                if (decorConfig['anim_frames'].length != 1) {
+                    decoration.addAnimation("run", decorConfig['anim_frames'],
+                                            decorConfig['framerate'], true);
                     decoration.play("run");
                 }
                 this.add(decoration);
