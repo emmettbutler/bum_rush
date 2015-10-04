@@ -364,9 +364,6 @@ package {
             FlxG.state.add(this.highlight_sprite);
             FlxG.state.add(this.carSprite);
             FlxG.state.add(this.mainSprite);
-            FlxG.state.add(this.completionIndicator);
-            FlxG.state.add(this.no_date_text);
-            FlxG.state.add(this.been_there);
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
@@ -377,6 +374,9 @@ package {
         }
 
         public function addMeter():void {
+            FlxG.state.add(this.completionIndicator);
+            FlxG.state.add(this.no_date_text);
+            FlxG.state.add(this.been_there);
             this.meter.addVisibleObjects();
         }
 
@@ -442,6 +442,7 @@ package {
             if(checkpointsComplete){
                 if(curCheckpoint.cp_type == Checkpoint.HOME) {
                     this._winner = true;
+                    this.completionIndicator.visible = false;
                 }
             }
         }
@@ -559,10 +560,6 @@ package {
                     this.updateDrivingAnimation();
                     if (this.controlType == CTRL_KEYBOARD_1 || this.controlType == CTRL_KEYBOARD_2) {
                         this.updateKeyboard(this.controlType);
-                    }
-
-                    if ((this.curTime - this.completionTime) / 1000 >= 2) {
-                        this.completionIndicator.visible = false;
                     }
                 }
             } else {
