@@ -500,6 +500,7 @@ package {
             // Create border of boxes
             var wall:b2PolygonShape= new b2PolygonShape();
             var wallBd:b2BodyDef = new b2BodyDef();
+            wallBd.type = b2Body.b2_staticBody;
             var wallB:b2Body;
 
             // Left

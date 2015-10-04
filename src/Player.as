@@ -81,6 +81,7 @@ package {
         private var exhaustPos:DHPoint;
         private var car_sprite:Class;
         private var no_date_text:GameObject;
+        private var checkin_timelimit:Number = 3;
         private var been_there:GameObject;
         private var been_there_timer:Number;
         private var _showBeenThereList:Array;
@@ -500,6 +501,7 @@ package {
         public function checkIn(checkpoint:Checkpoint):void {
             this.meter.setVisible(true);
             this.checking_in = true;
+            this.checkin_timelimit = this.checkpoints_complete ? 1 : 3;
             this.checkInTime = this.curTime;
         }
 
@@ -568,9 +570,9 @@ package {
             }
             if(this.checking_in) {
                 this.meter.setPos(this.pos.add(new DHPoint(30, -10)));
-                this.meter.setPoints((((this.curTime - this.checkInTime)/1000)/3)*100);
+                this.meter.setPoints((((this.curTime - this.checkInTime)/1000)/this.checkin_timelimit)*100);
 
-                if ((this.curTime - this.checkInTime) / 1000 >= 3) {
+                if ((this.curTime - this.checkInTime) / 1000 >= this.checkin_timelimit) {
                     this.completeCheckpoint()
                 }
             }
