@@ -42,10 +42,11 @@ package {
         private var players:Array, playerColliders:Array, passengers:Array;
         private var registeredPlayers:Object;
         private var gameInput:GameInput;
-        private var controllers:Dictionary;
+        private var controllers:Dictionary, controller_ids:Array;
         private var control:GameInputControl;
         public var playerConfigs:Dictionary;
-        public var playerTags:Array;
+        public var playerTags:Dictionary, tagsList:Array;
+        public var controllerCount:Number = 0;
 
         public function PlayersController() {
             gameInput = new GameInput();
@@ -58,6 +59,16 @@ package {
             var screenWidth:Number = ScreenManager.getInstance().screenWidth;
             var screenHeight:Number = ScreenManager.getInstance().screenHeight;
 
+            this.tagsList = [
+                PLAYER_1,
+                PLAYER_2,
+                PLAYER_3,
+                PLAYER_4,
+                PLAYER_5,
+                PLAYER_6,
+                PLAYER_7,
+                PLAYER_8
+            ];
 
             playerConfigs = new Dictionary();
             playerConfigs[PLAYER_1] = {
@@ -197,11 +208,6 @@ package {
                 ]
             };
 
-            playerTags = new Array();
-            for (var _key:Object in this.playerConfigs) {
-                playerTags.push(_key);
-            }
-
             controllers = new Dictionary();
             this.registeredPlayers = new Object();
 
@@ -212,6 +218,19 @@ package {
             this.players = new Array();
             this.passengers = new Array();
             this.playerColliders = new Array();
+        }
+
+        public function buildControllersMap():void {
+            playerTags = new Dictionary();
+            var tagCounter:Number = 0;
+            this.controller_ids.sort();
+            for (var i:int = 0; i < controller_ids.length; i++) {
+                playerTags[controller_ids[i]] = tagsList[tagCounter++];
+            }
+            for (i = tagCounter; i < tagsList.length; i++) {
+                playerTags[tagsList[i]] = tagsList[i];
+            }
+
         }
 
         public static function reset():void {
@@ -239,7 +258,8 @@ package {
             if (_id in this.registeredPlayers) {
                 return null;
             }
-            var tag:Number = this.playerTags[this.playersRegistered];
+            var _idx:Number = this.tagsList[Math.max(this.controllerCount, this.playersRegistered)];
+            var tag:Number = this.playerTags[controller == null ? _idx : controller.id];
             this.registeredPlayers[_id] = {
                 'ctrl_type': ctrlType,
                 'controller': ctrlType == Player.CTRL_KEYBOARD_1 ||
@@ -247,7 +267,7 @@ package {
                               null : controller,
                 'tag': tag
             };
-            return PlayersController.getInstance().resolveTag(tag);
+            return this.resolveTag(tag);
         }
 
         public function resolveTag(tag:Number):Object {
@@ -336,6 +356,7 @@ package {
             var device:GameInputDevice;
             var config:Object = {};
             this.controllers = new Dictionary();
+            this.controller_ids = new Array();
             for(var k:Number = 0; k < GameInput.numDevices; ++k) {
                 config = {};
                 device = GameInput.getDeviceAt(k);
@@ -365,6 +386,8 @@ package {
                 }
                 device.enabled = true;
                 this.controllers[device.id] = config;
+                this.controller_ids.push(device.id);
+                this.controllerCount += 1;
             }
         }
 

@@ -97,6 +97,7 @@ package {
                         that.timerText.x = _bg.width * .06;
 
                         that.loadingText.visible = false;
+                        PlayersController.getInstance().buildControllersMap();
 
                         FlxG.stage.removeEventListener(
                             GameState.EVENT_SINGLETILE_BG_LOADED,
@@ -198,6 +199,9 @@ package {
         public function registerPlayer(control:Object,
                                        ctrlType:Number=Player.CTRL_PAD):void
         {
+            if (this.introStarted) {
+                return;
+            }
             var device:GameInputDevice;
             if (control == null) {
                 device = null;
