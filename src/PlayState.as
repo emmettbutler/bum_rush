@@ -279,15 +279,160 @@ package {
         ];
         private var decorations_data:Array = [
             [
-                /*
                 {
-                    "graphic": StartSprite,
-                    "size": new DHPoint(325, 117),
-                    "anim_frames": [0, 1, 2],
+                    "graphic": DecorDogSprite,
+                    "size": new DHPoint(28/2, 10),
+                    "anim_frames": [0, 1],
                     "framerate": .5,
-                    "pos": new DHPoint(.7, .5)
+                    "pos": new DHPoint(.609, .190)
+                },
+                {
+                    "graphic": DecorDogSprite,
+                    "size": new DHPoint(28/2, 10),
+                    "anim_frames": [0, 1],
+                    "framerate": .5,
+                    "pos": new DHPoint(.257, .628)
+                },
+                {
+                    "graphic": DecorDogSprite,
+                    "size": new DHPoint(28/2, 10),
+                    "anim_frames": [0, 1],
+                    "framerate": .5,
+                    "pos": new DHPoint(.148, .108)
+                },
+                {
+                    "graphic": DecorMakoutSprite,
+                    "size": new DHPoint(116/4, 27),
+                    "anim_frames": [0, 1, 2, 3],
+                    "framerate": .5,
+                    "pos": new DHPoint(.065, .271)
+                },
+                {
+                    "graphic": DecorMakoutSprite,
+                    "size": new DHPoint(116/4, 27),
+                    "anim_frames": [0, 1, 2, 3],
+                    "framerate": .5,
+                    "pos": new DHPoint(.737, .396)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.316, .09)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.346, .09)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.376, .09)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.513, .42)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.541, .42)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.570, .42)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.277, .565)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.221, .621)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.230, .472)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.032, .262)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.709, .633)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.749, .633)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.789, .633)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.829, .633)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.869, .633)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.909, .633)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.949, .633)
                 }
-                */
             ],
             [
             ],
