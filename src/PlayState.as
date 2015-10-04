@@ -131,7 +131,7 @@ package {
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.6, .16),
+                    "pos": new DHPoint(.6, .15),
                     "hitbox_pos": new DHPoint(.619, .341),
                     "marker_rotation": 0
                 },
@@ -143,7 +143,7 @@ package {
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.1, .02),
+                    "pos": new DHPoint(.1, .01),
                     "hitbox_pos": new DHPoint(.12, .2),
                     "marker_rotation": 0
                 },
