@@ -253,12 +253,15 @@ package {
             if (this.playersRegistered >= MAX_PLAYERS) {
                 return null;
             }
+            if (controller == null && this.playersRegistered >= this.tagsList.length - this.controller_ids.length) {
+                return null;
+            }
             var _id:String = controller == null ?
                 (Math.random() * 100000) + "" : controller.id;
             if (_id in this.registeredPlayers) {
                 return null;
             }
-            var _idx:Number = this.tagsList[Math.max(this.controller_ids.length, this.playersRegistered)];
+            var _idx:Number = this.tagsList[Math.min(this.controller_ids.length + this.playersRegistered, this.tagsList.length - 1)];
             var tag:Number = this.playerTags[controller == null ? _idx : controller.id];
             this.registeredPlayers[_id] = {
                 'ctrl_type': ctrlType,
