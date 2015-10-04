@@ -742,43 +742,55 @@ package {
             if (control['id'] == mapping["right"]["button"]) {
                 if (control['value'] == mapping["right"]["value_off"]) {
                     this.directionsPressed.x = 0;
+                    return;
                 } else if (control['value'] == mapping["right"]["value_on"]) {
                     this.directionsPressed.x = 1;
+                    return;
                 }
             }
             if (control['id'] == mapping["left"]["button"]) {
                 if (control['value'] == mapping["left"]["value_off"]) {
                     this.directionsPressed.x = 0;
+                    return;
                 } else if (control['value'] == mapping["left"]["value_on"]) {
                     this.directionsPressed.x = -1;
+                    return;
                 }
             }
             if (control['id'] == mapping["up"]["button"]) {
                 if (control['value'] == mapping["up"]["value_off"]) {
                     this.directionsPressed.y = 0;
+                    return;
                 } else if (control['value'] == mapping["up"]["value_on"]){
                     this.directionsPressed.y = 1;
+                    return;
                 }
             }
             if (control['id'] == mapping["down"]["button"]) {
                 if (control['value'] == mapping["down"]["value_off"]) {
                     this.directionsPressed.y = 0;
+                    return;
                 } else if(control['value'] == mapping["down"]["value_on"]) {
                     this.directionsPressed.y = -1;
+                    return;
                 }
             }
             if (control['id'] == mapping["a"]["button"]) {
                 if (control['value'] == mapping["a"]["value_on"]) {
                     this.throttle = true;
+                    return;
                 } else if (control["value"] == mapping["a"]["value_off"]){
                     this.throttle = false;
+                    return;
                 }
             }
             if (control['id'] == mapping["b"]["button"]) {
                 if (control['value'] == mapping["b"]["value_on"]) {
                     this.highlight_sprite.visible = true;
+                    return;
                 } else if (control["value"] == mapping["b"]["value_off"]){
                     this.highlight_sprite.visible = false;
+                    return;
                 }
             }
         }
