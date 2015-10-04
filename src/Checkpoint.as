@@ -14,7 +14,7 @@ package {
 
         private var dimensions:DHPoint;
         private var idx:Number, frameRate:Number = 12;
-        private var checkpoint_sprite:GameObject;
+        public var checkpoint_sprite:GameObject;
         private var _cp_type:String;
 
         public static const BOOZE:String = "booze spot";

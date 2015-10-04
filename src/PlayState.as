@@ -25,6 +25,7 @@ package {
         private var collider:FlxExtSprite;
         private var bgsLoaded:Number = 0;
         private var streetPoints:Array;
+        private var shouldDebugDraw:Boolean = false;
         private var bgmStarted:Boolean, bgmLoopStarted:Boolean;
         private static const RACE_LENGTH:Number = 60;
         private var shown_instructions:Boolean = false;
@@ -316,10 +317,6 @@ package {
 
                     if (event.userData['bg'] == that.collider) {
                         that.buildStreetGrid(event.userData['bg']);
-                        that.setupWorld(event.userData['bg']);
-                        PlayersController.getInstance().addRegisteredPlayers(
-                            that.checkpoints.length, that.active_map_index,
-                            that.m_world, that.groundBody, that.streetPoints);
                         var cur:Checkpoint, curData:Object;
 
                         that.start_sprite.setPos(new DHPoint(event.userData['bg'].x + event.userData['bg'].width * .4, event.userData['bg'].y + event.userData['bg'].height * .4));
@@ -339,6 +336,10 @@ package {
                             ));
                             cur.index = p;
                         }
+                        that.setupWorld(event.userData['bg']);
+                        PlayersController.getInstance().addRegisteredPlayers(
+                            that.checkpoints.length, that.active_map_index,
+                            that.m_world, that.groundBody, that.streetPoints);
                     }
 
                     if (that.bgsLoaded >= 2) {
@@ -361,7 +362,9 @@ package {
 
             if (this.m_world != null) {
                 this.m_world.Step(1.0 / 30.0, 10, 10);
-                //m_world.DrawDebugData();
+                if (this.shouldDebugDraw) {
+                    m_world.DrawDebugData();
+                }
             }
 
             if (!this.bgmLoopStarted && this.raceTimeAlive / 1000 >= 1 + 6) {
@@ -400,6 +403,10 @@ package {
                         }
                     }
                 }
+            }
+
+            if (FlxG.keys.justPressed("H")) {
+                this.shouldDebugDraw = !this.shouldDebugDraw;
             }
 
             if(this.finished) {
@@ -470,15 +477,15 @@ package {
             listener = new ContactListener();
             m_world.SetContactListener(listener);
 
-            //var dbgDraw:b2DebugDraw = new b2DebugDraw();
-            //var dbgSprite:Sprite = new Sprite();
-            //FlxG.stage.addChild(dbgSprite);
-            //dbgDraw.SetSprite(dbgSprite);
-            //dbgDraw.SetDrawScale(30 / 2);
-            //dbgDraw.SetFillAlpha(0.3);
-            //dbgDraw.SetLineThickness(1.0);
-            //dbgDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-            //m_world.SetDebugDraw(dbgDraw);
+            var dbgDraw:b2DebugDraw = new b2DebugDraw();
+            var dbgSprite:Sprite = new Sprite();
+            FlxG.stage.addChild(dbgSprite);
+            dbgDraw.SetSprite(dbgSprite);
+            dbgDraw.SetDrawScale(30 / 2);
+            dbgDraw.SetFillAlpha(0.3);
+            dbgDraw.SetLineThickness(1.0);
+            dbgDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+            m_world.SetDebugDraw(dbgDraw);
 
             var ground:b2PolygonShape = new b2PolygonShape();
             var fixtureDef:b2FixtureDef = new b2FixtureDef();
@@ -513,6 +520,16 @@ package {
             wallBd.position.Set((bg.x + bg.width) / m_physScale, (bg.y + bg.height * 1.9) / m_physScale);
             wallB = m_world.CreateBody(wallBd);
             wallB.CreateFixture2(wall);
+
+            var curCheckpoint:Checkpoint;
+            for(var p:Number = 0; p < this.checkpoints.length; p++) {
+                curCheckpoint = this.checkpoints[p];
+                wallBd.position.Set((curCheckpoint.checkpoint_sprite.x + curCheckpoint.checkpoint_sprite.width / 2) / m_physScale * 2,
+                                    (curCheckpoint.checkpoint_sprite.y + curCheckpoint.checkpoint_sprite.height / 2) / m_physScale * 2);
+                wall.SetAsBox(curCheckpoint.checkpoint_sprite.width / m_physScale, curCheckpoint.checkpoint_sprite.height / m_physScale);
+                wallB = m_world.CreateBody(wallBd);
+                wallB.CreateFixture2(wall);
+            }
         }
 
         private function buildStreetGrid(collider:FlxExtSprite):void {
