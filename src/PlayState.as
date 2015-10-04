@@ -17,6 +17,7 @@ package {
         [Embed(source="/../assets/images/worlds/doggydonk_2.png")] private var DecorDogSprite:Class;
         [Embed(source="/../assets/images/worlds/makeoutBench_4.png")] private var DecorMakoutSprite:Class;
         [Embed(source="/../assets/images/worlds/tree_solo_1.png")] private var DecorTreeSprite:Class;
+        [Embed(source="/../assets/images/worlds/clamFountain_3.png")] private var DecorClamSprite:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_loop.mp3")] private var SndBGM:Class;
 
@@ -288,12 +289,18 @@ package {
                 "graphic": DecorDogSprite,
                 "size": new DHPoint(30, 24),
                 "anim_frames": [0, 1],
-                "framerate": 13
+                "framerate": 7
             },
             "makeout": {
                 "graphic": DecorMakoutSprite,
                 "size": new DHPoint(116/4, 27),
                 "anim_frames": [0, 1, 2, 3],
+                "framerate": 7
+            },
+            "clam": {
+                "graphic": DecorClamSprite,
+                "size": new DHPoint(108/3, 35),
+                "anim_frames": [0, 1, 2],
                 "framerate": 7
             }
         };
@@ -427,6 +434,42 @@ package {
                 }
             ],
             [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.226, .389)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.226, .439)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.226, .489)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.226, .539)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.226, .589)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.226, .539)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.307, .613)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.559, .261)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.211, .092)
+                }
             ],
             [
                 {
@@ -460,10 +503,6 @@ package {
                 {
                     "type": "tree",
                     "pos": new DHPoint(.48, .65)
-                },
-                {
-                    "type": "tree",
-                    "pos": new DHPoint(.89, .37)
                 }
             ],
             [
