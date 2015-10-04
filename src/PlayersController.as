@@ -46,7 +46,6 @@ package {
         private var control:GameInputControl;
         public var playerConfigs:Dictionary;
         public var playerTags:Dictionary, tagsList:Array;
-        public var controllerCount:Number = 0;
 
         public function PlayersController() {
             gameInput = new GameInput();
@@ -208,7 +207,8 @@ package {
                 ]
             };
 
-            controllers = new Dictionary();
+            this.controllers = new Dictionary();
+            this.controller_ids = new Array();
             this.registeredPlayers = new Object();
 
             if (GameInput.numDevices > 0) {
@@ -258,7 +258,7 @@ package {
             if (_id in this.registeredPlayers) {
                 return null;
             }
-            var _idx:Number = this.tagsList[Math.max(this.controllerCount, this.playersRegistered)];
+            var _idx:Number = this.tagsList[Math.max(this.controller_ids.length, this.playersRegistered)];
             var tag:Number = this.playerTags[controller == null ? _idx : controller.id];
             this.registeredPlayers[_id] = {
                 'ctrl_type': ctrlType,
@@ -353,10 +353,11 @@ package {
         }
 
         private function controllerAdded(gameInputEvent:GameInputEvent):void {
+            if (this.controller_ids.length >= MAX_PLAYERS) {
+                return;
+            }
             var device:GameInputDevice;
             var config:Object = {};
-            this.controllers = new Dictionary();
-            this.controller_ids = new Array();
             for(var k:Number = 0; k < GameInput.numDevices; ++k) {
                 config = {};
                 device = GameInput.getDeviceAt(k);
@@ -387,7 +388,6 @@ package {
                 device.enabled = true;
                 this.controllers[device.id] = config;
                 this.controller_ids.push(device.id);
-                this.controllerCount += 1;
             }
         }
 
