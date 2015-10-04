@@ -20,6 +20,7 @@ package {
         private var m_physScale:Number = 30
         private var listener:ContactListener;
         private var checkpoints:Array;
+        private var decorations:Array;
         private var start_sprite:GameObject, time_out_sprite:GameObject;
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
         private var raceTimeAlive:Number, raceEndTimer:Number;
@@ -273,6 +274,29 @@ package {
                 }
             ]
         ];
+        private var decorations_data:Array = [
+            [
+                /*
+                {
+                    "graphic": StartSprite,
+                    "size": new DHPoint(325, 117),
+                    "anim_frames": [0, 1, 2],
+                    "framerate": .5,
+                    "pos": new DHPoint(.7, .5)
+                }
+                */
+            ],
+            [
+            ],
+            [
+            ],
+            [
+            ],
+            [
+            ],
+            [
+            ]
+        ];
         private var active_map_index:Number;
         private var home_cp_index:Number;
         private var groundBody:b2Body;
@@ -290,8 +314,9 @@ package {
             this.gameActive = true;
 
             this.checkpoints = new Array();
-            var checkpoint:Checkpoint;
-            var i:Number = 0;
+            this.decorations = new Array();
+            var checkpoint:Checkpoint, decoration:GameObject;
+            var i:Number = 0, curDecorInfo:Object;
             for(i = 0; i < this.checkpoints_data[this.active_map_index].length; i++) {
                 checkpoint = new Checkpoint(
                     new DHPoint(-1000, -1000),
@@ -303,6 +328,20 @@ package {
                     this.home_cp_index = i;
                 }
                 checkpoint.setMarkerRotation(this.checkpoints_data[this.active_map_index][i]["marker_rotation"]);
+            }
+
+            for(i = 0; i < this.decorations_data[this.active_map_index].length; i++) {
+                curDecorInfo = this.decorations_data[this.active_map_index][i];
+                decoration = new GameObject(new DHPoint(0, 0));
+                decoration.loadGraphic(curDecorInfo['graphic'],
+                                       true, false,
+                                       curDecorInfo['size'].x,
+                                       curDecorInfo['size'].y);
+                decoration.addAnimation("run", curDecorInfo['anim_frames'],
+                                        curDecorInfo['framerate'], true);
+                this.add(decoration);
+                this.decorations.push(decoration);
+                decoration.play("run");
             }
 
             this.start_sprite = new GameObject(new DHPoint(0,0));
@@ -344,6 +383,15 @@ package {
                                 event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
                             ));
                             cur.index = p;
+                        }
+                        for(var i:int = 0; i < that.decorations.length; i++) {
+                            curData = that.decorations_data[that.active_map_index][i];
+                            that.decorations[i].setPos(
+                                new DHPoint(
+                                    event.userData['bg'].x + event.userData['bg'].width * curData['pos'].x,
+                                    event.userData['bg'].y + event.userData['bg'].height * curData['pos'].y
+                                )
+                            );
                         }
                         that.setupWorld(event.userData['bg']);
                         PlayersController.getInstance().addRegisteredPlayers(
