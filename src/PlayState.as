@@ -14,6 +14,9 @@ package {
         [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
         [Embed(source="/../assets/images/ui/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/images/ui/timeout.png")] private var TimeOutSprite:Class;
+        [Embed(source="/../assets/images/worlds/doggydonk_2.png")] private var DecorDogSprite:Class;
+        [Embed(source="/../assets/images/worlds/makeoutBench_4.png")] private var DecorMakoutSprite:Class;
+        [Embed(source="/../assets/images/worlds/tree_solo_1.png")] private var DecorTreeSprite:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_loop.mp3")] private var SndBGM:Class;
 
