@@ -92,13 +92,13 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.4, .16),
+                    "pos": new DHPoint(.4, .145),
                     "hitbox_pos": new DHPoint(.42, .35),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.5, .50),
+                    "pos": new DHPoint(.5, .49),
                     "hitbox_pos": new DHPoint(.52, .6955),
                     "marker_rotation": 0
                 },
@@ -110,7 +110,7 @@ package {
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.09, .51),
+                    "pos": new DHPoint(.09, .49),
                     "hitbox_pos": new DHPoint(.11, .6955),
                     "marker_rotation": 0
                 },
@@ -130,7 +130,7 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.55, .5),
+                    "pos": new DHPoint(.55, .467),
                     "hitbox_pos": new DHPoint(.57, .695),
                     "marker_rotation": 0
                 },
@@ -142,13 +142,13 @@ package {
                 },
                 {
                     "type": Checkpoint.PARK,
-                    "pos": new DHPoint(.7, .5),
+                    "pos": new DHPoint(.7, .468),
                     "hitbox_pos": new DHPoint(.72, .695),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.1, .01),
+                    "pos": new DHPoint(.1, -.01),
                     "hitbox_pos": new DHPoint(.12, .2),
                     "marker_rotation": 0
                 },
@@ -244,7 +244,7 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.8, .2),
+                    "pos": new DHPoint(.8, .15),
                     "hitbox_pos": new DHPoint(.82, .3785),
                     "marker_rotation": 0
                 },
@@ -596,7 +596,7 @@ package {
                 curCheckpoint = this.checkpoints[p];
                 wallBd.position.Set((curCheckpoint.checkpoint_sprite.x + curCheckpoint.checkpoint_sprite.width / 2) / m_physScale * 2,
                                     (curCheckpoint.checkpoint_sprite.y + curCheckpoint.checkpoint_sprite.height / 2) / m_physScale * 2);
-                wall.SetAsBox(curCheckpoint.checkpoint_sprite.width / m_physScale, curCheckpoint.checkpoint_sprite.height / m_physScale);
+                wall.SetAsBox(curCheckpoint.checkpoint_sprite.width / m_physScale, (curCheckpoint.checkpoint_sprite.height * .8) / m_physScale);
                 wallB = m_world.CreateBody(wallBd);
                 wallB.CreateFixture2(wall);
             }
