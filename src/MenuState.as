@@ -58,7 +58,7 @@ package {
             FlxG.state.add(this.loadingText);
 
             this.skipText = new FlxText(0,
-                            ScreenManager.getInstance().screenHeight * .96,
+                            ScreenManager.getInstance().screenHeight * .94,
                             ScreenManager.getInstance().screenWidth,
                             "All players hold A to skip");
             this.skipText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xccffffff,"right");
