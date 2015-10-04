@@ -25,7 +25,7 @@ package {
         override public function create():void {
             super.create();
 
-            PlayersController.reset();
+            PlayersController.getInstance().resetInstance();
             ScreenManager.getInstance();
 
             var pathPrefix:String = "../assets/images/ui/";

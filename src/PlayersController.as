@@ -41,7 +41,7 @@ package {
         public static var instance:PlayersController;
         private var players:Array, playerColliders:Array, passengers:Array;
         private var registeredPlayers:Object;
-        private var gameInput:GameInput;
+        public var gameInput:GameInput;
         private var controllers:Dictionary, controller_ids:Array;
         private var control:GameInputControl;
         public var playerConfigs:Dictionary;
@@ -209,12 +209,13 @@ package {
 
             this.controllers = new Dictionary();
             this.controller_ids = new Array();
-            this.registeredPlayers = new Object();
-
             if (GameInput.numDevices > 0) {
                 this.controllerAdded(null);
             }
+        }
 
+        public function resetInstance():void {
+            this.registeredPlayers = new Object();
             this.players = new Array();
             this.passengers = new Array();
             this.playerColliders = new Array();
@@ -231,10 +232,6 @@ package {
                 playerTags[tagsList[i]] = tagsList[i];
             }
 
-        }
-
-        public static function reset():void {
-            instance = new PlayersController();
         }
 
         public function getPlayerColliders():Array {
