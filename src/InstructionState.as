@@ -8,6 +8,7 @@ package {
         [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
 
         private var _cur_map:Number;
+        private var bg:FlxExtSprite
 
         public function InstructionState(map:Number) {
             this._cur_map = map;
@@ -15,6 +16,10 @@ package {
 
         override public function create():void {
             super.create();
+
+            ScreenManager.getInstance();
+            var pathPrefix:String = "../assets/images/ui/";
+            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "mappicker_bg.png");
 
             var t:FlxText;
             t = new FlxText(0, ScreenManager.getInstance().screenHeight/3, ScreenManager.getInstance().screenWidth,

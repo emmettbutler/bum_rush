@@ -9,15 +9,17 @@ package {
         private var endTimeBorn:Number = 0, endTimeAlive:Number = 0;
         private var resetText:FlxText;
         private var config:Object, passenger_config:Object;
+        private var bg:FlxExtSprite;
         private var winner:Player = null, car_image:GameObject,
                     driver_image:GameObject, cur_player:Player,
                     passenger_image:GameObject, passenger:Passenger;
 
         override public function create():void {
             super.create();
-            var bg:GameObject = new GameObject(new DHPoint(0,0));
-            bg.makeGraphic(1280,720,0xff000000);
-            FlxG.state.add(bg);
+
+            ScreenManager.getInstance();
+            var pathPrefix:String = "../assets/images/ui/";
+            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "endbg.png");
 
             this.endTimeBorn = new Date().valueOf();
             this.player_list = PlayersController.getInstance().getPlayerList();
