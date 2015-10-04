@@ -87,12 +87,12 @@ package {
 
             t = new FlxText(100, 100,
                 ScreenManager.getInstance().screenWidth, commentString);
-            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffd82e5a);
+            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffffffff);
             t.alignment = "left";
             FlxG.state.add(t);
 
             this.resetText = new FlxText(100, ScreenManager.getInstance().screenHeight - 100, ScreenManager.getInstance().screenWidth, "");
-            this.resetText.setFormat("Pixel_Berry_08_84_Ltd.Edition",14,0xffd82e5a);
+            this.resetText.setFormat("Pixel_Berry_08_84_Ltd.Edition",14,0xffffffff);
             FlxG.state.add(this.resetText);
         }
 
