@@ -435,6 +435,69 @@ package {
                 }
             ],
             [
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.258, .229)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.298, .229)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.338, .229)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.258, .558)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.298, .558)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.338, .558)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.378, .558)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.895, .217)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.925, .227)
+                }
             ],
             [
             ],
