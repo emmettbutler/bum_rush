@@ -76,7 +76,7 @@ package {
                 "car": ImgCar1,
                 "join_prefix": "bernard",
                 "starting_passenger": Passenger.TYPE_A,
-                "name": "Josh",
+                "name": "Bernard",
                 "tint": 0xffe63552,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .25),
@@ -93,8 +93,8 @@ package {
                 "car": ImgCar2,
                 "join_prefix": "billy",
                 "starting_passenger": Passenger.TYPE_B,
-                "name": "Jen",
-                "tint": 0xff3bc6ff,
+                "name": "Billy",
+                "tint": 0xff00e476,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .25),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .2),
@@ -110,8 +110,8 @@ package {
                 "car": ImgCar3,
                 "join_prefix": "ermit",
                 "starting_passenger": Passenger.TYPE_C,
-                "name": "Lacey",
-                "tint": 0xfff33bff,
+                "name": "Emmett",
+                "tint": 0xff2727b7,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .25),
@@ -127,8 +127,8 @@ package {
                 "car": ImgCar4,
                 "join_prefix": "keiko",
                 "starting_passenger": Passenger.TYPE_D,
-                "name": "Aaron",
-                "tint": 0xffffb43b,
+                "name": "Keiko",
+                "tint": 0xffff8e1f,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .25),
@@ -144,8 +144,8 @@ package {
                 "car": ImgCar5,
                 "join_prefix": "laura",
                 "starting_passenger": Passenger.TYPE_E,
-                "name": "Dan",
-                "tint": 0xff225acd,
+                "name": "Laura",
+                "tint": 0xffac19f0,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .35),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .3),
@@ -161,8 +161,8 @@ package {
                 "car": ImgCar6,
                 "join_prefix": "mim",
                 "starting_passenger": Passenger.TYPE_F,
-                "name": "Toni",
-                "tint": 0xffff603b,
+                "name": "Mim",
+                "tint": 0xffff69be,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .35),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .3),
@@ -179,7 +179,7 @@ package {
                 "join_prefix": "nonny",
                 "starting_passenger": Passenger.TYPE_G,
                 "name": "Nina",
-                "tint": 0xffffa7e2,
+                "tint": 0xff3cc1ff,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .35),
@@ -195,8 +195,8 @@ package {
                 "car": ImgCar8,
                 "join_prefix": "rachel",
                 "starting_passenger": Passenger.TYPE_H,
-                "name": "Emmett",
-                "tint": 0xffb2b2b2,
+                "name": "Rachel",
+                "tint": 0xffdeff00,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .35),
