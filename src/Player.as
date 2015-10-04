@@ -78,14 +78,6 @@ package {
         private var meter:Meter;
         private var streetPoints:Array;
         private var impactParticles:ParticleExplosion;
-        private var heartParticles:Array;
-        private var lastHeartParticleRun:Number = 0,
-                    heartParticleInterval:Number = .2,
-                    curHeartParticleIndex:Number = 0;
-        private var exhaustParticles:Array;
-        private var lastExhaustParticleRun:Number = 0,
-                    exhaustParticleInterval:Number = .2,
-                    curExhaustParticleIndex:Number = 0;
         private var exhaustPos:DHPoint;
         private var car_sprite:Class;
         private var no_date_text:GameObject;
@@ -225,27 +217,6 @@ package {
         public function setupParticles():void {
             impactParticles = new ParticleExplosion(13, 2, .4, 12);
             impactParticles.gravity = new DHPoint(0, .3);
-
-            var i:int = 0;
-
-            this.heartParticles = new Array();
-            var hearts:ParticleExplosion;
-            for (i = 0; i < 5; i++) {
-                hearts = new ParticleExplosion(13, 3, .6, 15, 2, .7, null, 0,
-                                               Particle.TYPE_HEART);
-                hearts.gravity = new DHPoint(0, 0);
-                this.heartParticles.push(hearts);
-            }
-
-            this.exhaustParticles = new Array();
-            var exhaust:ParticleExplosion;
-            for (i = 0; i < 5; i++) {
-                exhaust = new ParticleExplosion(5, 4, .8, 10, 1, .7,
-                                                this.carSprite, 1,
-                                                Particle.TYPE_EXHAUST);
-                exhaust.gravity = new DHPoint(0,0);
-                this.exhaustParticles.push(exhaust);
-            }
         }
 
         public function overlapsPassenger(passenger:Passenger):Boolean {
@@ -399,16 +370,10 @@ package {
             FlxG.state.add(this.collider);
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
-            for (i = 0; i < this.exhaustParticles.length; i++) {
-                this.exhaustParticles[i].addVisibleObjects();
-            }
             FlxG.state.add(this.checkmark_sprite);
             FlxG.state.add(this.heart_sprite);
             this.impactParticles.addVisibleObjects();
             var i:int = 0;
-            for (i = 0; i < this.heartParticles.length; i++) {
-                this.heartParticles[i].addVisibleObjects();
-            }
         }
 
         public function addMeter():void {
@@ -566,28 +531,6 @@ package {
                 this.impactParticles.update();
             }
             var p:int = 0;
-            for (p = 0; p < this.heartParticles.length; p++) {
-                if (this.heartParticles[p] != null) {
-                    this.heartParticles[p].update();
-                }
-            }
-            for (p = 0; p < this.exhaustParticles.length; p++) {
-                if (this.exhaustParticles[p] != null) {
-                    this.exhaustParticles[p].update();
-                }
-            }
-
-            if (this._checkpoints_complete) {
-                if ((this.curTime - this.lastHeartParticleRun) / 1000 > this.heartParticleInterval) {
-                    this.lastHeartParticleRun = this.curTime;
-                    this.heartParticles[this.curHeartParticleIndex].run(this.getMiddle());
-                    if (this.curHeartParticleIndex >= this.heartParticles.length - 1) {
-                        this.curHeartParticleIndex = 0;
-                    } else {
-                        this.curHeartParticleIndex += 1;
-                    }
-                }
-            }
 
             if(this.play_heart) {
                 this.heart_sprite.setPos(new DHPoint(this.pos.x + 15, this.pos.y - 20));
@@ -642,19 +585,6 @@ package {
                 {
                     this.checkmark_sprite.visible = false;
                     this.player_hud.markCheckpoint(this.lastCompletedCheckpoint.cp_type);
-                }
-            }
-
-            if(this.throttle) {
-                if ((this.curTime - this.lastExhaustParticleRun) / 1000 > this.exhaustParticleInterval) {
-                        this.lastExhaustParticleRun = this.curTime;
-                        this.setExhaustPos();
-                        this.exhaustParticles[this.curExhaustParticleIndex].run(this.exhaustPos);
-                        if (this.curExhaustParticleIndex >= this.exhaustParticles.length - 1) {
-                            this.curExhaustParticleIndex = 0;
-                        } else {
-                            this.curExhaustParticleIndex += 1;
-                        }
                 }
             }
         }
