@@ -464,7 +464,7 @@ package {
         }
 
         public function crossCheckpoint(checkpoint:Checkpoint, home_ind:Number):void {
-            if(this._showBeenThereList[checkpoint.index] && !this.no_date_text.visible) {
+            if(this._showBeenThereList[checkpoint.index] && !this.no_date_text.visible && !this.checkpointsComplete) {
                 this.been_there.visible = true;
                 this.been_there_timer = (this.curTime + 5) / 1000;
             }

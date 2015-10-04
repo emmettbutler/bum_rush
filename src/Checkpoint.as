@@ -50,7 +50,7 @@ package {
             this._cp_type = type;
 
             this.loadGraphic(ImgStreetMarker, false, false, 80, 40);
-            this.checkpoint_marker = new GameObject(new DHPoint(0, 0));
+            this.checkpoint_marker = new GameObject(new DHPoint(-100, -100));
 
             switch (type) {
                 case null:

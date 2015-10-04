@@ -332,7 +332,7 @@ package {
 
             for(i = 0; i < this.decorations_data[this.active_map_index].length; i++) {
                 curDecorInfo = this.decorations_data[this.active_map_index][i];
-                decoration = new GameObject(new DHPoint(0, 0));
+                decoration = new GameObject(new DHPoint(-100, -100));
                 decoration.loadGraphic(curDecorInfo['graphic'],
                                        true, false,
                                        curDecorInfo['size'].x,
