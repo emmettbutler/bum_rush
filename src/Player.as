@@ -370,7 +370,6 @@ package {
             this.player_hud = new PlayerHud(this.driver_tag);
             this.player_hud.buildHud();
             FlxG.state.add(this.checkmark_sprite);
-            FlxG.state.add(this.heart_sprite);
             this.impactParticles.addVisibleObjects();
             var i:int = 0;
         }
@@ -378,6 +377,7 @@ package {
         public function addMeter():void {
             FlxG.state.add(this.completionIndicator);
             FlxG.state.add(this.no_date_text);
+            FlxG.state.add(this.heart_sprite);
             FlxG.state.add(this.been_there);
             this.meter.addVisibleObjects();
         }
