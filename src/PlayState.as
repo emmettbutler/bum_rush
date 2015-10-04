@@ -361,7 +361,7 @@ package {
             super.update();
 
             if (this.m_world != null) {
-                this.m_world.Step(1.0 / 30.0, 10, 10);
+                this.m_world.Step(1.0 / 30.0, 8, 8);
                 if (this.shouldDebugDraw) {
                     m_world.DrawDebugData();
                 }
