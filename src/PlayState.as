@@ -54,13 +54,13 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.2, .005),
+                    "pos": new DHPoint(.2, -.01),
                     "hitbox_pos": new DHPoint(.22, .2),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.8, .28),
+                    "pos": new DHPoint(.8, .26),
                     "hitbox_pos": new DHPoint(.82, .465),
                     "marker_rotation": 0
                 },
