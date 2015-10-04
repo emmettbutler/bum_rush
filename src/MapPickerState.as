@@ -184,7 +184,7 @@ package {
             } else if(this._cur_map < 0) {
                 this._cur_map = this._maps.length + this._cur_map;
             }
-
+            this._cur_map = Math.max(0, Math.min(this._cur_map, this._maps.length - 1))
             this._picker.x = this._maps[this._cur_map].x - this.highlight_dim.x;
             this._picker.y = this._maps[this._cur_map].y - this.highlight_dim.y;
         }
