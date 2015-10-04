@@ -283,227 +283,146 @@ package {
                 "size": new DHPoint(24, 34),
                 "anim_frames": [0],
                 "framerate": .5
+            },
+            "dog": {
+                "graphic": DecorDogSprite,
+                "size": new DHPoint(30, 24),
+                "anim_frames": [0, 1],
+                "framerate": 13
+            },
+            "makeout": {
+                "graphic": DecorMakoutSprite,
+                "size": new DHPoint(116/4, 27),
+                "anim_frames": [0, 1, 2, 3],
+                "framerate": 7
             }
         };
         private var decorations_data:Array = [
             [
                 {
-                    "graphic": DecorDogSprite,
-                    "size": new DHPoint(28/2, 10),
-                    "anim_frames": [0, 1],
-                    "framerate": .5,
+                    "type": "dog",
                     "pos": new DHPoint(.609, .190)
                 },
                 {
-                    "graphic": DecorDogSprite,
-                    "size": new DHPoint(28/2, 10),
-                    "anim_frames": [0, 1],
-                    "framerate": .5,
+                    "type": "dog",
                     "pos": new DHPoint(.257, .628)
                 },
                 {
-                    "graphic": DecorDogSprite,
-                    "size": new DHPoint(28/2, 10),
-                    "anim_frames": [0, 1],
-                    "framerate": .5,
+                    "type": "dog",
                     "pos": new DHPoint(.148, .108)
                 },
                 {
-                    "graphic": DecorMakoutSprite,
-                    "size": new DHPoint(116/4, 27),
-                    "anim_frames": [0, 1, 2, 3],
-                    "framerate": .5,
+                    "type": "makeout",
                     "pos": new DHPoint(.065, .271)
                 },
                 {
-                    "graphic": DecorMakoutSprite,
-                    "size": new DHPoint(116/4, 27),
-                    "anim_frames": [0, 1, 2, 3],
-                    "framerate": .5,
+                    "type": "makeout",
                     "pos": new DHPoint(.737, .396)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.316, .09)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.346, .09)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.376, .09)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.513, .42)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.541, .42)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.570, .42)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.277, .565)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.221, .621)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.230, .472)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.032, .262)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.709, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.749, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.789, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.829, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.869, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.909, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.949, .633)
                 }
             ],
             [
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.258, .229)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.298, .229)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.338, .229)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.258, .558)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.298, .558)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.338, .558)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.378, .558)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.895, .217)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.925, .227)
                 }
             ],
