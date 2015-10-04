@@ -383,6 +383,7 @@ package {
                                 event.userData['bg'].y + event.userData['bg'].height * cp_pos.y
                             ));
                             cur.index = p;
+                            cur.setMarkerIconPos();
                         }
                         for(var i:int = 0; i < that.decorations.length; i++) {
                             curData = that.decorations_data[that.active_map_index][i];
