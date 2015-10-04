@@ -71,29 +71,8 @@ package org.flixel.plugin.photonstorm
                 cam = FlxG.camera;
             }
 
-            var contactPixels:BitmapData;
+            var contactPixels:BitmapData = contact.framePixels;
             var contactPos:DHPoint = new DHPoint(contact.x, contact.y);
-            if (contact.angle == 0) {
-                contactPixels = contact.framePixels;
-            } else {
-                var degrees:Number = contact.angle;
-                var angle_in_radians:Number = degrees * Math.PI / 180;
-                var matrixImage:BitmapData = new BitmapData(
-                    Math.max(contact.width, contact.height) * 2,
-                    Math.max(contact.width, contact.height) * 2, true,
-                    0x00cccccc);
-                var rotationMatrix:Matrix = new Matrix();
-                rotationMatrix.rotate(angle_in_radians);
-                rotationMatrix.translate(matrixImage.width / 2, matrixImage.height / 2);
-                matrixImage.draw(contact.framePixels, rotationMatrix);
-                contactPixels = matrixImage;
-
-                if (rotationOrigin == null) {
-                    contactPos = new DHPoint(contact.x, contact.y);
-                } else {
-                    contactPos = rotationOrigin.sub(new DHPoint(matrixImage.width / 2, matrixImage.height / 2));
-                }
-            }
 
             // get the origin point of each colliding object
             pointA.x = contactPos.x - int(cam.scroll.x * contact.scrollFactor.x) - contact.offset.x;
@@ -196,6 +175,17 @@ package org.flixel.plugin.photonstorm
 
             var overlap:Rectangle = overlapArea.getColorBoundsRect(0xffffffff, 0xff00ffff);
             overlap.offset(intersect.x, intersect.y);
+
+            overlapArea.dispose();
+            overlapArea = null;
+            rightEdge.dispose();
+            rightEdge = null;
+            leftEdge.dispose();
+            leftEdge = null;
+            topEdge.dispose();
+            topEdge = null;
+            bottomEdge.dispose();
+            bottomEdge = null;
 
             if (overlap.isEmpty()) {
                 return [false, null];
