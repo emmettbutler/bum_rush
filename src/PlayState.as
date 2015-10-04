@@ -506,8 +506,72 @@ package {
                 }
             ],
             [
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.69, .28)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.19, .13)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.10, .46)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.15, .54)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.12, .63)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.31, .60)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.42, .55)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.85, .17)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.86, .63)
+                }
             ],
             [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.42, .48)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.61, .30)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.88, .25)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.10, .68)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.09, .13)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.38, .15)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.47, .66)
+                }
             ]
         ];
         private var active_map_index:Number;
