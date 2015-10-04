@@ -294,6 +294,55 @@ package {
             [
             ],
             [
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.1, .07)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.16, .12)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.14, .22)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.26, .43)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.44, .30)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.61, .51)
+                },
+                {
+                    "graphic": DecorTreeSprite,
+                    "size": new DHPoint(24, 34),
+                    "anim_frames": [0],
+                    "framerate": .5,
+                    "pos": new DHPoint(.67, .51)
+                }
             ],
             [
             ],
