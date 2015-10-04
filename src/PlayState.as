@@ -11,6 +11,7 @@ package {
     import flash.display.Sprite;
 
     public class PlayState extends GameState {
+        [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
         [Embed(source="/../assets/images/ui/readysetgo.png")] private var StartSprite:Class;
         [Embed(source="/../assets/images/ui/timeout.png")] private var TimeOutSprite:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
@@ -29,6 +30,9 @@ package {
         private var bgmStarted:Boolean, bgmLoopStarted:Boolean;
         private static const RACE_LENGTH:Number = 60;
         private var shown_instructions:Boolean = false;
+        CONFIG::debug {
+            private var cursorPosText:FlxText;
+        }
 
         public var m_world:b2World;
 
@@ -310,6 +314,11 @@ package {
             this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 902, 204);
             this.time_out_sprite.visible = false;
 
+            CONFIG::debug {
+                this.cursorPosText = new FlxText(0, 0, 300, "");
+                this.cursorPosText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xccffffff,"left");
+            }
+
             var that:PlayState = this;
             FlxG.stage.addEventListener(GameState.EVENT_SINGLETILE_BG_LOADED,
                 function(event:DHDataEvent):void {
@@ -340,6 +349,11 @@ package {
                         PlayersController.getInstance().addRegisteredPlayers(
                             that.checkpoints.length, that.active_map_index,
                             that.m_world, that.groundBody, that.streetPoints);
+
+                        CONFIG::debug {
+                            FlxG.mouse.show();
+                            FlxG.state.add(that.cursorPosText);
+                        }
                     }
 
                     if (that.bgsLoaded >= 2) {
@@ -359,6 +373,12 @@ package {
 
         override public function update():void {
             super.update();
+
+            CONFIG::debug {
+                this.cursorPosText.x = FlxG.mouse.x + 50;
+                this.cursorPosText.y = FlxG.mouse.y - 50;
+                this.cursorPosText.text = ((FlxG.mouse.x - this.collider.x) / this.collider.width).toFixed(3) + " x " + ((FlxG.mouse.y - this.collider.y) / this.collider.height).toFixed(3);
+            }
 
             if (this.m_world != null) {
                 this.m_world.Step(1.0 / 30.0, 8, 8);
