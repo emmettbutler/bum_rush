@@ -24,6 +24,7 @@ package {
         private var highlight_dim:DHPoint;
         private var row_count:Number;
         private var i:Number;
+        private var bg:FlxExtSprite;
 
         override public function create():void {
             super.create();
@@ -34,13 +35,16 @@ package {
             this.row_count = 3;
 
             ScreenManager.getInstance();
+            var pathPrefix:String = "../assets/images/ui/";
+            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "mappicker_bg.png");
+
             this._maps = new Array();
             this._cur_map = 0;
 
             var t:FlxText;
-            t = new FlxText(0, 50, ScreenManager.getInstance().screenWidth,
+            t = new FlxText(0, 55, ScreenManager.getInstance().screenWidth,
                             "Where do you want to go?");
-            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffd82e5a);
+            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff);
             t.alignment = "center";
             add(t);
 
@@ -56,7 +60,7 @@ package {
             _basic_label = new FlxText(
                 0, rowY - 50,
                 ScreenManager.getInstance().screenWidth, "Basic Maps");
-            _basic_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffd82e5a);
+            _basic_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffffffff);
             _basic_label.alignment = "center";
             add(_basic_label);
 
@@ -89,7 +93,7 @@ package {
             _advanced_label = new FlxText(
                 0, rowY - 50,
                 ScreenManager.getInstance().screenWidth, "Advanced Maps");
-            _advanced_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffd82e5a);
+            _advanced_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffffffff);
             _advanced_label.alignment = "center";
             add(_advanced_label);
 
