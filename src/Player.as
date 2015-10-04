@@ -478,6 +478,7 @@ package {
                             this.curHomeInd = home_ind;
                         } else {
                             if(!this.been_there.visible) {
+                                this.completionIndicator.visible = false;
                                 this.no_date_text.visible = true;
                                 this.no_date_text_timer = (this.curTime + 5) / 1000;
                             }
@@ -490,6 +491,7 @@ package {
                             this.curCheckpoint = checkpoint;
                             this.curHomeInd = home_ind;
                         } else {
+                            this.completionIndicator.visible = false;
                             this.no_date_text.visible = true;
                             this.no_date_text_timer = this.curTime + (5/1000);
                         }
@@ -521,6 +523,9 @@ package {
                 this.no_date_text.y = this.y - 30;
                 if(this.no_date_text_timer < this.curTime) {
                     this.no_date_text.visible = false;
+                    if (this.checkpoints_complete) {
+                        this.completionIndicator.visible = true;
+                    }
                 }
             }
             if(this.been_there.visible) {
