@@ -389,11 +389,13 @@ package {
                                        true, false,
                                        curDecorInfo['size'].x,
                                        curDecorInfo['size'].y);
-                decoration.addAnimation("run", curDecorInfo['anim_frames'],
-                                        curDecorInfo['framerate'], true);
+                if (curDecorInfo['anim_frames'].length != 1) {
+                    decoration.addAnimation("run", curDecorInfo['anim_frames'],
+                                            curDecorInfo['framerate'], true);
+                    decoration.play("run");
+                }
                 this.add(decoration);
                 this.decorations.push(decoration);
-                decoration.play("run");
             }
 
             this.start_sprite = new GameObject(new DHPoint(0,0));
