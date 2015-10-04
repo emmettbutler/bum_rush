@@ -114,6 +114,7 @@ package {
         private var lastCheckpointSound:FlxSound;
         private var collideSfx:FlxSound;
         private var passengerSfx:FlxSound;
+        private var wallBounceAmount:Number = 2;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
@@ -193,7 +194,7 @@ package {
             }
 
             this.collider = new GameObject(new DHPoint(0, 0), this);
-            this.collider.makeGraphic(this.mainSprite.width,
+            this.collider.makeGraphic(this.mainSprite.width * .6,
                                       this.mainSprite.height * .5,
                                       0xffffff00,
                                       true);
@@ -623,13 +624,22 @@ package {
                                     this.m_physBody.GetLinearVelocity().y
                                 )
                             );
-                        } else if (this._collisionDirection[0] == 1) {
+                            this.m_physBody.ApplyImpulse(
+                                new b2Vec2(-this.wallBounceAmount, 0),
+                                this.m_physBody.GetPosition()
+                            );
+                        }
+                        if (this._collisionDirection[0] == 1) {
                             // left
                             this.m_physBody.SetLinearVelocity(
                                 new b2Vec2(
                                     Math.max(this.m_physBody.GetLinearVelocity().x, 0),
                                     this.m_physBody.GetLinearVelocity().y
                                 )
+                            );
+                            this.m_physBody.ApplyImpulse(
+                                new b2Vec2(wallBounceAmount, 0),
+                                this.m_physBody.GetPosition()
                             );
                         }
                         if (this._collisionDirection[3] == 1) {
@@ -640,13 +650,22 @@ package {
                                     Math.min(this.m_physBody.GetLinearVelocity().y, 0)
                                 )
                             );
-                        } else if (this._collisionDirection[2] == 1) {
+                            this.m_physBody.ApplyImpulse(
+                                new b2Vec2(0, -wallBounceAmount),
+                                this.m_physBody.GetPosition()
+                            );
+                        }
+                        if (this._collisionDirection[2] == 1) {
                             // up
                             this.m_physBody.SetLinearVelocity(
                                 new b2Vec2(
                                     this.m_physBody.GetLinearVelocity().x,
                                     Math.max(this.m_physBody.GetLinearVelocity().y, 0)
                                 )
+                            );
+                            this.m_physBody.ApplyImpulse(
+                                new b2Vec2(0, wallBounceAmount),
+                                this.m_physBody.GetPosition()
                             );
                         }
                     }
@@ -826,9 +845,8 @@ package {
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;
             this.completionIndicator.y = pos.y - 30;
-            this.collider.setPos(pos);
             this.collider.setPos(pos.add(
-                new DHPoint(0,
+                new DHPoint((this.mainSprite.width - this.collider.width) / 2,
                             this.mainSprite.height - this.collider.height)));
 
         }

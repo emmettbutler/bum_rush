@@ -49,7 +49,7 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.2, .02),
+                    "pos": new DHPoint(.2, .005),
                     "hitbox_pos": new DHPoint(.22, .2),
                     "marker_rotation": 0
                 },
