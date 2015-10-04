@@ -87,13 +87,13 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.4, .17),
+                    "pos": new DHPoint(.4, .16),
                     "hitbox_pos": new DHPoint(.42, .35),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.5, .52),
+                    "pos": new DHPoint(.5, .50),
                     "hitbox_pos": new DHPoint(.52, .6955),
                     "marker_rotation": 0
                 },
@@ -111,7 +111,7 @@ package {
                 },
                 {
                     "type": Checkpoint.DINNER,
-                    "pos": new DHPoint(.1, .23),
+                    "pos": new DHPoint(.1, .20),
                     "hitbox_pos": new DHPoint(.13, .35),
                     "marker_rotation": 0
                 }
