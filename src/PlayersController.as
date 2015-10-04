@@ -44,6 +44,7 @@ package {
         public var gameInput:GameInput;
         private var controllers:Dictionary, controller_ids:Array;
         private var control:GameInputControl;
+        private var keyboardRegisteredPlayers:Number = 0;
         public var playerConfigs:Dictionary;
         public var playerTags:Dictionary, tagsList:Array;
 
@@ -219,6 +220,7 @@ package {
             this.players = new Array();
             this.passengers = new Array();
             this.playerColliders = new Array();
+            this.keyboardRegisteredPlayers = 0;
         }
 
         public function buildControllersMap():void {
@@ -250,7 +252,7 @@ package {
             if (this.playersRegistered >= MAX_PLAYERS) {
                 return null;
             }
-            if (controller == null && this.playersRegistered >= this.tagsList.length - this.controller_ids.length) {
+            if (controller == null && this.keyboardRegisteredPlayers >= this.tagsList.length - this.controller_ids.length) {
                 return null;
             }
             var _id:String = controller == null ?
@@ -258,8 +260,11 @@ package {
             if (_id in this.registeredPlayers) {
                 return null;
             }
-            var _idx:Number = this.tagsList[Math.min(this.controller_ids.length + this.playersRegistered, this.tagsList.length - 1)];
+            var _idx:Number = this.tagsList[this.controller_ids.length + this.keyboardRegisteredPlayers];
             var tag:Number = this.playerTags[controller == null ? _idx : controller.id];
+            if (controller == null) {
+                this.keyboardRegisteredPlayers += 1;
+            }
             this.registeredPlayers[_id] = {
                 'ctrl_type': ctrlType,
                 'controller': ctrlType == Player.CTRL_KEYBOARD_1 ||
