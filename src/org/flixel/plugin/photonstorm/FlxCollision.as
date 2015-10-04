@@ -219,8 +219,8 @@ package org.flixel.plugin.photonstorm
                 if (collideData == null) {
                     collideData = new Array(0, 0, 0, 0);  // left, right, up, down
                 }
-                collideData[0] = ccTopLeft || ccBottomLeft || collidingLeft || collideData[0] ? 1 : 0;
-                collideData[1] = ccTopRight || ccBottomRight || collidingRight || collideData[1] ? 1 : 0;
+                collideData[0] = collidingLeft || collideData[0] ? 1 : 0;
+                collideData[1] = collidingRight || collideData[1] ? 1 : 0;
                 collideData[2] = ccTopLeft || ccTopRight || collidingTop || collideData[2] ? 1 : 0;
                 collideData[3] = ccBottomLeft || ccBottomRight || collidingBottom || collideData[3] ? 1 : 0;
                 return [true, collideData];
