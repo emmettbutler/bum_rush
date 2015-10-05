@@ -87,10 +87,10 @@ package {
                 commentString = passengers_string + ". Looks like you'll need to borrow the dorm next door, too!";
             }
 
-            t = new FlxText(100, 100,
+            t = new FlxText(0, 100,
                 ScreenManager.getInstance().screenWidth, commentString);
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffffffff);
-            t.alignment = "left";
+            t.alignment = "center";
             FlxG.state.add(t);
 
             this.resetText = new FlxText(100, ScreenManager.getInstance().screenHeight - 100, ScreenManager.getInstance().screenWidth, "");
