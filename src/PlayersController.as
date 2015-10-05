@@ -16,8 +16,11 @@ package {
     import mx.utils.StringUtil;
 
     public class PlayersController {
-        [Embed(source="/../assets/images/characters/driver_emmett_64.png")] private var sprite_1:Class;
-        [Embed(source="/../assets/images/characters/driver_nina_64.png")] private var sprite_2:Class;
+        [Embed(source="/../assets/images/characters/driver_emmett_64.png")] private var sprite_emmett:Class;
+        [Embed(source="/../assets/images/characters/driver_nina_64.png")] private var sprite_nina:Class;
+        [Embed(source="/../assets/images/characters/driver_bernard_64.png")] private var sprite_bernard:Class;
+        [Embed(source="/../assets/images/characters/driver_keiko_64.png")] private var sprite_keiko:Class;
+        [Embed(source="/../assets/images/characters/driver_mim_64.png")] private var sprite_mim:Class;
         [Embed(source="/../assets/images/characters/car_p1_64.png")] private var ImgCar1:Class;
         [Embed(source="/../assets/images/characters/car_p2_64.png")] private var ImgCar2:Class;
         [Embed(source="/../assets/images/characters/temp_car_1.png")] private var ImgCar3:Class;
@@ -73,7 +76,7 @@ package {
             playerConfigs = new Dictionary();
             playerConfigs[PLAYER_1] = {
                 "tag": PLAYER_1,
-                "sprite": sprite_1,
+                "sprite": sprite_bernard,
                 "car": ImgCar1,
                 "join_prefix": "bernard",
                 "starting_passenger": Passenger.TYPE_A,
@@ -90,7 +93,7 @@ package {
             };
             playerConfigs[PLAYER_2] = {
                 "tag": PLAYER_2,
-                "sprite": sprite_1,
+                "sprite": sprite_emmett,
                 "car": ImgCar2,
                 "join_prefix": "billy",
                 "starting_passenger": Passenger.TYPE_B,
@@ -107,7 +110,7 @@ package {
             };
             playerConfigs[PLAYER_3] = {
                 "tag": PLAYER_3,
-                "sprite": sprite_2,
+                "sprite": sprite_emmett,
                 "car": ImgCar3,
                 "join_prefix": "ermit",
                 "starting_passenger": Passenger.TYPE_C,
@@ -124,7 +127,7 @@ package {
             };
             playerConfigs[PLAYER_4] = {
                 "tag": PLAYER_4,
-                "sprite": sprite_1,
+                "sprite": sprite_keiko,
                 "car": ImgCar4,
                 "join_prefix": "keiko",
                 "starting_passenger": Passenger.TYPE_D,
@@ -141,7 +144,7 @@ package {
             };
             playerConfigs[PLAYER_5] = {
                 "tag": PLAYER_5,
-                "sprite": sprite_1,
+                "sprite": sprite_nina,
                 "car": ImgCar5,
                 "join_prefix": "laura",
                 "starting_passenger": Passenger.TYPE_E,
@@ -158,7 +161,7 @@ package {
             };
             playerConfigs[PLAYER_6] = {
                 "tag": PLAYER_6,
-                "sprite": sprite_1,
+                "sprite": sprite_mim,
                 "car": ImgCar6,
                 "join_prefix": "mim",
                 "starting_passenger": Passenger.TYPE_F,
@@ -175,7 +178,7 @@ package {
             };
             playerConfigs[PLAYER_7] = {
                 "tag": PLAYER_7,
-                "sprite": sprite_2,
+                "sprite": sprite_nina,
                 "car": ImgCar7,
                 "join_prefix": "nonny",
                 "starting_passenger": Passenger.TYPE_G,
@@ -192,7 +195,7 @@ package {
             };
             playerConfigs[PLAYER_8] = {
                 "tag": PLAYER_8,
-                "sprite": sprite_1,
+                "sprite": sprite_nina,
                 "car": ImgCar8,
                 "join_prefix": "rachel",
                 "starting_passenger": Passenger.TYPE_H,
