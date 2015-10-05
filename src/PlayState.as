@@ -17,6 +17,7 @@ package {
         [Embed(source="/../assets/images/worlds/doggydonk_2.png")] private var DecorDogSprite:Class;
         [Embed(source="/../assets/images/worlds/makeoutBench_4.png")] private var DecorMakoutSprite:Class;
         [Embed(source="/../assets/images/worlds/tree_solo_1.png")] private var DecorTreeSprite:Class;
+        [Embed(source="/../assets/images/worlds/clamFountain_3.png")] private var DecorClamSprite:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_loop.mp3")] private var SndBGM:Class;
 
@@ -277,221 +278,368 @@ package {
                 }
             ]
         ];
+        private var decoration_types:Object = {
+            "tree": {
+                "graphic": DecorTreeSprite,
+                "size": new DHPoint(24, 34),
+                "anim_frames": [0],
+                "framerate": .5
+            },
+            "dog": {
+                "graphic": DecorDogSprite,
+                "size": new DHPoint(30, 24),
+                "anim_frames": [0, 1],
+                "framerate": 7
+            },
+            "makeout": {
+                "graphic": DecorMakoutSprite,
+                "size": new DHPoint(116/4, 27),
+                "anim_frames": [0, 1, 2, 3],
+                "framerate": 7
+            },
+            "clam": {
+                "graphic": DecorClamSprite,
+                "size": new DHPoint(108/3, 35),
+                "anim_frames": [0, 1, 2],
+                "framerate": 7
+            }
+        };
         private var decorations_data:Array = [
             [
                 {
-                    "graphic": DecorDogSprite,
-                    "size": new DHPoint(28/2, 10),
-                    "anim_frames": [0, 1],
-                    "framerate": .5,
+                    "type": "dog",
                     "pos": new DHPoint(.609, .190)
                 },
                 {
-                    "graphic": DecorDogSprite,
-                    "size": new DHPoint(28/2, 10),
-                    "anim_frames": [0, 1],
-                    "framerate": .5,
+                    "type": "dog",
                     "pos": new DHPoint(.257, .628)
                 },
                 {
-                    "graphic": DecorDogSprite,
-                    "size": new DHPoint(28/2, 10),
-                    "anim_frames": [0, 1],
-                    "framerate": .5,
+                    "type": "dog",
+                    "pos": new DHPoint(.714, .715)
+                },
+                {
+                    "type": "clam",
                     "pos": new DHPoint(.148, .108)
                 },
                 {
-                    "graphic": DecorMakoutSprite,
-                    "size": new DHPoint(116/4, 27),
-                    "anim_frames": [0, 1, 2, 3],
-                    "framerate": .5,
+                    "type": "makeout",
                     "pos": new DHPoint(.065, .271)
                 },
                 {
-                    "graphic": DecorMakoutSprite,
-                    "size": new DHPoint(116/4, 27),
-                    "anim_frames": [0, 1, 2, 3],
-                    "framerate": .5,
+                    "type": "clam",
+                    "pos": new DHPoint(.745, .307)
+                },
+                {
+                    "type": "makeout",
                     "pos": new DHPoint(.737, .396)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.316, .09)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.346, .09)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.376, .09)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.513, .42)
+                    "type": "tree",
+                    "pos": new DHPoint(.691, .212)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.541, .42)
+                    "type": "tree",
+                    "pos": new DHPoint(.691, .262)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.570, .42)
+                    "type": "tree",
+                    "pos": new DHPoint(.691, .312)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
+                    "pos": new DHPoint(.691, .362)
+                },
+                {
+                    "type": "tree",
                     "pos": new DHPoint(.277, .565)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.221, .621)
-                },
-                {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.230, .472)
-                },
-                {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.032, .262)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.709, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.749, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.789, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.829, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.869, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.909, .633)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
+                    "type": "tree",
                     "pos": new DHPoint(.949, .633)
                 }
             ],
             [
-            ],
-            [
-            ],
-            [
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.1, .07)
+                    "type": "tree",
+                    "pos": new DHPoint(.258, .229)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.16, .12)
+                    "type": "tree",
+                    "pos": new DHPoint(.298, .229)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.14, .22)
+                    "type": "tree",
+                    "pos": new DHPoint(.338, .229)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.26, .43)
+                    "type": "tree",
+                    "pos": new DHPoint(.258, .558)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.44, .30)
+                    "type": "tree",
+                    "pos": new DHPoint(.298, .558)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.61, .51)
+                    "type": "tree",
+                    "pos": new DHPoint(.338, .558)
                 },
                 {
-                    "graphic": DecorTreeSprite,
-                    "size": new DHPoint(24, 34),
-                    "anim_frames": [0],
-                    "framerate": .5,
-                    "pos": new DHPoint(.67, .51)
+                    "type": "tree",
+                    "pos": new DHPoint(.378, .558)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.895, .217)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.925, .227)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.534, .239)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.441, .561)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.196, .599)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.718, .419)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.223, .268)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.824, .229)
                 }
             ],
             [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.173, .389)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.173, .439)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.173, .489)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.173, .539)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.173, .589)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.173, .539)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.307, .613)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.827, .628)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.069, .092)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.559, .261)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.211, .092)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.711, .275)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.110, .493)
+                }
             ],
             [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.1, .07)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.16, .12)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.14, .22)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.26, .45)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.44, .30)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.61, .51)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.67, .51)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.48, .65)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.629, .124)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.105, .174)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.430, .575)
+                }
+            ],
+            [
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.69, .28)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.19, .13)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.10, .46)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.15, .54)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.12, .63)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.31, .60)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.42, .55)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.85, .17)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.86, .63)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.210, .257)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.858, .250)
+                }
+            ],
+            [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.42, .48)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.61, .30)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.88, .344)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.10, .68)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.09, .13)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.38, .15)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.47, .66)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.23, .4)
+                }
             ]
         ];
         private var active_map_index:Number;
@@ -512,7 +660,7 @@ package {
 
             this.checkpoints = new Array();
             this.decorations = new Array();
-            var checkpoint:Checkpoint, decoration:GameObject;
+            var checkpoint:Checkpoint, decoration:GameObject, decorConfig:Object;
             var i:Number = 0, curDecorInfo:Object;
             for(i = 0; i < this.checkpoints_data[this.active_map_index].length; i++) {
                 checkpoint = new Checkpoint(
@@ -525,18 +673,21 @@ package {
                     this.home_cp_index = i;
                 }
                 checkpoint.setMarkerRotation(this.checkpoints_data[this.active_map_index][i]["marker_rotation"]);
+                checkpoint.addVisibleObjects();
             }
 
             for(i = 0; i < this.decorations_data[this.active_map_index].length; i++) {
                 curDecorInfo = this.decorations_data[this.active_map_index][i];
+                decorConfig = this.decoration_types[curDecorInfo['type']];
                 decoration = new GameObject(new DHPoint(-100, -100));
-                decoration.loadGraphic(curDecorInfo['graphic'],
+                decoration.loadGraphic(decorConfig['graphic'],
                                        true, false,
-                                       curDecorInfo['size'].x,
-                                       curDecorInfo['size'].y);
-                if (curDecorInfo['anim_frames'].length != 1) {
-                    decoration.addAnimation("run", curDecorInfo['anim_frames'],
-                                            curDecorInfo['framerate'], true);
+                                       decorConfig['size'].x,
+                                       decorConfig['size'].y);
+                decoration.zSorted = true;
+                if (decorConfig['anim_frames'].length != 1) {
+                    decoration.addAnimation("run", decorConfig['anim_frames'],
+                                            decorConfig['framerate'], true);
                     decoration.play("run");
                 }
                 this.add(decoration);
@@ -584,6 +735,7 @@ package {
                             cur.index = p;
                             cur.setMarkerIconPos();
                         }
+
                         for(var i:int = 0; i < that.decorations.length; i++) {
                             curData = that.decorations_data[that.active_map_index][i];
                             that.decorations[i].setPos(
@@ -611,10 +763,6 @@ package {
                         );
                     }
                 });
-
-            for (i = 0; i < this.checkpoints.length; i++) {
-                this.checkpoints[i].addVisibleObjects();
-            }
 
             this.startRaceTimer();
         }
@@ -710,6 +858,10 @@ package {
                     curCollider, this.collider, 255, null, curPlayer.collisionDirection, false);
                 if (collisionData[0]) {
                     curPlayer.colliding = collisionData[0];
+                }
+
+                if (this.finished) {
+                    curPlayer.setFinished();
                 }
             }
         }

@@ -7,6 +7,7 @@ package {
     public class MenuState extends GameState {
         [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
         [Embed(source = "../assets/audio/bumrush_select_loop.mp3")] private var SndBGMLoop:Class;
+        [Embed(source = "../assets/audio/passenger.mp3")] private var SndJoined:Class;
         [Embed(source = "../assets/audio/bumrush_intro.mp3")] private var SndIntroScene:Class;
 
         private var countdownLength:Number = 5, lastRegisterTime:Number = -1;
@@ -58,7 +59,7 @@ package {
             FlxG.state.add(this.loadingText);
 
             this.skipText = new FlxText(0,
-                            ScreenManager.getInstance().screenHeight * .96,
+                            ScreenManager.getInstance().screenHeight * .94,
                             ScreenManager.getInstance().screenWidth,
                             "All players hold A to skip");
             this.skipText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xccffffff,"right");
@@ -226,6 +227,7 @@ package {
             if (tagData != null) {
                 this.lastRegisterTime = this.curTime;
                 this.registeredPlayers += 1;
+                FlxG.play(SndJoined, 1);
                 var indicator:RegistrationIndicator = this.getRegistrationIndicatorByTag(tagData['tag']);
                 indicator.joined = true;
             }
