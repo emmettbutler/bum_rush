@@ -23,7 +23,7 @@ package {
 
             var t:FlxText;
             t = new FlxText(0, ScreenManager.getInstance().screenHeight/3, ScreenManager.getInstance().screenWidth,
-                            "A to accelerate.\nB to highlight yourself.\nD-pad to steer.\n\nRam into your friends and collect their dates as you visit the hot spots in town.\nThe more the merrier, after all!");
+                            "A to accelerate.\nB to highlight yourself.\nD-pad to steer.\n\nRam into your friends and collect their dates as you visit all of the hot spots in town before returning home.\nThe more the merrier, after all!");
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff);
             t.alignment = "center";
             add(t);
