@@ -859,6 +859,10 @@ package {
                 if (collisionData[0]) {
                     curPlayer.colliding = collisionData[0];
                 }
+
+                if (this.finished) {
+                    curPlayer.setFinished();
+                }
             }
         }
 

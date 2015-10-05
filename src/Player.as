@@ -594,6 +594,10 @@ package {
             }
         }
 
+        public function setFinished():void {
+            this.completionIndicator.visible = false;
+        }
+
         public function updateMovement():void {
             if (this.throttle) {
                 this.accelSFX.play();
