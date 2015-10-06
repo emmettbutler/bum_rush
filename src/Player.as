@@ -172,7 +172,9 @@ package {
             this.passengerSfx.volume = 1;
 
             this.completionIndicator = new GameObject(new DHPoint(0,0));
-            this.completionIndicator.loadGraphic(ImgGoHome, false, false, 78, 33);
+            this.completionIndicator.loadGraphic(ImgGoHome, false, false, 102, 48);
+            this.completionIndicator.addAnimation("run", [0, 1, 2, 3, 4, 5, 6, 7], 13, true);
+            this.completionIndicator.play("run");
             this.completionIndicator.visible = false;
 
             this.no_date_text = new GameObject(new DHPoint(this.pos.x, this.pos.y));
@@ -871,7 +873,7 @@ package {
             this.highlight_number.y = pos.y + 64 + 3;
             this.mainSprite.setPos(pos);
             this.carSprite.setPos(pos);
-            this.completionIndicator.x = pos.x;
+            this.completionIndicator.x = pos.x - 15;
             this.completionIndicator.y = pos.y - 30;
             this.collider.setPos(pos.add(
                 new DHPoint((this.mainSprite.width - this.collider.width) / 2,
