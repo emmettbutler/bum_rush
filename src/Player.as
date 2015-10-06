@@ -19,7 +19,7 @@ package {
         [Embed(source="/../assets/audio/passenger.mp3")] private var SfxPassenger:Class;
         [Embed(source="/../assets/images/ui/HUD_arrow.png")] private static var HUDCheckmark:Class;
         [Embed(source="/../assets/images/misc/highlight.png")] private static var ImgHighlight:Class;
-        [Embed(source="/../assets/images/ui/HUD_TempHeart.png")] private static var HUDHeart:Class;
+        [Embed(source="/../assets/images/ui/HUD_Heart.png")] private static var HUDHeart:Class;
         [Embed(source="/../assets/images/ui/need_date.png")] private static var ImgNoDate:Class;
         [Embed(source="/../assets/images/ui/go_home.png")] private static var ImgGoHome:Class;
         [Embed(source="/../assets/images/ui/alreadydone.png")] private static var ImgBeenThere:Class;
@@ -337,7 +337,7 @@ package {
             this.checkmark_sprite.visible = false;
 
             this.heart_sprite = new GameObject(new DHPoint(0,0));
-            this.heart_sprite.loadGraphic(HUDHeart, false, false, 32, 24);
+            this.heart_sprite.loadGraphic(HUDHeart, false, false, 12, 10);
             this.heart_sprite.visible = false;
         }
 
@@ -542,16 +542,16 @@ package {
             var p:int = 0;
 
             if(this.play_heart) {
-                this.heart_sprite.setPos(new DHPoint(this.pos.x + 15, this.pos.y - 20));
-                if(this.heart_sprite.scale.x >= 1) {
+                this.heart_sprite.setPos(new DHPoint(this.pos.x + 20, this.pos.y - 20));
+                if(this.heart_sprite.scale.x >= 4) {
                     this.heart_scale_down = true;
                 }
                 if(!this.heart_scale_down) {
-                    this.heart_sprite.scale.x += .03;
-                    this.heart_sprite.scale.y += .03;
+                    this.heart_sprite.scale.x += .06;
+                    this.heart_sprite.scale.y += .06;
                 } else if(this.heart_scale_down) {
-                    this.heart_sprite.scale.x -= .03;
-                    this.heart_sprite.scale.y -= .03;
+                    this.heart_sprite.scale.x -= .06;
+                    this.heart_sprite.scale.y -= .06;
                     if(this.heart_sprite.scale.x <= 0) {
                         this.play_heart = false;
                         this.heart_sprite.visible = false;
