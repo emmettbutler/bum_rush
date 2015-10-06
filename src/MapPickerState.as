@@ -23,6 +23,7 @@ package {
         private var _advanced_label:FlxText;
         private var highlight_dim:DHPoint;
         private var row_count:Number;
+        private var confirmLockTimeout:Number = 2;
         private var i:Number;
         private var bg:FlxExtSprite;
 
@@ -147,7 +148,9 @@ package {
         }
 
         public function startRace():void {
-            FlxG.switchState(new InstructionState(this._cur_map));
+            if (this.timeAlive > this.confirmLockTimeout * 1000) {
+                FlxG.switchState(new InstructionState(this._cur_map));
+            }
         }
 
         override public function update():void {
