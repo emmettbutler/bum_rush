@@ -115,6 +115,7 @@ package {
         private var collideSfx:FlxSound;
         private var passengerSfx:FlxSound;
         private var wallBounceAmount:Number = 1.7;
+        private var idx:Number;
 
         public function Player(pos:DHPoint,
                                controller:GameInputDevice,
@@ -146,6 +147,7 @@ package {
             this.driver_sprite = tagData['sprite'];
             this._driver_name = tagData['name'];
             this.car_sprite = tagData['car'];
+            this.idx = tagData['index'];
             this._checkpointStatusList = new Array();
 
             this.passengers = new Array();
@@ -414,6 +416,7 @@ package {
             this.checking_in = false;
             this.meter.setVisible(false);
             if(this.curCheckpoint.cp_type != Checkpoint.HOME) {
+                this.curCheckpoint.markComplete(this.idx);
                 this.lastCompletedCheckpoint = this.curCheckpoint;
                 this._checkpointStatusList[this.curCheckpoint.index] = true;
                 this.checkmark_sprite.visible = true;

@@ -79,6 +79,7 @@ package {
             playerConfigs = new Dictionary();
             playerConfigs[PLAYER_1] = {
                 "tag": PLAYER_1,
+                "index": 1,
                 "sprite": sprite_bernard,
                 "car": ImgCar1,
                 "join_prefix": "bernard",
@@ -96,6 +97,7 @@ package {
             };
             playerConfigs[PLAYER_2] = {
                 "tag": PLAYER_2,
+                "index": 2,
                 "sprite": sprite_billy,
                 "car": ImgCar2,
                 "join_prefix": "billy",
@@ -113,6 +115,7 @@ package {
             };
             playerConfigs[PLAYER_3] = {
                 "tag": PLAYER_3,
+                "index": 3,
                 "sprite": sprite_emmett,
                 "car": ImgCar3,
                 "join_prefix": "ermit",
@@ -130,6 +133,7 @@ package {
             };
             playerConfigs[PLAYER_4] = {
                 "tag": PLAYER_4,
+                "index": 4,
                 "sprite": sprite_keiko,
                 "car": ImgCar4,
                 "join_prefix": "keiko",
@@ -147,6 +151,7 @@ package {
             };
             playerConfigs[PLAYER_5] = {
                 "tag": PLAYER_5,
+                "index": 5,
                 "sprite": sprite_laura,
                 "car": ImgCar5,
                 "join_prefix": "laura",
@@ -164,6 +169,7 @@ package {
             };
             playerConfigs[PLAYER_6] = {
                 "tag": PLAYER_6,
+                "index": 6,
                 "sprite": sprite_mim,
                 "car": ImgCar6,
                 "join_prefix": "mim",
@@ -181,6 +187,7 @@ package {
             };
             playerConfigs[PLAYER_7] = {
                 "tag": PLAYER_7,
+                "index": 7,
                 "sprite": sprite_nina,
                 "car": ImgCar7,
                 "join_prefix": "nonny",
@@ -198,6 +205,7 @@ package {
             };
             playerConfigs[PLAYER_8] = {
                 "tag": PLAYER_8,
+                "index": 8,
                 "sprite": sprite_rachel,
                 "car": ImgCar8,
                 "join_prefix": "rachel",

@@ -35,6 +35,7 @@ package {
         public static const CLUB:String = "clubbin bae";
 
         private var checkpointSound:FlxSound;
+        private var completionIndicators:Object;
 
         public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null) {
             super(pos);
@@ -46,6 +47,16 @@ package {
             this.checkpointSound = new FlxSound();
             this.checkpointSound.loadEmbedded(CheckpointSFX,false);
             this.checkpointSound.volume = 1;
+
+            this.completionIndicators = {};
+            var playerConfigs:Object = PlayersController.getInstance().playerConfigs;
+            var indicator:FlxText, playerConfig:Object;
+            for (var kid:Object in playerConfigs) {
+                playerConfig = playerConfigs[kid];
+                indicator = new FlxText(0, 0, 100, playerConfig['index'] + "");
+                indicator.setFormat("Pixel_Berry_08_84_Ltd.Edition", 12, playerConfig['tint'], "left");
+                this.completionIndicators[kid] = indicator;
+            }
 
             this._cp_type = type;
 
@@ -107,6 +118,27 @@ package {
             }
         }
 
+        override public function setPos(pos:DHPoint):void {
+            super.setPos(pos);
+            var cur:FlxText;
+            var row:Number = 0, col:Number = 0;
+            for (var kid:Object in this.completionIndicators) {
+                cur = this.completionIndicators[kid];
+                cur.x = this.x + (9 * col);
+                cur.y = this.y + (13 * row);
+                if (row < 1) {
+                    row++;
+                } else {
+                    row = 0;
+                }
+                if (col < 4) {
+                    col++;
+                } else {
+                    col = 0;
+                }
+            }
+        }
+
         public function setMarkerRotation(r:Number):void {
             this.angle = r;
         }
@@ -123,10 +155,17 @@ package {
             this.checkpointSound.stop();
         }
 
+        public function markComplete(kid:Number):void {
+            this.completionIndicators[kid].visible = false;
+        }
+
         override public function addVisibleObjects():void {
             FlxG.state.add(this);
             FlxG.state.add(this.checkpoint_sprite);
             FlxG.state.add(this.checkpoint_marker);
+            for (var kid:Object in this.completionIndicators) {
+                FlxG.state.add(this.completionIndicators[kid]);
+            }
         }
     }
 }
