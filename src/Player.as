@@ -757,8 +757,10 @@ package {
 
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = true;
+                this.player_hud.highlight();
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = false;
+                this.player_hud.unhighlight();
             }
         }
 

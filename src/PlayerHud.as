@@ -25,6 +25,7 @@ package {
         private var hud_numbers:Array;
         private var hud_name:FlxText;
         private var hud_name_back:GameObject;
+        private var original_color:uint;
 
         public function PlayerHud(p_tag:Number) {
             super(new DHPoint(0,0));
@@ -38,13 +39,14 @@ package {
             var curImg:Object, hud_piece:GameObject, checkmark:GameObject;
             PlayerHud._classData = PlayerHud.buildHudData();
             var playerConfig:Object = PlayersController.getInstance().playerConfigs[this.player_tag];
+            this.original_color = playerConfig['tint'];
             for(var _key:Object in PlayerHud._classData['image_map']) {
                 curImg = PlayerHud._classData['image_map'][_key];
 
                 if (_key == PlayerHud.HUD_NAME) {
                     hud_name_back = new GameObject(new DHPoint(0, 0));
                     hud_name_back.loadGraphic(ImgTextBack, false, false, 90, 20);
-                    hud_name_back.color = playerConfig['tint'];
+                    hud_name_back.color = this.original_color;
                     FlxG.state.add(hud_name_back);
 
                     hud_name = new FlxText(
@@ -86,6 +88,14 @@ package {
 
         public function posOf(tag:String):DHPoint {
             return this.hud_objects[tag].getPos();
+        }
+
+        public function highlight():void {
+            hud_name_back.color = 0xffffffff;
+        }
+
+        public function unhighlight():void {
+            hud_name_back.color = this.original_color;
         }
 
         public function markCheckpoint(cp:String):void {
