@@ -44,12 +44,12 @@ package {
                 if (_key == PlayerHud.HUD_NAME) {
                     hud_name_back = new GameObject(new DHPoint(0, 0));
                     hud_name_back.loadGraphic(ImgTextBack, false, false, 90, 20);
+                    hud_name_back.color = playerConfig['tint'];
                     FlxG.state.add(hud_name_back);
 
                     hud_name = new FlxText(
                         0, 0, 90, playerConfig['name']);
-                    hud_name.setFormat("Pixel_Berry_08_84_Ltd.Edition",12, 0xff000000, "center");
-                    hud_name.color = playerConfig['tint'];
+                    hud_name.setFormat("Pixel_Berry_08_84_Ltd.Edition", 12, 0xff000000, "center");
                     FlxG.state.add(hud_name);
                 } else {
                     hud_piece = new GameObject(new DHPoint(0, 0));
