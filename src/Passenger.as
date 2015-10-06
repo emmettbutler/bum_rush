@@ -4,7 +4,10 @@ package {
     import flash.utils.Dictionary;
 
     public class Passenger extends GameObject {
-        [Embed(source="/../assets/images/characters/passenger_lilD_64.png")] private static var sprite_1:Class;
+        [Embed(source="/../assets/images/characters/passenger_lilD_64.png")] private static var sprite_diego:Class;
+        [Embed(source="/../assets/images/characters/passenger_dirk_64.png")] private static var sprite_dirk:Class;
+        [Embed(source="/../assets/images/characters/passenger_johnny_64.png")] private static var sprite_johnny:Class;
+        [Embed(source="/../assets/images/characters/passenger_muggs_64.png")] private static var sprite_muggs:Class;
 
         public static const STATE_RIDING:Number = 1;
         public static const STATE_STANDING:Number = 2;
@@ -37,43 +40,43 @@ package {
             public static var passengerConfigs:Dictionary = new Dictionary();
             passengerConfigs[TYPE_A] = {
                 "name": "Diego",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "riding_sprite": sprite_diego,
+                "standing_sprite": sprite_diego
             };
             passengerConfigs[TYPE_B] = {
-                "name": "Mike",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "name": "Dirk",
+                "riding_sprite": sprite_dirk,
+                "standing_sprite": sprite_dirk
             };
             passengerConfigs[TYPE_C] = {
-                "name": "Steph",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "name": "Johnny",
+                "riding_sprite": sprite_johnny,
+                "standing_sprite": sprite_johnny
             };
             passengerConfigs[TYPE_D] = {
-                "name": "Sarah",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "name": "Max",
+                "riding_sprite": sprite_muggs,
+                "standing_sprite": sprite_muggs
             };
             passengerConfigs[TYPE_E] = {
                 "name": "Sam",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "riding_sprite": sprite_diego,
+                "standing_sprite": sprite_diego
             };
             passengerConfigs[TYPE_F] = {
                 "name": "Sean",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "riding_sprite": sprite_diego,
+                "standing_sprite": sprite_diego
             };
             passengerConfigs[TYPE_G] = {
                 "name": "Arielle",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "riding_sprite": sprite_diego,
+                "standing_sprite": sprite_diego
             };
             passengerConfigs[TYPE_H] = {
                 "name": "Adam",
-                "riding_sprite": sprite_1,
-                "standing_sprite": sprite_1
+                "riding_sprite": sprite_diego,
+                "standing_sprite": sprite_diego
             };
         }
 
