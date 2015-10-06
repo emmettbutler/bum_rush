@@ -10,7 +10,7 @@ package {
         [Embed(source = "../assets/audio/passenger.mp3")] private var SndJoined:Class;
         [Embed(source = "../assets/audio/bumrush_intro.mp3")] private var SndIntroScene:Class;
 
-        private var countdownLength:Number = 5, lastRegisterTime:Number = -1;
+        private var countdownLength:Number = 8, lastRegisterTime:Number = -1;
         private var stateSwitchLock:Boolean = false;
         private var registerIndicators:Array;
         private var timerText:FlxText, joinText:FlxText, teamText:FlxText,
