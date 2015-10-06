@@ -171,7 +171,7 @@ package {
 
         public function allPlayersSkipping():Boolean {
             return this.confirmButtonCount == this.registeredPlayers &&
-                this.timeAlive - this.lastConfirmButtonTime >= 2 * 1000;
+                this.timeAlive - this.lastConfirmButtonTime >= .1 * 1000;
         }
 
         override public function destroy():void {
