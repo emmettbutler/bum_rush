@@ -64,9 +64,9 @@ package {
                         }
                     }
                     if (registered) {
-                        indicator = new FlxText(0, 0, completionIndicatorWidth, (playerConfig['index'] + 1) + "");
+                        indicator = new FlxText(-100, -100, completionIndicatorWidth, (playerConfig['index'] + 1) + "");
                         indicator.setFormat("Pixel_Berry_08_84_Ltd.Edition", 12, 0xff000000, "center");
-                        indicator_box = new GameObject(new DHPoint(0, 0));
+                        indicator_box = new GameObject(new DHPoint(-100, -100));
                         indicator_box.makeGraphic(completionIndicatorWidth, completionIndicatorWidth, playerConfig['tint']);
                         this.completionIndicators[kid] = {
                             "text": indicator,

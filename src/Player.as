@@ -831,10 +831,12 @@ package {
                 if (control['value'] == mapping["b"]["value_on"]) {
                     this.highlight_sprite.visible = true;
                     this.highlight_number.visible = true;
+                    this.player_hud.highlight();
                     return;
                 } else if (control["value"] == mapping["b"]["value_off"]){
                     this.highlight_sprite.visible = false;
                     this.highlight_number.visible = false;
+                    this.player_hud.unhighlight();
                     return;
                 }
             }
