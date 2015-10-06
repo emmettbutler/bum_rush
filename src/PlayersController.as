@@ -17,6 +17,7 @@ package {
 
     public class PlayersController {
         [Embed(source="/../assets/images/characters/driver_emmett_64.png")] private var sprite_emmett:Class;
+        [Embed(source="/../assets/images/characters/driver_laura_64.png")] private var sprite_laura:Class;
         [Embed(source="/../assets/images/characters/driver_billy_64.png")] private var sprite_billy:Class;
         [Embed(source="/../assets/images/characters/driver_rachel_64.png")] private var sprite_rachel:Class;
         [Embed(source="/../assets/images/characters/driver_nina_64.png")] private var sprite_nina:Class;
@@ -146,7 +147,7 @@ package {
             };
             playerConfigs[PLAYER_5] = {
                 "tag": PLAYER_5,
-                "sprite": sprite_nina,
+                "sprite": sprite_laura,
                 "car": ImgCar5,
                 "join_prefix": "laura",
                 "starting_passenger": Passenger.TYPE_E,
