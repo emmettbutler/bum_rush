@@ -29,7 +29,6 @@ package {
         public var passengerConfig:Object;
 
         private var riding_sprite:GameObject;
-        private var standing_sprite:GameObject;
         private var frameRate:Number = 12;
         private var destPos:DHPoint;
         public var idx:int = 0;
@@ -40,43 +39,35 @@ package {
             public static var passengerConfigs:Dictionary = new Dictionary();
             passengerConfigs[TYPE_A] = {
                 "name": "Diego",
-                "riding_sprite": sprite_diego,
-                "standing_sprite": sprite_diego
+                "riding_sprite": sprite_diego
             };
             passengerConfigs[TYPE_B] = {
                 "name": "Dirk",
-                "riding_sprite": sprite_dirk,
-                "standing_sprite": sprite_dirk
+                "riding_sprite": sprite_dirk
             };
             passengerConfigs[TYPE_C] = {
                 "name": "Johnny",
-                "riding_sprite": sprite_johnny,
-                "standing_sprite": sprite_johnny
+                "riding_sprite": sprite_johnny
             };
             passengerConfigs[TYPE_D] = {
                 "name": "Max",
-                "riding_sprite": sprite_muggs,
-                "standing_sprite": sprite_muggs
+                "riding_sprite": sprite_muggs
             };
             passengerConfigs[TYPE_E] = {
                 "name": "Sam",
-                "riding_sprite": sprite_diego,
-                "standing_sprite": sprite_diego
+                "riding_sprite": sprite_diego
             };
             passengerConfigs[TYPE_F] = {
                 "name": "Sean",
-                "riding_sprite": sprite_diego,
-                "standing_sprite": sprite_diego
+                "riding_sprite": sprite_diego
             };
             passengerConfigs[TYPE_G] = {
                 "name": "Arielle",
-                "riding_sprite": sprite_diego,
-                "standing_sprite": sprite_diego
+                "riding_sprite": sprite_diego
             };
             passengerConfigs[TYPE_H] = {
                 "name": "Adam",
-                "riding_sprite": sprite_diego,
-                "standing_sprite": sprite_diego
+                "riding_sprite": sprite_diego
             };
         }
 
@@ -98,18 +89,13 @@ package {
             this.riding_sprite.addAnimation("ride_up", [4,5,6,7], this.frameRate, true);
             this.riding_sprite.addAnimation("ride_down", [8,9,10,11], this.frameRate, true);
             this.riding_sprite.addAnimation("ride_left", [12,13,14,15], this.frameRate, true);
+            this.riding_sprite.addAnimation("flying", [16], this.frameRate, true);
+            this.riding_sprite.addAnimation("standing", [17, 18], 6, true);
             this.riding_sprite.play("ride_down");
-
-            this.standing_sprite = new GameObject(this.pos);
-            this.standing_sprite.loadGraphic(this.passengerConfig['standing_sprite'],
-                                             true, false, 64, 64);
-            this.standing_sprite.zSorted = true;
-            this.standing_sprite.addAnimation("stand", [0, 1], this.frameRate, true);
-            this.standing_sprite.visible = false;
         }
 
         public function getStandingHitbox():FlxRect {
-            return this.standing_sprite._getRect();
+            return this.riding_sprite._getRect();
         }
 
         public function set driver(d:Player):void {
@@ -127,13 +113,11 @@ package {
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
             FlxG.state.add(this.riding_sprite);
-            FlxG.state.add(this.standing_sprite);
         }
 
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
             this.riding_sprite.setPos(pos);
-            this.standing_sprite.setPos(pos);
         }
 
         public function leaveCar(hitVector:DHPoint, destPoint:DHPoint):void {
@@ -141,6 +125,7 @@ package {
                 this._state = STATE_MOVING_TO_STREET;
                 this._driver = null;
                 this.destPos = destPoint;
+                this.riding_sprite.play("flying");
             }
         }
 
@@ -166,7 +151,7 @@ package {
                         this.dir = new DHPoint(0, 0);
                         this._state = STATE_STANDING;
                         this.riding_sprite.angle = 0;
-                        this.standing_sprite.angle = 0;
+                        this.riding_sprite.play("standing");
                     }
                     break;
             }
