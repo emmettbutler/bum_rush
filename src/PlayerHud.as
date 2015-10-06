@@ -50,7 +50,7 @@ package {
                     FlxG.state.add(hud_name_back);
 
                     hud_name = new FlxText(
-                        0, 0, 90, playerConfig['name']);
+                        0, 0, 90, playerConfig['name'] + "(" + (1 + playerConfig['index']) + ")");
                     hud_name.setFormat("Pixel_Berry_08_84_Ltd.Edition", 12, 0xff000000, "center");
                     FlxG.state.add(hud_name);
                 } else {

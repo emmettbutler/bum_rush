@@ -36,8 +36,10 @@ package {
 
         private var checkpointSound:FlxSound;
         private var completionIndicators:Object;
+        private static const completionIndicatorWidth:Number = 18;
 
-        public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null) {
+        public function Checkpoint(pos:DHPoint, dim:DHPoint, type:String=null,
+                                   registeredPlayers:Object=null) {
             super(pos);
             this.dimensions = dim;
             if(type != null) {
@@ -50,12 +52,28 @@ package {
 
             this.completionIndicators = {};
             var playerConfigs:Object = PlayersController.getInstance().playerConfigs;
-            var indicator:FlxText, playerConfig:Object;
-            for (var kid:Object in playerConfigs) {
-                playerConfig = playerConfigs[kid];
-                indicator = new FlxText(0, 0, 100, playerConfig['index'] + "");
-                indicator.setFormat("Pixel_Berry_08_84_Ltd.Edition", 12, playerConfig['tint'], "left");
-                this.completionIndicators[kid] = indicator;
+            var indicator:FlxText, indicator_box:GameObject, playerConfig:Object;
+            if (this._cp_type != Checkpoint.HOME) {
+                for (var kid:Object in playerConfigs) {
+                    playerConfig = playerConfigs[kid];
+                    var registered:Boolean = false;
+                    for (var pid:Object in registeredPlayers) {
+                        if (registeredPlayers[pid]['config']['tag'] == playerConfig['tag']) {
+                            registered = true;
+                            break;
+                        }
+                    }
+                    if (registered) {
+                        indicator = new FlxText(0, 0, completionIndicatorWidth, (playerConfig['index'] + 1) + "");
+                        indicator.setFormat("Pixel_Berry_08_84_Ltd.Edition", 12, 0xff000000, "center");
+                        indicator_box = new GameObject(new DHPoint(0, 0));
+                        indicator_box.makeGraphic(completionIndicatorWidth, completionIndicatorWidth, playerConfig['tint']);
+                        this.completionIndicators[kid] = {
+                            "text": indicator,
+                            "box": indicator_box
+                        };
+                    }
+                }
             }
 
             this._cp_type = type;
@@ -119,22 +137,38 @@ package {
         }
 
         override public function setPos(pos:DHPoint):void {
+            if (this.pos.x == pos.x && this.pos.y == pos.y) {
+                return;
+            }
             super.setPos(pos);
-            var cur:FlxText;
+            var cur:Object;
             var row:Number = 0, col:Number = 0;
+            var counter:Number = 0;
+            var ids:Array = new Array();
             for (var kid:Object in this.completionIndicators) {
-                cur = this.completionIndicators[kid];
-                cur.x = this.x + (9 * col);
-                cur.y = this.y + (13 * row);
-                if (row < 1) {
-                    row++;
-                } else {
-                    row = 0;
-                }
-                if (col < 4) {
-                    col++;
-                } else {
-                    col = 0;
+                ids.push(kid);
+            }
+
+            var rows:Number = this.angle == 0 ? 2 : 4;
+            var cols:Number = this.angle == 0 ? 4 : 2;
+            var base:DHPoint = this.pos.add(new DHPoint(3, 0));
+            if (this.angle != 0) {
+                base = new DHPoint(this.pos.x + 25, this.pos.y - 22).add(new DHPoint(0, 3));
+            }
+
+            for (row = 0; row < rows; row++) {
+                for (col = 0; col < cols; col++) {
+                    kid = ids[counter];
+                    cur = this.completionIndicators[kid];
+                    if (cur != null) {
+                        cur['text'].x = base.x + (completionIndicatorWidth * col);
+                        cur['text'].y = base.y + (completionIndicatorWidth * row);
+                        cur['box'].setPos(
+                            new DHPoint(
+                                base.x + (completionIndicatorWidth * col),
+                                base.y + (completionIndicatorWidth * row)));
+                    }
+                    counter++;
                 }
             }
         }
@@ -156,15 +190,21 @@ package {
         }
 
         public function markComplete(kid:Number):void {
-            this.completionIndicators[kid].visible = false;
+            if (this._cp_type != Checkpoint.HOME) {
+                this.completionIndicators[kid]['text'].visible = false;
+                this.completionIndicators[kid]['box'].visible = false;
+            }
         }
 
         override public function addVisibleObjects():void {
             FlxG.state.add(this);
             FlxG.state.add(this.checkpoint_sprite);
             FlxG.state.add(this.checkpoint_marker);
-            for (var kid:Object in this.completionIndicators) {
-                FlxG.state.add(this.completionIndicators[kid]);
+            if (this._cp_type != Checkpoint.HOME) {
+                for (var kid:Object in this.completionIndicators) {
+                    FlxG.state.add(this.completionIndicators[kid]['box']);
+                    FlxG.state.add(this.completionIndicators[kid]['text']);
+                }
             }
         }
     }

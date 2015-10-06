@@ -39,6 +39,7 @@ package {
         private var m_world:b2World;
         private var driver_sprite:Class;
         private var highlight_sprite:GameObject;
+        private var highlight_number:FlxText;
         private var carSprite:GameObject;
         private var mainSprite:GameObject;
         private var collider:GameObject;
@@ -311,6 +312,10 @@ package {
             this.highlight_sprite.color = tagData["tint"];
             this.highlight_sprite.visible = false;
 
+            this.highlight_number = new FlxText(0, 0, 100, (this.idx + 1) + "");
+            this.highlight_number.setFormat("Pixel_Berry_08_84_Ltd.Edition", 16, tagData['tint'], "left");
+            this.highlight_number.visible = false;
+
             this.carSprite = new GameObject(this.pos);
             this.carSprite.loadGraphic(car_sprite, false, false, 64, 64);
             this.carSprite.basePosOffset = new DHPoint(0, -1000);
@@ -366,6 +371,7 @@ package {
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
             FlxG.state.add(this.highlight_sprite);
+            FlxG.state.add(this.highlight_number);
             FlxG.state.add(this.carSprite);
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.collider);
@@ -760,9 +766,11 @@ package {
 
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = true;
+                this.highlight_number.visible = true;
                 this.player_hud.highlight();
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = false;
+                this.highlight_number.visible = false;
                 this.player_hud.unhighlight();
             }
         }
@@ -822,9 +830,11 @@ package {
             if (control['id'] == mapping["b"]["button"]) {
                 if (control['value'] == mapping["b"]["value_on"]) {
                     this.highlight_sprite.visible = true;
+                    this.highlight_number.visible = true;
                     return;
                 } else if (control["value"] == mapping["b"]["value_off"]){
                     this.highlight_sprite.visible = false;
+                    this.highlight_number.visible = false;
                     return;
                 }
             }
@@ -855,6 +865,8 @@ package {
             pos.x = Math.round(pos.x);
             pos.y = Math.round(pos.y);
             this.highlight_sprite.setPos(pos);
+            this.highlight_number.x = pos.x + 64 / 2;
+            this.highlight_number.y = pos.y + 64 + 3;
             this.mainSprite.setPos(pos);
             this.carSprite.setPos(pos);
             this.completionIndicator.x = pos.x;

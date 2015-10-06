@@ -666,7 +666,8 @@ package {
                 checkpoint = new Checkpoint(
                     new DHPoint(-1000, -1000),
                     new DHPoint(20, 20),
-                    this.checkpoints_data[this.active_map_index][i]["type"]
+                    this.checkpoints_data[this.active_map_index][i]["type"],
+                    PlayersController.getInstance().getRegisteredPlayers()
                 );
                 this.checkpoints.push(checkpoint);
                 if(this.checkpoints_data[this.active_map_index][i]["type"] == Checkpoint.HOME) {
