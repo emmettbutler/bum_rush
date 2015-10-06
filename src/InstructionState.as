@@ -19,19 +19,19 @@ package {
 
             ScreenManager.getInstance();
             var pathPrefix:String = "../assets/images/ui/";
-            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "mappicker_bg.png");
+            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "instructions_bg.png");
 
-            var t:FlxText;
+            /*var t:FlxText;
             t = new FlxText(0, ScreenManager.getInstance().screenHeight/3, ScreenManager.getInstance().screenWidth,
                             "A to accelerate.\nB to highlight yourself.\nD-pad to steer.\n\nRam into your friends and collect their dates as you visit all of the hot spots in town before returning home.\nThe more the merrier, after all!");
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff);
             t.alignment = "center";
-            add(t);
+            add(t);*/
         }
 
         override public function update():void {
             super.update();
-            if(this.timeAlive/1000 > 5) {
+            if(this.timeAlive/1000 > 8) {
                 FlxG.switchState(new PlayState(this._cur_map));
             }
         }
