@@ -164,7 +164,7 @@ package {
         public function updateDrivingAnimation():void {
             if (this._driver != null) {
                 this.setPos(new DHPoint(
-                    this._driver.getPos().x,
+                    this._driver.getPos().x + this._driver.bodyLinearVelocity.x * Math.pow(this.idx, 2) * -.001,
                     this._driver.getPos().y - (Passenger.STACK_INTERVAL * this.idx)
                 ));
                 var facingVector:DHPoint = this._driver.getFacingVector();
