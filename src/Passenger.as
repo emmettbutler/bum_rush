@@ -8,6 +8,10 @@ package {
         [Embed(source="/../assets/images/characters/passenger_dirk_64.png")] private static var sprite_dirk:Class;
         [Embed(source="/../assets/images/characters/passenger_johnny_64.png")] private static var sprite_johnny:Class;
         [Embed(source="/../assets/images/characters/passenger_muggs_64.png")] private static var sprite_muggs:Class;
+        [Embed(source="/../assets/images/characters/passenger_el_64.png")] private static var sprite_el:Class;
+        [Embed(source="/../assets/images/characters/passenger_gracie_64.png")] private static var sprite_gracie:Class;
+        [Embed(source="/../assets/images/characters/passenger_sid_64.png")] private static var sprite_sid:Class;
+        [Embed(source="/../assets/images/characters/passenger_tanya_64.png")] private static var sprite_tanya:Class;
 
         public static const STATE_RIDING:Number = 1;
         public static const STATE_STANDING:Number = 2;
@@ -54,20 +58,20 @@ package {
                 "riding_sprite": sprite_muggs
             };
             passengerConfigs[TYPE_E] = {
-                "name": "Sam",
-                "riding_sprite": sprite_diego
+                "name": "El",
+                "riding_sprite": sprite_el
             };
             passengerConfigs[TYPE_F] = {
-                "name": "Sean",
-                "riding_sprite": sprite_diego
+                "name": "Gracie",
+                "riding_sprite": sprite_gracie
             };
             passengerConfigs[TYPE_G] = {
-                "name": "Arielle",
-                "riding_sprite": sprite_diego
+                "name": "Sid",
+                "riding_sprite": sprite_sid
             };
             passengerConfigs[TYPE_H] = {
-                "name": "Adam",
-                "riding_sprite": sprite_diego
+                "name": "Tanya",
+                "riding_sprite": sprite_tanya
             };
         }
 
