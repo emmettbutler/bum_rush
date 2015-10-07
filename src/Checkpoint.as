@@ -17,6 +17,8 @@ package {
         [Embed(source="/../assets/images/worlds/street_icon_hotdog.png")] private var ImgStreetMarkerHotDog:Class;
         [Embed(source="/../assets/images/worlds/street_icon_tree.png")] private var ImgStreetMarkerTree:Class;
         [Embed(source="/../assets/images/worlds/street_overlay_heart_1.png")] private var ImgStreetMarkerHome:Class;
+        [Embed(source="/../assets/images/ui/heart_icon.png")] private var ImgHeartIndicator:Class;
+        [Embed(source="/../assets/images/ui/heart_icon_shadow.png")] private var ImgHeartIndicatorShadow:Class;
 
         [Embed(source="/../assets/audio/passenger.mp3")] private var CheckpointSFX:Class;
 
@@ -52,7 +54,8 @@ package {
 
             this.completionIndicators = {};
             var playerConfigs:Object = PlayersController.getInstance().playerConfigs;
-            var indicator:FlxText, indicator_box:GameObject, playerConfig:Object;
+            var indicator:FlxText, indicator_heart:GameObject,
+                indicator_shadow:GameObject, playerConfig:Object;
             if (this._cp_type != Checkpoint.HOME) {
                 for (var kid:Object in playerConfigs) {
                     playerConfig = playerConfigs[kid];
@@ -66,11 +69,15 @@ package {
                     if (registered) {
                         indicator = new FlxText(-100, -100, completionIndicatorWidth, (playerConfig['index'] + 1) + "");
                         indicator.setFormat("Pixel_Berry_08_84_Ltd.Edition", 12, 0xff000000, "center");
-                        indicator_box = new GameObject(new DHPoint(-100, -100));
-                        indicator_box.makeGraphic(completionIndicatorWidth, completionIndicatorWidth, playerConfig['tint']);
+                        indicator_heart = new GameObject(new DHPoint(-100, -100));
+                        indicator_heart.loadGraphic(ImgHeartIndicator, false, false, 19, 17);
+                        indicator_heart.color = playerConfig['tint'];
+                        indicator_shadow = new GameObject(new DHPoint(-100, -100));
+                        indicator_shadow.loadGraphic(ImgHeartIndicatorShadow, false, false, 19, 17);
                         this.completionIndicators[kid] = {
                             "text": indicator,
-                            "box": indicator_box
+                            "shadow": indicator_shadow,
+                            "heart": indicator_heart
                         };
                     }
                 }
@@ -161,9 +168,13 @@ package {
                     kid = ids[counter];
                     cur = this.completionIndicators[kid];
                     if (cur != null) {
-                        cur['text'].x = base.x + (completionIndicatorWidth * col);
-                        cur['text'].y = base.y + (completionIndicatorWidth * row);
-                        cur['box'].setPos(
+                        cur['text'].x = base.x + (completionIndicatorWidth * col) - 1;
+                        cur['text'].y = base.y + (completionIndicatorWidth * row) - 4;
+                        cur['heart'].setPos(
+                            new DHPoint(
+                                base.x + (completionIndicatorWidth * col),
+                                base.y + (completionIndicatorWidth * row)));
+                        cur['shadow'].setPos(
                             new DHPoint(
                                 base.x + (completionIndicatorWidth * col),
                                 base.y + (completionIndicatorWidth * row)));
@@ -192,7 +203,8 @@ package {
         public function markComplete(kid:Number):void {
             if (this._cp_type != Checkpoint.HOME) {
                 this.completionIndicators[kid]['text'].visible = false;
-                this.completionIndicators[kid]['box'].visible = false;
+                this.completionIndicators[kid]['heart'].visible = false;
+                this.completionIndicators[kid]['shadow'].visible = false;
             }
         }
 
@@ -202,7 +214,8 @@ package {
             FlxG.state.add(this.checkpoint_marker);
             if (this._cp_type != Checkpoint.HOME) {
                 for (var kid:Object in this.completionIndicators) {
-                    FlxG.state.add(this.completionIndicators[kid]['box']);
+                    FlxG.state.add(this.completionIndicators[kid]['shadow']);
+                    FlxG.state.add(this.completionIndicators[kid]['heart']);
                     FlxG.state.add(this.completionIndicators[kid]['text']);
                 }
             }
