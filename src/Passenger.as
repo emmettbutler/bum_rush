@@ -12,6 +12,7 @@ package {
         [Embed(source="/../assets/images/characters/passenger_gracie_64.png")] private static var sprite_gracie:Class;
         [Embed(source="/../assets/images/characters/passenger_sid_64.png")] private static var sprite_sid:Class;
         [Embed(source="/../assets/images/characters/passenger_tanya_64.png")] private static var sprite_tanya:Class;
+        [Embed(source="/../assets/images/misc/hey_64.png")] private static var sprite_bubble:Class;
 
         public static const STATE_RIDING:Number = 1;
         public static const STATE_STANDING:Number = 2;
@@ -33,6 +34,7 @@ package {
         public var passengerConfig:Object;
 
         private var riding_sprite:GameObject;
+        private var bubble_sprite:GameObject;
         private var frameRate:Number = 12;
         private var destPos:DHPoint;
         public var idx:int = 0;
@@ -96,6 +98,13 @@ package {
             this.riding_sprite.addAnimation("flying", [16], this.frameRate, true);
             this.riding_sprite.addAnimation("standing", [17, 18], 6, true);
             this.riding_sprite.play("ride_down");
+
+            this.bubble_sprite = new GameObject(this.pos);
+            this.bubble_sprite.loadGraphic(sprite_bubble,
+                                           true, false, 64, 64);
+            this.bubble_sprite.visible = false;
+            this.bubble_sprite.addAnimation("run", [0, 1, 2, 3, 3, 3, 3, 3, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7, 7],
+                                            this.frameRate, true);
         }
 
         public function getStandingHitbox():FlxRect {
@@ -117,11 +126,13 @@ package {
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
             FlxG.state.add(this.riding_sprite);
+            FlxG.state.add(this.bubble_sprite);
         }
 
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
             this.riding_sprite.setPos(pos);
+            this.bubble_sprite.setPos(pos.add(new DHPoint(25, -40), this.swapPos))
         }
 
         public function leaveCar(hitVector:DHPoint, destPoint:DHPoint):void {
@@ -136,6 +147,7 @@ package {
         public function enterCar(driver:Player):void {
             if (this._state != STATE_RIDING) {
                 this._driver = driver;
+                this.bubble_sprite.visible = false;
                 this._state = STATE_RIDING;
             }
         }
@@ -156,6 +168,8 @@ package {
                         this._state = STATE_STANDING;
                         this.riding_sprite.angle = 0;
                         this.riding_sprite.play("standing");
+                        this.bubble_sprite.visible = true;
+                        this.bubble_sprite.play("run");
                     }
                     break;
             }
