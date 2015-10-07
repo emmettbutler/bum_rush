@@ -45,7 +45,7 @@ package {
         private var collider:GameObject;
         public var playerConfig:Object;
         private var checkmark_sprite:GameObject;
-        private var movementForce:b2Vec2;
+        private var movementForce:b2Vec2, velVec:b2Vec2, bounceVec:b2Vec2;
         private var heart_sprite:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
@@ -142,6 +142,8 @@ package {
             this.controlType = ctrlType;
             this.streetPoints = streetPoints;
             this.movementForce = new b2Vec2(0, 0);
+            this.velVec = new b2Vec2(0, 0);
+            this.bounceVec = new b2Vec2(0, 0);
 
             this.controller = controller;
             this.driver_tag = _tag;
@@ -634,6 +636,10 @@ package {
 
             if (this._colliding) {
                 if (this._collisionDirection != null) {
+                    this.velVec.x = 0;
+                    this.velVec.y = 0;
+                    this.bounceVec.x = 0;
+                    this.bounceVec.y = 0;
                     if (this._collisionDirection[0] == 1 &&
                         this._collisionDirection[1] == 1 &&
                         this._collisionDirection[2] == 1 &&
@@ -643,55 +649,39 @@ package {
                     } else {
                         if (this._collisionDirection[1] == 1) {
                             // right
-                            this.m_physBody.SetLinearVelocity(
-                                new b2Vec2(
-                                    Math.min(this.m_physBody.GetLinearVelocity().x, 0),
-                                    this.m_physBody.GetLinearVelocity().y
-                                )
-                            );
-                            this.m_physBody.ApplyImpulse(
-                                new b2Vec2(-this.wallBounceAmount, 0),
-                                this.m_physBody.GetPosition()
-                            );
+                            this.velVec.x = Math.min(this.m_physBody.GetLinearVelocity().x, 0);
+                            this.velVec.y = this.m_physBody.GetLinearVelocity().y;
+                            this.bounceVec.x = -this.wallBounceAmount;
+                            this.bounceVec.y = 0;
+                            this.m_physBody.SetLinearVelocity(this.velVec);
+                            this.m_physBody.ApplyImpulse(this.bounceVec, this.m_physBody.GetPosition());
                         }
                         if (this._collisionDirection[0] == 1) {
                             // left
-                            this.m_physBody.SetLinearVelocity(
-                                new b2Vec2(
-                                    Math.max(this.m_physBody.GetLinearVelocity().x, 0),
-                                    this.m_physBody.GetLinearVelocity().y
-                                )
-                            );
-                            this.m_physBody.ApplyImpulse(
-                                new b2Vec2(wallBounceAmount, 0),
-                                this.m_physBody.GetPosition()
-                            );
+                            this.velVec.x = Math.max(this.m_physBody.GetLinearVelocity().x, 0);
+                            this.velVec.y = this.m_physBody.GetLinearVelocity().y;
+                            this.bounceVec.x = wallBounceAmount;
+                            this.bounceVec.y = 0;
+                            this.m_physBody.SetLinearVelocity(this.velVec);
+                            this.m_physBody.ApplyImpulse(this.bounceVec, this.m_physBody.GetPosition());
                         }
                         if (this._collisionDirection[3] == 1) {
                             // down
-                            this.m_physBody.SetLinearVelocity(
-                                new b2Vec2(
-                                    this.m_physBody.GetLinearVelocity().x,
-                                    Math.min(this.m_physBody.GetLinearVelocity().y, 0)
-                                )
-                            );
-                            this.m_physBody.ApplyImpulse(
-                                new b2Vec2(0, -wallBounceAmount),
-                                this.m_physBody.GetPosition()
-                            );
+                            this.velVec.x = this.m_physBody.GetLinearVelocity().x;
+                            this.velVec.y = Math.min(this.m_physBody.GetLinearVelocity().y, 0);
+                            this.bounceVec.x = 0;
+                            this.bounceVec.y = -wallBounceAmount;
+                            this.m_physBody.SetLinearVelocity(this.velVec);
+                            this.m_physBody.ApplyImpulse(this.bounceVec, this.m_physBody.GetPosition());
                         }
                         if (this._collisionDirection[2] == 1) {
                             // up
-                            this.m_physBody.SetLinearVelocity(
-                                new b2Vec2(
-                                    this.m_physBody.GetLinearVelocity().x,
-                                    Math.max(this.m_physBody.GetLinearVelocity().y, 0)
-                                )
-                            );
-                            this.m_physBody.ApplyImpulse(
-                                new b2Vec2(0, wallBounceAmount),
-                                this.m_physBody.GetPosition()
-                            );
+                            this.velVec.x = this.m_physBody.GetLinearVelocity().x;
+                            this.velVec.y = Math.max(this.m_physBody.GetLinearVelocity().y, 0);
+                            this.bounceVec.x = 0;
+                            this.bounceVec.y = wallBounceAmount;
+                            this.m_physBody.SetLinearVelocity(this.velVec);
+                            this.m_physBody.ApplyImpulse(this.bounceVec, this.m_physBody.GetPosition());
                         }
                     }
                 }
