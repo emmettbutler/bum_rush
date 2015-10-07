@@ -83,10 +83,9 @@ package {
                                          ScreenManager.getInstance().screenWidth, "");
             this.timerText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"left");
 
-            if (FlxG.music != null) {
-                FlxG.music.stop();
+            if (FlxG.music == null) {
+                FlxG.playMusic(SndBGMLoop, 1);
             }
-            FlxG.playMusic(SndBGMLoop, 1);
             //y pos of background plus a percentage of the height of the bg
             //listener
             var that:MenuState = this;

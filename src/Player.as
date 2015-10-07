@@ -15,8 +15,8 @@ package {
         [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
         [Embed(source="/../assets/audio/drive.mp3")] private var SfxAccel:Class;
         [Embed(source="/../assets/audio/donk.mp3")] private var SfxEnd:Class;
-        [Embed(source="/../assets/audio/collide.mp3")] private var SfxCollide:Class;
-        [Embed(source="/../assets/audio/passenger.mp3")] private var SfxPassenger:Class;
+        [Embed(source="/../assets/audio/bumrush_collision.mp3")] private var SfxCollide:Class;
+        [Embed(source="/../assets/audio/bumrush_hey.mp3")] private var SfxPassenger:Class;
         [Embed(source="/../assets/images/ui/HUD_arrow.png")] private static var HUDCheckmark:Class;
         [Embed(source="/../assets/images/misc/highlight.png")] private static var ImgHighlight:Class;
         [Embed(source="/../assets/images/ui/HUD_Heart.png")] private static var HUDHeart:Class;
@@ -114,8 +114,6 @@ package {
         private var controlType:Number = CTRL_PAD;
         private var accelSFX:FlxSound;
         private var lastCheckpointSound:FlxSound;
-        private var collideSfx:FlxSound;
-        private var passengerSfx:FlxSound;
         private var wallBounceAmount:Number = 1.7;
         private var idx:Number;
 
@@ -166,14 +164,6 @@ package {
             this.lastCheckpointSound = new FlxSound();
             this.lastCheckpointSound.loadEmbedded(SfxEnd, false);
             this.lastCheckpointSound.volume = 1;
-
-            this.collideSfx = new FlxSound();
-            this.collideSfx.loadEmbedded(SfxCollide, false);
-            this.collideSfx.volume = 1;
-
-            this.passengerSfx = new FlxSound();
-            this.passengerSfx.loadEmbedded(SfxPassenger, false);
-            this.passengerSfx.volume = 1;
 
             this.completionIndicator = new GameObject(new DHPoint(0,0));
             this.completionIndicator.loadGraphic(ImgGoHome, false, false, 102, 48);
@@ -253,7 +243,7 @@ package {
                 this.checking_in = false;
                 this.meter.setVisible(false);
             }
-            this.collideSfx.play();
+            FlxG.play(SfxCollide, 1);
         }
 
         public function addPassenger(passenger:Passenger, playSound:Boolean=true):void {
@@ -264,7 +254,7 @@ package {
             this.passengers.push(passenger);
             passenger.idx = this.passengers.indexOf(passenger);
             if (playSound) {
-                passengerSfx.play();
+                FlxG.play(SfxPassenger);
             }
         }
 

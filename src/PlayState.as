@@ -20,6 +20,7 @@ package {
         [Embed(source="/../assets/images/worlds/clamFountain_3.png")] private var DecorClamSprite:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_intro.mp3")] private var SndBGMIntro:Class;
         [Embed(source = "../assets/audio/bumrush_bgm_loop.mp3")] private var SndBGM:Class;
+        [Embed(source = "../assets/audio/bumrush_success.mp3")] private var SfxEnd:Class;
 
         private var m_physScale:Number = 30
         private var listener:ContactListener;
@@ -877,6 +878,10 @@ package {
                 this.finished = true;
                 this.time_out_sprite.visible = true;
                 this.gameActive = false;
+                if (FlxG.music != null) {
+                    FlxG.music.stop();
+                }
+                FlxG.play(SfxEnd);
             }
         }
 
