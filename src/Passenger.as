@@ -42,36 +42,36 @@ package {
         {
             public static var passengerConfigs:Dictionary = new Dictionary();
             passengerConfigs[TYPE_A] = {
-                "name": "Diego",
-                "riding_sprite": sprite_diego
-            };
-            passengerConfigs[TYPE_B] = {
-                "name": "Dirk",
-                "riding_sprite": sprite_dirk
-            };
-            passengerConfigs[TYPE_C] = {
-                "name": "Johnny",
-                "riding_sprite": sprite_johnny
-            };
-            passengerConfigs[TYPE_D] = {
-                "name": "Max",
-                "riding_sprite": sprite_muggs
-            };
-            passengerConfigs[TYPE_E] = {
                 "name": "El",
                 "riding_sprite": sprite_el
             };
-            passengerConfigs[TYPE_F] = {
+            passengerConfigs[TYPE_B] = {
                 "name": "Gracie",
                 "riding_sprite": sprite_gracie
             };
-            passengerConfigs[TYPE_G] = {
+            passengerConfigs[TYPE_C] = {
                 "name": "Sid",
                 "riding_sprite": sprite_sid
             };
-            passengerConfigs[TYPE_H] = {
+            passengerConfigs[TYPE_D] = {
                 "name": "Tanya",
                 "riding_sprite": sprite_tanya
+            };
+            passengerConfigs[TYPE_E] = {
+                "name": "Diego",
+                "riding_sprite": sprite_diego
+            };
+            passengerConfigs[TYPE_F] = {
+                "name": "Dirk",
+                "riding_sprite": sprite_dirk
+            };
+            passengerConfigs[TYPE_G] = {
+                "name": "Johnny",
+                "riding_sprite": sprite_johnny
+            };
+            passengerConfigs[TYPE_H] = {
+                "name": "Max",
+                "riding_sprite": sprite_muggs
             };
         }
 
