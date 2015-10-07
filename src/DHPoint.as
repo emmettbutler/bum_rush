@@ -36,7 +36,12 @@ package {
             return new DHPoint(this.x - other.x, this.y - other.y);
         }
 
-        public function add(other:DHPoint):DHPoint {
+        public function add(other:DHPoint, pt:DHPoint=null):DHPoint {
+            if (pt != null) {
+               pt.x = this.x + other.x;
+               pt.y = this.y + other.y;
+               return pt;
+            }
             return new DHPoint(this.x + other.x, this.y + other.y);
         }
 

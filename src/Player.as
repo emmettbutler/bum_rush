@@ -570,8 +570,9 @@ package {
                 }
             }
 
-            this.setPos(new DHPoint((this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2,
-                                    (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2));
+            this.swapPos.x = (this.m_physBody.GetPosition().x * m_physScale / 2) - this.mainSprite.width/2;
+            this.swapPos.y = (this.m_physBody.GetPosition().y * m_physScale / 2) - this.mainSprite.height/2;
+            this.setPos(this.swapPos);
 
             if(this.race_started) {
                 if(this.driving) {
@@ -586,7 +587,7 @@ package {
                 this.carSprite.play("drive_down");
             }
             if(this.checking_in) {
-                this.meter.setPos(this.pos.add(new DHPoint(30, -10)));
+                this.meter.setPos(this.pos.add(new DHPoint(30, -10), this.swapPos));
                 this.meter.setPoints((((this.curTime - this.checkInTime)/1000)/this.checkin_timelimit)*100);
 
                 if ((this.curTime - this.checkInTime) / 1000 >= this.checkin_timelimit) {
@@ -612,14 +613,16 @@ package {
         public function updateMovement():void {
             if (this.throttle) {
                 this.accelSFX.play();
-                var force:b2Vec2, accelMul:Number = ACCELERATION_MULTIPLIER;
+                var accelMul:Number = ACCELERATION_MULTIPLIER;
                 if (this.directionsPressed.x != 0 || this.directionsPressed.y != 0) {
-                    force = new b2Vec2(this.directionsPressed.x * accelMul, this.directionsPressed.y * accelMul);
+                    movementForce.x = this.directionsPressed.x * accelMul;
+                    movementForce.y = this.directionsPressed.y * accelMul;
                 } else {
-                    force = new b2Vec2(this.facingVector.x * accelMul, this.facingVector.y * accelMul);
+                    movementForce.x = this.facingVector.x * accelMul;
+                    movementForce.y = this.facingVector.y * accelMul;
                 }
                 if (this.bodyLinearVelocity._length() < MAX_VELOCITY) {
-                    this.m_physBody.ApplyImpulse(force, this.m_physBody.GetPosition())
+                    this.m_physBody.ApplyImpulse(movementForce, this.m_physBody.GetPosition())
                 }
             }
 
@@ -703,19 +706,15 @@ package {
                     if(this.directionsPressed.x >= 0) {
                         this.mainSprite.play("drive_right");
                         this.carSprite.play("drive_right");
-                        this.mainSprite.basePosOffset = new DHPoint(
-                            this.mainSprite.width / 2,
-                            3000
-                        );
+                        this.mainSprite.basePosOffset.x = this.mainSprite.width / 2;
+                        this.mainSprite.basePosOffset.y = 3000;
                         this.facingVector.x = 1;
                         this.facingVector.y = 0;
                     } else {
                         this.mainSprite.play("drive_left");
                         this.carSprite.play("drive_left");
-                        this.mainSprite.basePosOffset = new DHPoint(
-                            this.mainSprite.width / 2,
-                            1000
-                        );
+                        this.mainSprite.basePosOffset.x = this.mainSprite.width / 2;
+                        this.mainSprite.basePosOffset.y = 1000;
                         this.facingVector.x = -1;
                         this.facingVector.y = 0;
                     }
@@ -848,22 +847,6 @@ package {
             return this.mainSprite.getMiddle();
         }
 
-        public function setExhaustPos():void {
-            if(this.facingVector.x == 1) {
-                //right
-                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(-10, this.carSprite.height/2));
-            } else if(this.facingVector.x == -1) {
-                //left
-                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(this.carSprite.width + 10, this.carSprite.height/2));
-            } else if(this.facingVector.y == 1) {
-                //down
-                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(this.carSprite.width/2, -10));
-            } else if(this.facingVector.y == -1) {
-                //up
-                this.exhaustPos = this.carSprite.getPos().add(new DHPoint(this.carSprite.width/2, this.carSprite.height));
-            }
-        }
-
         override public function setPos(pos:DHPoint):void {
             super.setPos(pos);
             pos.x = Math.round(pos.x);
@@ -877,7 +860,7 @@ package {
             this.completionIndicator.y = pos.y - 30;
             this.collider.setPos(pos.add(
                 new DHPoint((this.mainSprite.width - this.collider.width) / 2,
-                            this.mainSprite.height - this.collider.height)));
+                            this.mainSprite.height - this.collider.height), this.swapPos));
 
         }
     }

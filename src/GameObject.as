@@ -2,23 +2,21 @@ package {
     import org.flixel.*;
 
     public class GameObject extends FlxSprite {
-        protected var pos:DHPoint, dir:DHPoint;
+        protected var pos:DHPoint, dir:DHPoint, swapPos:DHPoint;
         private var _parent:GameObject;
         protected var bornTime:Number, timeAlive:Number, curTime:Number;
-        protected var debugText:FlxText;
         public var zSorted:Boolean = false;
         public var basePos:DHPoint, basePosOffset:DHPoint;
 
         public function GameObject(pos:DHPoint, parent:GameObject=null) {
             super(pos.x, pos.y);
             this.pos = new DHPoint(pos.x, pos.y);
+            this.swapPos = new DHPoint(0, 0);
             this.dir = new DHPoint(0, 0);
             this._parent = parent;
             this.bornTime = new Date().valueOf();
             this.basePos = new DHPoint(0, 0);
-
-            this.debugText = new FlxText(0, 0, 200, "");
-            this.debugText.setFormat(null, 16, 0xffff0000, "left");
+            this.moves = false;
         }
 
         public function get parent():GameObject {
@@ -41,19 +39,16 @@ package {
             super.update();
             this.curTime = new Date().valueOf();
             this.timeAlive = this.curTime - this.bornTime;
-            this.setPos(this.pos.add(this.dir));
-            this.debugText.x = this.x;
-            this.debugText.y = this.y - 30;
+            this.setPos(this.pos.add(this.dir, this.swapPos));
         }
 
-        public function addVisibleObjects():void {
-            FlxG.state.add(this.debugText);
-        }
+        public function addVisibleObjects():void { }
 
         public function setPos(pos:DHPoint):void {
             this.x = pos.x;
             this.y = pos.y;
-            this.pos = new DHPoint(this.x, this.y);
+            this.pos.x = this.x;
+            this.pos.y = this.y;
             if (this.basePosOffset != null) {
                 this.basePos.x = this.pos.x + this.basePosOffset.x;
                 this.basePos.y = this.pos.y + this.basePosOffset.y;
