@@ -45,6 +45,7 @@ package {
         private var collider:GameObject;
         public var playerConfig:Object;
         private var checkmark_sprite:GameObject;
+        private var movementForce:b2Vec2;
         private var heart_sprite:GameObject;
         private var controller:GameInputDevice;
         private var startPos:DHPoint;
@@ -140,6 +141,7 @@ package {
             this.throttle = false;
             this.controlType = ctrlType;
             this.streetPoints = streetPoints;
+            this.movementForce = new b2Vec2(0, 0);
 
             this.controller = controller;
             this.driver_tag = _tag;
