@@ -177,7 +177,7 @@ package {
 
             this.completionIndicator = new GameObject(new DHPoint(0,0));
             this.completionIndicator.loadGraphic(ImgGoHome, false, false, 102, 48);
-            this.completionIndicator.addAnimation("run", [0, 1, 2, 3, 4, 5, 6, 7], 13, true);
+            this.completionIndicator.addAnimation("run", [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1], 13, true);
             this.completionIndicator.play("run");
             this.completionIndicator.visible = false;
 
