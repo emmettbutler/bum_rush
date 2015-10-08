@@ -63,10 +63,12 @@ package {
 
         public function highlight():void {
             this.joined_sprite.color = 0xffffa5d8;
+            this.phone_sprite.color = this.joined_sprite.color;
         }
 
         public function unhighlight():void {
             this.joined_sprite.color = 0xffffffff;
+            this.phone_sprite.color = this.joined_sprite.color;
         }
 
         override public function addVisibleObjects():void {
