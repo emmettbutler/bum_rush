@@ -707,9 +707,9 @@ package {
             this.time_out_sprite.visible = false;
 
             this.instructions_text = new FlxText(
-                ScreenManager.getInstance().screenWidth * .1,
-                ScreenManager.getInstance().screenHeight * .85,
-                ScreenManager.getInstance().screenWidth * .8,
+                ScreenManager.getInstance().screenWidth * .05,
+                ScreenManager.getInstance().screenHeight * .82,
+                ScreenManager.getInstance().screenWidth * .9,
                 "A to drive, D-pad to steer\t\t\tTake your date to all of the hot spots\nB to signal\t\t\t\t\t\tand be the first one home!");
             this.instructions_text.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffffffff,"left")
             this.add(instructions_text);
