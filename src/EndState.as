@@ -90,7 +90,7 @@ package {
             } else if(winner.getPassengers().length == 4){
                 commentString = passengers_string + ". Impressive! Your sweet smile really did the trick.";
             } else if(winner.getPassengers().length == 5){
-                commentString = passengers_string + ". You're a natural born charmer'!";
+                commentString = passengers_string + ". You're a natural born charmer!";
             } else if(winner.getPassengers().length == 6){
                 commentString = passengers_string + ". Do you even have room for that many people in your bed...?!";
             } else if(winner.getPassengers().length == 7){
