@@ -167,37 +167,37 @@ package {
             [
                 {
                     "type": Checkpoint.HOME,
-                    "pos": new DHPoint(.9, .01),
-                    "hitbox_pos": new DHPoint(.92, .18),
+                    "pos": new DHPoint(.9, .02),
+                    "hitbox_pos": new DHPoint(.92, .194),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.2, .05),
-                    "hitbox_pos": new DHPoint(.22, .22),
+                    "pos": new DHPoint(.2, .02),
+                    "hitbox_pos": new DHPoint(.22, .205),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.8, .01),
-                    "hitbox_pos": new DHPoint(.82, .18),
+                    "pos": new DHPoint(.8, .02),
+                    "hitbox_pos": new DHPoint(.82, .194),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.PARK,
                     "pos": new DHPoint(.7, .01),
-                    "hitbox_pos": new DHPoint(.72, .19),
+                    "hitbox_pos": new DHPoint(.72, .194),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.001, .06),
-                    "hitbox_pos": new DHPoint(.02, .225),
+                    "pos": new DHPoint(.001, .03),
+                    "hitbox_pos": new DHPoint(.02, .205),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.DINNER,
-                    "pos": new DHPoint(.5, .05),
+                    "pos": new DHPoint(.5, .04),
                     "hitbox_pos": new DHPoint(.455, .06),
                     "marker_rotation": 90
                 }
@@ -205,31 +205,31 @@ package {
             [
                 {
                     "type": Checkpoint.HOME,
-                    "pos": new DHPoint(.6, .2),
-                    "hitbox_pos": new DHPoint(.62, .365),
+                    "pos": new DHPoint(.6, .155),
+                    "hitbox_pos": new DHPoint(.62, .356),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.4, .16),
-                    "hitbox_pos": new DHPoint(.42, .325),
+                    "pos": new DHPoint(.4, .15),
+                    "hitbox_pos": new DHPoint(.42, .332),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.9, .02),
-                    "hitbox_pos": new DHPoint(.92, .185),
+                    "pos": new DHPoint(.9, .005),
+                    "hitbox_pos": new DHPoint(.92, .175),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.PARK,
-                    "pos": new DHPoint(.9, .5),
-                    "hitbox_pos": new DHPoint(.92, .676),
+                    "pos": new DHPoint(.9, .45),
+                    "hitbox_pos": new DHPoint(.92, .665),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.1, .17),
+                    "pos": new DHPoint(.1, .16),
                     "hitbox_pos": new DHPoint(.12, .332),
                     "marker_rotation": 0
                 },
@@ -243,32 +243,32 @@ package {
             [
                 {
                     "type": Checkpoint.HOME,
-                    "pos": new DHPoint(.3, .2),
-                    "hitbox_pos": new DHPoint(.32, .3721),
+                    "pos": new DHPoint(.3, .167),
+                    "hitbox_pos": new DHPoint(.32, .351),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.8, .15),
-                    "hitbox_pos": new DHPoint(.82, .3785),
+                    "pos": new DHPoint(.8, .2),
+                    "hitbox_pos": new DHPoint(.82, .384),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.6, .01),
-                    "hitbox_pos": new DHPoint(.62, .18),
+                    "pos": new DHPoint(.61, .01),
+                    "hitbox_pos": new DHPoint(.625, .18),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.PARK,
-                    "pos": new DHPoint(.8, .52),
-                    "hitbox_pos": new DHPoint(.751, .59),
+                    "pos": new DHPoint(.805, .52),
+                    "hitbox_pos": new DHPoint(.752, .595),
                     "marker_rotation": 90
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.2, .17),
-                    "hitbox_pos": new DHPoint(.154, .245),
+                    "pos": new DHPoint(.205, .165),
+                    "hitbox_pos": new DHPoint(.165, .244),
                     "marker_rotation": 90
                 },
                 {
@@ -1036,7 +1036,7 @@ package {
                 },
                 {
                     "type": "tree",
-                    "pos": new DHPoint(.38, .15)
+                    "pos": new DHPoint(.41, .15)
                 },
                 {
                     "type": "tree",
