@@ -66,19 +66,19 @@ package {
             FlxG.state.add(this.skipText);
             this.skipText.visible = false;
 
-            this.joinText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
+            this.joinText = new FlxText(ScreenManager.getInstance().screenWidth * .03,
                             ScreenManager.getInstance().screenHeight * .8,
                             ScreenManager.getInstance().screenWidth,
                             "Bum Rush - Press A to join");
             this.joinText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
 
-            this.teamText = new FlxText(0,
-                            ScreenManager.getInstance().screenHeight * .96,
+            this.teamText = new FlxText(ScreenManager.getInstance().screenWidth * .03,
+                            ScreenManager.getInstance().screenHeight * .95,
                             ScreenManager.getInstance().screenWidth,
                             "by Nina Freeman, Emmett Butler,\nDiego Garcia and Max Coburn");
             this.teamText.setFormat("Pixel_Berry_08_84_Ltd.Edition",12,0xffffffff,"left");
 
-            this.timerText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
+            this.timerText = new FlxText(ScreenManager.getInstance().screenWidth * .03,
                                          ScreenManager.getInstance().screenHeight * .85,
                                          ScreenManager.getInstance().screenWidth, "");
             this.timerText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"left");
@@ -95,15 +95,15 @@ package {
                     if (_bg == that.bg) {
                         FlxG.state.add(that.joinText);
                         that.joinText.y = _bg.y + _bg.height * .83;
-                        that.joinText.x = _bg.width * .06;
+                        that.joinText.x = _bg.width * .05;
 
                         FlxG.state.add(that.teamText);
-                        that.teamText.y = _bg.y + _bg.height * .935;
-                        that.teamText.x = _bg.width * .06;
+                        that.teamText.y = _bg.y + _bg.height * .93;
+                        that.teamText.x = _bg.width * .05;
 
                         FlxG.state.add(that.timerText);
                         that.timerText.y = _bg.y + _bg.height * .87;
-                        that.timerText.x = _bg.width * .06;
+                        that.timerText.x = _bg.width * .05;
 
                         that.loadingText.visible = false;
                         PlayersController.getInstance().buildControllersMap();
