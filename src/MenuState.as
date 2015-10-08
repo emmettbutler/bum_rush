@@ -191,6 +191,10 @@ package {
                                                    mapping:Object):void
         {
             super.controllerChanged(control, mapping);
+
+            var mappedIndicator:RegistrationIndicator;
+            mappedIndicator = this.getRegistrationIndicatorByControllerID(control['device'].id)
+
             if (control['id'] == mapping["a"]["button"]){
                 if (control['value'] == mapping["a"]["value_on"]) {
                     this.registerPlayer(control, Player.CTRL_PAD);
@@ -198,6 +202,16 @@ package {
                     this.lastConfirmButtonTime = this.timeAlive;
                 } else if (control['value'] == mapping["a"]["value_off"]) {
                     this.confirmButtonCount = Math.max(this.confirmButtonCount - 1, 0);
+                }
+            } else if (control['id'] == mapping["b"]["button"]) {
+                if (control['value'] == mapping["b"]["value_on"]) {
+                    if (mappedIndicator != null) {
+                        mappedIndicator.highlight();
+                    }
+                } else if (control['value'] == mapping["b"]["value_off"]) {
+                    if (mappedIndicator != null) {
+                        mappedIndicator.unhighlight();
+                    }
                 }
             }
         }
@@ -232,6 +246,14 @@ package {
                 var indicator:RegistrationIndicator = this.getRegistrationIndicatorByTag(tagData['tag']);
                 indicator.joined = true;
             }
+        }
+
+        public function getRegistrationIndicatorByControllerID(_id:String):RegistrationIndicator {
+            var tagData:Object = PlayersController.getInstance().getTagDataByControllerID(_id);
+            if (tagData != null) {
+                return this.getRegistrationIndicatorByTag(tagData['tag']);
+            }
+            return null;
         }
 
         public function startIntro():void {

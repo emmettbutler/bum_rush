@@ -61,6 +61,14 @@ package {
             return this._joined;
         }
 
+        public function highlight():void {
+            this.joined_sprite.color = 0xffffa5d8;
+        }
+
+        public function unhighlight():void {
+            this.joined_sprite.color = 0xffffffff;
+        }
+
         override public function addVisibleObjects():void {
             super.addVisibleObjects();
             FlxG.state.add(this.base_sprite);

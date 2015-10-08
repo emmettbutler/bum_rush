@@ -294,6 +294,15 @@ package {
             return this.resolveTag(tag);
         }
 
+        public function getTagDataByControllerID(_id:String):Object {
+            for (var kid:Object in this.registeredPlayers) {
+                if (_id == this.registeredPlayers[_id]['controller'].id) {
+                    return this.registeredPlayers[_id];
+                }
+            }
+            return null;
+        }
+
         public function resolveTag(tag:Number):Object {
             return this.playerConfigs[tag];
         }
