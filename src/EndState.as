@@ -44,6 +44,7 @@ package {
                 if(player_list[i].winner && winner == null) {
                     winner = player_list[i];
 
+                    // replace with config['join_prefix']
                     driver_image = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "outtro_driver_" + "billy" + ".png", false, true, 169, 95);
                     driver_image.addAnimation("run", [0, 1], 7, true);
                     this.add(this.driver_image);
