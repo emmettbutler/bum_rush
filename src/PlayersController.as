@@ -296,8 +296,11 @@ package {
 
         public function getTagDataByControllerID(_id:String):Object {
             for (var kid:Object in this.registeredPlayers) {
-                if (_id == this.registeredPlayers[_id]['controller'].id) {
-                    return this.registeredPlayers[_id];
+                if (this.registeredPlayers[kid]['controller'] == null) {
+                    continue;
+                }
+                if (_id == this.registeredPlayers[kid]['controller'].id) {
+                    return this.registeredPlayers[kid];
                 }
             }
             return null;

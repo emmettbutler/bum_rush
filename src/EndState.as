@@ -9,22 +9,33 @@ package {
 
         private var player_list:Array;
         private var endTimeBorn:Number = 0, endTimeAlive:Number = 0;
-        private var resetText:FlxText;
         private var config:Object, passenger_config:Object;
-        private var bg:FlxExtSprite;
-        private var winner:Player = null, car_image:GameObject,
-                    driver_image:GameObject, cur_player:Player,
-                    passenger_image:GameObject, passenger:Passenger;
+        private var bg:FlxExtSprite, roomTextSprite:FlxExtSprite;
+        private var startedRoomText:Boolean = false, showedPassengers:Boolean = false,
+                    commentText:FlxText;
+        private var winner:Player = null,
+                    driver_image:FlxExtSprite, cur_player:Player,
+                    passenger_image:FlxExtSprite, passenger:Passenger;
+        private var passengers:Array;
 
         override public function create():void {
             super.create();
 
-            ScreenManager.getInstance();
             var pathPrefix:String = "../assets/images/ui/";
-            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "endbg.png");
+            this.bg = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "outtro_bg_9.png", false, true, 169, 95);
+            this.bg.addAnimation("run", [0, 1, 2, 3, 4, 5, 6, 7, 8], 13, false);
+            this.add(this.bg);
 
-            this.endTimeBorn = new Date().valueOf();
+            this.roomTextSprite = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "outtro_text_roomsUrs.png", false, true, 169, 95);
+            this.roomTextSprite.addAnimation("run", [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3], 13, false);
+            this.add(this.roomTextSprite);
+            this.roomTextSprite.visible = false;
+
+            this.passengers = new Array();
+
             this.player_list = PlayersController.getInstance().getPlayerList();
+
+            var late_added_passengers:Array = new Array();
 
             for(var i:Number = 0; i < player_list.length; i++) {
                 var t:FlxText;
@@ -33,33 +44,28 @@ package {
                 if(player_list[i].winner && winner == null) {
                     winner = player_list[i];
 
-                    car_image = new GameObject(new DHPoint(
-                        ScreenManager.getInstance().screenWidth / 2,
-                        ScreenManager.getInstance().screenHeight / 2
-                    ));
-                    car_image.loadGraphic(config['car'], false, false, 64, 64);
-                    car_image.addAnimation("drive_down", [8,9,10,11], 12, true);
-                    FlxG.state.add(car_image);
-                    car_image.play("drive_down");
-
-                    driver_image = new GameObject(car_image.getPos());
-                    driver_image.loadGraphic(config['sprite'], false, false, 64, 64);
-                    driver_image.addAnimation("drive_down", [8,9,10,11], 12, true);
-                    FlxG.state.add(driver_image);
-                    driver_image.play("drive_down");
+                    driver_image = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + "outtro_driver_" + "billy" + ".png", false, true, 169, 95);
+                    driver_image.addAnimation("run", [0, 1], 7, true);
+                    this.add(this.driver_image);
+                    driver_image.play("run");
 
                     var passengers_string:String = winner.driver_name + " brought home ";
 
                     for (var k:int = 0; k < cur_player.getPassengers().length; k++) {
                         passenger = cur_player.getPassengers()[k];
                         passenger_config = passenger.passengerConfig;
-                        passenger_image = new GameObject(car_image.getPos().sub(
-                            new DHPoint(0, Passenger.STACK_INTERVAL * passenger.idx)));
-                        passenger_image.loadGraphic(passenger_config['riding_sprite'],
-                                                    true, false, 64, 64);
-                        passenger_image.addAnimation("ride_down", [8,9,10,11], 12, true);
-                        FlxG.state.add(passenger_image);
-                        passenger_image.play("ride_down");
+
+                        passenger_image = ScreenManager.getInstance().loadSingleTileBG(pathPrefix + passenger_config['outtro_sprite'], false, true, 169, 95);
+                        passenger_image.addAnimation("run", [0, 1], 7, true);
+                        if (passenger_config['outtro_addlate']) {
+                            late_added_passengers.push(passenger_image);
+                        } else {
+                            this.add(passenger_image);
+                        }
+                        passenger_image.visible = false;
+                        this.passengers.push(passenger_image);
+                        passenger_image.play("run");
+
                         passengers_string += passenger_config["name"];
                         if (k == cur_player.getPassengers().length - 2) {
                             passengers_string += " and ";
@@ -68,6 +74,10 @@ package {
                         }
                     }
                 }
+            }
+
+            for (var h:int = 0; h < late_added_passengers.length; h++) {
+                this.add(late_added_passengers[h]);
             }
 
             var commentString:String = "";
@@ -89,15 +99,12 @@ package {
                 commentString = passengers_string + ". Looks like you'll need to borrow the dorm next door, too!";
             }
 
-            t = new FlxText(0, 100,
-                ScreenManager.getInstance().screenWidth, commentString);
-            t.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffffffff);
-            t.alignment = "center";
-            FlxG.state.add(t);
-
-            this.resetText = new FlxText(100, ScreenManager.getInstance().screenHeight - 100, ScreenManager.getInstance().screenWidth, "");
-            this.resetText.setFormat("Pixel_Berry_08_84_Ltd.Edition",14,0xffffffff);
-            FlxG.state.add(this.resetText);
+            this.commentText = new FlxText(ScreenManager.getInstance().screenWidth * .5, 80,
+                ScreenManager.getInstance().screenWidth * .4, commentString);
+            this.commentText.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xff000000);
+            this.commentText.alignment = "center";
+            this.commentText.visible = false;
+            FlxG.state.add(this.commentText);
 
             if (FlxG.music != null) {
                 FlxG.music.stop();
@@ -108,12 +115,36 @@ package {
         override public function update():void {
             super.update();
 
-            this.endTimeAlive = Math.floor((this.curTime - this.endTimeBorn)/1000);
-
-            this.resetText.text = (6 - this.endTimeAlive) + " seconds until reset.";
-            if(this.endTimeAlive == 6) {
+            if(this.timeAlive / 1000 >= 12) {
                 FlxG.switchState(new MenuState());
+            } else if (this.timeAlive / 1000 >= 4) {
+                if (!this.showedPassengers) {
+                    this.showedPassengers = true;
+                    this.commentText.visible = true;
+                    this.roomTextSprite.visible = false;
+                    for (var i:int = 0; i < this.passengers.length; i++) {
+                        this.passengers[i].visible = true;
+                    }
+                }
+            } else if (this.timeAlive / 1000 >= 2) {
+                if (!this.startedRoomText) {
+                    this.startedRoomText = true;
+                    this.roomTextSprite.visible = true;
+                    this.roomTextSprite.play("run");
+                    this.bg.play("run");
+                }
             }
+        }
+
+        override public function destroy():void {
+            for (var i:int = 0; i < this.passengers.length; i++) {
+                this.passengers[i].destroy();
+            }
+            this.passengers = null;
+            this.bg.destroy();
+            this.roomTextSprite.destroy();
+            this.driver_image.destroy();
+            super.destroy();
         }
     }
 }

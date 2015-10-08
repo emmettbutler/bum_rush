@@ -45,35 +45,51 @@ package {
             public static var passengerConfigs:Dictionary = new Dictionary();
             passengerConfigs[TYPE_A] = {
                 "name": "El",
-                "riding_sprite": sprite_el
+                "riding_sprite": sprite_el,
+                "outtro_sprite": "outtro_passenger_el.png",
+                "outtro_addlate": false
             };
             passengerConfigs[TYPE_B] = {
                 "name": "Gracie",
-                "riding_sprite": sprite_gracie
+                "riding_sprite": sprite_gracie,
+                "outtro_sprite": "outtro_passenger_gracie.png",
+                "outtro_addlate": false
             };
             passengerConfigs[TYPE_C] = {
                 "name": "Sid",
-                "riding_sprite": sprite_sid
+                "riding_sprite": sprite_sid,
+                "outtro_sprite": "outtro_passenger_sid.png",
+                "outtro_addlate": false
             };
             passengerConfigs[TYPE_D] = {
                 "name": "Tanya",
-                "riding_sprite": sprite_tanya
+                "riding_sprite": sprite_tanya,
+                "outtro_sprite": "outtro_passenger_tanya.png",
+                "outtro_addlate": true
             };
             passengerConfigs[TYPE_E] = {
                 "name": "Diego",
-                "riding_sprite": sprite_diego
+                "riding_sprite": sprite_diego,
+                "outtro_sprite": "outtro_passenger_lilD.png",
+                "outtro_addlate": true
             };
             passengerConfigs[TYPE_F] = {
                 "name": "Dirk",
-                "riding_sprite": sprite_dirk
+                "riding_sprite": sprite_dirk,
+                "outtro_sprite": "outtro_passenger_dirk.png",
+                "outtro_addlate": false
             };
             passengerConfigs[TYPE_G] = {
                 "name": "Johnny",
-                "riding_sprite": sprite_johnny
+                "riding_sprite": sprite_johnny,
+                "outtro_sprite": "outtro_passenger_johnny.png",
+                "outtro_addlate": false
             };
             passengerConfigs[TYPE_H] = {
                 "name": "Max",
-                "riding_sprite": sprite_muggs
+                "riding_sprite": sprite_muggs,
+                "outtro_sprite": "outtro_passenger_muggs.png",
+                "outtro_addlate": true
             };
         }
 
