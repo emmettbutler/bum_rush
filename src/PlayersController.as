@@ -121,7 +121,7 @@ package {
                 "join_prefix": "ermit",
                 "starting_passenger": Passenger.TYPE_C,
                 "name": "Emmett",
-                "tint": 0xff2727b7,
+                "tint": 0xff4646ee,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .3),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .25),
