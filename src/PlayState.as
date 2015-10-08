@@ -758,7 +758,7 @@ package {
                         }
                         that.setupWorld(event.userData['bg']);
                         PlayersController.getInstance().addRegisteredPlayers(
-                            that.checkpoints.length, that.active_map_index,
+                            that.checkpoints, that.active_map_index,
                             that.m_world, that.groundBody, that.streetPoints);
 
                         CONFIG::debug {

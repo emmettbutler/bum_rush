@@ -77,7 +77,8 @@ package {
                         this.completionIndicators[kid] = {
                             "text": indicator,
                             "shadow": indicator_shadow,
-                            "heart": indicator_heart
+                            "heart": indicator_heart,
+                            "tint": playerConfig['tint']
                         };
                     }
                 }
@@ -182,6 +183,14 @@ package {
                     counter++;
                 }
             }
+        }
+
+        public function highlight(kid:Number):void {
+            this.completionIndicators[kid]['heart'].color = 0xffffffff;
+        }
+
+        public function unhighlight(kid:Number):void {
+            this.completionIndicators[kid]['heart'].color = this.completionIndicators[kid]['tint'];
         }
 
         public function setMarkerRotation(r:Number):void {

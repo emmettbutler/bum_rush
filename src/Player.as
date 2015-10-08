@@ -68,6 +68,7 @@ package {
                     play_heart:Boolean = false,
                     heart_scale_down:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
+        private var checkpoints:Array;
         private var _driving:Boolean = false;
         private var checking_in:Boolean = false;
         private var lastPassengerRemoveTime:Number = 0;
@@ -122,7 +123,7 @@ package {
                                streetPoints:Array,
                                ctrlType:Number=CTRL_PAD,
                                _tag:Number=0,
-                               checkpoint_count:Number=0):void
+                               checkpoints:Array=null):void
         {
             super(pos);
 
@@ -177,16 +178,18 @@ package {
             this.been_there.loadGraphic(ImgBeenThere, false, false, 90, 33);
             this.been_there.visible = false;
 
+            this.checkpoints = checkpoints;
+
             this._checkpointStatusList = new Array();
 
             var i:Number = 0
-            for(i = 0; i < checkpoint_count; i++) {
+            for(i = 0; i < checkpoints.length; i++) {
                 this._checkpointStatusList.push(false);
             }
 
             this._showBeenThereList = new Array();
 
-            for(i = 0; i < checkpoint_count; i++) {
+            for(i = 0; i < checkpoints.length; i++) {
                 this._showBeenThereList.push(false);
             }
 
@@ -785,12 +788,26 @@ package {
                 if (control['value'] == mapping["b"]["value_on"]) {
                     this.highlight_sprite.visible = true;
                     this.highlight_number.visible = true;
+                    this.highlight_checkpoints();
                     return;
                 } else if (control["value"] == mapping["b"]["value_off"]){
                     this.highlight_sprite.visible = false;
                     this.highlight_number.visible = false;
+                    this.unhighlight_checkpoints();
                     return;
                 }
+            }
+        }
+
+        public function highlight_checkpoints():void {
+            for (var i:int = 0; i < this.checkpoints.length; i++) {
+                this.checkpoints[i].highlight(this.driver_tag);
+            }
+        }
+
+        public function unhighlight_checkpoints():void {
+            for (var i:int = 0; i < this.checkpoints.length; i++) {
+                this.checkpoints[i].unhighlight(this.driver_tag);
             }
         }
 
