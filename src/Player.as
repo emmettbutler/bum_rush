@@ -803,7 +803,7 @@ package {
             pos.x = Math.round(pos.x);
             pos.y = Math.round(pos.y);
             this.highlight_sprite.setPos(pos);
-            this.highlight_number.x = pos.x + 64 / 2;
+            this.highlight_number.x = pos.x + 64 / 2 - 7;
             this.highlight_number.y = pos.y + 64 + 3;
             this.mainSprite.setPos(pos);
             this.carSprite.setPos(pos);
