@@ -120,7 +120,9 @@ package {
             super.update();
 
             if (PlayersController.getInstance().playersRegistered >= PlayersController.MIN_PLAYERS) {
-                if ((this.curTime - this.lastRegisterTime) / 1000 > this.countdownLength && !this.stateSwitchLock)
+                if (((this.curTime - this.lastRegisterTime) / 1000 > this.countdownLength ||
+                     this.registeredPlayers == PlayersController.MAX_PLAYERS) &&
+                     !this.stateSwitchLock)
                 {
                     this.stateSwitchLock = true;
                     this.startIntro();

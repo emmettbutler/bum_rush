@@ -726,9 +726,11 @@ package {
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = true;
                 this.highlight_number.visible = true;
+                this.highlight_checkpoints();
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = false;
                 this.highlight_number.visible = false;
+                this.unhighlight_checkpoints();
             }
         }
 
