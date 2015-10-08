@@ -44,7 +44,6 @@ package {
         private var mainSprite:GameObject;
         private var collider:GameObject;
         public var playerConfig:Object;
-        private var checkmark_sprite:GameObject;
         private var movementForce:b2Vec2, velVec:b2Vec2, bounceVec:b2Vec2;
         private var heart_sprite:GameObject;
         private var controller:GameInputDevice;
@@ -69,7 +68,6 @@ package {
                     play_heart:Boolean = false,
                     heart_scale_down:Boolean = false;
         private var _lastCheckpointIdx:Number = 0;
-        private var player_hud:PlayerHud;
         private var _driving:Boolean = false;
         private var checking_in:Boolean = false;
         private var lastPassengerRemoveTime:Number = 0;
@@ -211,10 +209,6 @@ package {
             return this.facingVector;
         }
 
-        public function setHudPos(pos:DHPoint):void {
-            this.player_hud.setPos(pos);
-        }
-
         public function setupParticles():void {
             impactParticles = new ParticleExplosion(13, 2, .4, 12);
             impactParticles.gravity = new DHPoint(0, .3);
@@ -335,10 +329,6 @@ package {
             this.mainSprite.addAnimation("drive_left", [12,13,14,15], this.frameRate, true);
             this.mainSprite.play("drive_down");
 
-            this.checkmark_sprite = new GameObject(new DHPoint(0, 0));
-            this.checkmark_sprite.loadGraphic(HUDCheckmark, false, false, 32, 32);
-            this.checkmark_sprite.visible = false;
-
             this.heart_sprite = new GameObject(new DHPoint(0,0));
             this.heart_sprite.loadGraphic(HUDHeart, false, false, 12, 10);
             this.heart_sprite.visible = false;
@@ -371,9 +361,6 @@ package {
             FlxG.state.add(this.carSprite);
             FlxG.state.add(this.mainSprite);
             FlxG.state.add(this.collider);
-            this.player_hud = new PlayerHud(this.driver_tag);
-            this.player_hud.buildHud();
-            FlxG.state.add(this.checkmark_sprite);
             this.impactParticles.addVisibleObjects();
             var i:int = 0;
         }
@@ -421,10 +408,6 @@ package {
                 this.curCheckpoint.markComplete(this.idx);
                 this.lastCompletedCheckpoint = this.curCheckpoint;
                 this._checkpointStatusList[this.curCheckpoint.index] = true;
-                this.checkmark_sprite.visible = true;
-                this.checkmark_sprite.setPos(this.pos);
-                this.checkmark_sprite.setDir(
-                    this.player_hud.posOf(this.curCheckpoint.cp_type).sub(this.pos).normalized().mulScl(14));
                 this.playHeart();
             }
             var checkpointsComplete:Boolean = true;
@@ -588,16 +571,6 @@ package {
                     this.completeCheckpoint()
                 }
             }
-
-            if (this.checkmark_sprite.visible && this.lastCompletedCheckpoint != null) {
-                if (this.checkmark_sprite.getPos().sub(
-                        this.player_hud.posOf(
-                            this.lastCompletedCheckpoint.cp_type))._length() < 10)
-                {
-                    this.checkmark_sprite.visible = false;
-                    this.player_hud.markCheckpoint(this.lastCompletedCheckpoint.cp_type);
-                }
-            }
         }
 
         public function setFinished():void {
@@ -750,11 +723,9 @@ package {
             if (FlxG.keys.justPressed(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = true;
                 this.highlight_number.visible = true;
-                this.player_hud.highlight();
             } else if (FlxG.keys.justReleased(keyboardControls[ctrlType]['highlight'])) {
                 this.highlight_sprite.visible = false;
                 this.highlight_number.visible = false;
-                this.player_hud.unhighlight();
             }
         }
 
@@ -814,12 +785,10 @@ package {
                 if (control['value'] == mapping["b"]["value_on"]) {
                     this.highlight_sprite.visible = true;
                     this.highlight_number.visible = true;
-                    this.player_hud.highlight();
                     return;
                 } else if (control["value"] == mapping["b"]["value_off"]){
                     this.highlight_sprite.visible = false;
                     this.highlight_number.visible = false;
-                    this.player_hud.unhighlight();
                     return;
                 }
             }

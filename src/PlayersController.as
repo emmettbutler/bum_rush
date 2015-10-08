@@ -360,10 +360,6 @@ package {
             for (i = 0; i < this.players.length; i++) {
                 player = this.players[i];
                 player.update();
-                player.setHudPos(new DHPoint(
-                    ((ScreenManager.getInstance().screenWidth / (this.players.length + 1)) * (i + 1)) - 50,
-                    ScreenManager.getInstance().screenHeight - 100
-                ));
                 for (var k:int = 0; k < this.passengers.length; k++) {
                     passenger = this.passengers[k];
                     if (passenger.isStanding() && player.overlapsPassenger(passenger)) {

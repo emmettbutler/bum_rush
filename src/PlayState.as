@@ -30,6 +30,7 @@ package {
         private var started_race:Boolean = false, shown_start_anim:Boolean = false, finished:Boolean = false;
         private var raceTimeAlive:Number, raceEndTimer:Number;
         private var collider:FlxExtSprite;
+        private var instructions_text:FlxText;
         private var bgsLoaded:Number = 0;
         private var streetPoints:Array;
         private var shouldDebugDraw:Boolean = false;
@@ -704,6 +705,14 @@ package {
             this.time_out_sprite = new GameObject(new DHPoint(0,0));
             this.time_out_sprite.loadGraphic(this.TimeOutSprite, false, false, 902, 204);
             this.time_out_sprite.visible = false;
+
+            this.instructions_text = new FlxText(
+                ScreenManager.getInstance().screenWidth * .1,
+                ScreenManager.getInstance().screenHeight * .85,
+                ScreenManager.getInstance().screenWidth * .8,
+                "A to drive, D-pad to steer\t\t\tTake your date to all of the hot spots\nB to signal\t\t\t\t\t\tand be the first one home!");
+            this.instructions_text.setFormat("Pixel_Berry_08_84_Ltd.Edition",24,0xffffffff,"left")
+            this.add(instructions_text);
 
             CONFIG::debug {
                 this.cursorPosText = new FlxText(0, 0, 300, "");
