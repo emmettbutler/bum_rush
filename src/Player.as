@@ -335,6 +335,7 @@ package {
             this.heart_sprite = new GameObject(new DHPoint(0,0));
             this.heart_sprite.loadGraphic(HUDHeart, false, false, 12, 10);
             this.heart_sprite.visible = false;
+            this.heart_sprite.color = this.playerConfig["tint"];
         }
 
         public function set colliding(c:Boolean):void {
