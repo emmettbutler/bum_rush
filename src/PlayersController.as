@@ -157,7 +157,7 @@ package {
                 "join_prefix": "laura",
                 "starting_passenger": Passenger.TYPE_E,
                 "name": "Laura",
-                "tint": 0xffffff00,
+                "tint": 0xffac19f0,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .43, (screenHeight * 2) * .35),
                     new DHPoint((screenWidth * 2) * .6355, (screenHeight * 2) * .3),
@@ -211,7 +211,7 @@ package {
                 "join_prefix": "rachel",
                 "starting_passenger": Passenger.TYPE_H,
                 "name": "Rachel",
-                "tint": 0xff8ec200,
+                "tint": 0xffffff00,
                 "start_positions": [
                     new DHPoint((screenWidth * 2) * .47, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .67, (screenHeight * 2) * .35),

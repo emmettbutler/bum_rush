@@ -27,7 +27,7 @@ package {
 
             var playerAVel:Number = fixAUserData['player'].bodyLinearVelocity._length();
             var playerBVel:Number = fixBUserData['player'].bodyLinearVelocity._length();
-            var crashVelocityThreshold:Number = 465;
+            var crashVelocityThreshold:Number = 470;
 
             if (playerAVel < crashVelocityThreshold && playerBVel < crashVelocityThreshold) {
                 return;
