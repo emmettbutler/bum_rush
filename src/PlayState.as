@@ -223,8 +223,8 @@ package {
                 },
                 {
                     "type": Checkpoint.PARK,
-                    "pos": new DHPoint(.9, .45),
-                    "hitbox_pos": new DHPoint(.92, .665),
+                    "pos": new DHPoint(.9, .49),
+                    "hitbox_pos": new DHPoint(.92, .675),
                     "marker_rotation": 0
                 },
                 {
