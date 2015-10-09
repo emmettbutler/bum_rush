@@ -6,6 +6,7 @@ package {
 
     public class MenuState extends GameState {
         [Embed(source="/../assets/fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", fontFamily="Pixel_Berry_08_84_Ltd.Edition", embedAsCFF="false")] public var GameFont:String;
+        [Embed(source="/../assets/images/ui/logo_loadingScreen.png")] private static var ImgLogo:Class;
         [Embed(source = "../assets/audio/bumrush_select_loop.mp3")] private var SndBGMLoop:Class;
         [Embed(source = "../assets/audio/passenger.mp3")] private var SndJoined:Class;
         [Embed(source = "../assets/audio/bumrush_intro.mp3")] private var SndIntroScene:Class;
@@ -14,7 +15,7 @@ package {
         private var stateSwitchLock:Boolean = false;
         private var registerIndicators:Array;
         private var timerText:FlxText, joinText:FlxText, teamText:FlxText,
-                    loadingText:FlxText, skipText:FlxText;
+                    loadingSprite:GameObject, skipText:FlxText;
         private var playersToMinimum:Number, secondsRemaining:Number;
         private var bg:FlxExtSprite, toon_text:FlxExtSprite, speech_bubble:FlxExtSprite;
         private var confirmButtonCount:Number = 0, lastConfirmButtonTime:Number = 0;
@@ -51,12 +52,12 @@ package {
                 indicator.addVisibleObjects();
             }
 
-            this.loadingText = new FlxText(ScreenManager.getInstance().screenWidth * .05,
-                            ScreenManager.getInstance().screenHeight * .8,
-                            ScreenManager.getInstance().screenWidth,
-                            "Freshening up...");
-            this.loadingText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
-            FlxG.state.add(this.loadingText);
+            this.loadingSprite = new GameObject(new DHPoint(
+                ScreenManager.getInstance().screenWidth / 2 - 512 / 2,
+                ScreenManager.getInstance().screenHeight / 2 - 512 / 2
+            ));
+            this.loadingSprite.loadGraphic(ImgLogo, false, false, 512, 512);
+            FlxG.state.add(this.loadingSprite);
 
             this.skipText = new FlxText(0,
                             ScreenManager.getInstance().screenHeight * .94,
@@ -105,7 +106,7 @@ package {
                         that.timerText.y = _bg.y + _bg.height * .87;
                         that.timerText.x = _bg.width * .05;
 
-                        that.loadingText.visible = false;
+                        that.loadingSprite.visible = false;
                         PlayersController.getInstance().buildControllersMap();
 
                         FlxG.stage.removeEventListener(
@@ -183,7 +184,7 @@ package {
             this.joinText.destroy();
             this.teamText.destroy();
             this.timerText.destroy();
-            this.loadingText.destroy();
+            this.loadingSprite.destroy();
             super.destroy();
         }
 
