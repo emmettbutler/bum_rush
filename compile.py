@@ -110,7 +110,7 @@ def write_conf_file(swf_path, entry_point_class, version_id):
         f.write(
 """
 <application xmlns="http://ns.adobe.com/air/application/{version_id}">
-    <id>com.starmaid.Cibele</id>
+    <id>com.emmettbutler.BumRush</id>
     <versionNumber>1.0</versionNumber>
     <filename>BumRush-{ts}</filename>
     <initialWindow>
@@ -154,8 +154,9 @@ def package_application(entry_point_class, swf_path, platform="air", outfile_nam
     elif platform == "windows":
         target = "-target bundle"
         outfile = outfile_name
-    command = "adt -package -storetype pkcs12 -tsa none -keystore bootycallcert.pfx {target} {outfile} {entry_point_class}.xml {swf_path} assets".format(
-        entry_point_class=entry_point_class, swf_path=swf_path, target=target, outfile=outfile)
+    command = "adt -package -storetype pkcs12 {tsa} -keystore bootycallcert.pfx {target} {outfile} {entry_point_class}.xml {swf_path} assets".format(
+        entry_point_class=entry_point_class, swf_path=swf_path, target=target,
+        outfile=outfile, tsa="-tsa none" if platform == "air" else "")
     print command
     subprocess.call(command.split(), shell=platform == "windows")
 
