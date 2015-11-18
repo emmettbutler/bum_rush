@@ -13,6 +13,7 @@ package {
     import flash.utils.Dictionary;
     import flash.events.GameInputEvent;
     import flash.events.Event;
+    import flash.system.Capabilities;
     import mx.utils.StringUtil;
 
     public class PlayersController {
@@ -388,6 +389,7 @@ package {
             if (this.controller_ids.length >= MAX_PLAYERS) {
                 return;
             }
+            var os_ver:String = flash.system.Capabilities.os.substr(0, 3);
             var device:GameInputDevice;
             var config:Object = {};
             for(var k:Number = 0; k < GameInput.numDevices; ++k) {
@@ -398,7 +400,7 @@ package {
                     continue;
                 }
 
-                var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(device.name)];
+                var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(device.name)][os_ver];
                 var usedButtons:Array = new Array();
                 var buttonParams:Object, buttonName:String;
                 for (var kButton:String in mapping) {
@@ -424,9 +426,10 @@ package {
         }
 
         public function controllerChanged(event:Event):void {
+            var os_ver:String = flash.system.Capabilities.os.substr(0, 3);
             var control:GameInputControl = event.target as GameInputControl;
             var normValue:Number = Math.round(control.value);
-            var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(control.device.name)];
+            var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(control.device.name)][os_ver];
             var allowedValues:Array = this.controllers[control.device.id][control.id];
 
             /*
@@ -438,7 +441,7 @@ package {
             trace();
             */
 
-            if(allowedValues.indexOf(normValue) != -1){
+            if(allowedValues != null && allowedValues.indexOf(normValue) != -1){
                 var controlParams:Object = {
                     'value': Math.round(control.value),
                     'id': control.id,

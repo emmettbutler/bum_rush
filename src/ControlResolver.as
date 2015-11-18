@@ -84,35 +84,69 @@ package {
                     }
                 },
                 "USB Gamepad": {  // USB NES controller
-                    "right": {
-                        "button": "AXIS_4",
-                        "value_on": 1,
-                        "value_off": 0
+                    "Win": {
+                        "right": {
+                            "button": "AXIS_3",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "AXIS_3",
+                            "value_on": -1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "AXIS_4",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "AXIS_4",
+                            "value_on": -1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_6",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "b": {
+                            "button": "BUTTON_7",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
                     },
-                    "left": {
-                        "button": "AXIS_4",
-                        "value_on": -1,
-                        "value_off": 0
-                    },
-                    "up": {
-                        "button": "AXIS_5",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "down": {
-                        "button": "AXIS_5",
-                        "value_on": -1,
-                        "value_off": 0
-                    },
-                    "a": {
-                        "button": "BUTTON_7",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "b": {
-                        "button": "BUTTON_8",
-                        "value_on": 1,
-                        "value_off": 0
+                    "Mac": {
+                        "right": {
+                            "button": "AXIS_4",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "AXIS_4",
+                            "value_on": -1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "AXIS_5",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "AXIS_5",
+                            "value_on": -1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_7",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "b": {
+                            "button": "BUTTON_8",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
                     }
                 }
             }
