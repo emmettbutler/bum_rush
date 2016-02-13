@@ -405,7 +405,7 @@ package {
                 var buttonParams:Object, buttonName:String;
                 for (var kButton:String in mapping) {
                     buttonParams = mapping[kButton];
-                    buttonName = buttonParams["button"]
+                    buttonName = buttonParams["button"];
                     usedButtons.push(buttonName);
                     if (!(buttonName in config)) {
                         config[buttonName] = new Array();
