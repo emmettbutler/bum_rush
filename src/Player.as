@@ -164,17 +164,17 @@ package {
             this.lastCheckpointSound.loadEmbedded(SfxEnd, false);
             this.lastCheckpointSound.volume = 1;
 
-            this.completionIndicator = new GameObject(new DHPoint(0,0));
+            this.completionIndicator = new GameObject(new DHPoint(-2000, -2000));
             this.completionIndicator.loadGraphic(ImgGoHome, false, false, 102, 48);
             this.completionIndicator.addAnimation("run", [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1], 13, true);
             this.completionIndicator.play("run");
             this.completionIndicator.visible = false;
 
-            this.no_date_text = new GameObject(new DHPoint(this.pos.x, this.pos.y));
+            this.no_date_text = new GameObject(new DHPoint(-2000, -2000));
             this.no_date_text.loadGraphic(ImgNoDate, false, false, 59, 30);
             this.no_date_text.visible = false;
 
-            this.been_there = new GameObject(new DHPoint(this.pos.x, this.pos.y));
+            this.been_there = new GameObject(new DHPoint(-2000, -2000));
             this.been_there.loadGraphic(ImgBeenThere, false, false, 90, 33);
             this.been_there.visible = false;
 
