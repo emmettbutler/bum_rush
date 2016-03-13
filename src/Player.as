@@ -430,14 +430,11 @@ package {
                     this.lastCheckpointSound.play();
                     this._checkpoints_complete = true;
                     this.completionTime = this.curTime;
-                    this.completionIndicator.visible = true;
                 }
             }
-            if(checkpointsComplete){
-                if(curCheckpoint.cp_type == Checkpoint.HOME) {
-                    this._winner = true;
-                    this.completionIndicator.visible = false;
-                }
+            if(checkpointsComplete && curCheckpoint.cp_type == Checkpoint.HOME) {
+                this._winner = true;
+                this.completionIndicator.visible = false;
             }
         }
 
