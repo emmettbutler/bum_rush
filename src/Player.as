@@ -512,10 +512,11 @@ package {
                 this.no_date_text.y = this.y - 30;
                 if(this.no_date_text_timer < this.curTime) {
                     this.no_date_text.visible = false;
-                    if (this.checkpoints_complete) {
-                        this.completionIndicator.visible = true;
-                    }
                 }
+            }
+            if (this.checkpoints_complete) {
+                this.completionIndicator.visible = this.passengers.length > 0;
+                this.no_date_text.visible = this.passengers.length == 0;
             }
             if(this.been_there.visible) {
                 this.been_there.x = this.pos.x;
