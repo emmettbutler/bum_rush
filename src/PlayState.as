@@ -306,7 +306,7 @@ package {
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.282, .333),
+                    "pos": new DHPoint(.283, .333),
                     "hitbox_pos": new DHPoint(.244, .405),
                     "marker_rotation": 90
                 },
