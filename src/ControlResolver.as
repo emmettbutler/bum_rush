@@ -3,30 +3,64 @@ package {
         {
             public static var controllerMappings:Object = {
                 "PLAYSTATION(R)3 Controller": {
-                    "right": {
-                        "button": "BUTTON_9",
-                        "value_on": 1,
-                        "value_off": 0
+                    "Win": {
+                        "right": {
+                            "button": "BUTTON_9",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "BUTTON_8",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "BUTTON_7",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "BUTTON_6",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_17",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
                     },
-                    "left": {
-                        "button": "BUTTON_11",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "up": {
-                        "button": "BUTTON_10",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "down": {
-                        "button": "BUTTON_8",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "a": {
-                        "button": "BUTTON_18",
-                        "value_on": 1,
-                        "value_off": 0
+                    "Mac": {
+                        "right": {
+                            "button": "BUTTON_9",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "BUTTON_11",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "BUTTON_10",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "BUTTON_8",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_18",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "b": {
+                            "button": "BUTTON_19",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
                     }
                 },
                 "Xbox 360 Wired Controller": {
@@ -80,6 +114,11 @@ package {
                         },
                         "a": {
                             "button": "BUTTON_17",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "b": {
+                            "button": "BUTTON_19",
                             "value_on": 1,
                             "value_off": 0
                         }
@@ -146,31 +185,65 @@ package {
                         }
                     }
                 },
-                "Wireless Controller": {  // PS4
-                    "right": {
-                        "button": "BUTTON_9",
-                        "value_on": 1,
-                        "value_off": 0
+                "Wireless Controller": {
+                    "Win": {
+                        "right": {
+                            "button": "BUTTON_9",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "BUTTON_8",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "BUTTON_7",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "BUTTON_6",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_17",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
                     },
-                    "left": {
-                        "button": "BUTTON_8",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "up": {
-                        "button": "BUTTON_7",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "down": {
-                        "button": "BUTTON_6",
-                        "value_on": 1,
-                        "value_off": 0
-                    },
-                    "a": {
-                        "button": "BUTTON_11",
-                        "value_on": 1,
-                        "value_off": 0
+                    "Mac": {
+                        "right": {
+                            "button": "BUTTON_9",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "BUTTON_8",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "BUTTON_7",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "BUTTON_6",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_11",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "b": {
+                            "button": "BUTTON_10",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
                     }
                 },
                 "USB Gamepad": {  // USB NES controller
