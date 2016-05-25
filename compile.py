@@ -88,6 +88,7 @@ def compile_main(entry_point_class,
         "amxmlc", "src/{entry_point_class}.as".format(entry_point_class=entry_point_class), "-o",
         swfpath,
         "-compiler.include-libraries", libpath,
+        "-external-library-path+=extensions\\ane\NativeJoystick.swc",
         "-use-network=false", "-verbose-stacktraces={}".format(stacktraces),
         "-debug={}".format(debug),
         "{}".format("-advanced-telemetry" if debug else ""),
@@ -121,6 +122,10 @@ def write_conf_file(swf_path, entry_point_class, version_id):
         <maximizable>false</maximizable>
         <resizable>false</resizable>
     </initialWindow>
+    <supportedProfiles>extendedDesktop</supportedProfiles>
+    <extensions>
+        <extensionID>com.iam2bam.ane.nativejoystick</extensionID>
+    </extensions>
 </application>
 """.format(version_id=version_id,
            ts=dt.datetime.now().strftime('%Y.%m.%d.%H.%M.%S'),
@@ -132,7 +137,7 @@ def write_conf_file(swf_path, entry_point_class, version_id):
 def run_main(conf_file, runtime=""):
     if runtime:
         runtime = "-runtime {}".format(runtime)
-    command = "adl {runtime} {conf_path}".format(runtime=runtime, conf_path=conf_file)
+    command = "adl {runtime} -extdir extensions\\ane_unzipped -profile extendedDesktop {conf_path}".format(runtime=runtime, conf_path=conf_file)
     print command
     subprocess.call(command.split())
 

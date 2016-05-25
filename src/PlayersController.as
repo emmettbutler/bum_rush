@@ -16,6 +16,11 @@ package {
     import flash.system.Capabilities;
     import mx.utils.StringUtil;
 
+    import com.iam2bam.ane.nativejoystick.NativeJoystick;
+    import com.iam2bam.ane.nativejoystick.intern.NativeJoystickMgr;
+    import com.iam2bam.ane.nativejoystick.event.NativeJoystickEvent;
+    import com.iam2bam.ane.nativejoystick.intern.NativeJoystickCaps;
+
     public class PlayersController {
         [Embed(source="/../assets/images/characters/driver_emmett_64.png")] private var sprite_emmett:Class;
         [Embed(source="/../assets/images/characters/driver_laura_64.png")] private var sprite_laura:Class;
@@ -56,13 +61,20 @@ package {
         public var playerTags:Dictionary, tagsList:Array;
 
         public function PlayersController() {
-            gameInput = new GameInput();
-            gameInput.addEventListener(GameInputEvent.DEVICE_ADDED,
-                                       controllerAdded);
-            gameInput.addEventListener(GameInputEvent.DEVICE_REMOVED,
-                                       controllerRemoved);
-            gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
-                                       controllerUnusable);
+            //gameInput = new GameInput();
+            //gameInput.addEventListener(GameInputEvent.DEVICE_ADDED,
+            //                           controllerAdded);
+            //gameInput.addEventListener(GameInputEvent.DEVICE_REMOVED,
+            //                           controllerRemoved);
+            //gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
+            //                           controllerUnusable);
+            NativeJoystick.manager.pollInterval = 33;
+            NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_DOWN, onBtnDown);
+            NativeJoystick.manager.addEventListener(NativeJoystickEvent.AXIS_MOVE, onAxisMove);
+            //NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_UP, onBtnUp);
+
+            FlxG.stage.addEventListener(Event.ENTER_FRAME, onFrame);
+
             var screenWidth:Number = ScreenManager.getInstance().screenWidth;
             var screenHeight:Number = ScreenManager.getInstance().screenHeight;
 
@@ -461,6 +473,64 @@ package {
 
         private function controllerUnusable( gameInputEvent:GameInputEvent ):void {
             trace( "Controller Unusable." );
+        }
+
+        private function onAxisMove(ev:NativeJoystickEvent):void {
+            var txt:String = "WOW\n\n";
+            var joy:NativeJoystick = new NativeJoystick(ev.index);
+            txt += "idx: " + ev.axisIndex + "\n";
+            txt += "value: " + ev.axisValue + "\n";
+            txt += joy.data.caps.toString();
+            trace(txt);
+        }
+
+        private function onBtnDown(ev:NativeJoystickEvent):void {
+            var txt:String = "WOW\n\n";
+            var joy:NativeJoystick = new NativeJoystick(ev.index);
+            txt += ev.buttonIndex + "\n";
+            txt += joy.data.caps.toString();
+            txt += "JOYSTICK "+ ev.index +" " + joy.data.caps.oemName + "\n";
+            txt += "BUTTONS " + joy.numButtons +" ["
+            for(var b:int = 0; b < joy.numButtons; b++) {
+                txt += " " + (joy.pressed(b) ? (b<10?"0"+b:b) : "..");
+            }
+            txt += " ]\n";
+            for(var a:int = 0; a<NativeJoystick.AXIS_MAX; a++) {
+                //if(joy.data.caps.hasAxis[a]) txt += "AXIS "+NativeJoystick.AXIS_NAMES[a]+" = " + joy.axis(a).toFixed(2) + "\n";
+                //if(joy.data.caps.hasAxis[a])  txt += "HAS ";
+                if(joy.data.caps.hasAxis[a]) // txt += "HAS ";
+                    txt += "AXIS "+NativeJoystick.AXIS_NAMES[a]+" = " + joy.axis(a).toFixed(2) + "\n";
+            }
+            if(joy.data.caps.hasPOV) txt += "POV ANGLE " + (joy.povPressed ? joy.povAngle.toFixed(2) : "CENTERED") + "\n";
+            txt+="\n"
+            trace(txt);
+        }
+
+        private function onFrame(ev:Event):void {
+            var txt:String = "MANUAL POLLING\n\n";
+            for(var i:int = 0; i < 3; i++) {
+                if(NativeJoystick.isPlugged(i)) {
+                    var joy:NativeJoystick = new NativeJoystick(i);
+                    NativeJoystick.manager.getCapabilities(i, joy.data.caps);
+
+                    txt += joy.data.caps.toString();
+                    txt += "JOYSTICK "+ i +" " + joy.data.caps.oemName + "\n";
+                    txt += "BUTTONS " + joy.numButtons +" ["
+                    for(var b:int = 0; b < joy.numButtons; b++) {
+                        txt += " " + (joy.pressed(b) ? (b<10?"0"+b:b) : "..");
+                    }
+                    txt += " ]\n";
+                    for(var a:int = 0; a<NativeJoystick.AXIS_MAX; a++) {
+                        //if(joy.data.caps.hasAxis[a]) txt += "AXIS "+NativeJoystick.AXIS_NAMES[a]+" = " + joy.axis(a).toFixed(2) + "\n";
+                        //if(joy.data.caps.hasAxis[a])  txt += "HAS ";
+                        if(joy.data.caps.hasAxis[a]) // txt += "HAS ";
+                            txt += "AXIS "+NativeJoystick.AXIS_NAMES[a]+" = " + joy.axis(a).toFixed(2) + "\n";
+                    }
+                    if(joy.data.caps.hasPOV) txt += "POV ANGLE " + (joy.povPressed ? joy.povAngle.toFixed(2) : "CENTERED") + "\n";
+                    txt+="\n"
+                }
+            }
+            //trace(txt);
         }
 
         public static function getInstance():PlayersController {
