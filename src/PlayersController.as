@@ -16,10 +16,10 @@ package {
     import flash.system.Capabilities;
     import mx.utils.StringUtil;
 
-    import com.iam2bam.ane.nativejoystick.NativeJoystick;
-    import com.iam2bam.ane.nativejoystick.intern.NativeJoystickMgr;
-    import com.iam2bam.ane.nativejoystick.event.NativeJoystickEvent;
-    import com.iam2bam.ane.nativejoystick.intern.NativeJoystickCaps;
+    if (ScreenManager.platform == "windows") {
+        import com.iam2bam.ane.nativejoystick.NativeJoystick;
+        import com.iam2bam.ane.nativejoystick.event.NativeJoystickEvent;
+    }
 
     public class PlayersController {
         [Embed(source="/../assets/images/characters/driver_emmett_64.png")] private var sprite_emmett:Class;
@@ -61,19 +61,21 @@ package {
         public var playerTags:Dictionary, tagsList:Array;
 
         public function PlayersController() {
-            //gameInput = new GameInput();
-            //gameInput.addEventListener(GameInputEvent.DEVICE_ADDED,
-            //                           controllerAdded);
-            //gameInput.addEventListener(GameInputEvent.DEVICE_REMOVED,
-            //                           controllerRemoved);
-            //gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
-            //                           controllerUnusable);
-            NativeJoystick.manager.pollInterval = 33;
-            NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_DOWN, onBtnDown);
-            NativeJoystick.manager.addEventListener(NativeJoystickEvent.AXIS_MOVE, onAxisMove);
-            //NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_UP, onBtnUp);
-
-            FlxG.stage.addEventListener(Event.ENTER_FRAME, onFrame);
+            if (ScreenManager.platform == "windows") {
+                NativeJoystick.manager.pollInterval = 33;
+                NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_DOWN, onBtnDown);
+                NativeJoystick.manager.addEventListener(NativeJoystickEvent.AXIS_MOVE, onAxisMove);
+                //NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_UP, onBtnUp);
+                FlxG.stage.addEventListener(Event.ENTER_FRAME, onFrame);
+            } else if (ScreenManager.platform == "mac") {
+                gameInput = new GameInput();
+                gameInput.addEventListener(GameInputEvent.DEVICE_ADDED,
+                                           controllerAdded);
+                gameInput.addEventListener(GameInputEvent.DEVICE_REMOVED,
+                                           controllerRemoved);
+                gameInput.addEventListener(GameInputEvent.DEVICE_UNUSABLE,
+                                           controllerUnusable);
+            }
 
             var screenWidth:Number = ScreenManager.getInstance().screenWidth;
             var screenHeight:Number = ScreenManager.getInstance().screenHeight;
@@ -237,8 +239,10 @@ package {
 
             this.controllers = new Dictionary();
             this.controller_ids = new Array();
-            if (GameInput.numDevices > 0) {
-                this.controllerAdded(null);
+            if (ScreenManager.platform == "mac") {
+                if (GameInput.numDevices > 0) {
+                    this.controllerAdded(null);
+                }
             }
         }
 
