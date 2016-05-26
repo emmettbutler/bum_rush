@@ -16,7 +16,7 @@ package {
     import flash.system.Capabilities;
     import mx.utils.StringUtil;
 
-    if (ScreenManager.platform == "windows") {
+    CONFIG::include_extension {
         import com.iam2bam.ane.nativejoystick.NativeJoystick;
         import com.iam2bam.ane.nativejoystick.event.NativeJoystickEvent;
     }
@@ -63,10 +63,12 @@ package {
 
         public function PlayersController() {
             if (ScreenManager.platform == "windows") {
-                NativeJoystick.manager.pollInterval = 33;
-                NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_DOWN, onBtnDown);
-                NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_UP, onBtnUp);
-                NativeJoystick.manager.addEventListener(NativeJoystickEvent.AXIS_MOVE, onAxisMove);
+                CONFIG::include_extension {
+                    NativeJoystick.manager.pollInterval = 33;
+                    NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_DOWN, onBtnDown);
+                    NativeJoystick.manager.addEventListener(NativeJoystickEvent.BUTTON_UP, onBtnUp);
+                    NativeJoystick.manager.addEventListener(NativeJoystickEvent.AXIS_MOVE, onAxisMove);
+                }
                 FlxG.stage.addEventListener(Event.ENTER_FRAME, onFrame);
             } else if (ScreenManager.platform == "mac") {
                 gameInput = new GameInput();
@@ -488,50 +490,54 @@ package {
                                    control.device.name, control.device.id);
         }
 
-        /*
-         * NativeJoystick API handler for controller axis events
-         */
-        private function onAxisMove(ev:NativeJoystickEvent):void {
-            var joy:NativeJoystick = new NativeJoystick(ev.index);
-            this.sendControlSignal(ev.axisValue,
-                                   // differentiate axis indices from button indices
-                                   "axis_" + ev.axisIndex.toString(),
-                                   joy.data.caps.oemName, ev.index.toString());
-        }
+        CONFIG::include_extension {
+            /*
+            * NativeJoystick API handler for controller axis events
+            */
+            private function onAxisMove(ev:NativeJoystickEvent):void {
+                var joy:NativeJoystick = new NativeJoystick(ev.index);
+                this.sendControlSignal(ev.axisValue,
+                                    // differentiate axis indices from button indices
+                                    "axis_" + ev.axisIndex.toString(),
+                                    joy.data.caps.oemName, ev.index.toString());
+            }
 
-        /*
-         * NativeJoystick API handler for controller button release events
-         */
-        private function onBtnUp(ev:NativeJoystickEvent):void {
-            var joy:NativeJoystick = new NativeJoystick(ev.index);
-            this.sendControlSignal(int(joy.pressed(ev.buttonIndex)),
-                                   ev.buttonIndex.toString(),
-                                   joy.data.caps.oemName, ev.index.toString());
-        }
+            /*
+            * NativeJoystick API handler for controller button release events
+            */
+            private function onBtnUp(ev:NativeJoystickEvent):void {
+                var joy:NativeJoystick = new NativeJoystick(ev.index);
+                this.sendControlSignal(int(joy.pressed(ev.buttonIndex)),
+                                    ev.buttonIndex.toString(),
+                                    joy.data.caps.oemName, ev.index.toString());
+            }
 
-        /*
-         * NativeJoystick API handler for controller button press events
-         */
-        private function onBtnDown(ev:NativeJoystickEvent):void {
-            var joy:NativeJoystick = new NativeJoystick(ev.index);
-            this.sendControlSignal(int(joy.pressed(ev.buttonIndex)),
-                                   ev.buttonIndex.toString(),
-                                   joy.data.caps.oemName, ev.index.toString());
+            /*
+            * NativeJoystick API handler for controller button press events
+            */
+            private function onBtnDown(ev:NativeJoystickEvent):void {
+                var joy:NativeJoystick = new NativeJoystick(ev.index);
+                this.sendControlSignal(int(joy.pressed(ev.buttonIndex)),
+                                    ev.buttonIndex.toString(),
+                                    joy.data.caps.oemName, ev.index.toString());
+            }
         }
 
         private function onFrame(ev:Event):void {
             if (this.fetchedCaps) {
                 return;
             }
-            for (var i:int = 0; i < NativeJoystick.maxJoysticks; i++) {
-                if (NativeJoystick.isPlugged(i)) {
-                    var joy:NativeJoystick = new NativeJoystick(i);
-                    if (joy.data.caps.numButtons == 0) {
-                        // workaround for a bug in NativeJoystick
-                        NativeJoystick.manager.getCapabilities(i, joy.data.caps);
-                    } else {
-                        this.registerController(joy.data.caps.oemName, i.toString());
-                        this.fetchedCaps = true;
+            CONFIG::include_extension {
+                for (var i:int = 0; i < NativeJoystick.maxJoysticks; i++) {
+                    if (NativeJoystick.isPlugged(i)) {
+                        var joy:NativeJoystick = new NativeJoystick(i);
+                        if (joy.data.caps.numButtons == 0) {
+                            // workaround for a bug in NativeJoystick
+                            NativeJoystick.manager.getCapabilities(i, joy.data.caps);
+                        } else {
+                            this.registerController(joy.data.caps.oemName, i.toString());
+                            this.fetchedCaps = true;
+                        }
                     }
                 }
             }

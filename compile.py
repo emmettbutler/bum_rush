@@ -98,6 +98,7 @@ def compile_main(entry_point_class,
         "-omit-trace-statements={}".format(omit_trace),
         "-define=CONFIG::debug,{}".format(debug_flag),
         "-define=CONFIG::test,{}".format(test_flag),
+        "-define=CONFIG::include_extension,{}".format(str(platform == "windows").lower()),
         '-define=CONFIG::platform,"{}"'.format(platform),
     ]
     print " ".join(command)
