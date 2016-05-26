@@ -194,7 +194,7 @@ package {
             super.controllerChanged(control, mapping);
 
             var mappedIndicator:RegistrationIndicator;
-            mappedIndicator = this.getRegistrationIndicatorByControllerID(control['device'].id)
+            mappedIndicator = this.getRegistrationIndicatorByControllerID(control['device_id'])
 
             if (control['id'] == mapping["a"]["button"]){
                 if (control['value'] == mapping["a"]["value_on"]) {
@@ -232,14 +232,9 @@ package {
             if (this.introStarted) {
                 return;
             }
-            var device:GameInputDevice;
-            if (control == null) {
-                device = null;
-            } else {
-                device = control.device;
-            }
             var tagData:Object = PlayersController.getInstance().registerPlayer(
-                device, ctrlType);
+                control != null ? control.device_id : null,
+                ctrlType);
             if (tagData != null) {
                 this.lastRegisterTime = this.curTime;
                 this.registeredPlayers += 1;

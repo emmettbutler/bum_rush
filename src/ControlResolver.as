@@ -176,32 +176,32 @@ package {
                 "USB Gamepad": {  // USB NES controller
                     "Win": {
                         "right": {
-                            "button": "AXIS_3",
+                            "button": "axis_0",
                             "value_on": 1,
                             "value_off": 0
                         },
                         "left": {
-                            "button": "AXIS_3",
+                            "button": "axis_0",
                             "value_on": -1,
                             "value_off": 0
                         },
                         "up": {
-                            "button": "AXIS_4",
+                            "button": "axis_1",
                             "value_on": 1,
                             "value_off": 0
                         },
                         "down": {
-                            "button": "AXIS_4",
+                            "button": "axis_1",
                             "value_on": -1,
                             "value_off": 0
                         },
                         "a": {
-                            "button": "BUTTON_6",
+                            "button": "1",
                             "value_on": 1,
                             "value_off": 0
                         },
                         "b": {
-                            "button": "BUTTON_7",
+                            "button": "2",
                             "value_on": 1,
                             "value_off": 0
                         }
