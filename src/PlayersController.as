@@ -408,7 +408,7 @@ package {
             if (this.controller_ids.length >= MAX_PLAYERS) {
                 return null;
             }
-            trace("got controller: " + deviceName);
+            trace("got controller: " + deviceName + " " + deviceId);
             var os_ver:String = flash.system.Capabilities.os.substr(0, 3);
             var config:Object = {};
             var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(deviceName)][os_ver];
@@ -424,8 +424,10 @@ package {
                 config[buttonName].push(buttonParams["value_on"])
                 config[buttonName].push(buttonParams["value_off"])
             }
-            this.controllers[deviceId] = config;
-            this.controller_ids.push(deviceId);
+            if (!this.controllers.hasOwnProperty(deviceId)) {
+                this.controllers[deviceId] = config;
+                this.controller_ids.push(deviceId);
+            }
             return usedButtons;
         }
 
@@ -493,7 +495,7 @@ package {
          */
         private function onAxisMove(ev:NativeJoystickEvent):void {
             var joy:NativeJoystick = new NativeJoystick(ev.index);
-            this.sendControlSignal(ev.axisValue,
+            this.sendControlSignal(joy.data.curr.axesRaw[ev.axisIndex],
                                    // differentiate axis indices from button indices
                                    "axis_" + ev.axisIndex.toString(),
                                    joy.data.caps.oemName, ev.index.toString());
