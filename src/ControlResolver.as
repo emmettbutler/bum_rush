@@ -44,12 +44,12 @@ package {
                         },
                         "up": {
                             "button": "axis_7",
-                            "value_on": 0,
+                            "value_on": 65534,
                             "value_off": 32767
                         },
                         "down": {
                             "button": "axis_7",
-                            "value_on": 65534,
+                            "value_on": 0,
                             "value_off": 32767
                         },
                         "a": {
@@ -212,23 +212,23 @@ package {
                     "Win": {
                         "right": {
                             "button": "axis_0",
-                            "value_on": 1,
-                            "value_off": 0
+                            "value_on": 65535,
+                            "value_off": 32511
                         },
                         "left": {
                             "button": "axis_0",
-                            "value_on": -1,
-                            "value_off": 0
+                            "value_on": 0,
+                            "value_off": 32511
                         },
                         "up": {
                             "button": "axis_1",
-                            "value_on": 1,
-                            "value_off": 0
+                            "value_on": 65535,
+                            "value_off": 32511
                         },
                         "down": {
                             "button": "axis_1",
-                            "value_on": -1,
-                            "value_off": 0
+                            "value_on": 0,
+                            "value_off": 32511
                         },
                         "a": {
                             "button": "1",
