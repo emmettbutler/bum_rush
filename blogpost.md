@@ -17,12 +17,12 @@ simultaneously, effectively binding all characters to the same controller. This 
 appeared on Windows, not Mac, interestingly enough, but it still made it completely
 impossible to run the game on Windows.
 
-At this point I essentially gave up hope that we could get AIR's APIs to behave. I tested
-the issue in every configuration I could think of, with every type of controller we had
-available, and on many different versions of the AIR runtime, yet it persisted across
-all setups. We were actually considering porting the game to a completely different
-language, since our original choice of Actionscript seemed not to be working out.
-Every once in a while I'd come back to the issue and try something else out,
+I tested this issue in every configuration I could think of, with every type of controller
+we had available, and on many different versions of the AIR runtime, yet it persisted
+across all setups. After weeks of repeated testing, I was close to giving up on ever
+getting Adobe's API to behave. We were actually considering porting the game to a
+completely different language, since our original choice of Actionscript seemed not to be
+working out.  Every once in a while I'd come back to the issue and try something else out,
 but the bug never changed. This went on for a while until an acquaintance from the
 independent games community gave me some advice about an open-source alternative to
 Adobe's broken driver.
@@ -33,7 +33,10 @@ that provides game controller inputs to Actionscript code using the native Windo
 drivers. When I came across it, I didn't know the first thing about how to use native
 extensions, and it took a good chunk of trial and error to figure out how all of the
 pieces fit together. The goal of this post is to provide an incomplete guide for anyone
-who wants to integrate the NativeJoystick extension into their Windows AIR game.
+who wants to integrate the NativeJoystick extension into their Windows AIR game, and to
+provide a resource to help someone avoid the hair-tearing I had to deal with. Actionscript
+isn't a particularly popular language, and finding help resources online can be
+daunting.
 
 All of the code I'm referencing here is available on the
 [Bum Rush GitHub repository](https://github.com/emmett9001/bum_rush).
@@ -51,9 +54,10 @@ The former is for use with ADT, and the latter is for use with ADL.
 
 The steps for including a native extension in a compiled SWF and running it under ADL
 are surprisingly simple. I started by including the `ane` and `ane_unzipped` directories
-in an `extensions` directory at the root of my project, compiling with the
+in an `extensions` directory at the root of my project and compiling with the
 `-external-library-path` flag:
 
+    // some arguments not relevant to native extensions are omitted for clarity
     amxmlc
         src/main.as
         -compiler.include-libraries \opt\AIRSDK_Compiler\frameworks\libs\air\airglobal.swc
@@ -63,10 +67,13 @@ Note the `-compiler.include-libraries` argument here. One of my sticking points 
 I had been passing the Flex SDK's `playerglobal.swc` to this flag instead of
 `airglobal.swc`. Apparently these two libraries have different rules around including
 native extensions, and I couldn't get NativeJoystick to load properly without pointing
-`amxmlc` to specifically `airglobal.swc`.
+`amxmlc` to *specifically* `airglobal.swc`.
 
 Also note that the `-external-library-path` flag is pointing to the zipped version of the
-extension.
+extension, `ane\NativeJoystick.swc`. Additionally, the inclusion of the extension in the
+project repo is more for convenience than anything else; I'm pretty sure you can reference
+these files in your compile commands regardless of where on the filesystem they're
+located.
 
 Once I had successfully compiled a swf, I was able to run the app with this command:
 
@@ -95,7 +102,20 @@ required for a desktop app that uses a native extension. My `main.xml` looks lik
     </application>
 
 Note the `supportedProfiles` and `extensions` tags - these are what I needed to add to
-get ADL to run the app.
+get ADL to run the app with the ANE included.
+
+The necessary arguments to ADT are similar:
+
+    adt
+        -package
+        -storetype pkcs12
+        -keystore mycert.pfx
+        -target bundle
+        BumRush
+        main.xml
+        main.swf
+        assets
+        -extdir extensions\ane
 
 ## Using the NativeJoystick API
 
@@ -125,6 +145,7 @@ needs, so I'm not performing any manual polling in `onFrame`. However, take a lo
 at a simplified version of that function:
 
     private function onFrame(ev:Event):void {
+        // don't waste work after the initial fetch is complete
         if (this.fetchedCaps) {
             return;
         }
@@ -133,9 +154,15 @@ at a simplified version of that function:
                 var joy:NativeJoystick = new NativeJoystick(i);
                 if (joy.data.caps.numButtons == 0) {
                     // workaround for a bug in NativeJoystick
+                    // fetch joystick capabilities on the first frame, since
+                    // NativeJoystick doesn't want to
                     NativeJoystick.manager.getCapabilities(i, joy.data.caps);
                 } else {
+                    // game-specific call to keep track of active players
                     this.registerController(joy.data.caps.oemName, i.toString());
+                    // lock after the first fetch succeeds. this would be a bit stronger
+                    // if it locked per connected controller, but if your total
+                    // number of players isn't known at compile time, that's not possible
                     this.fetchedCaps = true;
                 }
             }
@@ -144,10 +171,10 @@ at a simplified version of that function:
 
 I ran into a bug (or at least a strange behavior) in `NativeJoystick` that caused
 controllers plugged in when the app launches not to have their "capabilities" retrieved.
-The `caps` are contained in an object `NativeJoystick.data.caps` that includes information
-about the various inputs provided by a given controller. In my case, this object was
-only being populated when I'd plug in a controller after the app had started, and
-any controllres connected at startup would have their `caps` left empty. Since this
+The capabilities are contained in an object `NativeJoystick.data.caps` that includes
+information about the various inputs provided by a given controller. In my case, this
+object was only being populated when I'd plug in a controller after the app had started,
+and any controllres connected at startup would have their `caps` left empty. Since this
 object is necessary for some checks I wanted to do, I used the above workaround.
 
 This function simply fetches the capabilities of all connected controllers on the first
@@ -160,10 +187,17 @@ an example of one of the event handlers (they're all very similar):
 
     private function onAxisMove(ev:NativeJoystickEvent):void {
         var joy:NativeJoystick = new NativeJoystick(ev.index);
-        this.sendControlSignal(joy.data.curr.axesRaw[ev.axisIndex],
-                               // differentiate axis indices from button indices
-                               "axis_" + ev.axisIndex.toString(),
-                               joy.data.caps.oemName, ev.index.toString());
+        this.sendControlSignal(
+            // the current position of the axis this event is coming from
+            joy.data.curr.axesRaw[ev.axisIndex],
+            // the axis from which the event is coming
+            // differentiate axis indices from button indices
+            "axis_" + ev.axisIndex.toString(),
+            // the name of the controller (eg. "XBox 360 Controller")
+            joy.data.caps.oemName,
+            // the unique index of the controller (eg. 1)
+            ev.index.toString()
+        );
     }
 
 Note that I use `joy.data.curr.axesRaw[ev.axisIndex]` instead of `ev.axisValue`. I found
@@ -180,6 +214,10 @@ disambiguation at lower levels.
 
 You can find the complete integration of `NativeJoystick` in BumRush
 [here](https://github.com/emmett9001/bum_rush/blob/master/src/PlayersController.as).
+The source of the native code in `NativeJoystick` is also
+[available]()
+in the repo, and can be quite helpful when integrating the library if you don't mind
+reading C++.
 
 ## Windows and Mac
 
@@ -203,12 +241,6 @@ up with a lot of logic that looks like this:
             swfpath,
             "-compiler.include-libraries", libpath,
             extlib,
-            "-use-network=false", "-verbose-stacktraces={}".format(stacktraces),
-            "-debug={}".format(debug),
-            "{}".format("-advanced-telemetry" if debug else ""),
-            "-omit-trace-statements={}".format(omit_trace),
-            "-define=CONFIG::debug,{}".format(debug_flag),
-            "-define=CONFIG::test,{}".format(test_flag),
             "-define=CONFIG::include_extension,{}".format(str(platform == "windows").lower()),
             '-define=CONFIG::platform,"{}"'.format(platform),
         ]
@@ -219,12 +251,30 @@ I wrapped all uses of the `NativeJoystick` API in a compile-time condition so th
 be included unless compiling on Windows:
 
     CONFIG::include_extension {
-        private function onAxisMove(ev:NativeJoystickEvent):void {
+        private function onBtnDown(ev:NativeJoystickEvent):void {
             var joy:NativeJoystick = new NativeJoystick(ev.index);
-            this.sendControlSignal(joy.data.curr.axesRaw[ev.axisIndex],
-                                    // differentiate axis indices from button indices
-                                    "axis_" + ev.axisIndex.toString(),
-                                    joy.data.caps.oemName, ev.index.toString());
+            this.sendControlSignal(
+                // the value of the button that was pressed
+                int(joy.pressed(ev.buttonIndex)),
+                // the index of the button that was pressed
+                ev.buttonIndex.toString(),
+                // the name of the controller (eg. "XBox 360 Controller")
+                joy.data.caps.oemName,
+                // the unique index of the controller (eg. 1)
+                ev.index.toString()
+            );
         }
         ...
     }
+
+## Conclusions
+
+`NativeJoystick` has some quirks of its own, but it's miles better than Adobe's
+controller API. If you're trying to use multiple controllers in your Windows AIR
+game, I'd suggest ignoring `GameInput` completely and moving straight to `NativeJoystick`.
+You'll certainly save yourself some headahces.
+
+I hope it's been helpful for me to share my experience using the `NativeJoystick` API.
+Thanks to [2bam]() for making it available, and to
+[Nathalie Lawhead]()
+for providing the initial tip that led me to discovering the extension.
