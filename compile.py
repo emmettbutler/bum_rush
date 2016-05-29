@@ -169,15 +169,17 @@ def package_application(entry_point_class, swf_path, platform="air", outfile_nam
 
     outfile = "{}.air".format(outfile_name)
     target = ""
+    extdir = ""
     if platform == "mac":
         target = "-target bundle"
         outfile = "{}.app".format(outfile_name)
     elif platform == "windows":
         target = "-target bundle"
         outfile = outfile_name
-    command = "adt -package -storetype pkcs12 {tsa} -keystore bootycallcert.pfx {target} {outfile} {entry_point_class}.xml {swf_path} assets".format(
+        extdir = "-extdir extensions\\ane"
+    command = "adt -package -storetype pkcs12 -keystore bootycallcert.pfx {tsa} {target} {outfile} {entry_point_class}.xml {swf_path} assets {extdir}".format(
         entry_point_class=entry_point_class, swf_path=swf_path, target=target,
-        outfile=outfile, tsa="-tsa none" if platform == "air" else "")
+        extdir=extdir, outfile=outfile, tsa="-tsa none" if platform == "air" else "")
     print command
     subprocess.call(command.split(), shell=platform == "windows")
 
