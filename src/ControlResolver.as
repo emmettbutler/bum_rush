@@ -63,6 +63,41 @@ package {
                         }
                     }
                 },
+                // NativeJoystick name for wired 360 gamepad
+                "Controller (XBOX 360 For Windows)": {
+                    "Win": {
+                        "right": {
+                            "button": "axis_6",
+                            "value_on": 65534,
+                            "value_off": 32767
+                        },
+                        "left": {
+                            "button": "axis_6",
+                            "value_on": 0,
+                            "value_off": 32767
+                        },
+                        "up": {
+                            "button": "axis_7",
+                            "value_on": 65534,
+                            "value_off": 32767
+                        },
+                        "down": {
+                            "button": "axis_7",
+                            "value_on": 0,
+                            "value_off": 32767
+                        },
+                        "a": {
+                            "button": "0",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "b": {
+                            "button": "2",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
+                    }
+                },
                 "Xbox 360 Wired Controller": {
                     "Win": {
                         "right": {
@@ -249,32 +284,32 @@ package {
                 "USB Gamepad": {  // USB NES controller
                     "Win": {
                         "right": {
-                            "button": "AXIS_3",
-                            "value_on": 1,
-                            "value_off": 0
+                            "button": "axis_0",
+                            "value_on": 65535,
+                            "value_off": 32511
                         },
                         "left": {
-                            "button": "AXIS_3",
-                            "value_on": -1,
-                            "value_off": 0
+                            "button": "axis_0",
+                            "value_on": 0,
+                            "value_off": 32511
                         },
                         "up": {
-                            "button": "AXIS_4",
-                            "value_on": 1,
-                            "value_off": 0
+                            "button": "axis_1",
+                            "value_on": 65535,
+                            "value_off": 32511
                         },
                         "down": {
-                            "button": "AXIS_4",
-                            "value_on": -1,
-                            "value_off": 0
+                            "button": "axis_1",
+                            "value_on": 0,
+                            "value_off": 32511
                         },
                         "a": {
-                            "button": "BUTTON_6",
+                            "button": "1",
                             "value_on": 1,
                             "value_off": 0
                         },
                         "b": {
-                            "button": "BUTTON_7",
+                            "button": "2",
                             "value_on": 1,
                             "value_off": 0
                         }

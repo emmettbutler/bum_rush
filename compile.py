@@ -84,16 +84,22 @@ def compile_main(entry_point_class,
     swfpath = "src/{entry_point_class}{ts}.swf".format(
         entry_point_class=entry_point_class,
         ts="")
+    extlib = ""
+    if platform == "windows":
+        extlib = "-external-library-path+=extensions\\ane\NativeJoystick.swc"
     command = [
         "amxmlc", "src/{entry_point_class}.as".format(entry_point_class=entry_point_class), "-o",
         swfpath,
         "-compiler.include-libraries", libpath,
+        extlib,
         "-use-network=false", "-verbose-stacktraces={}".format(stacktraces),
         "-debug={}".format(debug),
         "{}".format("-advanced-telemetry" if debug else ""),
         "-omit-trace-statements={}".format(omit_trace),
         "-define=CONFIG::debug,{}".format(debug_flag),
         "-define=CONFIG::test,{}".format(test_flag),
+        "-define=CONFIG::include_extension,{}".format(str(platform == "windows").lower()),
+        '-define=CONFIG::platform,"{}"'.format(platform),
     ]
     print " ".join(command)
     subprocess.check_call(command, shell=platform == "windows")
@@ -104,8 +110,16 @@ def get_conf_path(entry_point_class):
     return "{}.xml".format(entry_point_class)
 
 
-def write_conf_file(swf_path, entry_point_class, version_id):
+def write_conf_file(swf_path, entry_point_class, version_id, platform):
     conf_path = get_conf_path(entry_point_class)
+    extlibs = ""
+    if platform == "windows":
+        extlibs = """
+<supportedProfiles>extendedDesktop</supportedProfiles>
+<extensions>
+    <extensionID>com.iam2bam.ane.nativejoystick</extensionID>
+</extensions>"""
+
     with open(conf_path, "w") as f:
         f.write(
 """
@@ -121,18 +135,25 @@ def write_conf_file(swf_path, entry_point_class, version_id):
         <maximizable>false</maximizable>
         <resizable>false</resizable>
     </initialWindow>
+    {extlibs}
 </application>
 """.format(version_id=version_id,
            ts=dt.datetime.now().strftime('%Y.%m.%d.%H.%M.%S'),
-           swf_path=swf_path)
-        )
+           swf_path=swf_path,
+           extlibs=extlibs)
+    )
     return conf_path
 
 
-def run_main(conf_file, runtime=""):
+def run_main(conf_file, runtime="", platform="air"):
     if runtime:
         runtime = "-runtime {}".format(runtime)
-    command = "adl {runtime} {conf_path}".format(runtime=runtime, conf_path=conf_file)
+    extdir = ""
+    if platform == "windows":
+        extdir = "-extdir extensions\\ane_unzipped -profile extendedDesktop"
+    command = "adl {runtime} {extdir} {conf_path}".format(runtime=runtime,
+                                                          conf_path=conf_file,
+                                                          extdir=extdir)
     print command
     subprocess.call(command.split())
 
@@ -148,15 +169,17 @@ def package_application(entry_point_class, swf_path, platform="air", outfile_nam
 
     outfile = "{}.air".format(outfile_name)
     target = ""
+    extdir = ""
     if platform == "mac":
         target = "-target bundle"
         outfile = "{}.app".format(outfile_name)
     elif platform == "windows":
         target = "-target bundle"
         outfile = outfile_name
-    command = "adt -package -storetype pkcs12 {tsa} -keystore bootycallcert.pfx {target} {outfile} {entry_point_class}.xml {swf_path} assets".format(
+        extdir = "-extdir extensions\\ane"
+    command = "adt -package -storetype pkcs12 -keystore bootycallcert.pfx {tsa} {target} {outfile} {entry_point_class}.xml {swf_path} assets {extdir}".format(
         entry_point_class=entry_point_class, swf_path=swf_path, target=target,
-        outfile=outfile, tsa="-tsa none" if platform == "air" else "")
+        extdir=extdir, outfile=outfile, tsa="-tsa none" if platform == "air" else "")
     print command
     subprocess.call(command.split(), shell=platform == "windows")
 
@@ -167,19 +190,20 @@ def main():
     entry_point_class = write_entry_point()
 
     if args.run_only:
-        run_main(get_conf_path(entry_point_class))
+        run_main(get_conf_path(entry_point_class), platform=args.platform)
     else:
         preloader_class = write_preloader()
         swf_path = compile_main(entry_point_class.split('.')[-1], libpath,
                                 args.debug_level[0],
                                 platform=args.platform)
-        conf_path = write_conf_file(swf_path, entry_point_class, args.version_id[0])
+        conf_path = write_conf_file(swf_path, entry_point_class,
+                                    args.version_id[0], args.platform)
 
         if args.package:
             package_application(entry_point_class, swf_path, platform=args.platform,
                                 outfile_name=args.outfile_name)
         else:
-            run_main(conf_path)
+            run_main(conf_path, platform=args.platform)
 
 
 if __name__ == "__main__":

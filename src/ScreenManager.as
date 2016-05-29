@@ -18,8 +18,8 @@ package {
     public class ScreenManager {
         public static const DEFAULT_ASPECT:Number = 640/360;
         public var screenWidth:Number, screenHeight:Number;
-
         private var fullscreen:Boolean = true;
+        public static const platform:String = CONFIG::platform;
 
         public static var _instance:ScreenManager = null;
 

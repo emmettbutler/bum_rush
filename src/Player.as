@@ -46,7 +46,7 @@ package {
         public var playerConfig:Object;
         private var movementForce:b2Vec2, velVec:b2Vec2, bounceVec:b2Vec2;
         private var heart_sprite:GameObject;
-        private var controller:GameInputDevice;
+        private var controllerId:String;
         private var startPos:DHPoint;
         private var passengers:Array;
         private var accel:DHPoint,
@@ -117,7 +117,7 @@ package {
         private var idx:Number;
 
         public function Player(pos:DHPoint,
-                               controller:GameInputDevice,
+                               controllerId:String,
                                _world:b2World,
                                groundBody:b2Body,
                                streetPoints:Array,
@@ -142,7 +142,7 @@ package {
             this.velVec = new b2Vec2(0, 0);
             this.bounceVec = new b2Vec2(0, 0);
 
-            this.controller = controller;
+            this.controllerId = controllerId;
             this.driver_tag = _tag;
 
             var tagData:Object = PlayersController.getInstance().resolveTag(this.driver_tag);
@@ -736,7 +736,7 @@ package {
         public function controllerChanged(control:Object,
                                           mapping:Object):void
         {
-            if (this.controller == null || control['device'].id != this.controller.id) {
+            if (this.controllerId == null || control['device_id'] != this.controllerId) {
                 return;
             }
 
