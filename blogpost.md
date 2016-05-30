@@ -121,7 +121,7 @@ The necessary arguments to ADT are similar:
 
 The `NativeJoystick` extension's Actionscript API was a bit finicky, but after working
 through the few strange behaviors I found, it became much nicer to use than Adobe's
-`GameInput`. Following the [example](https://github.com/2bam/NativeJoystick/blob/master/src/Main.as#L46)
+`GameInput`. Following the [example](https://github.com/2bam/NativeJoystick/blob/70c85a87262cb6e9cb7d21eb84fd4641ded2cc4a/src/Main.as#L46)
 given on the `NativeJoystick` github page, the first thing I did was to import the API
 and set up some event handlers:
 
@@ -215,7 +215,7 @@ disambiguation at lower levels.
 You can find the complete integration of `NativeJoystick` in BumRush
 [here](https://github.com/emmett9001/bum_rush/blob/master/src/PlayersController.as).
 The source of the native code in `NativeJoystick` is also
-[available]()
+[available](https://github.com/2bam/NativeJoystick/blob/master/extension/native/win32/NativeJoystickDLL.cpp)
 in the repo, and can be quite helpful when integrating the library if you don't mind
 reading C++.
 
@@ -275,6 +275,6 @@ game, I'd suggest ignoring `GameInput` completely and moving straight to `Native
 You'll certainly save yourself some headahces.
 
 I hope it's been helpful for me to share my experience using the `NativeJoystick` API.
-Thanks to [2bam]() for making it available, and to
-[Nathalie Lawhead]()
+Thanks to [2bam](http://2bam.com/) for making it available, and to
+[Nathalie Lawhead](http://www.nathalielawhead.com/candybox/)
 for providing the initial tip that led me to discovering the extension.
