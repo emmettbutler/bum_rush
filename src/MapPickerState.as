@@ -149,7 +149,7 @@ package {
 
         public function startRace():void {
             if (this.timeAlive > this.confirmLockTimeout * 1000) {
-                this._cur_map = 6;
+                this._cur_map = 7;
                 FlxG.switchState(new InstructionState(this._cur_map));
             }
         }
