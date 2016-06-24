@@ -50,7 +50,8 @@ package {
             "map_4",
             "map_5",
             "map_9",
-            "map_10"];
+            "map_10",
+            "map_11"];
         private var checkpoints_data:Array = [
             [
                 {
@@ -1442,7 +1443,17 @@ package {
         private var groundBody:b2Body;
 
         public function PlayState(map:Number) {
-            this.active_map_index = map;
+            if(PlayersController.getInstance().getPlayerList().length > 4) {
+                this.active_map_index = map;
+           } else {
+                if(map == 0) {
+                    this.active_map_index = 6;
+                } else if (map == 1) {
+                    this.active_map_index = 7;
+                } else if (map == 2) {
+                    this.active_map_index = 8;
+                }
+           }
         }
 
         override public function create():void {
