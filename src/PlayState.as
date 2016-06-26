@@ -328,26 +328,26 @@ package {
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.356, .695),
-                    "hitbox_pos": new DHPoint(.46, .786),
+                    "pos": new DHPoint(.36, .595),
+                    "hitbox_pos": new DHPoint(.45, .686),
                     "marker_rotation": -90
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.85, .45),
-                    "hitbox_pos": new DHPoint(.81, .5),
+                    "pos": new DHPoint(.9, .45),
+                    "hitbox_pos": new DHPoint(.85, .53),
                     "marker_rotation": 90
                 },
                 {
                     "type": Checkpoint.PARK,
-                    "pos": new DHPoint(.55, .63),
-                    "hitbox_pos": new DHPoint(.5, .62),
-                    "marker_rotation": 90
+                    "pos": new DHPoint(.55, .3),
+                    "hitbox_pos": new DHPoint(.57, .485),
+                    "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.0863, .45),
-                    "hitbox_pos": new DHPoint(.15, .54),
+                    "pos": new DHPoint(.001, .45),
+                    "hitbox_pos": new DHPoint(.09, .53),
                     "marker_rotation": -90
                 },
                 {
@@ -1329,15 +1329,15 @@ package {
                 },
                 {
                     "type": "tree",
-                    "pos": new DHPoint(.61, .30)
+                    "pos": new DHPoint(.7, .2)
                 },
                 {
                     "type": "makeout",
-                    "pos": new DHPoint(.8, .344)
+                    "pos": new DHPoint(.3, .4)
                 },
                 {
                     "type": "dog",
-                    "pos": new DHPoint(.3, .5)
+                    "pos": new DHPoint(.7, .4)
                 },
                 {
                     "type": "tree",
@@ -1349,11 +1349,7 @@ package {
                 },
                 {
                     "type": "tree",
-                    "pos": new DHPoint(.47, .46)
-                },
-                {
-                    "type": "clam",
-                    "pos": new DHPoint(.4, .4)
+                    "pos": new DHPoint(.47, .26)
                 },
                 //bottom row of trees
                 {
@@ -1443,7 +1439,8 @@ package {
         private var groundBody:b2Body;
 
         public function PlayState(map:Number) {
-            if(PlayersController.getInstance().getPlayerList().length > 4) {
+            this.active_map_index = map;
+            /*if(PlayersController.getInstance().getPlayerList().length > 4) {
                 this.active_map_index = map;
            } else {
                 if(map == 0) {
@@ -1453,7 +1450,7 @@ package {
                 } else if (map == 2) {
                     this.active_map_index = 8;
                 }
-           }
+           }*/
         }
 
         override public function create():void {
