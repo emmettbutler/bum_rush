@@ -13,6 +13,9 @@ package {
         [Embed(source="/../assets/images/worlds/maps/map_6_thumb.png")] private var ImgMapThumb6:Class;
         [Embed(source="/../assets/images/worlds/maps/map_7_thumb.png")] private var ImgMapThumb7:Class;
         [Embed(source="/../assets/images/worlds/maps/map_8_thumb.png")] private var ImgMapThumb8:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_9_thumb.png")] private var ImgMapThumb9:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_10_thumb.png")] private var ImgMapThumb10:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_11_thumb.png")] private var ImgMapThumb11:Class;
 
         private var _maps:Array;
         private var _picker:FlxSprite;
@@ -129,7 +132,7 @@ package {
                     ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
                     rowY
                 );
-                thumb_.loadGraphic(ImgMapThumb6, false, false, thumb_dim.x, thumb_dim.y);
+                thumb_.loadGraphic(ImgMapThumb9, false, false, thumb_dim.x, thumb_dim.y);
                 add(thumb_);
                 this._maps.push(thumb_);
 
@@ -137,7 +140,7 @@ package {
                     ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2,
                     rowY
                 );
-                thumb_.loadGraphic(ImgMapThumb7, false, false, thumb_dim.x, thumb_dim.y);
+                thumb_.loadGraphic(ImgMapThumb10, false, false, thumb_dim.x, thumb_dim.y);
                 add(thumb_);
                 this._maps.push(thumb_);
 
@@ -145,7 +148,7 @@ package {
                     ScreenManager.getInstance().screenWidth * .5 + thumb_dim.x / 2 + colSpacing,
                     rowY
                 );
-                thumb_.loadGraphic(ImgMapThumb8, false, false, thumb_dim.x, thumb_dim.y);
+                thumb_.loadGraphic(ImgMapThumb11, false, false, thumb_dim.x, thumb_dim.y);
                 add(thumb_);
                 this._maps.push(thumb_);
 
@@ -178,7 +181,7 @@ package {
 
         public function startRace():void {
             if (this.timeAlive > this.confirmLockTimeout * 1000) {
-                this._cur_map = 7;
+                this._cur_map = 8;
                 FlxG.switchState(new InstructionState(this._cur_map));
             }
         }
