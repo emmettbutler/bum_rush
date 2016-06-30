@@ -476,9 +476,7 @@ package {
                 for(var i:Number = 0; i < device.numControls; ++i) {
                     control = device.getControlAt(i);
                     if (usedButtons.indexOf(control.id) != -1) {
-                        if (device.name != "USB Gamepad" && control.id.indexOf("AXIS") != 0) {
-                            control.addEventListener(Event.CHANGE, controllerChanged);
-                        }
+                        control.addEventListener(Event.CHANGE, controllerChanged);
                     }
                 }
                 device.enabled = true;
