@@ -254,6 +254,7 @@ package {
                         }
                     },
                     "Mac": {
+                        "ensure_off_signals": true,
                         "right": {
                             "button": "BUTTON_9",
                             "value_on": 1,

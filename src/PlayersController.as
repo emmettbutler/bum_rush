@@ -435,6 +435,9 @@ package {
             var usedButtons:Array = new Array();
             var buttonParams:Object, buttonName:String;
             for (var kButton:String in mapping) {
+                if (kButton == "ensure_off_signals") {
+                    continue;
+                }
                 buttonParams = mapping[kButton];
                 buttonName = buttonParams["button"];
                 usedButtons.push(buttonName);

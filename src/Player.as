@@ -733,6 +733,13 @@ package {
             }
         }
 
+        public function shouldResetDirection(mapping:Object, curVal:Number, expected:Number):Boolean {
+            if (mapping['ensure_off_signals'] !== null && mapping['ensure_off_signals'] == true) {
+                return curVal == expected;
+            }
+            return true;
+        }
+
         public function controllerChanged(control:Object,
                                           mapping:Object):void
         {
@@ -742,7 +749,9 @@ package {
 
             if (control['id'] == mapping["right"]["button"]) {
                 if (control['value'] == mapping["right"]["value_off"]) {
-                    this.directionsPressed.x = 0;
+                    if (this.shouldResetDirection(mapping, this.directionsPressed.x, 1)) {
+                        this.directionsPressed.x = 0;
+                    }
                     return;
                 } else if (control['value'] == mapping["right"]["value_on"]) {
                     this.directionsPressed.x = 1;
@@ -751,7 +760,9 @@ package {
             }
             if (control['id'] == mapping["left"]["button"]) {
                 if (control['value'] == mapping["left"]["value_off"]) {
-                    this.directionsPressed.x = 0;
+                    if (this.shouldResetDirection(mapping, this.directionsPressed.x, -1)) {
+                        this.directionsPressed.x = 0;
+                    }
                     return;
                 } else if (control['value'] == mapping["left"]["value_on"]) {
                     this.directionsPressed.x = -1;
@@ -760,7 +771,9 @@ package {
             }
             if (control['id'] == mapping["up"]["button"]) {
                 if (control['value'] == mapping["up"]["value_off"]) {
-                    this.directionsPressed.y = 0;
+                    if (this.shouldResetDirection(mapping, this.directionsPressed.y, 1)) {
+                        this.directionsPressed.y = 0;
+                    }
                     return;
                 } else if (control['value'] == mapping["up"]["value_on"]){
                     this.directionsPressed.y = 1;
@@ -769,7 +782,9 @@ package {
             }
             if (control['id'] == mapping["down"]["button"]) {
                 if (control['value'] == mapping["down"]["value_off"]) {
-                    this.directionsPressed.y = 0;
+                    if (this.shouldResetDirection(mapping, this.directionsPressed.y, -1)) {
+                        this.directionsPressed.y = 0;
+                    }
                     return;
                 } else if(control['value'] == mapping["down"]["value_on"]) {
                     this.directionsPressed.y = -1;
