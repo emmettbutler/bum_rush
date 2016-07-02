@@ -61,6 +61,43 @@ package {
             var colSpacing:Number = 100;
             var thumb_:FlxSprite;
 
+            if(PlayersController.getInstance().playersRegistered <= 4) {
+                this.row_count = 3;
+
+                _small_label = new FlxText(
+                    0, rowY - 50,
+                    ScreenManager.getInstance().screenWidth, "Small Maps (2-4 players)");
+                _small_label.setFormat("Pixel_Berry_08_84_Ltd.Edition", 16, 0xffffffff);
+                _small_label.alignment = "center";
+                add(_small_label);
+
+                thumb_ = new FlxSprite(
+                    ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
+                    rowY
+                );
+                thumb_.loadGraphic(ImgMapThumb9, false, false, thumb_dim.x, thumb_dim.y);
+                add(thumb_);
+                this._maps.push(thumb_);
+
+                thumb_ = new FlxSprite(
+                    ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2,
+                    rowY
+                );
+                thumb_.loadGraphic(ImgMapThumb10, false, false, thumb_dim.x, thumb_dim.y);
+                add(thumb_);
+                this._maps.push(thumb_);
+
+                thumb_ = new FlxSprite(
+                    ScreenManager.getInstance().screenWidth * .5 + thumb_dim.x / 2 + colSpacing,
+                    rowY
+                );
+                thumb_.loadGraphic(ImgMapThumb11, false, false, thumb_dim.x, thumb_dim.y);
+                add(thumb_);
+                this._maps.push(thumb_);
+
+                rowY += ScreenManager.getInstance().screenHeight * .3;
+            }
+
             _basic_label = new FlxText(
                 0, rowY - 50,
                 ScreenManager.getInstance().screenWidth, "Basic Maps");
@@ -124,43 +161,6 @@ package {
             thumb_.loadGraphic(ImgMapThumb5, false, false, thumb_dim.x, thumb_dim.y);
             add(thumb_);
             this._maps.push(thumb_);
-
-            if(PlayersController.getInstance().playersRegistered <= 4) {
-                this.row_count = 3;
-                rowY += ScreenManager.getInstance().screenHeight * .3;
-
-                _small_label = new FlxText(
-                    0, rowY - 50,
-                    ScreenManager.getInstance().screenWidth, "Small Maps (2-4 players)");
-                _small_label.setFormat("Pixel_Berry_08_84_Ltd.Edition", 16, 0xffffffff);
-                _small_label.alignment = "center";
-                add(_small_label);
-
-                thumb_ = new FlxSprite(
-                    ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
-                    rowY
-                );
-                thumb_.loadGraphic(ImgMapThumb9, false, false, thumb_dim.x, thumb_dim.y);
-                add(thumb_);
-                this._maps.push(thumb_);
-
-                thumb_ = new FlxSprite(
-                    ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2,
-                    rowY
-                );
-                thumb_.loadGraphic(ImgMapThumb10, false, false, thumb_dim.x, thumb_dim.y);
-                add(thumb_);
-                this._maps.push(thumb_);
-
-                thumb_ = new FlxSprite(
-                    ScreenManager.getInstance().screenWidth * .5 + thumb_dim.x / 2 + colSpacing,
-                    rowY
-                );
-                thumb_.loadGraphic(ImgMapThumb11, false, false, thumb_dim.x, thumb_dim.y);
-                add(thumb_);
-                this._maps.push(thumb_);
-
-            }
 
             if (FlxG.music != null) {
                 FlxG.music.stop();
