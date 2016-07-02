@@ -548,6 +548,7 @@ package {
                         }
                     }
                 }
+                this.buildControllersMap();
             }
         }
 
