@@ -60,6 +60,7 @@ package {
 
             var rowY:Number = ScreenManager.getInstance().screenHeight * .3;
             var colSpacing:Number = 100;
+            var thumb_:FlxSprite;
 
             if(this._players.length > 4) {
                 _basic_label = new FlxText(
@@ -69,7 +70,7 @@ package {
                 _basic_label.alignment = "center";
                 add(_basic_label);
 
-                var thumb_:FlxSprite = new FlxSprite(
+                thumb_ = new FlxSprite(
                     ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
                     rowY
                 );
@@ -128,7 +129,7 @@ package {
             } else {
                 this.row_count = 1;
 
-                var thumb_:FlxSprite = new FlxSprite(
+                thumb_ = new FlxSprite(
                     ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
                     rowY
                 );
