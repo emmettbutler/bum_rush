@@ -1,6 +1,6 @@
 .*.swp
 .*.un~
-*.swf
+menustatemain.swf
 
 *main.xml
 src/*_loader.as
