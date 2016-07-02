@@ -301,6 +301,13 @@ package {
             if (controllerId == null) {
                 this.keyboardRegisteredPlayers += 1;
             }
+            /*
+            trace("registered player with settings:\n" +
+                "\t'ctrl_type': " + ctrlType +
+                "\n\t'controller_id': " + controllerId +
+                "\n\t'tag': " + tag +
+                "\n\t'config': " + this.resolveTag(tag));
+            */
             this.registeredPlayers[_id] = {
                 'ctrl_type': ctrlType,
                 'controller_id': ctrlType == Player.CTRL_KEYBOARD_1 ||
@@ -407,13 +414,11 @@ package {
          * Return an array of the names of buttons used on this controller
          */
         private function registerController(deviceName:String, deviceId:String):Array {
-            if (this.controller_ids.length >= MAX_PLAYERS) {
-                return null;
-            }
+            deviceName = StringUtil.trim(deviceName);
             trace("got controller: " + deviceName + " " + deviceId);
             var os_ver:String = flash.system.Capabilities.os.substr(0, 3);
             var config:Object = {};
-            var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(deviceName)][os_ver];
+            var mapping:Object = ControlResolver.controllerMappings[deviceName][os_ver];
             var usedButtons:Array = new Array();
             var buttonParams:Object, buttonName:String;
             for (var kButton:String in mapping) {
@@ -442,12 +447,13 @@ package {
                                            deviceId:String):void
         {
             var os_ver:String = flash.system.Capabilities.os.substr(0, 3);
+            deviceName = StringUtil.trim(deviceName);
             var normValue:Number = Math.round(value);
             trace("Control pressed on controller '" + deviceName + " " + deviceId + "':\n" +
                   "\tControl id:\t\t\t" + cId + "\n" +
                   "\tControl value:\t\t\t" + value + "\n" +
                   "\tNormalized control value:\t" + normValue);
-            var mapping:Object = ControlResolver.controllerMappings[StringUtil.trim(deviceName)][os_ver];
+            var mapping:Object = ControlResolver.controllerMappings[deviceName][os_ver];
             var allowedValues:Array = this.controllers[deviceId][cId];
             if(allowedValues != null && allowedValues.indexOf(normValue) != -1){
                 var controlParams:Object = {
