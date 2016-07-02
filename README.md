@@ -23,6 +23,8 @@ Their date will fall out to a random location on the map, at which point you
 can drive over them to pick them up. You can have as many dates in your car at
 once as there are players in your game.
 
+Note about character selection: each controller is automatically paired with a random character when you start the game. This game was designed for parties, so making the character/map selection process as simple as possible was important to us. If you want to try playing with a different character, just restart the game and a new one will be selected.
+
 Supported Controllers
 ---------------------
 
