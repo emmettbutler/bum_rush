@@ -34,6 +34,10 @@ package {
             super.create();
 
             var thumb_dim:DHPoint = new DHPoint(300, 169);
+            var rowSpacing:Number = PlayersController.getInstance().playersRegistered <= 4 ? .3 : .4;
+            var rowY:Number = PlayersController.getInstance().playersRegistered <= 4 ?
+                ScreenManager.getInstance().screenHeight * .15 :
+                ScreenManager.getInstance().screenHeight * .2;
             this.highlight_dim = new DHPoint(9, 9);
             this.row_count = 3;
 
@@ -45,7 +49,7 @@ package {
             this._cur_map = 0;
 
             var t:FlxText;
-            t = new FlxText(0, 55, ScreenManager.getInstance().screenWidth,
+            t = new FlxText(0, 20, ScreenManager.getInstance().screenWidth,
                             "Where do you want to go?");
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff);
             t.alignment = "center";
@@ -57,7 +61,6 @@ package {
                                      0xffffffff);
             add(this._picker);
 
-            var rowY:Number = ScreenManager.getInstance().screenHeight * .2;
             var colSpacing:Number = 100;
             var thumb_:FlxSprite;
 
@@ -65,7 +68,7 @@ package {
                 this.row_count = 3;
 
                 _small_label = new FlxText(
-                    0, rowY - 50,
+                    0, rowY - 42,
                     ScreenManager.getInstance().screenWidth, "Small Maps (2-4 players)");
                 _small_label.setFormat("Pixel_Berry_08_84_Ltd.Edition", 16, 0xffffffff);
                 _small_label.alignment = "center";
@@ -95,12 +98,12 @@ package {
                 add(thumb_);
                 this._maps.push(thumb_);
 
-                rowY += ScreenManager.getInstance().screenHeight * .3;
+                rowY += ScreenManager.getInstance().screenHeight * rowSpacing;
             }
 
             _basic_label = new FlxText(
-                0, rowY - 50,
-                ScreenManager.getInstance().screenWidth, "Basic Maps");
+                0, rowY - 42,
+                ScreenManager.getInstance().screenWidth, "Basic Maps (5+ players)");
             _basic_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffffffff);
             _basic_label.alignment = "center";
             add(_basic_label);
@@ -129,11 +132,11 @@ package {
             add(thumb_);
             this._maps.push(thumb_);
 
-            rowY += ScreenManager.getInstance().screenHeight * .3;
+            rowY += ScreenManager.getInstance().screenHeight * rowSpacing;
 
             _advanced_label = new FlxText(
-                0, rowY - 50,
-                ScreenManager.getInstance().screenWidth, "Advanced Maps");
+                0, rowY - 42,
+                ScreenManager.getInstance().screenWidth, "Advanced Maps (5+ players)");
             _advanced_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffffffff);
             _advanced_label.alignment = "center";
             add(_advanced_label);
