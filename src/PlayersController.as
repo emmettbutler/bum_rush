@@ -91,6 +91,11 @@ package {
                 PLAYER_8
             ];
 
+            function randomize ( a : *, b : * ) : int {
+                return ( Math.random() > .5 ) ? 1 : -1;
+            }
+            this.tagsList.sort(randomize);
+
             playerConfigs = new Dictionary();
             playerConfigs[PLAYER_1] = {
                 "tag": PLAYER_1,
