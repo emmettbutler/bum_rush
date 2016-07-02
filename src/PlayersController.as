@@ -109,7 +109,7 @@ package {
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .23, (screenHeight * 2) * .249),
                     new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .52, (screenHeight * 2) * .42)
                 ]
             };
             playerConfigs[PLAYER_2] = {
@@ -130,7 +130,7 @@ package {
                     new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .4),
                     new DHPoint((screenWidth * 2) * .27, (screenHeight * 2) * .249),
                     new DHPoint((screenWidth * 2) * .517, (screenHeight * 2) * .27),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .56, (screenHeight * 2) * .42)
                 ]
             };
             playerConfigs[PLAYER_3] = {
@@ -151,7 +151,7 @@ package {
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .45),
                     new DHPoint((screenWidth * 2) * .23, (screenHeight * 2) * .254),
                     new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .34),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .6, (screenHeight * 2) * .42)
                 ]
             };
             playerConfigs[PLAYER_4] = {
@@ -172,7 +172,7 @@ package {
                     new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .45),
                     new DHPoint((screenWidth * 2) * .27, (screenHeight * 2) * .254),
                     new DHPoint((screenWidth * 2) * .517, (screenHeight * 2) * .34),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .52, (screenHeight * 2) * .47)
                 ]
             };
             playerConfigs[PLAYER_5] = {
@@ -193,7 +193,7 @@ package {
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .5),
                     new DHPoint((screenWidth * 2) * .23, (screenHeight * 2) * .29),
                     new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .41),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .56, (screenHeight * 2) * .47)
                 ]
             };
             playerConfigs[PLAYER_6] = {
@@ -214,7 +214,7 @@ package {
                     new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .5),
                     new DHPoint((screenWidth * 2) * .27, (screenHeight * 2) * .29),
                     new DHPoint((screenWidth * 2) * .517, (screenHeight * 2) * .41),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .6, (screenHeight * 2) * .47)
                 ]
             };
             playerConfigs[PLAYER_7] = {
@@ -235,7 +235,7 @@ package {
                     new DHPoint((screenWidth * 2) * .334, (screenHeight * 2) * .55),
                     new DHPoint((screenWidth * 2) * .23, (screenHeight * 2) * .34),
                     new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .48),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .52, (screenHeight * 2) * .52)
                 ]
             };
             playerConfigs[PLAYER_8] = {
@@ -256,7 +256,7 @@ package {
                     new DHPoint((screenWidth * 2) * .372, (screenHeight * 2) * .55),
                     new DHPoint((screenWidth * 2) * .27, (screenHeight * 2) * .34),
                     new DHPoint((screenWidth * 2) * .517, (screenHeight * 2) * .48),
-                    new DHPoint((screenWidth * 2) * .486, (screenHeight * 2) * .27)
+                    new DHPoint((screenWidth * 2) * .56, (screenHeight * 2) * .52)
                 ]
             };
 

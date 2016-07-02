@@ -360,38 +360,38 @@ package {
             [
                 {
                     "type": Checkpoint.HOME,
-                    "pos": new DHPoint(.45, .28),
-                    "hitbox_pos": new DHPoint(.471, .4),
+                    "pos": new DHPoint(.5, .25),
+                    "hitbox_pos": new DHPoint(.52, .42),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.BOOZE,
-                    "pos": new DHPoint(.18, .25),
-                    "hitbox_pos": new DHPoint(.1, .46),
+                    "pos": new DHPoint(.21, .25),
+                    "hitbox_pos": new DHPoint(.23, .42),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.MOVIES,
-                    "pos": new DHPoint(.75, .34),
-                    "hitbox_pos": new DHPoint(.65, .42),
+                    "pos": new DHPoint(.82, .37),
+                    "hitbox_pos": new DHPoint(.765, .465),
                     "marker_rotation": 90
                 },
                 {
                     "type": Checkpoint.PARK,
-                    "pos": new DHPoint(.7, .2),
-                    "hitbox_pos": new DHPoint(.72, .45),
+                    "pos": new DHPoint(.65, .24),
+                    "hitbox_pos": new DHPoint(.67, .42),
                     "marker_rotation": 0
                 },
                 {
                     "type": Checkpoint.CLUB,
-                    "pos": new DHPoint(.05, .35),
-                    "hitbox_pos": new DHPoint(.2, .43),
-                    "marker_rotation": 0
+                    "pos": new DHPoint(.075, .36),
+                    "hitbox_pos": new DHPoint(.16, .46),
+                    "marker_rotation": -90
                 },
                 {
                     "type": Checkpoint.DINNER,
-                    "pos": new DHPoint(.3, .35),
-                    "hitbox_pos": new DHPoint(.32, .46),
+                    "pos": new DHPoint(.37, .3),
+                    "hitbox_pos": new DHPoint(.39, .42),
                     "marker_rotation": 0
                 }
             ]
@@ -1474,7 +1474,7 @@ package {
             [
                 {
                     "type": "tree",
-                    "pos": new DHPoint(.42, .48)
+                    "pos": new DHPoint(.22, .18)
                 },
                 {
                     "type": "tree",
@@ -1482,11 +1482,11 @@ package {
                 },
                 {
                     "type": "makeout",
-                    "pos": new DHPoint(.3, .4)
+                    "pos": new DHPoint(.3, .3)
                 },
                 {
                     "type": "dog",
-                    "pos": new DHPoint(.7, .4)
+                    "pos": new DHPoint(.75, .3)
                 },
                 {
                     "type": "tree",
