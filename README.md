@@ -31,7 +31,11 @@ should install [tattiebogle](http://tattiebogle.net/index.php/ProjectRoot/Xbox36
 a Mac controller driver built specifically for the XBox 360 controller. On Windows,
 this controller should work without any additional drivers.
 
-*PS3/PS4*: X to accelerate, square to highlight, D-pad to steer. On Mac, these
+*PS4*: X to accelerate, square to highlight, D-pad to steer. These controllers
+are currently unsupported on Mac. On Windows, you'll need to install and configure
+[ScpToolkit](https://github.com/nefarius/ScpToolkit).
+
+*PS3*: X to accelerate, square to highlight, D-pad to steer. On Mac, these
 controllers should work without the installation of any additional drivers. On
 Windows, you'll need to install and configure
 [ScpToolkit](https://github.com/nefarius/ScpToolkit).
