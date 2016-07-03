@@ -39,6 +39,12 @@ should install [tattiebogle](http://tattiebogle.net/index.php/ProjectRoot/Xbox36
 a Mac controller driver built specifically for the XBox 360 controller. On Windows,
 this controller should work without any additional drivers.
 
+*XBox 360 wireless*: A to accelerate, X to highlight, D-pad to steer. On Mac, you
+should install [tattiebogle](http://tattiebogle.net/index.php/ProjectRoot/Xbox360Controller/OsxDriver),
+a Mac controller driver built specifically for the XBox 360 controller. On Windows,
+this controller should work without any additional drivers. You'll need the
+Microsoft wireless controller receiver to use a wireless 360 controller.
+
 *PS4*: X to accelerate, square to highlight, D-pad to steer.
 On Windows, you'll need to install and configure
 [ScpToolkit](https://github.com/nefarius/ScpToolkit).
