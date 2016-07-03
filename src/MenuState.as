@@ -71,7 +71,7 @@ package {
                             ScreenManager.getInstance().screenHeight * .8,
                             ScreenManager.getInstance().screenWidth,
                             "Bum Rush - Press d-pad to join");
-            this.joinText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
+            this.joinText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff,"left");
 
             this.teamText = new FlxText(ScreenManager.getInstance().screenWidth * .03,
                             ScreenManager.getInstance().screenHeight * .95,
