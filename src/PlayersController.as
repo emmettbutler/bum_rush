@@ -62,6 +62,7 @@ package {
         public var fetchedCaps:Boolean = false;
 
         public function PlayersController() {
+            playerTags = new Dictionary();
             if (ScreenManager.platform == "windows") {
                 CONFIG::include_extension {
                     NativeJoystick.manager.pollInterval = 33;
@@ -257,19 +258,6 @@ package {
             return this.registeredPlayers;
         }
 
-        public function buildControllersMap():void {
-            playerTags = new Dictionary();
-            var tagCounter:Number = 0;
-            this.controller_ids.sort();
-            for (var i:int = 0; i < controller_ids.length; i++) {
-                playerTags[controller_ids[i]] = tagsList[tagCounter++];
-            }
-            for (i = tagCounter; i < tagsList.length; i++) {
-                playerTags[tagsList[i]] = tagsList[i];
-            }
-
-        }
-
         public function getPlayerColliders():Array {
             if (this.players.length != this.playerColliders.length) {
                 this.playerColliders = new Array();
@@ -297,17 +285,18 @@ package {
                 return null;
             }
             var _idx:Number = this.tagsList[this.controller_ids.length + this.keyboardRegisteredPlayers];
+            if (this.playerTags[controllerId] == undefined) {
+                this.playerTags[controllerId] = this.tagsList[this.playersRegistered];
+            }
             var tag:Number = this.playerTags[controllerId == null ? _idx : controllerId];
             if (controllerId == null) {
                 this.keyboardRegisteredPlayers += 1;
             }
-            /*
             trace("registered player with settings:\n" +
                 "\t'ctrl_type': " + ctrlType +
                 "\n\t'controller_id': " + controllerId +
                 "\n\t'tag': " + tag +
                 "\n\t'config': " + this.resolveTag(tag));
-            */
             this.registeredPlayers[_id] = {
                 'ctrl_type': ctrlType,
                 'controller_id': ctrlType == Player.CTRL_KEYBOARD_1 ||
@@ -548,7 +537,6 @@ package {
                         }
                     }
                 }
-                this.buildControllersMap();
             }
         }
 

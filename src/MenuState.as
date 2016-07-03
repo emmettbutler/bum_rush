@@ -107,7 +107,6 @@ package {
                         that.timerText.x = _bg.width * .05;
 
                         that.loadingSprite.visible = false;
-                        PlayersController.getInstance().buildControllersMap();
 
                         FlxG.stage.removeEventListener(
                             GameState.EVENT_SINGLETILE_BG_LOADED,
