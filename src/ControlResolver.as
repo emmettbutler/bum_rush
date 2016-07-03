@@ -159,6 +159,68 @@ package {
                         }
                     }
                 },
+                "Wireless 360 Controller": {
+                    "Win": {
+                        "right": {
+                            "button": "BUTTON_9",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "BUTTON_8",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "BUTTON_7",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "BUTTON_6",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_17",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
+                    },
+                    "Mac": {
+                        "right": {
+                            "button": "BUTTON_9",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "left": {
+                            "button": "BUTTON_8",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "up": {
+                            "button": "BUTTON_7",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "down": {
+                            "button": "BUTTON_6",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "a": {
+                            "button": "BUTTON_17",
+                            "value_on": 1,
+                            "value_off": 0
+                        },
+                        "b": {
+                            "button": "BUTTON_19",
+                            "value_on": 1,
+                            "value_off": 0
+                        }
+                    }
+                },
+
                 "Xbox 360 Controller (XInput STANDARD GAMEPAD)": {
                     "Win": {
                         "right": {
