@@ -142,15 +142,17 @@ package {
                 } else if (this.confirmButtonCount == this.registeredPlayers) {
                     this.skipText.text = "Skipping...";
                 }
-                if (FlxG.keys.justPressed("B") || this.allPlayersSkipping()) {
+                if ((FlxG.keys.justPressed("B") && !ScreenManager.getInstance().RELEASE)
+                    || this.allPlayersSkipping())
+                {
                     FlxG.switchState(new MapPickerState());
                 }
             }
 
             // debug
-            if (FlxG.keys.justPressed("R")) {
+            if (FlxG.keys.justPressed("R") && !ScreenManager.getInstance().RELEASE) {
                 this.registerPlayer(null, Player.CTRL_KEYBOARD_1);
-            } else if (FlxG.keys.justPressed("P")) {
+            } else if (FlxG.keys.justPressed("P") && !ScreenManager.getInstance().RELEASE) {
                 this.registerPlayer(null, Player.CTRL_KEYBOARD_2);
             }
 

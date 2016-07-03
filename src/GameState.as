@@ -44,7 +44,7 @@ package {
                 PlayersController.getInstance().update();
             }
 
-            if(FlxG.keys.justPressed("Y")) {
+            if(FlxG.keys.justPressed("Y") && !ScreenManager.getInstance().RELEASE) {
                 FlxG.switchState(new MenuState());
             }
         }
