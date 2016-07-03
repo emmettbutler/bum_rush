@@ -62,7 +62,7 @@ package {
             this.skipText = new FlxText(0,
                             ScreenManager.getInstance().screenHeight * .94,
                             ScreenManager.getInstance().screenWidth,
-                            "All players hold A to skip");
+                            "All players hold accelerate to skip");
             this.skipText.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xccffffff,"right");
             FlxG.state.add(this.skipText);
             this.skipText.visible = false;
@@ -70,7 +70,7 @@ package {
             this.joinText = new FlxText(ScreenManager.getInstance().screenWidth * .03,
                             ScreenManager.getInstance().screenHeight * .8,
                             ScreenManager.getInstance().screenWidth,
-                            "Bum Rush - Press A to join");
+                            "Bum Rush - Press d-pad to join");
             this.joinText.setFormat("Pixel_Berry_08_84_Ltd.Edition",25,0xffffffff,"left");
 
             this.teamText = new FlxText(ScreenManager.getInstance().screenWidth * .03,
@@ -138,9 +138,9 @@ package {
 
             if (this.introStarted) {
                 if (this.confirmButtonCount == 0) {
-                    this.skipText.text = "All players hold A to skip";
+                    this.skipText.text = "All players hold accelerate to skip";
                 } else if (this.confirmButtonCount < this.registeredPlayers) {
-                    this.skipText.text = "All players hold A to skip (" + this.confirmButtonCount + "/" + this.registeredPlayers + ")";
+                    this.skipText.text = "All players hold accelerate to skip (" + this.confirmButtonCount + "/" + this.registeredPlayers + ")";
                 } else if (this.confirmButtonCount == this.registeredPlayers) {
                     this.skipText.text = "Skipping...";
                 }
@@ -191,23 +191,36 @@ package {
             super.destroy();
         }
 
+        public function isDPad(ctrl_id:Object, mapping:Object):Boolean {
+            return (ctrl_id == mapping["up"]["button"] ||
+                ctrl_id == mapping["down"]["button"] ||
+                ctrl_id == mapping["left"]["button"] ||
+                ctrl_id == mapping["right"]["button"])
+        }
+
         override public function controllerChanged(control:Object,
                                                    mapping:Object):void
         {
             super.controllerChanged(control, mapping);
 
             var mappedIndicator:RegistrationIndicator;
-            mappedIndicator = this.getRegistrationIndicatorByControllerID(control['device_id'])
+            mappedIndicator = this.getRegistrationIndicatorByControllerID(control['device_id']);
 
+            if (this.isDPad(control['id'], mapping) ||
+                control['id'] == mapping["a"]["button"] ||
+                control['id'] == mapping["b"]["button"])
+            {
+                this.registerPlayer(control, Player.CTRL_PAD);
+                this.lastConfirmButtonTime = this.timeAlive;
+            }
             if (control['id'] == mapping["a"]["button"]){
                 if (control['value'] == mapping["a"]["value_on"]) {
-                    this.registerPlayer(control, Player.CTRL_PAD);
                     this.confirmButtonCount = Math.min(this.confirmButtonCount + 1, this.registeredPlayers);
-                    this.lastConfirmButtonTime = this.timeAlive;
                 } else if (control['value'] == mapping["a"]["value_off"]) {
                     this.confirmButtonCount = Math.max(this.confirmButtonCount - 1, 0);
                 }
-            } else if (control['id'] == mapping["b"]["button"]) {
+            }
+            if (control['id'] == mapping["b"]["button"]) {
                 if (control['value'] == mapping["b"]["value_on"]) {
                     if (mappedIndicator != null) {
                         mappedIndicator.highlight();
