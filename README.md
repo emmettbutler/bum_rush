@@ -1,11 +1,12 @@
 Bum Rush
 ========
 
-Bum Rush is an eight-player car combat dating sim racing game commissioned
-from [Nina Freeman](https://twitter.com/hentaiphd) for the annual No Quarter
-games showcase in New York City in 2015. [Diego
-Garcia](https://twitter.com/radstronomical) did the visual art, and [Max
-Coburn](https://twitter.com/chordslayermaxo) did the audio.
+Bum Rush is an eight-player car combat dating sim racing game that was made for the annual No Quarter
+games showcase in New York City in 2015. [Nina Freeman](https://twitter.com/hentaiphd) received the No Quarter commission and was the designer, working alongside illustrator and animator [Diego
+Garcia](https://twitter.com/radstronomical), composer [Max
+Coburn](https://twitter.com/chordslayermaxo) and programmer [Emmett Butler](https://twitter.com/sensitiveemmett).
+
+This publicly released version of the game is the same game shown at No Quarter, but with a few additional maps and controller support. The original controllers used to make and play Bum Rush are available on [Amazon](https://www.amazon.com/gp/product/B002YVD3KM/ref=od_aui_detailpages00?ie=UTF8&psc=1). You may notice the lack of joystick support, and that is due to the original game being made for use with retro-style USB controllers.
 
 How to Play
 -----------
