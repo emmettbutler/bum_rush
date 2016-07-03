@@ -127,6 +127,9 @@ def write_conf_file(swf_path, entry_point_class, version_id, platform):
     <id>com.emmettbutler.BumRush</id>
     <versionNumber>1.0</versionNumber>
     <filename>BumRush-{ts}</filename>
+    <icon>
+        <image128x128>assets/logosmall.png</image128x128>
+    </icon>
     <initialWindow>
         <content>{swf_path}</content>
         <visible>true</visible>
