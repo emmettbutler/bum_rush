@@ -443,7 +443,11 @@ package {
                   "\tControl value:\t\t\t" + value + "\n" +
                   "\tNormalized control value:\t" + normValue);
             var mapping:Object = ControlResolver.controllerMappings[deviceName][os_ver];
-            var allowedValues:Array = this.controllers[deviceId][cId];
+            var deviceMap:Object = this.controllers[deviceId];
+            if (deviceMap == null) {
+                return;
+            }
+            var allowedValues:Array = deviceMap[cId];
             if(allowedValues != null && allowedValues.indexOf(normValue) != -1){
                 var controlParams:Object = {
                     'value': Math.round(value),

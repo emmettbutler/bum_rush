@@ -20,15 +20,21 @@ package {
         public var screenWidth:Number, screenHeight:Number;
         private var fullscreen:Boolean = true;
         public static const platform:String = CONFIG::platform;
-        public var RELEASE:Boolean = true;
-        public var DEBUG:Boolean = true;
+        public var RELEASE:Boolean = false;
+        public var TEST:Boolean = false;
+        public var DEBUG:Boolean = false;
 
         public static var _instance:ScreenManager = null;
 
         public function ScreenManager() {
             CONFIG::debug {
                 this.DEBUG = true;
-                this.RELEASE = false;
+            }
+            CONFIG::test {
+                this.TEST = true;
+            }
+            if (!this.DEBUG && !this.TEST) {
+                this.RELEASE = true;
             }
 
             FlxG.stage.frameRate = 60;

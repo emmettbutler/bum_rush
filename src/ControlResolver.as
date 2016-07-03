@@ -223,27 +223,32 @@ package {
                 "Wireless Controller": {
                     "Win": {
                         "right": {
-                            "button": "BUTTON_9",
-                            "value_on": 1,
-                            "value_off": 0
+                            "button": "axis_6",
+                            "value_on": 65534,
+                            "value_off": 32767
                         },
                         "left": {
-                            "button": "BUTTON_8",
-                            "value_on": 1,
-                            "value_off": 0
+                            "button": "axis_6",
+                            "value_on": 0,
+                            "value_off": 32767
                         },
                         "up": {
-                            "button": "BUTTON_7",
-                            "value_on": 1,
-                            "value_off": 0
+                            "button": "axis_7",
+                            "value_on": 0,
+                            "value_off": 32767
                         },
                         "down": {
-                            "button": "BUTTON_6",
+                            "button": "axis_7",
+                            "value_on": 65534,
+                            "value_off": 32767
+                        },
+                        "a": {
+                            "button": "1",
                             "value_on": 1,
                             "value_off": 0
                         },
-                        "a": {
-                            "button": "BUTTON_17",
+                        "b": {
+                            "button": "0",
                             "value_on": 1,
                             "value_off": 0
                         }
