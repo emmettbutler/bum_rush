@@ -26,7 +26,29 @@ once as there are players in your game.
 Supported Controllers
 ---------------------
 
+*XBox 360 USB*: A to accelerate, X to highlight, D-pad to steer. On Mac, you
+should install [tattiebogle](http://tattiebogle.net/index.php/ProjectRoot/Xbox360Controller/OsxDriver),
+a Mac controller driver built specifically for the XBox 360 controller. On Windows,
+this controller should work without any additional drivers.
 
+*PS3/PS4*: X to accelerate, square to highlight, D-pad to steer. On Mac, these
+controllers should work without the installation of any additional drivers. On
+Windows, you'll need to install and configure
+[ScpToolkit](https://github.com/nefarius/ScpToolkit).
+
+[*NES USB Controller*](https://www.amazon.com/Classic-USB-NES-Controller-PC/dp/B002YVD3KM?ie=UTF8&*Version*=1&*entries*=0):
+A to accelerate, B to highlight, D-pad to steer. On both Mac and Windows,
+these controllers should be supported without the installation of any additional
+drivers.
+
+Technical Notes
+---------------
+
+Bum Rush runs best on screens that are at least 1280x720 pixels in resolution.
+It will also not work well on screens that are taller than they are wide.
+
+If you have technical questions or would like support for another type of controller,
+please contact Emmett Butler at emmett.butler321@gmail.com.
 
 Compilation
 -----------
