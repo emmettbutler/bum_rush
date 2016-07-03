@@ -1363,7 +1363,7 @@ package {
             [
                 {
                     "type": "tree",
-                    "pos": new DHPoint(.42, .48)
+                    "pos": new DHPoint(.22, .2)
                 },
                 {
                     "type": "tree",
@@ -1387,7 +1387,7 @@ package {
                 },
                 {
                     "type": "tree",
-                    "pos": new DHPoint(.47, .26)
+                    "pos": new DHPoint(.3, .26)
                 },
                 //bottom row of trees
                 {
