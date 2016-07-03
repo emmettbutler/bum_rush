@@ -192,7 +192,16 @@ package {
 
         public function startRace():void {
             if (this.timeAlive > this.confirmLockTimeout * 1000) {
-                FlxG.switchState(new InstructionState(this._cur_map));
+                // the top row of maps is actually last in the config arrays
+                var idx:Number = this._cur_map;
+                if (PlayersController.getInstance().playersRegistered <= 4) {
+                    if (idx >= 3) {
+                        idx -= 3;
+                    } else {
+                        idx += 6;
+                    }
+                }
+                FlxG.switchState(new InstructionState(idx));
             }
         }
 
