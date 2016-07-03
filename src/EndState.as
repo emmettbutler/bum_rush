@@ -106,6 +106,8 @@ package {
             this.commentText.visible = false;
             FlxG.state.add(this.commentText);
 
+            this.addQuitElements();
+
             if (FlxG.music != null) {
                 FlxG.music.stop();
             }

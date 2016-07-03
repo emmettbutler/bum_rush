@@ -165,6 +165,8 @@ package {
             add(thumb_);
             this._maps.push(thumb_);
 
+            this.addQuitElements();
+
             if (FlxG.music != null) {
                 FlxG.music.stop();
             }

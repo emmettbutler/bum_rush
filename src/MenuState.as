@@ -108,6 +108,8 @@ package {
 
                         that.loadingSprite.visible = false;
 
+                        that.addQuitElements();
+
                         FlxG.stage.removeEventListener(
                             GameState.EVENT_SINGLETILE_BG_LOADED,
                             arguments.callee

@@ -1692,6 +1692,8 @@ package {
                             that.checkpoints, that.active_map_index,
                             that.m_world, that.groundBody, that.streetPoints);
 
+                        that.addQuitElements();
+
                         CONFIG::debug {
                             FlxG.mouse.show();
                             FlxG.state.add(that.cursorPosText);

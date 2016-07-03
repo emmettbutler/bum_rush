@@ -1,12 +1,16 @@
 package {
     import org.flixel.*;
 
+    import flash.desktop.NativeApplication;
+    import flash.events.KeyboardEvent;
     import flash.ui.GameInputControl;
+    import flash.ui.Keyboard;
 
     public class GameState extends FlxState {
         protected var bornTime:Number, timeAlive:Number, curTime:Number, raceBornTime:Number;
         public var gameActive:Boolean = false;
         private var sortedObjects:Array;
+        private var quitText:FlxText, quitBox:GameObject, quitUpTime:Number;
 
         public static const EVENT_SINGLETILE_BG_LOADED:String = "bg_loaded";
 
@@ -16,6 +20,24 @@ package {
 
         override public function create():void {
             this.bornTime = new Date().valueOf();
+
+            var that:GameState = this;
+            FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN,
+                function(e:KeyboardEvent):void {
+                    if (e.keyCode == Keyboard.ESCAPE) {
+                        e.preventDefault();
+                        if (FlxG.state != that) {
+                            return;
+                        }
+                        if (!that.quitText.visible) {
+                            that.quitText.visible = true;
+                            that.quitBox.visible = true;
+                            that.quitUpTime = new Date().getTime();
+                        } else {
+                            NativeApplication.nativeApplication.exit();
+                        }
+                    }
+                });
         }
 
         override public function update():void {
@@ -47,6 +69,31 @@ package {
             if(FlxG.keys.justPressed("Y") && !ScreenManager.getInstance().RELEASE) {
                 FlxG.switchState(new MenuState());
             }
+
+            if (this.quitText != null && this.quitText.visible &&
+                new Date().getTime() - this.quitUpTime >= 3000)
+            {
+                this.quitText.visible = false;
+                this.quitBox.visible = false;
+            }
+        }
+
+        public function addQuitElements():void {
+            var boxWidth:Number = 400;
+            var boxHeight:Number = 60;
+            this.quitBox = new GameObject(new DHPoint(ScreenManager.getInstance().screenWidth * .5 - boxWidth / 2,
+                                                      ScreenManager.getInstance().screenHeight * .5 - boxHeight / 2 + 17));
+            this.quitBox.makeGraphic(boxWidth, boxHeight, 0xdd999999);
+            this.quitBox.visible = false;
+            FlxG.state.add(this.quitBox);
+
+            this.quitText = new FlxText(0,
+                                        ScreenManager.getInstance().screenHeight * .5,
+                                        ScreenManager.getInstance().screenWidth,
+                                        "Press ESC again to quit");
+            this.quitText.setFormat("Pixel_Berry_08_84_Ltd.Edition", 20, 0xccffffff, "center");
+            this.quitText.visible = false;
+            FlxG.state.add(this.quitText);
         }
 
         private function sortByBasePos(a:GameObject, b:GameObject):Number {
