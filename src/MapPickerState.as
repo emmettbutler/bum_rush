@@ -13,13 +13,16 @@ package {
         [Embed(source="/../assets/images/worlds/maps/map_6_thumb.png")] private var ImgMapThumb6:Class;
         [Embed(source="/../assets/images/worlds/maps/map_7_thumb.png")] private var ImgMapThumb7:Class;
         [Embed(source="/../assets/images/worlds/maps/map_8_thumb.png")] private var ImgMapThumb8:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_9_thumb.png")] private var ImgMapThumb9:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_10_thumb.png")] private var ImgMapThumb10:Class;
+        [Embed(source="/../assets/images/worlds/maps/map_11_thumb.png")] private var ImgMapThumb11:Class;
 
         private var _maps:Array;
         private var _picker:FlxSprite;
         private var _cur_map:Number;
         private var _picker_lock:Boolean = false;
-        private var _players:Array;
         private var _basic_label:FlxText;
+        private var _small_label:FlxText;
         private var _advanced_label:FlxText;
         private var highlight_dim:DHPoint;
         private var row_count:Number;
@@ -29,9 +32,12 @@ package {
 
         override public function create():void {
             super.create();
-            this._players = PlayersController.getInstance().getPlayerList();
 
             var thumb_dim:DHPoint = new DHPoint(300, 169);
+            var rowSpacing:Number = PlayersController.getInstance().playersRegistered <= 4 ? .3 : .4;
+            var rowY:Number = PlayersController.getInstance().playersRegistered <= 4 ?
+                ScreenManager.getInstance().screenHeight * .15 :
+                ScreenManager.getInstance().screenHeight * .2;
             this.highlight_dim = new DHPoint(9, 9);
             this.row_count = 3;
 
@@ -43,7 +49,7 @@ package {
             this._cur_map = 0;
 
             var t:FlxText;
-            t = new FlxText(0, 55, ScreenManager.getInstance().screenWidth,
+            t = new FlxText(0, 20, ScreenManager.getInstance().screenWidth,
                             "Where do you want to go?");
             t.setFormat("Pixel_Berry_08_84_Ltd.Edition",20,0xffffffff);
             t.alignment = "center";
@@ -55,17 +61,54 @@ package {
                                      0xffffffff);
             add(this._picker);
 
-            var rowY:Number = ScreenManager.getInstance().screenHeight * .3;
             var colSpacing:Number = 100;
+            var thumb_:FlxSprite;
+
+            if(PlayersController.getInstance().playersRegistered <= 4) {
+                this.row_count = 3;
+
+                _small_label = new FlxText(
+                    0, rowY - 42,
+                    ScreenManager.getInstance().screenWidth, "Small Maps (2-4 players)");
+                _small_label.setFormat("Pixel_Berry_08_84_Ltd.Edition", 16, 0xffffffff);
+                _small_label.alignment = "center";
+                add(_small_label);
+
+                thumb_ = new FlxSprite(
+                    ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
+                    rowY
+                );
+                thumb_.loadGraphic(ImgMapThumb9, false, false, thumb_dim.x, thumb_dim.y);
+                add(thumb_);
+                this._maps.push(thumb_);
+
+                thumb_ = new FlxSprite(
+                    ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2,
+                    rowY
+                );
+                thumb_.loadGraphic(ImgMapThumb10, false, false, thumb_dim.x, thumb_dim.y);
+                add(thumb_);
+                this._maps.push(thumb_);
+
+                thumb_ = new FlxSprite(
+                    ScreenManager.getInstance().screenWidth * .5 + thumb_dim.x / 2 + colSpacing,
+                    rowY
+                );
+                thumb_.loadGraphic(ImgMapThumb11, false, false, thumb_dim.x, thumb_dim.y);
+                add(thumb_);
+                this._maps.push(thumb_);
+
+                rowY += ScreenManager.getInstance().screenHeight * rowSpacing;
+            }
 
             _basic_label = new FlxText(
-                0, rowY - 50,
-                ScreenManager.getInstance().screenWidth, "Basic Maps");
+                0, rowY - 42,
+                ScreenManager.getInstance().screenWidth, "Basic Maps (5+ players)");
             _basic_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffffffff);
             _basic_label.alignment = "center";
             add(_basic_label);
 
-            var thumb_:FlxSprite = new FlxSprite(
+            thumb_ = new FlxSprite(
                 ScreenManager.getInstance().screenWidth * .5 - thumb_dim.x / 2 - colSpacing - thumb_dim.x,
                 rowY
             );
@@ -89,11 +132,11 @@ package {
             add(thumb_);
             this._maps.push(thumb_);
 
-            rowY += ScreenManager.getInstance().screenHeight * .4;
+            rowY += ScreenManager.getInstance().screenHeight * rowSpacing;
 
             _advanced_label = new FlxText(
-                0, rowY - 50,
-                ScreenManager.getInstance().screenWidth, "Advanced Maps");
+                0, rowY - 42,
+                ScreenManager.getInstance().screenWidth, "Advanced Maps (5+ players)");
             _advanced_label.setFormat("Pixel_Berry_08_84_Ltd.Edition",16,0xffffffff);
             _advanced_label.alignment = "center";
             add(_advanced_label);
@@ -137,9 +180,9 @@ package {
             }
 
             if(control['id'] == mapping["up"]["button"] && control['value'] == mapping["up"]["value_on"]) {
-                this._cur_map -= this.row_count;
-            } else if (control['id'] == mapping["down"]["button"] && control['value'] == mapping["down"]["value_on"]) {
                 this._cur_map += this.row_count;
+            } else if (control['id'] == mapping["down"]["button"] && control['value'] == mapping["down"]["value_on"]) {
+                this._cur_map -= this.row_count;
             } else if (control['id'] == mapping["right"]["button"] && control['value'] == mapping["right"]["value_on"]) {
                 this._cur_map += 1;
             } else if (control['id'] == mapping["left"]["button"] && control['value'] == mapping["left"]["value_on"]) {
@@ -159,11 +202,11 @@ package {
             if(!this._picker_lock) {
                 if(FlxG.keys.justPressed("DOWN")) {
                     this._picker_lock = true;
-                    this._cur_map += row_count;
+                    this._cur_map -= row_count;
                 }
                 if(FlxG.keys.justPressed("UP")) {
                     this._picker_lock = true;
-                    this._cur_map -= row_count;
+                    this._cur_map += row_count;
                 }
                 if(FlxG.keys.justPressed("LEFT")) {
                     this._picker_lock = true;
@@ -185,6 +228,7 @@ package {
                     this._picker_lock = false;
                 }
             }
+
 
             if(this._cur_map >= this._maps.length) {
                 this._cur_map = this._cur_map % 3;

@@ -48,7 +48,10 @@ package {
             "map_8",
             "map_3",
             "map_4",
-            "map_5"];
+            "map_5",
+            "map_9",
+            "map_10",
+            "map_11"];
         private var checkpoints_data:Array = [
             [
                 {
@@ -275,6 +278,120 @@ package {
                     "type": Checkpoint.DINNER,
                     "pos": new DHPoint(.4, .23),
                     "hitbox_pos": new DHPoint(.42, .352),
+                    "marker_rotation": 0
+                }
+            ],
+            [
+                {
+                    "type": Checkpoint.HOME,
+                    "pos": new DHPoint(.2, .01),
+                    "hitbox_pos": new DHPoint(.221, .177),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.BOOZE,
+                    "pos": new DHPoint(.79, .4),
+                    "hitbox_pos": new DHPoint(.745, .5),
+                    "marker_rotation": 90
+                },
+                {
+                    "type": Checkpoint.MOVIES,
+                    "pos": new DHPoint(.7, .01),
+                    "hitbox_pos": new DHPoint(.721, .178),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.PARK,
+                    "pos": new DHPoint(.6, .48),
+                    "hitbox_pos": new DHPoint(.62, .67),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.CLUB,
+                    "pos": new DHPoint(.283, .333),
+                    "hitbox_pos": new DHPoint(.244, .405),
+                    "marker_rotation": 90
+                },
+                {
+                    "type": Checkpoint.DINNER,
+                    "pos": new DHPoint(.4, .53),
+                    "hitbox_pos": new DHPoint(.425, .67),
+                    "marker_rotation": 0
+                }
+            ],
+            [
+                {
+                    "type": Checkpoint.HOME,
+                    "pos": new DHPoint(.45, .1),
+                    "hitbox_pos": new DHPoint(.471, .255),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.BOOZE,
+                    "pos": new DHPoint(.36, .595),
+                    "hitbox_pos": new DHPoint(.45, .686),
+                    "marker_rotation": -90
+                },
+                {
+                    "type": Checkpoint.MOVIES,
+                    "pos": new DHPoint(.9, .45),
+                    "hitbox_pos": new DHPoint(.85, .53),
+                    "marker_rotation": 90
+                },
+                {
+                    "type": Checkpoint.PARK,
+                    "pos": new DHPoint(.55, .3),
+                    "hitbox_pos": new DHPoint(.57, .485),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.CLUB,
+                    "pos": new DHPoint(.001, .45),
+                    "hitbox_pos": new DHPoint(.09, .53),
+                    "marker_rotation": -90
+                },
+                {
+                    "type": Checkpoint.DINNER,
+                    "pos": new DHPoint(.35, .36),
+                    "hitbox_pos": new DHPoint(.38, .49),
+                    "marker_rotation": 0
+                }
+            ],
+            [
+                {
+                    "type": Checkpoint.HOME,
+                    "pos": new DHPoint(.5, .25),
+                    "hitbox_pos": new DHPoint(.52, .42),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.BOOZE,
+                    "pos": new DHPoint(.21, .25),
+                    "hitbox_pos": new DHPoint(.23, .42),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.MOVIES,
+                    "pos": new DHPoint(.82, .37),
+                    "hitbox_pos": new DHPoint(.765, .465),
+                    "marker_rotation": 90
+                },
+                {
+                    "type": Checkpoint.PARK,
+                    "pos": new DHPoint(.65, .24),
+                    "hitbox_pos": new DHPoint(.67, .42),
+                    "marker_rotation": 0
+                },
+                {
+                    "type": Checkpoint.CLUB,
+                    "pos": new DHPoint(.075, .36),
+                    "hitbox_pos": new DHPoint(.16, .46),
+                    "marker_rotation": -90
+                },
+                {
+                    "type": Checkpoint.DINNER,
+                    "pos": new DHPoint(.37, .3),
+                    "hitbox_pos": new DHPoint(.39, .42),
                     "marker_rotation": 0
                 }
             ]
@@ -1045,6 +1162,343 @@ package {
                 {
                     "type": "clam",
                     "pos": new DHPoint(.23, .4)
+                },
+                //bottom row of trees
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.045, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.095, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.145, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.145, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.195, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.245, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.295, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.345, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.395, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.445, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.495, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.545, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.595, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.645, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.695, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.745, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.795, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.845, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.895, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.945, .88)
+                }
+            ],
+            [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.42, .48)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.61, .30)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.8, .344)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.3, .5)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.55, .13)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.41, .15)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.47, .46)
+                },
+                {
+                    "type": "clam",
+                    "pos": new DHPoint(.4, .4)
+                },
+                //bottom row of trees
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.045, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.095, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.145, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.145, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.195, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.245, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.295, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.345, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.395, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.445, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.495, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.545, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.595, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.645, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.695, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.745, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.795, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.845, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.895, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.945, .88)
+                }
+            ],
+            [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.42, .48)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.7, .2)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.3, .4)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.7, .4)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.55, .13)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.41, .15)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.47, .26)
+                },
+                //bottom row of trees
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.045, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.095, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.145, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.145, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.195, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.245, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.295, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.345, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.395, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.445, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.495, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.545, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.595, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.645, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.695, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.745, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.795, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.845, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.895, .88)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.945, .88)
+                }
+            ],
+            [
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.22, .18)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.7, .2)
+                },
+                {
+                    "type": "makeout",
+                    "pos": new DHPoint(.3, .3)
+                },
+                {
+                    "type": "dog",
+                    "pos": new DHPoint(.75, .3)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.55, .13)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.41, .15)
+                },
+                {
+                    "type": "tree",
+                    "pos": new DHPoint(.47, .26)
                 },
                 //bottom row of trees
                 {
