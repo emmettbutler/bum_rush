@@ -29,13 +29,16 @@ Note about character selection: each controller is automatically paired with a r
 Supported Controllers
 ---------------------
 
+*XBox One*: A to accelerate, X to highlight, D-pad to steer. On Mac, you
+should install [this driver](https://github.com/360Controller/360Controller/releases).
+
 *XBox 360 USB*: A to accelerate, X to highlight, D-pad to steer. On Mac, you
 should install [tattiebogle](http://tattiebogle.net/index.php/ProjectRoot/Xbox360Controller/OsxDriver),
 a Mac controller driver built specifically for the XBox 360 controller. On Windows,
 this controller should work without any additional drivers.
 
-*PS4*: X to accelerate, square to highlight, D-pad to steer. These controllers
-are currently unsupported on Mac. On Windows, you'll need to install and configure
+*PS4*: X to accelerate, square to highlight, D-pad to steer.
+On Windows, you'll need to install and configure
 [ScpToolkit](https://github.com/nefarius/ScpToolkit).
 
 *PS3*: X to accelerate, square to highlight, D-pad to steer. On Mac, these
