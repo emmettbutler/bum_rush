@@ -67,6 +67,17 @@ If you have problems with the game, you might try setting your system
 resolution to 1280x720.
 It will also not work well on screens that are taller than they are wide.
 
+Some users experience issues where controllers are not bound properly to characters.
+Under certain conditions, your system can think multiple
+controllers are connected to the same USB port or logical controller port.
+If you encounter issues like this on Windows, you might try investigating the
+Device Manager app. Under the Human Interface Devices submenu, check out the
+list of connected devices and make sure it matches the physical controllers
+you have plugged into your system. If you see something you don't think should
+be there, you can disconnect it by right-clicking and selecting Uninstall.
+This isn't guaranteed to fix controller binding issues, but it has helped us
+with many different types of problems.
+
 If you have technical questions or would like support for another type of controller,
 please contact Emmett Butler at emmett.butler321@gmail.com.
 
