@@ -63,6 +63,8 @@ Technical Notes
 ---------------
 
 Bum Rush runs best on screens that are at least 1280x720 pixels in resolution.
+If you have problems with the game, you might try setting your system
+resolution to 1280x720.
 It will also not work well on screens that are taller than they are wide.
 
 If you have technical questions or would like support for another type of controller,
